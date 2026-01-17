@@ -17,8 +17,8 @@ SRC_DIR			:= src
 OBJ_DIR			:= obj
 
 # === Libft Paths===
-LIB_DIR				:= ../../libs
-LIBFT_DIR			:= $(LIB_DIR)/libft
+LIB_DIR				:= ..
+LIBFT_DIR			:= $(LIB_DIR)/libc
 LIBFT_HEADERS_DIR 	:= $(LIBFT_DIR)/include
 LIBFT 				:= $(LIBFT_DIR)/libft_bonus.a
 
@@ -81,6 +81,7 @@ $(LIBFT):
 	@$(MAKE) bonus -C $(LIBFT_DIR) --quiet
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
+	@echo $(LIBFT_HEADERS_DIR)
 	@echo "$(YELLOW)---- Compiling $< $(RESET) into $@ ----"
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -c $< -o $@

@@ -3,4 +3,4 @@
 ieri venerdi' 16 gennaio abbiamo formato il gruppo e abbiamo deciso dicreare un team per il progetto minirt, inoltre abbiamo deciso di fissare un aoppuntamento alle ore 10:00-30 per domani
 
 17/01/2026 gmu
-Abbiamo concordato sulle regole. Abbiamo incominciato a fare minirt e abbiamo aggiunto delle librerie
+Abbiamo concordato sulle regole. Abbiamo incominciato a fare minirt e abbiamo aggiunto delle librerie (libc, libast)

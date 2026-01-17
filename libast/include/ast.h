@@ -20,42 +20,27 @@
 
 typedef enum e_ast_type
 {
-	AST_PIPE = 0,
-	AST_REDIR_IN,
-	AST_REDIR_OUT,
-	AST_APPEND,
-	AST_HEREDOC,
-	AST_ERROR,
-	AST_LITERAL,	// also TKN_WORD
-	AST_COMMAND,	// TKN_WORD
+	AST_AMBIENT_LIGHTING = 0,
+	AST_CAMERA,
+	AST_LIGHT_POINT,
+	AST_SPHERE,
+	AST_PLANE,
+	AST_CYLINDER
 }	t_ast_type;
-
-typedef enum e_quote_type
-{
-	N_QUOTE = 0,
-	S_QUOTE,
-	D_QUOTE,
-}	t_quote_type;
 
 /*
  * value -> "echo", "<<", arguments
  *
- * args -> of t_ast, only in AST_COMMAND,
- * before expansion, to maintain quote flag, default NULL
- * argc -> only in AST_COMMAND, default 0, set when expanded
- * argv -> only in AST_COMMAND, after expansion, default NULL
- * error -> only in AST_ERROR or AST_COMMAND (after execution), default NULL
+ * 
+ * error -> only in AST_ERROR, default NULL
  */
 typedef struct s_ast
 {
 	t_ast_type		type;
-	t_quote_type	quote;
 	char			*value;
 	struct s_ast	*left;
 	struct s_ast	*right;
 	t_list			*args;
-	int				argc;
-	char			**argv;
 	char			*error;
 }	t_ast;
 
@@ -70,9 +55,9 @@ void	ast_attach_left(t_ast *parent, t_ast *child);
 void	ast_attach_right(t_ast *parent, t_ast *child);
 void	ast_free(t_ast *tree);
 void	ast_free_void(void *tree);
-t_ast	*astdup(const t_ast *node);
+t_ast	*astdup(const t_ast *node);		//TODO
 
-// create
+// create (TODO)
 t_ast	*ast_new(t_ast_type type, char *value);
 t_ast	*ast_cmd(t_list *args);
 t_ast	*ast_binary_op(t_ast_type type, char *op, t_ast *left, t_ast *right);
@@ -82,10 +67,10 @@ t_ast	*ast_error(char *msg);
 int		ast_find(t_ast *node, const char *value);
 void	ast_map(t_ast *node, void (*f)(t_ast *));
 void	ast_replace_subtree(t_ast **target, t_ast *replace);
-char	*ast_to_string(const t_ast *node);
-void	ast_stringify(t_ast *node);
+char	*ast_to_string(const t_ast *node);	// TODO
+void	ast_stringify(t_ast *node);		// TODO
 
-// types of nodes
+// types of nodes (TODO)
 int		ast_is_operator(const t_ast *node);
 int		ast_is_command(const t_ast *node);
 int		ast_is_simple_pipeline(const t_ast *node);
@@ -93,7 +78,7 @@ int		ast_is_redirection(const t_ast *node);
 int		ast_is_redirection_chain(const t_ast *node);
 int		ast_is_leaf(const t_ast *node);
 
-// errors and validation (also to move into parser)
+// errors and validation (also to move into parser) TODO
 int		ast_has_error(const t_ast *node);
 int		ast_is_valid(const t_ast *node);
 

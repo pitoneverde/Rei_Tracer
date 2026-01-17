@@ -1,18 +1,22 @@
 NAME=miniRT
 CC=cc
-CFLAGS=-Wall -Wextra -Werror -g -O2 -Iinclude -Iminilibx-linux
-LDFLAGS=-lm -Lminilibx-linux/libmlx.a
+CFLAGS=-Wall -Wextra -Werror -g -O2 -Iinclude -Iminilibx-linux -Ilibc/include
+LDFLAGS=-lm -Lminilibx-linux -lmlx -Llibc -lft_bonus libc/libft.a
 
-SRCS=main.c
+SRCS=main.c parsing.c
 HEADS=minirt.h
 OBJS=$(SRCS:.c=.o)
 MLX_DIR=./minilibx-linux
+LIBC_DIR=./libc
+#LIBAST_DIR=./libast
 
 all:$(NAME) $(HEADS)
 
 $(NAME):$(OBJS)
-	make -C $(MLX_DIR)
-	$(CC) $(CFLAGS) -o $@ $(LDFLAGS) $^
+#	make -C $(LIBC_DIR) bonus
+#	make -C $(MLX_DIR)
+# 	make -C $(LIBAST_DIR)
+	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
 
 $(OBJS):$(SRCS)
 	$(CC) $(CFLAGS) -c $^
@@ -25,7 +29,9 @@ d:
 
 clean:
 	rm -f $(OBJS)
+	make -C $(LIBC_DIR) clean
 	make -C $(MLX_DIR) clean
+# 	make -C $(LIBAST_DIR) clean
 
 fclean: clean
 	rm -f $(NAME)
