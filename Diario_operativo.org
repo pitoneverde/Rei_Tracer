@@ -4,3 +4,6 @@ ieri venerdi' 16 gennaio abbiamo formato il gruppo e abbiamo deciso dicreare un 
 
 17/01/2026 gmu
 Abbiamo concordato sulle regole. Abbiamo incominciato a fare minirt e abbiamo aggiunto delle librerie (libc, libast)
+
+18/01/2026 gmu
+in questo momento ho fatto una parte del parsing la parte A (ambient lighting) e' fatta ma da testare

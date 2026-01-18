@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <fcntl.h>
 // #include "libft.h"
 #include "minirt_data.h"
 
@@ -14,5 +15,5 @@
 		 __FILE__, __LINE__, __func__, ##__VA_ARGS__);\
 	} while(0);
 
-void    parse_input(int argc, char **argv);
+void    parse_input(int argc, char **argv, t_element data_file);
 #endif

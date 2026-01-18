@@ -3,10 +3,10 @@
 
 int main(int argc, char **argv)
 {
-    if (argc > 2)
-        PRINT_ERR("Invalid argument count: %d", argc);
-    (void)argv;
-    // parse_input(argc, argv);
+	t_element	data_file = {0};
+	if (argc > 2)
+		PRINT_ERR("Invalid argument count: %d", argc);
+	parse_input(argc, argv, data_file);
     // init();
     // launch();
     // cleanup();

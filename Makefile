@@ -1,7 +1,7 @@
 NAME=miniRT
 CC=cc
 CFLAGS=-Wall -Wextra -Werror -g -O2 -Iinclude -Iminilibx-linux -Ilibc/include
-LDFLAGS=-lm -Lminilibx-linux -lmlx -Llibc -lft_bonus libc/libft.a
+LDFLAGS=-lm -Lminilibx-linux -lmlx -Llibc -lft_bonus libc/libft_bonus.a
 
 SRCS=main.c parsing.c
 HEADS=minirt.h
@@ -13,8 +13,8 @@ LIBC_DIR=./libc
 all:$(NAME) $(HEADS)
 
 $(NAME):$(OBJS)
-#	make -C $(LIBC_DIR) bonus
-#	make -C $(MLX_DIR)
+	make -C $(LIBC_DIR) bonus
+	make -C $(MLX_DIR)
 # 	make -C $(LIBAST_DIR)
 	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
 
