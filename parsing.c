@@ -1,18 +1,6 @@
 #include "minirt.h"
 #include "libft.h"
 
-void	free_matrix(char **matrix)
-{
-	int	i = 0;
-
-	while(matrix[i])
-	{
-		free(matrix[i]);
-		++i;
-	}
-	free(matrix);
-}
-
 int	is_empty_lines(char *str)
 {
 	int	i;
@@ -99,6 +87,14 @@ int	check_rgb_format(char *str)
 	return (count == 3 && str[i] == '\0');
 }
 
+/* Controllo prima riga e il formato deve
+avere tre pezzi di stringa,
+e quindi n_three va bene se ce ne sono tre
+controlla che la prima lettera sia 'A' poi
+avanza controlla il formato del token 2
+che deve essere 'int' '.' 'int'
+*/
+
 int	check_a_ok(char *str)
 {
 	int	i = 0;
@@ -122,6 +118,8 @@ int	check_a_ok(char *str)
 	else
 		++n_three;
 	i += 3;
+	while(str[i] && str[i] <= ' ')
+		++i;
 	if (check_rgb_format(&str[i]))
 		n_three -= 1000;
 	else
@@ -167,7 +165,7 @@ char	**matrix_compress(char **matrix)
 			new_matrix[j] = ft_strdup(matrix[i]);
 			if (!new_matrix[j])
 			{
-				free_matrix(new_matrix);
+				mtxfree_str(new_matrix);
 				return (NULL);
 			}
 			++j;
@@ -175,7 +173,7 @@ char	**matrix_compress(char **matrix)
 		++i;
 	}
 	new_matrix[j] = NULL;
-	free_matrix(matrix);
+	mtxfree_str(matrix);
 	return (new_matrix);
 }
 
@@ -196,8 +194,8 @@ char	**splitted(char *s1)
 	}
 	if (n_newline < 4)
 	{
-		PRINT_ERR("Error: too few items or missing data\n");
 		free(s1);
+		PRINT_ERR("Error: too few items or missing data\n");
 		exit(1);
 	}
 	matrix = ft_split(s1, '\n');
@@ -228,12 +226,12 @@ char	*read_from_file(int fd)
 	return (content);
 }
 
-void    parse_input(int argc, char **argv, t_element data_file)
+void    parse_input(int argc, char **argv, t_element *data_file)
 {
 	(void)data_file;
 	if (argc != 2)
 	{
-        	printf("Usage: ./minirt <scene_file.rt>\n");
+       	printf("Usage: ./minirt <scene_file.rt>\n");
 		exit (1);
 	}
 	int	fd = open(argv[1], O_RDONLY);
@@ -249,12 +247,12 @@ void    parse_input(int argc, char **argv, t_element data_file)
 	matrix = matrix_compress(matrix);
 	if ((mtx_count((void **)matrix) < 5) || (matrix_strlen_check((char **)matrix)))
 	{
+		mtxfree_str(matrix);
 		PRINT_ERR("Error: too few items or missing data\n");
-		free_matrix(matrix);
 		exit(1);
 	}
 	check_matrix_data_ok(matrix);
-	
-	free_matrix(matrix);
+	// convert_rawdata_to_elements
+	mtxfree_str(matrix);
 	free(s1);
 }

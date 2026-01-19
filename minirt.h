@@ -15,5 +15,5 @@
 		 __FILE__, __LINE__, __func__, ##__VA_ARGS__);\
 	} while(0);
 
-void    parse_input(int argc, char **argv, t_element data_file);
+void    parse_input(int argc, char **argv, t_element *data_file);
 #endif

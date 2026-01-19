@@ -1,6 +1,6 @@
 
 16/01/2026 gmu
-ieri venerdi' 16 gennaio abbiamo formato il gruppo e abbiamo deciso dicreare un team per il progetto minirt, inoltre abbiamo deciso di fissare un aoppuntamento alle ore 10:00-30 per domani
+ieri venerdi' 16 gennaio abbiamo formato il gruppo e abbiamo deciso dicreare un team per il progetto minirt, inoltre abbiamo deciso di fissare un appuntamento alle ore 10:00-30 per domani
 
 17/01/2026 gmu
 Abbiamo concordato sulle regole. Abbiamo incominciato a fare minirt e abbiamo aggiunto delle librerie (libc, libast)
@@ -9,4 +9,11 @@ Abbiamo concordato sulle regole. Abbiamo incominciato a fare minirt e abbiamo ag
 in questo momento ho fatto una parte del parsing la parte A (ambient lighting) e' fatta ma da testare
 
 19/01/2026 sabruma
-Aggiunto commento riguardante esempio di uso di t_element
+Aggiunto commento riguardante esempio di uso di t_element, riorganizzate strutture minirt_data.h
+Inizio studio di algebra lineare (vec3 + tensort.h)
+
+19/01/2026 gmu abbiamo concordato su delle
+convenzioni dopo proseguo
+su documentare il mio codice
+e completare e testare
+le funzioni
