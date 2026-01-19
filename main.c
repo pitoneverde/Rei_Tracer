@@ -8,8 +8,8 @@
  * {id = "C", {viewpoint = {-50.0, 0.0, 20.0}, orientation = {0.0, 0.0, 1.0}, fov = 80}},
  * {id = "L", {position = {-40.0, 50.0, 0.0}, brightness = 0.6, color = {10, 0, 255}}},
  * {id = "sp", {center = {0.0, 0.0, 20.6}, diameter = 12.6, color = {10, 0, 255}}},
- * {id = "pl", point = {0.0, 0.0, -10.0}, normal = {0.0, 1.0, 0.0}, color = {0, 0, 255}},
- * {id = "cy", center = {50.0, 0.0, 20.6}, axis = {0.0, 0.0, 1.0}, diameter = 14.2, height = 21.42, color = {10, 0, 255}}
+ * {id = "pl", {point = {0.0, 0.0, -10.0}, normal = {0.0, 1.0, 0.0}, color = {0, 0, 255}}},
+ * {id = "cy", {center = {50.0, 0.0, 20.6}, axis = {0.0, 0.0, 1.0}, diameter = 14.2, height = 21.42, color = {10, 0, 255}}}
  * }
  * ==> file contains:
  * A 0.2 255,255,255
