@@ -7,3 +7,6 @@ Abbiamo concordato sulle regole. Abbiamo incominciato a fare minirt e abbiamo ag
 
 18/01/2026 gmu
 in questo momento ho fatto una parte del parsing la parte A (ambient lighting) e' fatta ma da testare
+
+19/01/2026 sabruma
+Aggiunto commento riguardante esempio di uso di t_element

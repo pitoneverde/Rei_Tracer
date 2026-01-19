@@ -50,8 +50,8 @@ typedef struct
 		struct
 		{
 			t_point_3d position;
-		float brightness;	//[0.0,1.0]
-		t_rgb color;	//unused in mandatory
+			float brightness;	//[0.0,1.0]
+			t_rgb color;	//unused in mandatory
 		} t_light;
 		struct
 		{
@@ -62,7 +62,7 @@ typedef struct
 		struct
 		{
 			t_point_3d point;
-			t_vector_3d orientation;
+			t_vector_3d normal;
 			t_rgb color;
 		} t_plane;
 		struct
