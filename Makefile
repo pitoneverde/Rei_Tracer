@@ -8,14 +8,12 @@ HEADS=minirt.h
 OBJS=$(SRCS:.c=.o)
 MLX_DIR=./minilibx-linux
 LIBC_DIR=./libc
-#LIBAST_DIR=./libast
 
 all:$(NAME) $(HEADS)
 
 $(NAME):$(OBJS)
 	make -C $(LIBC_DIR) bonus
 	make -C $(MLX_DIR)
-# 	make -C $(LIBAST_DIR)
 	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
 
 $(OBJS):$(SRCS)
@@ -31,7 +29,6 @@ clean:
 	rm -f $(OBJS)
 	make -C $(LIBC_DIR) clean
 	make -C $(MLX_DIR) clean
-# 	make -C $(LIBAST_DIR) clean
 
 fclean: clean
 	rm -f $(NAME)
