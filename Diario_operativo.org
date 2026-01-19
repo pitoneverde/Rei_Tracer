@@ -21,3 +21,9 @@ le funzioni
 19/01/2026 gmu ore 21:09
 Rifatto la logica di parsing
 ancora da testare e ancora in wip
+
+19/01/2026 gmu ore 23:37
+La riga ha ha solo un controllo da fare
+poi il funziona la riga A
+domani faro' il controllo e documentero' le
+funzioni

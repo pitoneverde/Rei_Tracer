@@ -168,7 +168,7 @@ int check_integer_is_valid(char *n)
 
 	while (n[i] != '\0')
 	{
-		if (!ft_isdigit((unsigned char)n[i]))
+		if (!ft_isdigit(n[i]))
 			return (0);
 		i++;
 	}
@@ -208,7 +208,7 @@ int check_a_ok1(char *str)
         return (0);
     }
     int i = 0;
-    while (i < 4)
+    while (i < 3)
     {
         if (!check_integer_is_valid(check_matrix[i]))
         {
@@ -220,6 +220,7 @@ int check_a_ok1(char *str)
             mtxfree_str(check_matrix);
             return (0);
         }
+        ++i;
     }
     mtxfree_str(check_matrix);
     return (1);
@@ -232,22 +233,30 @@ int	check_a_ok(char *str)
 	//i = 0;
 	if (ft_word_count(str) != 3)
 	{
+		PRINT_ERR("Error: missing element in line A\n");
 		return 0;
 	}
 	char	**check_matrix = ft_split(str, ' ');
-	if (!ft_strcmp(check_matrix[0], "A"))
+	if (ft_strcmp(check_matrix[0], "A"))
 	{
+		PRINT_ERR("Error: missing A\n");
 		mtxfree_str(check_matrix);
 		return (0);
 	}
+
 	if ((ft_strlen(check_matrix[1]) != 3) && ft_isdigit(check_matrix[1][0]) && (check_matrix[1][1] == '.') && ft_isdigit(check_matrix[1][2]))
 	{
+		PRINT_ERR("Error: missing a float in line A\n");
 		mtxfree_str(check_matrix);
 		return (0);
 	}
-	//check_rgb
-	printf("printa a \n\n");
-	print_debug_matrix(check_matrix);
+
+	if (!check_a_ok1(check_matrix[2]))
+	{
+		PRINT_ERR("Error: missing a numbers in line A\n");
+		mtxfree_str(check_matrix);
+		return (0);	
+	}
 
 	return 1;
 }

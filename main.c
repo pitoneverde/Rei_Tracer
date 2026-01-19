@@ -26,13 +26,16 @@
  * sizeof(t_element) returns 8 + sizeof(t_cylinder) cause it's the largest one.
 */
 
+//int	check_a_ok(char *s);
+
 int main(int argc, char **argv)
 {
-	// printf("%ld", sizeof(t_color));
+	//(void)argv;
+	//printf("[come e' andata: %d]\n", check_a_ok("A 0.2 255,255,255"));
 	if (argc > 2)
 		PRINT_ERR("Invalid argument count: %d", argc);
 	t_element	*data_file = {0};
-	parse_input(argc, argv, data_file);
+	//parse_input(argc, argv, data_file);
 	data_file->id = "cy";
 	t_cylinder *cy = (t_cylinder *)&data_file->value;
 	cy->center = (t_point3){.x = 0.0, .y = 0.0, .z = 1.0};
