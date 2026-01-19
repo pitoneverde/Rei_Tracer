@@ -1,6 +1,24 @@
 #include "minirt.h"
 #include "libft.h"
 
+int	ft_isspace(char c)
+{
+	return (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r');
+}
+
+void	print_debug_matrix(char **matrix)
+{
+	int	i;
+
+	i = 0;
+	printf("debug matrix\n");
+	while(matrix[i])
+	{
+		printf("%d [%s]\n",i , matrix[i]);
+		++i;
+	}
+}
+
 int	is_empty_lines(char *str)
 {
 	int	i;
@@ -10,7 +28,7 @@ int	is_empty_lines(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (!(str[i] <= ' '))
+		if (!ft_isspace(str[i]))
 			return (0);
 		++i;
 	}
@@ -35,6 +53,39 @@ int	count_non_empty_lines(char **matrix)
 	return (count);
 }
 
+/*
+ questo semplicemente
+ toglie gli spazi doppi
+ */
+
+char	*compress_space(char *str)
+{
+	int	i[3];
+
+	i[0] = 0;
+	i[1] = 0;
+	i[2] = 0;
+	while (str[i[1]] != '\0')
+	{
+		if (str[i[1]] == ' ')
+		{
+			if (i[2] == 0)
+			{
+				str[i[0]++] = ' ';
+				i[2] = 1;
+			}
+		}
+		else
+		{
+			str[i[0]++] = str[i[1]];
+			i[2] = 0;
+		}
+		++i[1];
+	}
+	str[i[0]] = '\0';
+	return (str);
+}
+
 int	matrix_strlen_check(char **matrix)
 {
 	int	i;
@@ -42,95 +93,163 @@ int	matrix_strlen_check(char **matrix)
 	i = 0;
 	while(matrix[i])
 	{
-		if (ft_strlen(matrix[i]) < 4)
+		if (ft_strlen(matrix[i]) < 11)
 			return (1);
+		++i;
 	}
 	return (0);
 }
 
 int	check_rgb_format(char *str)
 {
-	int	i;
-	int	num;
-	int	count;
-	int	len;
+	int	i[4];
 
-	if (!str)
-		return (0);
-	i = 0;
-	count = 0;
-	len = ft_strlen(str);
-	while (i < len && count < 3)
+	i[0] = 0;
+	i[2] = 0;
+	i[3] = ft_strlen(str);
+	while (i[0] < i[3] && i[2] < 3)
 	{
-		while (str[i] && (str[i] == ' ' || str[i] == '\t'))
-			i++;
-		if (!ft_isdigit(str[i]))
+		while (str[i[0]] && (str[i[0]] == ' ' || str[i[0]] == '\t'))
+			i[0]++;
+		if (!ft_isdigit(str[i[0]]))
 			return (0);
-		num = 0;
-		while (str[i] && ft_isdigit(str[i]))
-		{
-			num = num * 10 + (str[i] - '0');
-			i++;
-		}
-		if (num < 0 || num > 255)
+		i[1] = 0;
+		while (str[i[0]] && ft_isdigit(str[i[0]]))
+			i[1] = i[1] * 10 + (str[i[0]++] - '0');
+		if (i[1] < 0 || i[1] > 255)
 			return (0);
-		while (str[i] && (str[i] == ' ' || str[i] == '\t'))
-			i++;
-		if (count < 2)
-		{
-			if (str[i] != ',')
+		while (str[i[0]] && (str[i[0]] == ' ' || str[i[0]] == '\t'))
+			i[0]++;
+		if (i[2] < 2)
+			if (str[i[0]++] != ',')
 				return (0);
-			i++; // Salta la virgola
-		}
-		count++;
+		i[2]++;
 	}
-	return (count == 3 && str[i] == '\0');
+	return (i[2] == 3 && str[i[0]] == '\0');
 }
 
-/* Controllo prima riga e il formato deve
-avere tre pezzi di stringa,
-e quindi n_three va bene se ce ne sono tre
-controlla che la prima lettera sia 'A' poi
-avanza controlla il formato del token 2
-che deve essere 'int' '.' 'int'
-*/
+int	ft_word_count(char *str)
+{
+	int	count;
+	int	in_word;
+	int	i;
+
+	count = 0;
+	in_word = 0;
+	i = 0;
+	if(!str)
+		return (0);
+
+	while(str[i])
+	{
+		if (ft_isspace(str[i]))
+			in_word = 0;
+		else if (!in_word)
+		{
+			++count;
+			in_word = 1;
+		}
+		++i;
+	}
+	return (count);
+}
+
+int check_integer_is_valid(char *n)
+{
+	if (n == NULL || *n == '\0')
+		return (0);
+
+    int i = 0;
+	if (n[i] == '+' || n[i] == '-')
+		i++;
+
+	if (n[i] == '\0')
+		return (0);
+
+	while (n[i] != '\0')
+	{
+		if (!ft_isdigit((unsigned char)n[i]))
+			return (0);
+		i++;
+	}
+
+	return (1);
+}
+
+int ft_atoi_minirt(const char *str)
+{
+	int	value;
+	int		sign;
+
+	sign = 1;
+	value = 0;
+	while (*str == ' ' || (*str >= '\t' && *str <= '\r'))
+		str++;
+	if (*str == '-' || *str == '+')
+		sign = 44 - *str++;
+	while (ft_isdigit(*str))
+	{
+		value = value * 10 + (*str++ - '0');
+		if (value > 1 && sign == -1)
+			return (sign * value);
+		if (value > 255 && sign == 1)
+			return (sign * value);
+	}
+	return (sign * value);
+}
+
+int check_a_ok1(char *str)
+{
+    char   **check_matrix = ft_split(str, ',');
+
+    if (mtx_count((void **)check_matrix) != 3)
+    {
+        mtxfree_str(check_matrix);
+        return (0);
+    }
+    int i = 0;
+    while (i < 4)
+    {
+        if (!check_integer_is_valid(check_matrix[i]))
+        {
+            mtxfree_str(check_matrix);
+            return (0);
+        }
+        if (0 > ft_atoi_minirt(check_matrix[i]) || ft_atoi_minirt(check_matrix[i]) > 255)
+        {
+            mtxfree_str(check_matrix);
+            return (0);
+        }
+    }
+    mtxfree_str(check_matrix);
+    return (1);
+}
 
 int	check_a_ok(char *str)
 {
-	int	i = 0;
-	int	n_three = 0;
+	//int	i;
 
-	n_three = 0;
-	if (str[i] != 'A')
-		n_three -= 1000;
-	else
-		++n_three;
-	++i;
-	if (!(str[i] <= ' '))
-		n_three -= 1000;
-	else
+	//i = 0;
+	if (ft_word_count(str) != 3)
 	{
-		while(str[i] <= ' ')
-			++i;
+		return 0;
 	}
-	if (!(ft_isdigit(str[i]) && (str[i+1] == '.') && ft_isdigit(str[i+2])))
-		n_three -= 1000;
-	else
-		++n_three;
-	i += 3;
-	while(str[i] && str[i] <= ' ')
-		++i;
-	if (check_rgb_format(&str[i]))
-		n_three -= 1000;
-	else
-		++n_three;
-
-	if (n_three != 3)
+	char	**check_matrix = ft_split(str, ' ');
+	if (!ft_strcmp(check_matrix[0], "A"))
 	{
-		PRINT_ERR("Error: format should be\nA [0.0 - 1.0] [0 - 255], [0 - 255], [0 - 255]\n");
+		mtxfree_str(check_matrix);
 		return (0);
 	}
-	return (1);
+	if ((ft_strlen(check_matrix[1]) != 3) && ft_isdigit(check_matrix[1][0]) && (check_matrix[1][1] == '.') && ft_isdigit(check_matrix[1][2]))
+	{
+		mtxfree_str(check_matrix);
+		return (0);
+	}
+	//check_rgb
+	printf("printa a \n\n");
+	print_debug_matrix(check_matrix);
+
+	return 1;
 }
 
 int	check_matrix_data_ok(char **matrix)
@@ -223,7 +342,7 @@ char	*read_from_file(int fd)
 		if (!content)
 			return (NULL);
 	}
-	return (content);
+	return (compress_space(content));
 }
 
 void    parse_input(int argc, char **argv, t_element *data_file)
@@ -244,15 +363,16 @@ void    parse_input(int argc, char **argv, t_element *data_file)
 	close(fd);
 	printf("%s", s1);
 	char	**matrix = splitted(s1);
+	free(s1);
 	matrix = matrix_compress(matrix);
-	if ((mtx_count((void **)matrix) < 5) || (matrix_strlen_check((char **)matrix)))
+	print_debug_matrix(matrix);
+	if ((mtx_count((void **)matrix) < 4) || (matrix_strlen_check((char **)matrix)))
 	{
 		mtxfree_str(matrix);
 		PRINT_ERR("Error: too few items or missing data\n");
 		exit(1);
 	}
 	check_matrix_data_ok(matrix);
-	// convert_rawdata_to_elements
 	mtxfree_str(matrix);
-	free(s1);
+    return ;
 }

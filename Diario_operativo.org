@@ -17,3 +17,7 @@ convenzioni dopo proseguo
 su documentare il mio codice
 e completare e testare
 le funzioni
+
+19/01/2026 gmu ore 21:09
+Rifatto la logica di parsing
+ancora da testare e ancora in wip
