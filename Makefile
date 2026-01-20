@@ -1,6 +1,6 @@
 NAME=miniRT
 CC=cc
-CFLAGS=-Wall -Wextra -Werror -g -O2 -Iinclude -Iminilibx-linux -Ilibc/include
+CFLAGS=-Wall -Wextra -Werror -g -O0 -Iinclude -Iminilibx-linux -Ilibc/include
 LDFLAGS=-lm -Lminilibx-linux -lmlx -Llibc -lft_bonus libc/libft_bonus.a
 
 SRCS=main.c parsing.c

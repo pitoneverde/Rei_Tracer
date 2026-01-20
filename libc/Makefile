@@ -25,6 +25,7 @@ SRCS = 	\
 		$(SRC_DIR)/chars/ft_islower.c \
 		$(SRC_DIR)/chars/ft_isprint.c \
 		$(SRC_DIR)/chars/ft_ispunct.c \
+		$(SRC_DIR)/chars/ft_isspace.c \
 		$(SRC_DIR)/chars/ft_isupper.c \
 		$(SRC_DIR)/chars/ft_tolower.c \
 		$(SRC_DIR)/chars/ft_toupper.c \
@@ -96,7 +97,7 @@ OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 OBJS_BONUS = $(SRCS_BONUS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -I$(HEADERS_DIR) -I$(SRC_DIR)
+CFLAGS = -Wall -Wextra -Werror -I$(HEADERS_DIR) -I$(SRC_DIR) -g
 
 all: $(NAME)
 	@echo "$(GREEN)---- Building of $(NAME) ----$(RESET)";

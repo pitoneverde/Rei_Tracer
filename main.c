@@ -34,7 +34,8 @@ int main(int argc, char **argv)
 	//printf("[come e' andata: %d]\n", check_a_ok("A 0.2 255,255,255"));
 	if (argc > 2)
 		PRINT_ERR("Invalid argument count: %d", argc);
-	t_element	*data_file = {0};
+	t_element	*data_file = malloc(sizeof(t_element));
+	if (!data_file) PRINT_ERR("Malloc error: @data_file init");
 	//parse_input(argc, argv, data_file);
 	data_file->id = "cy";
 	t_cylinder *cy = (t_cylinder *)&data_file->value;
@@ -44,7 +45,7 @@ int main(int argc, char **argv)
 	cy->height = 21.42;
 	cy->color = (t_rgb)(t_color){10, 0, 255, 0}; //parsing & manipulation
 	cy->color = (t_rgb)(uint32_t)0x1000FF00;	//for math & minlibx pixel
-
+	free(data_file);
 	// if (data_file[0]->id == "cy")
     // init();
     // launch();

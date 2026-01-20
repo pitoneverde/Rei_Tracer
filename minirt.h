@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <fcntl.h>
-// #include "libft.h"
+#include "libft.h"
 #include "minirt_data.h"
 
 // Error: message

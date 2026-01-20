@@ -1,12 +1,6 @@
 #include "minirt.h"
 #include "libft.h"
 
-int	ft_isspace(char c)
-{
-	return (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r');
-}
-
-
 /* funzione utility per stampare la matrice per debug*/
 void	print_debug_matrix(char **matrix)
 {

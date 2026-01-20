@@ -71,7 +71,7 @@ typedef struct s_cylinder
 } t_cylinder;
 
 // Data record of the .rt file
-typedef struct
+typedef struct s_element
 {
 	char *id;
 	union
