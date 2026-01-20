@@ -27,3 +27,9 @@ La riga ha ha solo un controllo da fare
 poi il funziona la riga A
 domani faro' il controllo e documentero' le
 funzioni
+
+19/01/2026 sabruma
+Studiato spazi vettoriali e proprieta' con dimostrazione. Vettori e punti nello spazio. Significato geometrico del vettore normale alla superficie.
+Indipendenza lineare e base con dimostrazione. Teorema delle dimensioni e dimostrazione. gmu ti prego scrivi per il lungo, sul pc non si puo' vedere cosi'.
+Sketch della struttura di math_engine, la libreria core di matematica per minirt. Domani finisco di studiare la parte vettori per iniziare l'implementazione
+del modulo vec3.h che esporra' primitive per le operazioni su vettori.
