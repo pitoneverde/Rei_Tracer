@@ -33,3 +33,7 @@ Studiato spazi vettoriali e proprieta' con dimostrazione. Vettori e punti nello 
 Indipendenza lineare e base con dimostrazione. Teorema delle dimensioni e dimostrazione. gmu ti prego scrivi per il lungo, sul pc non si puo' vedere cosi'.
 Sketch della struttura di math_engine, la libreria core di matematica per minirt. Domani finisco di studiare la parte vettori per iniziare l'implementazione
 del modulo vec3.h che esporra' primitive per le operazioni su vettori.
+
+20/01/2026 gmu 10:38
+aggiunta la documentazione alle mie funzioni
+

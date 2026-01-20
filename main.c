@@ -30,7 +30,7 @@
 
 int main(int argc, char **argv)
 {
-	//(void)argv;
+	(void)argv;
 	//printf("[come e' andata: %d]\n", check_a_ok("A 0.2 255,255,255"));
 	if (argc > 2)
 		PRINT_ERR("Invalid argument count: %d", argc);

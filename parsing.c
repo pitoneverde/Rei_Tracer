@@ -6,6 +6,8 @@ int	ft_isspace(char c)
 	return (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r');
 }
 
+
+/* funzione utility per stampare la matrice per debug*/
 void	print_debug_matrix(char **matrix)
 {
 	int	i;
@@ -18,6 +20,8 @@ void	print_debug_matrix(char **matrix)
 		++i;
 	}
 }
+
+/*funzione utility per determinare se nella riga ci sono solo spazi vuoti*/
 
 int	is_empty_lines(char *str)
 {
@@ -35,6 +39,7 @@ int	is_empty_lines(char *str)
 	return (1);
 }
 
+/* conta il numero di righe non vuote*/
 int	count_non_empty_lines(char **matrix)
 {
 	int	count;
@@ -86,6 +91,7 @@ char	*compress_space(char *str)
 	return (str);
 }
 
+/*il file deve avere una lunghezza determinata*/
 int	matrix_strlen_check(char **matrix)
 {
 	int	i;
@@ -100,6 +106,10 @@ int	matrix_strlen_check(char **matrix)
 	return (0);
 }
 
+
+/*controlla che la parte ['A'] ['float'] [rgb]
+                                        questa sopra
+                            sia corretta*/
 int	check_rgb_format(char *str)
 {
 	int	i[4];
@@ -128,6 +138,8 @@ int	check_rgb_format(char *str)
 	return (i[2] == 3 && str[i[0]] == '\0');
 }
 
+
+/*funzione utility che conta le parole in una stringa*/
 int	ft_word_count(char *str)
 {
 	int	count;
@@ -154,6 +166,9 @@ int	ft_word_count(char *str)
 	return (count);
 }
 
+/*controlla che quando un numero e'
+ di formato integer che tra le
+ lettere ci siano solo digits*/
 int check_integer_is_valid(char *n)
 {
 	if (n == NULL || *n == '\0')
@@ -176,6 +191,9 @@ int check_integer_is_valid(char *n)
 	return (1);
 }
 
+/* controlla e fa atoi per minirt
+    il numero deve essere compreso tra
+    0 e 255 */
 int ft_atoi_minirt(const char *str)
 {
 	int	value;
@@ -198,6 +216,7 @@ int ft_atoi_minirt(const char *str)
 	return (sign * value);
 }
 
+/*splitta la parte rgb e poi si assicura che vadano bene*/
 int check_a_ok1(char *str)
 {
     char   **check_matrix = ft_split(str, ',');
@@ -226,6 +245,9 @@ int check_a_ok1(char *str)
     return (1);
 }
 
+/*Controlla la lettera a e poi controlla il formato float
+ * ['A'] [float]
+*/
 int	check_a_ok(char *str)
 {
 	//int	i;
@@ -261,6 +283,9 @@ int	check_a_ok(char *str)
 	return 1;
 }
 
+/*controlla le varie righe
+ check_a_ok controlla la riga a le altre sono da fare*/
+
 int	check_matrix_data_ok(char **matrix)
 {
 	int	i = 0;
@@ -269,6 +294,9 @@ int	check_matrix_data_ok(char **matrix)
 	++i;
 	return (1);
 }
+
+/* toglie le sgtringhe vuote dalla matrice
+ */
 
 char	**matrix_compress(char **matrix)
 {
@@ -306,6 +334,8 @@ char	**matrix_compress(char **matrix)
 }
 
 
+/*splitta le parti e controla la lunghezza minima*/
+
 char	**splitted(char *s1)
 {
 	int	i = 0;
@@ -329,6 +359,10 @@ char	**splitted(char *s1)
 	matrix = ft_split(s1, '\n');
 	return (matrix);
 }
+
+/*carica tutto il file
+ * dentro un char* e toglie gli spazi doppiu
+ */
 
 char	*read_from_file(int fd)
 {
@@ -354,6 +388,11 @@ char	*read_from_file(int fd)
 	return (compress_space(content));
 }
 
+/*tenta di aprire un file
+ * toglie le stringhe vuote
+ * e poi passsa tutto a check_matrix_data_ok
+ * per assicurarsi che i dati sono formattati in modo corretto
+ */
 void    parse_input(int argc, char **argv, t_element *data_file)
 {
 	(void)data_file;
