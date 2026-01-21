@@ -37,3 +37,8 @@ del modulo vec3.h che esporra' primitive per le operazioni su vettori.
 20/01/2026 gmu 10:38
 aggiunta la documentazione alle mie funzioni
 
+20/01/2026 sabruma
+Formalizzato fondamenti mancanti per proseguire lo studio: sistema span (generatori), isomorfismo, spazi banali e non-banali, invarianti.
+Generalizzato e ripassato i sistemi lineari. Studiato proprieta' di tutte queste strutture. Teoremi: dimensioni, lemma dello scambio di Steinitz,
+sottospazi in dimensioni finite. Esteso il teorema delle dimensioni a infinite dimensioni e consolidata teoria degli insiemi (cardinalita', notazione, ...).
+Iniziato sistemi di coordinate, prodotto scalare e vettoriale. Domani (davvero stavolta) dovrei finire queste robe dei vettori + le proiezioni e decomposizioni.
