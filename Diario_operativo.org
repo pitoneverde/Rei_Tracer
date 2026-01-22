@@ -42,3 +42,8 @@ Formalizzato fondamenti mancanti per proseguire lo studio: sistema span (generat
 Generalizzato e ripassato i sistemi lineari. Studiato proprieta' di tutte queste strutture. Teoremi: dimensioni, lemma dello scambio di Steinitz,
 sottospazi in dimensioni finite. Esteso il teorema delle dimensioni a infinite dimensioni e consolidata teoria degli insiemi (cardinalita', notazione, ...).
 Iniziato sistemi di coordinate, prodotto scalare e vettoriale. Domani (davvero stavolta) dovrei finire queste robe dei vettori + le proiezioni e decomposizioni.
+
+21/01/2026 sabruma
+Finito studio sui vettori e definito l'insieme di operazioni che comporranno la API vec3.h
+Trattato prodotto scalare e vettoriale, significato geometrico e algebrico, simbolo e notazione di Levi-Civita.
+Proiezioni ortogonali e decomposizioni, processo di Gram-Schmidt per una base ortonormale, rejection vector e applicazioni.
