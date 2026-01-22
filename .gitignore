@@ -2,6 +2,7 @@
 *.d
 
 # File
+*~
 ~*
 
 # Object files

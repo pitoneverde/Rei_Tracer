@@ -3,7 +3,7 @@ CC=cc
 CFLAGS=-Wall -Wextra -Werror -g -O0 -Iinclude -Iminilibx-linux -Ilibc/include
 LDFLAGS=-lm -Lminilibx-linux -lmlx -Llibc -lft_bonus libc/libft_bonus.a
 
-SRCS=main.c parsing.c
+SRCS=main.c parsing.c check_ambient.c check_camera.c
 HEADS=minirt.h
 OBJS=$(SRCS:.c=.o)
 MLX_DIR=./minilibx-linux
