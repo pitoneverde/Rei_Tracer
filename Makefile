@@ -7,7 +7,8 @@ SRC_DIR = src
 SRCS = $(SRC_DIR)/main.c \
 		$(SRC_DIR)/parsing.c \
 		$(SRC_DIR)/check_ambient.c \
-		$(SRC_DIR)/check_camera.c
+		$(SRC_DIR)/check_camera.c \
+		$(SRC_DIR)/parsing_utils.c
 
 HEADERS_DIR = include
 HEADS = $(HEADERS_DIR)/minirt.h \

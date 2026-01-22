@@ -8,8 +8,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-bool convertable_double(double *value, const char *str)
-{
+bool convertable_double(double *value, const char *str) {
 	if (!str || *str == '\0')
 		return false;
 	char *endptr;
@@ -61,7 +60,7 @@ bool	check_camera(char *str)
 	if (ft_word_count(str) != 4)
 	{
 		PRINT_ERR("Error: missing element in line C\n");
-		return false;
+		return (false);
 	}
 	char	**check_matrix = ft_split(str, ' ');
 	if (ft_strcmp(check_matrix[0], "C"))
@@ -76,6 +75,7 @@ bool	check_camera(char *str)
 		mtxfree_str(check_matrix);
 		return (false);
 	}
+
 	mtxfree_str(check_matrix);
 	return (true);
 }

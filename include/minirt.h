@@ -17,16 +17,6 @@
 
 // to move into parser.h when split files
 #include "minirt_data.h"
-void    parse_input(int argc, char **argv, t_element *data_file);
-bool	check_camera(char *str);
-int	check_matrix_data_is_good(char **matrix);
-bool convertable_double(double *value, const char *str);
-bool	check_coordinates(char *s);
-int	check_ambient(char *str);
-int	ft_word_count(char *str);
-int	check_rgb_format(char *str);
-double convert_double_strtod(char *str);
-int parse_double(char *str);
-int	check_ambient(char *str);
+#include "parsing.h"
 
 #endif

@@ -100,195 +100,6 @@ int	matrix_strlen_check(char **matrix)
 	return (0);
 }
 
-
-// /*controlla che la parte ['A'] ['float'] [rgb]
-//                                         questa sopra
-//                             sia corretta*/
-// int	check_rgb_format(char *str)
-// {
-// 	int	i[4];
-
-// 	i[0] = 0;
-// 	i[2] = 0;
-// 	i[3] = ft_strlen(str);
-// 	while (i[0] < i[3] && i[2] < 3)
-// 	{
-// 		while (str[i[0]] && (str[i[0]] == ' ' || str[i[0]] == '\t'))
-// 			i[0]++;
-// 		if (!ft_isdigit(str[i[0]]))
-// 			return (0);
-// 		i[1] = 0;
-// 		while (str[i[0]] && ft_isdigit(str[i[0]]))
-// 			i[1] = i[1] * 10 + (str[i[0]++] - '0');
-// 		if (i[1] < 0 || i[1] > 255)
-// 			return (0);
-// 		while (str[i[0]] && (str[i[0]] == ' ' || str[i[0]] == '\t'))
-// 			i[0]++;
-// 		if (i[2] < 2)
-// 			if (str[i[0]++] != ',')
-// 				return (0);
-// 		i[2]++;
-// 	}
-// 	return (i[2] == 3 && str[i[0]] == '\0');
-// }
-
-
-// /*funzione utility che conta le parole in una stringa*/
-// int	ft_word_count(char *str)
-// {
-// 	int	count;
-// 	int	in_word;
-// 	int	i;
-
-// 	count = 0;
-// 	in_word = 0;
-// 	i = 0;
-// 	if(!str)
-// 		return (0);
-
-// 	while(str[i])
-// 	{
-// 		if (ft_isspace(str[i]))
-// 			in_word = 0;
-// 		else if (!in_word)
-// 		{
-// 			++count;
-// 			in_word = 1;
-// 		}
-// 		++i;
-// 	}
-// 	return (count);
-// }
-
-/*controlla che quando un numero e'
- di formato integer che tra le
- lettere ci siano solo digits*/
-int check_integer_is_valid(char *n)
-{
-	if (n == NULL || *n == '\0')
-		return (0);
-
-    int i = 0;
-	if (n[i] == '+' || n[i] == '-')
-		i++;
-
-	if (n[i] == '\0')
-		return (0);
-
-	while (n[i] != '\0')
-	{
-		if (!ft_isdigit(n[i]))
-			return (0);
-		i++;
-	}
-
-	return (1);
-}
-
-/* controlla e fa atoi per minirt
-    il numero deve essere compreso tra
-    0 e 255 */
-int ft_atoi_minirt(const char *str)
-{
-	int	value;
-	int		sign;
-
-	sign = 1;
-	value = 0;
-	while (*str == ' ' || (*str >= '\t' && *str <= '\r'))
-		str++;
-	if (*str == '-' || *str == '+')
-		sign = 44 - *str++;
-	while (ft_isdigit(*str))
-	{
-		value = value * 10 + (*str++ - '0');
-		if (value > 1 && sign == -1)
-			return (sign * value);
-		if (value > 255 && sign == 1)
-			return (sign * value);
-	}
-	return (sign * value);
-}
-
-/*splitta la parte rgb e poi si assicura che vadano bene*/
-int check_a_ok1(char *str)
-{
-    char   **check_matrix = ft_split(str, ',');
-
-    if (mtx_count((void **)check_matrix) != 3)
-    {
-        mtxfree_str(check_matrix);
-        return (0);
-    }
-    int i = 0;
-    while (i < 3)
-    {
-        if (!check_integer_is_valid(check_matrix[i]))
-        {
-            mtxfree_str(check_matrix);
-            return (0);
-        }
-        if (0 > ft_atoi_minirt(check_matrix[i]) || ft_atoi_minirt(check_matrix[i]) > 255)
-        {
-            mtxfree_str(check_matrix);
-            return (0);
-        }
-        ++i;
-    }
-    mtxfree_str(check_matrix);
-    return (1);
-}
-
-/*Controlla la lettera a e poi controlla il formato float
- * ['A'] [float]
-*/
-int	check_a_ok(char *str)
-{
-	//int	i;
-
-	//i = 0;
-	if (ft_word_count(str) != 3)
-	{
-		PRINT_ERR("Error: missing element in line A\n");
-		return 0;
-	}
-	char	**check_matrix = ft_split(str, ' ');
-	if (ft_strcmp(check_matrix[0], "A"))
-	{
-		PRINT_ERR("Error: missing A\n");
-		mtxfree_str(check_matrix);
-		return (0);
-	}
-
-	if ((ft_strlen(check_matrix[1]) != 3) && ft_isdigit(check_matrix[1][0]) && (check_matrix[1][1] == '.') && ft_isdigit(check_matrix[1][2]))
-	{
-		PRINT_ERR("Error: missing a float in line A\n");
-		mtxfree_str(check_matrix);
-		return (0);
-	}
-
-	if (!check_a_ok1(check_matrix[2]))
-	{
-		PRINT_ERR("Error: missing a numbers in line A\n");
-		mtxfree_str(check_matrix);
-		return (0);	
-	}
-
-	return 1;
-}
-
-/*controlla le varie righe
- check_a_ok controlla la riga a le altre sono da fare*/
-
-int	check_matrix_data_ok(char **matrix)
-{
-	int	i = 0;
-	if (!check_a_ok(matrix[0]))
-		return (0);
-	++i;
-	return (1);
-}
-
 /* toglie le sgtringhe vuote dalla matrice
  */
 
@@ -330,11 +141,10 @@ char	**matrix_compress(char **matrix)
 
 /*splitta le parti e controla la lunghezza minima*/
 
-char	**splitted(char *s1)
+int	check_split(char *s1)
 {
 	int	i = 0;
 	int	n_newline = 0;
-	char	**matrix = NULL;
 
 	while(s1[i])
 	{
@@ -346,12 +156,9 @@ char	**splitted(char *s1)
 	}
 	if (n_newline < 4)
 	{
-		free(s1);
-		PRINT_ERR("Error: too few items or missing data\n");
-		exit(1);
+		return (0);
 	}
-	matrix = ft_split(s1, '\n');
-	return (matrix);
+	return (1);
 }
 
 /*carica tutto il file
@@ -387,24 +194,32 @@ char	*read_from_file(int fd)
  * e poi passsa tutto a check_matrix_data_ok
  * per assicurarsi che i dati sono formattati in modo corretto
  */
-void    parse_input(int argc, char **argv, t_element *data_file)
+bool    parse_input(int argc, char **argv, t_element *data_file)
 {
 	(void)data_file;
 	if (argc != 2)
 	{
        	printf("Usage: ./minirt <scene_file.rt>\n");
-		exit (1);
+		return (false);
 	}
 	int	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 	{
 		PRINT_ERR("Error: %s does not exist or cannot access\n", argv[1]);
-		exit(1);
+		return(false);
 	}
 	char *s1 = read_from_file(fd);
+	s1 = compress_space(s1);
 	close(fd);
 	printf("%s", s1);
-	char	**matrix = splitted(s1);
+	if (!check_split(s1))
+	{
+		free(s1);
+		PRINT_ERR("Error: too few items or missing data\n");
+		return (false);
+	}
+
+	char	**matrix = ft_split(s1, '\n');
 	free(s1);
 	matrix = matrix_compress(matrix);
 	print_debug_matrix(matrix);
@@ -412,9 +227,9 @@ void    parse_input(int argc, char **argv, t_element *data_file)
 	{
 		mtxfree_str(matrix);
 		PRINT_ERR("Error: too few items or missing data\n");
-		exit(1);
+		return (false);
 	}
-	check_matrix_data_ok(matrix);
+	check_matrix_data_is_good(matrix);
 	mtxfree_str(matrix);
-    return ;
+	return (false);
 }
