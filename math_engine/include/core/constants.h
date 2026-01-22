@@ -1,7 +1,7 @@
 #ifndef CORE_CONSTANTS_H
 # define CORE_CONSTANTS_H
 
-#include "core/vec3.h"
+#include "vec3.h"
 
 extern const t_vec3 VEC3_ZERO;
 extern const t_vec3 VEC3_ONE;

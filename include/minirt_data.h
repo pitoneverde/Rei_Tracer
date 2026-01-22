@@ -1,6 +1,6 @@
 #ifndef MINIRT_DATA_H
 # define MINIRT_DATA_H 1
-#include "minirt.h"
+#include "minirt_types.h"
 
 typedef struct s_ambient_lighting
 {

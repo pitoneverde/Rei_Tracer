@@ -1,7 +1,11 @@
 #ifndef VEC3_H
 # define VEC3_H
 
-#include "minirt.h"
+#include "minirt_types.h"
+#include "core/constants.h"
+
+// create:
+t_vec3 vec3_new(float x, float y, float z);
 
 // point difference = vector
 // point + vector = point
