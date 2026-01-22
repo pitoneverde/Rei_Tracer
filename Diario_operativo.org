@@ -57,3 +57,7 @@ piu' tardi ho intenzione di finire check_camera
 Definite costanti in math_engine, ripulito il Makefile e la struttura generale di math_engine e del progetto nel complesso.
 Definizione in corso delle funzioni del modulo core/vec3.h. Una volta finito aggiungo dei rigorosi test funzionali su base matematica formale.
 Se stasera ho finito inizio a formalizzare le matrici intese come trasformazioni e i sistemi di coordinate.
+
+22/01/2026 sabruma 23:34
+Gran parte della api vec3 e' completa. Mancano solo le parti di: angoli, confronti, sistema di coordinate ortonormali da 3 vettori,
+check su parallelismo e perpendicolarita'. Domani sicuro il modulo e' finito e proseguo con i test/bench. Una volta testato proseguo con le matrici.
