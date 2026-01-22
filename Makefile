@@ -7,7 +7,7 @@ SRC_DIR = src
 SRCS = $(SRC_DIR)/main.c \
 		$(SRC_DIR)/parsing.c \
 		$(SRC_DIR)/check_ambient.c \
-		$(SRC_DIR)/check_camera
+		$(SRC_DIR)/check_camera.c
 
 HEADERS_DIR = include
 HEADS = $(HEADERS_DIR)/minirt.h \
@@ -19,20 +19,23 @@ OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 MLX_DIR=./minilibx-linux
 LIBC_DIR=./libc
+LIBC=$(LIBC_DIR)/libft_bonus.a
 
-all: $(NAME)
+all: $(NAME) $(LIBC)
 
-$(NAME): $(OBJS)
-	make -C $(LIBC_DIR) bonus
-	make -C $(MLX_DIR)
+$(NAME): $(OBJS) $(LIBC)
+	@make -C $(MLX_DIR)
 	$(CC) $(CFLAGS) $(OBJS) $(LDFLAGS) -o $(NAME)
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADS) | $(OBJ_DIR)
+$(LIBC):
+	@make -C $(LIBC_DIR) bonus
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c  $(HEADS) | $(OBJ_DIR)
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJ_DIR):
-	@mkdir -p $(dir $@)
+	@mkdir -p $@
 
 mlx:
 	git clone https://github.com/42paris/minilibx-linux.git
@@ -47,6 +50,8 @@ clean:
 
 fclean: clean
 	rm -f $(NAME)
+	make -C $(LIBC_DIR) fclean
+# 	make -C $(MLX_DIR) fclean
 
 re: fclean all
 

@@ -8,7 +8,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-bool convertable_double(double *value, const char *str) {
+bool convertable_double(double *value, const char *str)
+{
 	if (!str || *str == '\0')
 		return false;
 	char *endptr;

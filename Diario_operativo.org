@@ -52,3 +52,8 @@ Proiezioni ortogonali e decomposizioni, processo di Gram-Schmidt per una base or
 Incomincio a introdurre il parsing per il controllo camera ho cambiato
 nome alla funzione check_ok_a e l'ho chiamata check_ambient
 piu' tardi ho intenzione di finire check_camera
+
+22/01/2026 sabruma 17:20
+Definite costanti in math_engine, ripulito il Makefile e la struttura generale di math_engine e del progetto nel complesso.
+Definizione in corso delle funzioni del modulo core/vec3.h. Una volta finito aggiungo dei rigorosi test funzionali su base matematica formale.
+Se stasera ho finito inizio a formalizzare le matrici intese come trasformazioni e i sistemi di coordinate.

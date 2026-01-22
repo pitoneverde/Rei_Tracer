@@ -1,5 +1,4 @@
 #include "minirt.h"
-#include "libft.h"
 
 /*funzione utility che conta le parole in una stringa*/
 int	ft_word_count(char *str)
