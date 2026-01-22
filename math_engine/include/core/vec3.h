@@ -1,6 +1,8 @@
 #ifndef VEC3_H
 # define VEC3_H
 
+#include "minirt.h"
+
 // point difference = vector
 // point + vector = point
 // vector sum = vector
