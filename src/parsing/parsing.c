@@ -194,13 +194,26 @@ char	*read_from_file(int fd)
  * e poi passsa tutto a check_matrix_data_ok
  * per assicurarsi che i dati sono formattati in modo corretto
  */
-bool    parse_input(int argc, char **argv, t_element *data_file)
+
+// Error system glibc-like
+#define ERR_BAD_DATA 1
+#define MSG_BAD_DATA "Usage: ./minirt <scene_file.rt> %d\n"
+// //main()
+// // check_parsing_error(int err_code); <--- ERR_* = printf(MSG_*, id);
+// #define ERR_NO_DATA 2
+// #define ERR_INVALID_FILENAME 3
+// #define ERR_TOO_MANY_ARGS 4
+// #define ERR_ARGM
+// #define ERR_TO_MSG(err) ((ERR_## = MSG_##))	
+// //...
+int    parse_input(int argc, char **argv, t_element *data_file)
 {
 	(void)data_file;
 	if (argc != 2)
 	{
-       	printf("Usage: ./minirt <scene_file.rt>\n");
-		return (false);
+       	//printf("Usage: ./minirt <scene_file.rt>\n");
+		//return (false);
+		return(ERR_BAD_DATA);
 	}
 	int	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
@@ -229,7 +242,8 @@ bool    parse_input(int argc, char **argv, t_element *data_file)
 		PRINT_ERR("Error: too few items or missing data\n");
 		return (false);
 	}
-	check_matrix_data_is_good(matrix);
+	if (check_matrix_data_is_good(matrix))
+		return (false);
 	mtxfree_str(matrix);
-	return (false);
+	return (true);
 }

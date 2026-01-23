@@ -31,6 +31,21 @@ int parse_double(char *str)
 /*Controlla la lettera a e poi controlla il formato float
  * ['A'] [float]
 */
+// check_matrix_data_is_good:
+// if (check_ambient(...)) --> != 0 errore
+// check(err); copia il codice errore nella funzione chaiamante
+// return (err2); err2 piu' generico di err
+
+// parse_input: required
+// if (check_matrix_data....) ->> errore = err2
+// check(err);
+// return(err-parse)(";
+
+//main:
+// if (parse_input(...))
+// check(err-parse);
+// exit(err-main);
+
 bool	check_ambient(char *str)
 {
 	if (ft_word_count(str) != 3)
@@ -65,7 +80,7 @@ bool	check_ambient(char *str)
 /*controlla le varie righe siano
 formattate in modo corretto */
 
-int	check_matrix_data_is_good(char **matrix)
+bool	check_matrix_data_is_good(char **matrix)
 {
 	if (!check_ambient(matrix[0]))
 		return (false);
