@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 21:54:29 by sabruma           #+#    #+#             */
-/*   Updated: 2026/01/22 23:29:27 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/01/23 19:21:03 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,5 @@ inline t_vec3	vec3_normalize_or(t_vec3 v, t_vec3 fallback)
 
 inline bool	vec3_is_normalized(t_vec3 v)
 {
-	return (vec3_length(v) == 1);
+	return (!vec3_is_zero(v, MATH_EPSILON) && vec3_length(v) == 1);
 }

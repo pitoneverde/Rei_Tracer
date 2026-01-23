@@ -1,0 +1,1 @@
+# compile with -ffast-math and -march=native to get max math speed

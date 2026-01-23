@@ -10,8 +10,10 @@ t_vec3	vec3_new(float x, float y, float z);
 t_vec3	vec3_from_scalar(float s);
 
 // basic operations
-// vector sum = vector
+// vector + vector = vector
+// point + vector = point
 t_vec3	vec3_add(t_vec3 a, t_vec3 b);
+// point - point = vector
 t_vec3	vec3_sub(t_vec3 a, t_vec3 b);
 t_vec3	vec3_neg(t_vec3 v); // = -v
 // vector scalar multiplication/division (scale)
@@ -54,8 +56,12 @@ bool	vec3_is_parallel(t_vec3 a, t_vec3 b, float epsilon);
 bool	vec3_is_perpendicular(t_vec3 a, t_vec3 b, float epsilon);
 
 // coordinate systems
-void	vec3_coordinate_system(t_vec3 a, t_vec3 b, t_vec3 c);	// build orthonormal basis
-//....
+void	vec3_coordinate_system(t_vec3 a, t_vec3 *b, t_vec3 *c);	// build orthonormal basis 
+//t_vec3 vec3_orthonormal_basis(t_vec3 n, t_vec3* tangent, t_vec3* bitangent); // faster, use in hot path
+
+// point-specific
+// t_vec3 vec3_midpoint(t_vec3 a, t_vec3 b);
+// t_vec3 vec3_barycentric(t_vec3 a, t_vec3 b, t_vec3 c, float u, float v);
 
 // comparisons
 bool	vec3_equal(t_vec3 a, t_vec3 b, float epsilon);
@@ -70,22 +76,23 @@ t_vec3	vec3_ceil(t_vec3 v);
 t_vec3	vec3_round(t_vec3 v);
 t_vec3	vec3_mod(t_vec3 v, float divisor);
 
-// t_vec3 vec3_fract(t_vec3 v);
-// t_vec3 vec3_clamp(t_vec3 v, float min_val, float max_val);
-// t_vec3 vec3_clamp_length(t_vec3 v, float max_length);
-
-
 // minmax, use _comp variant to minmax 2 vectors
 float	vec3_min(t_vec3 v);	//min coord
 float	vec3_max(t_vec3 v);	//max coord
 
 //debug
-t_vec3	vec3_print(t_vec3 v);
+void	vec3_print(t_vec3 v);
 
+// t_vec3 vec3_fract(t_vec3 v);		//fractional part for shaders
+// t_vec3 vec3_clamp(t_vec3 v, float min_val, float max_val);
+// t_vec3 vec3_clamp_length(t_vec3 v, float max_length);
+//rotations
+// t_vec3 vec3_rotate_axis(t_vec3 v, t_vec3 axis, float angle);
+// t_vec3 vec3_rotate_euler(t_vec3 v, float yaw, float pitch, float roll);
 
-// point difference = vector
-// point + vector = point
 // vector lerp/slerp (do last)
+// random functions (sampling)
+// swizzling (maybe?)
 
 // ------------bonus------------
 // reflection/refraction vectors
