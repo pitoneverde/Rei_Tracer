@@ -75,7 +75,6 @@ bool	check_vectors_app(char *s)
 	{
 		if (coordinates[i] < -1 || coordinates[i] > 1)
 		{
-			printf("2c[%d] :%f \n",i, coordinates[i]);
 			good = false;
 		}
 		++i;
@@ -125,31 +124,31 @@ bool	check_camera(char *str)
 		PRINT_ERR("Error: missing element in line C\n");
 		return (false);
 	}
-	char	**check_matrix = ft_split(str, ' ');
-	if (ft_strcmp(check_matrix[0], "C"))
+	char	**matrix = ft_split(str, ' ');
+	if (ft_strcmp(matrix[0], "C"))
 	{
 		PRINT_ERR("Error: missing C\n");
-		mtxfree_str(check_matrix);
+		mtxfree_str(matrix);
 		return (false);
 	}
-	if (!check_coordinates(check_matrix[1]))
+	if (!check_coordinates(matrix[1]))
 	{
 		PRINT_ERR("Error: coordinates format wrong\n");
-		mtxfree_str(check_matrix);
+		mtxfree_str(matrix);
 		return (false);
 	}
-	if (!check_vectors(check_matrix[2]))
+	if (!check_vectors(matrix[2]))
 	{
 		PRINT_ERR("Error: vector normalizzation wrong\n");
-		mtxfree_str(check_matrix);
+		mtxfree_str(matrix);
 		return (false);
 	}
-	if (!check_fov(check_matrix[3]))
+	if (!check_fov(matrix[3]))
 	{
 		PRINT_ERR("Error: fov wrong\n");
-		mtxfree_str(check_matrix);
+		mtxfree_str(matrix);
 		return (false);
 	}
-	mtxfree_str(check_matrix);
+	mtxfree_str(matrix);
 	return (true);
 }

@@ -62,18 +62,40 @@ bool	check_ambient(char *str)
 	return (1);
 }
 
-/*controlla le varie righe
- check_a_ok controlla la riga a le altre sono da fare*/
+/*controlla le varie righe siano
+formattate in modo corretto */
 
 int	check_matrix_data_is_good(char **matrix)
 {
 	if (!check_ambient(matrix[0]))
-		return (0);
+		return (false);
 	printf("La riga A va bene\n");
 	if (!check_camera(matrix[1]))
-		return (0);
+		return (false);
 	printf("La riga C va bene\n");
-	int	i = 0;
-	++i;
-	return (1);
+	//if (!check_light(matrix[2]))
+	//	return (0);
+	//printf("La riga L va bene\n");
+	//int	i = 0;
+	//while (ft_strcmp(matrix[i], "sp"))
+	//{
+	//	if (!check_spere(matrix[i]))
+	//		return (false);
+	//	++i;
+	//}
+	//while (ft_strcmp(matrix[i], "pl"))
+	//{
+	//	if (!check_plane(matrix[i]))
+	//		return (false);
+	//	++i;
+	//}
+	//while (ft_strcmp(matrix[i], "cy"))
+	//{
+	//	if (!check_cylinder(matrix[i]))
+	//		return (false);
+	//	++i;
+	//}
+	//if (matrix[i])
+	//	return (false);
+	return (true);
 }
