@@ -43,7 +43,7 @@ int main(int argc, char **argv)
 		PRINT_ERR("Invalid argument count: %d", argc);
 	t_element	*data_file = malloc(sizeof(t_element));
 	if (!data_file) PRINT_ERR("Malloc error: @data_file init");
-	check(parse_input(argc, argv, data_file));
+	parse_input(argc, argv, data_file);
 	
 	data_file->id = "cy";
 	t_cylinder *cy = (t_cylinder *)&data_file->value;

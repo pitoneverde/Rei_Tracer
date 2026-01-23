@@ -206,7 +206,46 @@ char	*read_from_file(int fd)
 // #define ERR_ARGM
 // #define ERR_TO_MSG(err) ((ERR_## = MSG_##))	
 // //...
-int    parse_input(int argc, char **argv, t_element *data_file)
+
+bool	parse_matrix(char *s1)
+{
+	char	**matrix;
+
+	matrix = ft_split(s1, '\n');
+	matrix = matrix_compress(matrix);
+	print_debug_matrix(matrix);
+	if ((mtx_count((void **)matrix) < 4) || (matrix_strlen_check((char **)matrix)))
+	{
+		mtxfree_str(matrix);
+		PRINT_ERR("Error: too few items or missing data\n");
+		return (false);
+	}
+	if (!check_matrix_data_is_good(matrix))
+	{
+		mtxfree_str(matrix);
+		PRINT_ERR("Error: too few items or missing data\n");
+		return (false);
+	}
+	mtxfree_str(matrix);
+	return (true);
+}
+
+bool	readable_file_and_check_input(char *s1)
+{
+
+	s1 = compress_space(s1);
+	printf("%s", s1); // per debug
+	if (!check_split(s1))
+	{
+		PRINT_ERR("Error: too few items or missing data\n");
+		return (false);
+	}
+	if (!parse_matrix(s1))
+		return (false);
+	return (true);
+}
+
+bool    parse_input(int argc, char **argv, t_element *data_file)
 {
 	(void)data_file;
 	if (argc != 2)
@@ -222,28 +261,12 @@ int    parse_input(int argc, char **argv, t_element *data_file)
 		return(false);
 	}
 	char *s1 = read_from_file(fd);
-	s1 = compress_space(s1);
 	close(fd);
-	printf("%s", s1);
-	if (!check_split(s1))
+	if (!readable_file_and_check_input(s1))
 	{
 		free(s1);
-		PRINT_ERR("Error: too few items or missing data\n");
 		return (false);
 	}
-
-	char	**matrix = ft_split(s1, '\n');
 	free(s1);
-	matrix = matrix_compress(matrix);
-	print_debug_matrix(matrix);
-	if ((mtx_count((void **)matrix) < 4) || (matrix_strlen_check((char **)matrix)))
-	{
-		mtxfree_str(matrix);
-		PRINT_ERR("Error: too few items or missing data\n");
-		return (false);
-	}
-	if (check_matrix_data_is_good(matrix))
-		return (false);
-	mtxfree_str(matrix);
 	return (true);
 }

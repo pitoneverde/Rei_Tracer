@@ -64,3 +64,6 @@ check su parallelismo e perpendicolarita'. Domani sicuro il modulo e' finito e p
 
 23/01/2026 gmu 15:29
 Abbiamo concordato sulle convenzioni per gli errori e si prosegue rispettivamente sulle nostre parti
+
+23/01/2026 gmu 16:41
+Non riesco a usare la notazione ho spezzato la funzione parse_input in tre funzioni
