@@ -73,3 +73,6 @@ Finito la API vec3, domani penso a dei test funzionali. Intanto comincio lo stud
 mat4.h, oltre che un approfondimento sui sistemi di coordinate, tra cui assolute, relative, sferiche.
 Trattato teorema del rango, trasformazioni affini e spazio affine, spazio proiettivo e punti ad infinito, coordinate omogenee, matrici di rotazione
 e formula di Rodriguez. Per i sistemi di coordinate trattato il cambio di base, spazi di mondo, vista e proiettivo.
+
+24/01/2026 gmu 14:53
+proseguito il parsing per light ho riorganizzato e rinominato alcune funzioni

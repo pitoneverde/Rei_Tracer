@@ -1,4 +1,7 @@
-bool	check_bringhtness(char *s)
+#include "minirt.h"
+#include "libft.h"
+
+bool	check_bringhtness_limits(char *s)
 {
 	double	value;
 
@@ -25,19 +28,19 @@ bool	check_light(char *s)
 	}
 	if(!check_coordinates(matrix[1]))
 	{
-		PRINT_ERR("Error: coordinates format wrong\n");
+		PRINT_ERR("Error: coordinates format wrong in L\n");
 		mtxfree_str(matrix);
 		return (false);
 	}
-	if(!check_bringhtness(matrix[2]))
+	if(!check_bringhtness_limits(matrix[2]))
 	{
-		PRINT_ERR("Error: bringhtmess wrong\n");
+		PRINT_ERR("Error: bringhtmess wrong in L\n");
 		mtxfree_str(matrix);
 		return (false);
 	}
 	if(!check_rgb_format(matrix[3]))
 	{
-		PRINT_ERR("Error: rgb format wrong\n");
+		PRINT_ERR("Error: rgb format wrong in L\n");
 		mtxfree_str(matrix);
 		return (false);
 	}

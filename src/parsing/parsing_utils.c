@@ -1,6 +1,91 @@
 #include "minirt.h"
 #include "libft.h"
 
+int	matrix_size(char **matrix)
+{
+	int	i;
+
+	i = 0;
+	while(matrix[i])
+		++i;
+	return (i);
+}
+
+bool	check_n_comma(char *s, int n_comma)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == ',')
+			--n_comma;
+		++i;
+	}
+	if (n_comma != 0)
+		return (false);
+	return (true);
+}
+
+double convert_double_strtod(char *str)
+{
+	char *endptr;
+	double result = strtod(str, &endptr);
+
+	if (str == endptr)
+	{
+	    printf("Error: numer not converted\n");
+	    return 0.0;
+	}
+
+	if (*endptr != '\0' && !ft_isspace(*endptr)) {
+	    printf("Error: extra carcter before numbers: '%s'\n", endptr);
+	}
+	return result;
+}
+
+
+bool convertable_double(double *value, const char *str)
+{
+	if (!str || *str == '\0')
+		return false;
+	char *endptr;
+	errno = 0;
+	double result = strtod(str, &endptr);
+
+	if (errno == ERANGE)
+		return false;
+	if (endptr == str)
+		return false;
+	while (ft_isspace((unsigned char)*endptr))
+		endptr++;
+	if (*endptr != '\0')
+		return false;
+	if (value != NULL)
+		*value = result;
+	return true;
+}
+
+bool	check_coordinates(char *s)
+{
+	if (!check_n_comma(s, 2))
+		return (false);
+	char	**matrix = ft_split(s, ',');
+	bool	is_good = true;
+	int i = 0;
+	double	val[3];
+	if (matrix_size(matrix) != 3)
+		is_good = false;
+	while(i < matrix_size(matrix))
+	{
+		if (!convertable_double(&val[i], matrix[i]))
+			is_good = false;
+		++i;
+	}
+	mtxfree_str(matrix);
+	return (is_good);
+}
+
 /*funzione utility che conta le parole in una stringa*/
 int	ft_word_count(char *str)
 {

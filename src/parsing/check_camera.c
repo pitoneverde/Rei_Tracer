@@ -8,54 +8,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-bool convertable_double(double *value, const char *str) {
-	if (!str || *str == '\0')
-		return false;
-	char *endptr;
-	errno = 0;
-	double result = strtod(str, &endptr);
 
-	if (errno == ERANGE)
-		return false;
-	if (endptr == str)
-		return false;
-	while (ft_isspace((unsigned char)*endptr))
-		endptr++;
-	if (*endptr != '\0')
-		return false;
-	if (value != NULL)
-		*value = result;
-	return true;
-}
-
-bool	check_coordinates(char *s)
-{
-	int	i;
-	int	n_comma;
-
-	i = 0;
-	n_comma = 0;
-	while(s[i])
-		if (s[i++] == ',')
-			++n_comma;
-	if (n_comma != 2)
-		return (false);
-	char	**matrix = ft_split(s, ',');
-	double	coordinates[3];
-	
-	bool good = true;
-	i = 0;
-	while (i < 2)
-	{
-		if (!convertable_double(&coordinates[i], matrix[i]))
-			good = false;
-		++i;
-	}
-	mtxfree_str(matrix);
-	return (good);
-}
-
-bool	check_vectors_app(char *s)
+bool	check_camera_vectors_limits_app(char *s)
 {
 	char	**matrix = ft_split(s, ',');
 	double	coordinates[3];
@@ -83,7 +37,7 @@ bool	check_vectors_app(char *s)
 	return (good);
 }
 
-bool	check_vectors(char *s)
+bool	check_camera_vectors_limits(char *s)
 {
 	int	i;
 	int	n_comma;
@@ -95,10 +49,10 @@ bool	check_vectors(char *s)
 			++n_comma;
 	if (n_comma != 2)
 		return (false);
-	return (check_vectors_app(s));
+	return (check_camera_vectors_limits_app(s));
 }
 
-bool	check_fov(char *s)
+bool	check_camera_fov_limits(char *s)
 {
 	int	i;
 
@@ -137,13 +91,13 @@ bool	check_camera(char *str)
 		mtxfree_str(matrix);
 		return (false);
 	}
-	if (!check_vectors(matrix[2]))
+	if (!check_camera_vectors_limits(matrix[2]))
 	{
 		PRINT_ERR("Error: vector normalizzation wrong\n");
 		mtxfree_str(matrix);
 		return (false);
 	}
-	if (!check_fov(matrix[3]))
+	if (!check_camera_fov_limits(matrix[3]))
 	{
 		PRINT_ERR("Error: fov wrong\n");
 		mtxfree_str(matrix);

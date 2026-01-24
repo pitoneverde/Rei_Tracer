@@ -1,24 +1,7 @@
 #include "minirt.h"
 #include "libft.h"
 
-double convert_double_strtod(char *str)
-{
-	char *endptr;
-	double result = strtod(str, &endptr);
-
-	if (str == endptr)
-	{
-	    printf("Error: numer not converted\n");
-	    return 0.0;
-	}
-
-	if (*endptr != '\0' && !ft_isspace(*endptr)) {
-	    printf("Error: extra carcter before numbers: '%s'\n", endptr);
-	}
-	return result;
-}
-
-int parse_double(char *str)
+int parse_ambient_double_limits(char *str)
 {
 	double	value;
 
@@ -61,7 +44,7 @@ bool	check_ambient(char *str)
 		return (0);
 	}
 
-	if (!parse_double(check_matrix[1]))
+	if (!parse_ambient_double_limits(check_matrix[1]))
 	{
 		PRINT_ERR("Error: missing a float in line A\n");
 		mtxfree_str(check_matrix);
@@ -80,37 +63,4 @@ bool	check_ambient(char *str)
 /*controlla le varie righe siano
 formattate in modo corretto */
 
-bool	check_matrix_data_is_good(char **matrix)
-{
-	if (!check_ambient(matrix[0]))
-		return (false);
-	printf("La riga A va bene\n");
-	if (!check_camera(matrix[1]))
-		return (false);
-	printf("La riga C va bene\n");
-	//if (!check_light(matrix[2]))
-	//	return (0);
-	//printf("La riga L va bene\n");
-	//int	i = 0;
-	//while (ft_strcmp(matrix[i], "sp"))
-	//{
-	//	if (!check_spere(matrix[i]))
-	//		return (false);
-	//	++i;
-	//}
-	//while (ft_strcmp(matrix[i], "pl"))
-	//{
-	//	if (!check_plane(matrix[i]))
-	//		return (false);
-	//	++i;
-	//}
-	//while (ft_strcmp(matrix[i], "cy"))
-	//{
-	//	if (!check_cylinder(matrix[i]))
-	//		return (false);
-	//	++i;
-	//}
-	//if (matrix[i])
-	//	return (false);
-	return (true);
-}
+

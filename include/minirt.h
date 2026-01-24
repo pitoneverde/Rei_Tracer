@@ -7,6 +7,7 @@
 #include <fcntl.h>
 #include <stdint.h>
 #include <stdbool.h>
+#include <errno.h>
 #include "libft.h"
 // Error: message
 #define PRINT_ERR(fmt, ...) \
