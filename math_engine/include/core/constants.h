@@ -5,6 +5,8 @@
 
 extern const t_vec3 VEC3_ZERO;
 extern const t_vec3 VEC3_ONE;
+
+// standard base
 extern const t_vec3 VEC3_X;
 extern const t_vec3 VEC3_Y;
 extern const t_vec3 VEC3_Z;

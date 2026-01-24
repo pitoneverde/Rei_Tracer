@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 22:43:42 by sabruma           #+#    #+#             */
-/*   Updated: 2026/01/22 23:29:39 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/01/24 02:07:21 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ inline t_vec3	vec3_project(t_vec3 v, t_vec3 onto)
 
 	len_sq = vec3_length_sq(onto);
 	if (len_sq > MATH_EPSILON_SQ)
-		return (vec3_mul(onto, vec3_dot(v, onto) / len_sq));
+		return (vec3_scale(onto, vec3_dot(v, onto) / len_sq));
 	return (VEC3_ZERO);
 }
 

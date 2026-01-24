@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 18:01:51 by sabruma           #+#    #+#             */
-/*   Updated: 2026/01/23 19:19:45 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/01/24 02:07:21 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	vec3_coordinate_system(t_vec3 a, t_vec3 *b, t_vec3 *c)
 		c_ortho,
 		vec3_normalize(vec3_cross(a, b_ortho)));
 	if (vec3_volume(a, b_ortho, c_ortho) < 0.0f)	//cyclic permutation
-		c_ortho = vec3_mul(c_ortho, -1.0f);
+		c_ortho = vec3_scale(c_ortho, -1.0f);
 	*b = b_ortho;
 	*c = c_ortho;
 }

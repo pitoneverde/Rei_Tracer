@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 21:54:29 by sabruma           #+#    #+#             */
-/*   Updated: 2026/01/23 19:21:03 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/01/24 02:07:21 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ inline t_vec3	vec3_normalize(t_vec3 v)
 	float	inv;
 
 	inv = 1.0f / sqrtf(vec3_length_sq(v));
-	return (vec3_mul(v, inv));
+	return (vec3_scale(v, inv));
 }
 
 // handles zero-length comparing len_sq to epsilon_sq is
@@ -37,7 +37,7 @@ inline t_vec3	vec3_normalize_or(t_vec3 v, t_vec3 fallback)
 	if (len_sq > MATH_EPSILON_SQ)
 	{
 		len_inv = 1.0f / sqrtf(len_sq);
-		return (vec3_mul(v, len_inv));
+		return (vec3_scale(v, len_inv));
 	}
 	return (fallback);
 }

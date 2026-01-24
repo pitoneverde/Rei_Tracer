@@ -17,8 +17,7 @@ t_vec3	vec3_add(t_vec3 a, t_vec3 b);
 t_vec3	vec3_sub(t_vec3 a, t_vec3 b);
 t_vec3	vec3_neg(t_vec3 v); // = -v
 // vector scalar multiplication/division (scale)
-t_vec3	vec3_mul(t_vec3 v, float s);
-t_vec3	vec3_div(t_vec3 v, float s);
+t_vec3	vec3_scale(t_vec3 v, float s);
 
 // vector dot product
 float	vec3_dot(t_vec3 a, t_vec3 b);
@@ -80,15 +79,21 @@ t_vec3	vec3_mod(t_vec3 v, float divisor);
 float	vec3_min(t_vec3 v);	//min coord
 float	vec3_max(t_vec3 v);	//max coord
 
-//debug
-void	vec3_print(t_vec3 v);
-
 // t_vec3 vec3_fract(t_vec3 v);		//fractional part for shaders
 // t_vec3 vec3_clamp(t_vec3 v, float min_val, float max_val);
 // t_vec3 vec3_clamp_length(t_vec3 v, float max_length);
-//rotations
+// rotations
 // t_vec3 vec3_rotate_axis(t_vec3 v, t_vec3 axis, float angle);
 // t_vec3 vec3_rotate_euler(t_vec3 v, float yaw, float pitch, float roll);
+
+// colors
+// t_vec3 vec3_from_color(float r, float g, float b);
+// t_vec3 vec3_srgb_to_linear(t_vec3 srgb_color);
+// t_vec3 vec3_linear_to_srgb(t_vec3 linear_color);
+// t_vec3 vec3_saturate(t_vec3 color);           // Clamp to [0,1]
+// t_vec3 vec3_gamma_correct(t_vec3 color, float gamma);
+// float vec3_luminance(t_vec3 color);         // Grayscale conversion
+// t_vec3 vec3_lerp_color(t_vec3 a, t_vec3 b, float t); // Better for colors?
 
 // vector lerp/slerp (do last)
 // random functions (sampling)

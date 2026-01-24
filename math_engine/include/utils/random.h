@@ -1,0 +1,1 @@
+// simplicistic rng if not using the specialized one
