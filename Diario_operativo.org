@@ -67,3 +67,9 @@ Abbiamo concordato sulle convenzioni per gli errori e si prosegue rispettivament
 
 23/01/2026 gmu 16:41
 Non riesco a usare la notazione ho spezzato la funzione parse_input in tre funzioni
+
+23/01/2026 sabruma 21:30
+Finito la API vec3, domani penso a dei test funzionali. Intanto comincio lo studio di matrici intese come trasformazioni lineari che andranno nel modulo
+mat4.h, oltre che un approfondimento sui sistemi di coordinate, tra cui assolute, relative, sferiche.
+Trattato teorema del rango, trasformazioni affini e spazio affine, spazio proiettivo e punti ad infinito, coordinate omogenee, matrici di rotazione
+e formula di Rodriguez. Per i sistemi di coordinate trattato il cambio di base, spazi di mondo, vista e proiettivo.
