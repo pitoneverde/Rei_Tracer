@@ -10,6 +10,8 @@ SRCS = $(SRC_DIR)/main.c \
 		$(SRC_DIR)/parsing/check_ambient.c \
 		$(SRC_DIR)/parsing/check_camera.c \
 		$(SRC_DIR)/parsing/check_light.c \
+		$(SRC_DIR)/parsing/check_sphere.c \
+		$(SRC_DIR)/parsing/check_plane.c \
 		$(SRC_DIR)/parsing/parsing_utils.c \
 
 HEADERS_DIR = include

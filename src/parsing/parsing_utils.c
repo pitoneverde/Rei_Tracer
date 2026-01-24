@@ -1,6 +1,19 @@
 #include "minirt.h"
 #include "libft.h"
 
+void	print_debug_matrix(char **matrix)
+{
+	int	i;
+
+	i = 0;
+	printf("debug matrix\n");
+	while(matrix[i])
+	{
+		printf("%d [%s]\n",i , matrix[i]);
+		++i;
+	}
+}
+
 int	matrix_size(char **matrix)
 {
 	int	i;
@@ -142,4 +155,24 @@ int	check_rgb_format(char *str)
 		i[2]++;
 	}
 	return (i[2] == 3 && str[i[0]] == '\0');
+}
+
+bool	check_normalizzation_limits(char *str)
+{
+	if (!check_coordinates(str))
+		return (false);
+	char	**matrix = ft_split(str, ',');
+	int	i;
+	bool	good;
+	good = true;
+	i = 0;
+	while (matrix[i])
+	{
+		double val = convert_double_strtod(matrix[i]);
+		if (val < -1 || val > 1)
+			good = false;
+		++i;
+	}
+	mtxfree_str(matrix);
+	return (good);
 }

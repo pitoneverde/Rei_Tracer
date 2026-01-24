@@ -9,12 +9,14 @@ int	check_rgb_format(char *str);
 bool convertable_double(double *value, const char *str);
 double	convert_double_strtod(char *str);
 bool   check_coordinates(char *s);
+bool	check_normalizzation_limits(char *str);
 
 
 //funzioni chiamate
 bool    check_ambient(char *str);
 bool	check_camera(char *str);
-bool	check_light(char *s);
+bool	check_light(char *str);
+bool	check_sphere(char *str);
 
 // funzione che chiama le funzioni sopra e controlla riga per riga
 bool	check_matrix_data_is_good(char **matrix);

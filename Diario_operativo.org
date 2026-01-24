@@ -79,3 +79,6 @@ proseguito il parsing per light ho riorganizzato e rinominato alcune funzioni
 
 24/01/2026 sabruma 16:13
 dato un senso agli header necessari sia per il mandatory che per il bonus. Preso appunti e approfondito lo studio di ieri.
+
+24/01/2026 gmu 19:51
+fatto parsing per sphere e plane, sphere e' stato testato plane non e' stato testato
