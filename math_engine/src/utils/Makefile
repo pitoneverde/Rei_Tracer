@@ -5,7 +5,7 @@ MODULE := utils
 # Module-specific paths
 MODULE_OBJ_DIR     := $(OBJ_DIR)/$(MODULE)
 
-COMMON_SRCS :=
+COMMON_SRCS :=	common/common_directions.c
 
 UTILS_SRCS :=	debug.c \
 				math_constants.c

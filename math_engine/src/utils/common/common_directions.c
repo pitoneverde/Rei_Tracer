@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   debug.c                                            :+:      :+:    :+:   */
+/*   common_directions.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/23 17:04:54 by sabruma           #+#    #+#             */
-/*   Updated: 2026/01/26 15:56:50 by sabruma          ###   ########.fr       */
+/*   Created: 2026/01/26 15:57:46 by sabruma           #+#    #+#             */
+/*   Updated: 2026/01/26 15:57:47 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "core/vec3.h"
-#include <stdio.h>
+#include "utils/common.h"
+#include "core/constants.h"
 
-void	vec3_print(t_vec3 v)
-{
-	printf("{%f, %f, %f}\n", v.x, v.y, v.z);
-}
+const t_vec3 VEC3_RIGHT = {1.0f, 0.0f, 0.0f};
+const t_vec3 VEC3_UP = {0.0f, 1.0f, 0.0f};
+const t_vec3 VEC3_FORWARD = {0.0f, 0.0f, -1.0f};	//maybe?

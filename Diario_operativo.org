@@ -82,3 +82,9 @@ dato un senso agli header necessari sia per il mandatory che per il bonus. Preso
 
 24/01/2026 gmu 19:51
 fatto parsing per sphere e plane, sphere e' stato testato plane non e' stato testato
+
+26/01/2026 sabruma 15:58
+Creato build system modulare per math_engine e integrato con il preesistente sistema di minirt. Risolte dipendenze circolari su t_vec3.
+Iniziati i test del modulo core (vec3), con sketch di una test suite per automatizzare i controlli e integrarlo nel build system. organizzata cartella build/
+che contiene bin/ per gli eseguibili (test, benchmark), lib/ con la libreria statica, obj/ per i file oggetto di tutti i moduli, organizzata in modo speculare a src/.
+Una volta finiti i test proseguo con gli appunti sulle matrici e lo studio sui quaternioni e numeri complessi.

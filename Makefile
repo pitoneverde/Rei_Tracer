@@ -29,10 +29,10 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -g -O0 -Iinclude -Iminilibx-linux -Ilibc/include -Imath_engine/include
 LDFLAGS = -Lminilibx-linux -lmlx -Llibc -lft_bonus -Lmath_engine/build/lib -lmath_engine
 
-all: $(NAME) $(LIBC) $(MATH_E) $(MLX)
+all: $(NAME) $(LIBC) $(MATH_E)
 
-$(NAME): $(OBJS) $(LIBC) $(MATH_E) $(MLX)
-	@make -C $(MLX_DIR)
+$(NAME): $(OBJS) $(LIBC) $(MATH_E)
+# 	@make -C $(MLX_DIR)
 	$(CC) $(CFLAGS) $(OBJS) $(LDFLAGS) -o $(NAME)
 
 $(LIBC):
@@ -58,7 +58,7 @@ clean:
 	rm -rf $(OBJ_DIR)
 	make -C $(LIBC_DIR) clean
 	make -C $(MATH_E_DIR) clean
-	make -C $(MLX_DIR) clean
+# 	make -C $(MLX_DIR) clean
 
 fclean: clean
 	rm -f $(NAME)
