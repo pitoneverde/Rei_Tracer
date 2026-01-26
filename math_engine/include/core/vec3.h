@@ -1,7 +1,18 @@
 #ifndef VEC3_H
 # define VEC3_H
 
-#include "minirt_types.h"
+#ifndef T_VEC3_DEFINED
+# define T_VEC3_DEFINED
+
+typedef struct s_vec3
+{
+	float x;
+	float y;
+	float z;
+} t_vec3;
+
+#endif
+
 #include "core/constants.h"
 #include <stdbool.h>
 
