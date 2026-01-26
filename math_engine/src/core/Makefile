@@ -35,11 +35,11 @@ $(MODULE_OBJ_DIR):
 	@mkdir -p $(MODULE_OBJ_DIR)/vec3
 
 $(MODULE_OBJ_DIR)/%.o: %.c | $(MODULE_OBJ_DIR)
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< $(LDFLAGS) -o $@
 
 # Build vec3 submodule
 $(MODULE_OBJ_DIR)/vec3/%.o: vec3/%.c | $(MODULE_OBJ_DIR)
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< $(LDFLAGS) -o $@
 
 clean:
 	@echo "Cleaning core module..."

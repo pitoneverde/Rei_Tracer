@@ -4,7 +4,8 @@
 // master header
 
 #include <math.h>
-#include "common.h"
+#include "utils/common.h"
 #include "core/vec3.h"
+#include "utils/debug.h"
 
 #endif

@@ -12,7 +12,7 @@ all: $(OBJS)
 
 $(OBJ_DIR)/$(MODULE)/%.o: %.c $(HEADERS)
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< $(LDFLAGS) -o $@
 
 clean:
 	@echo "Cleaning algorithms module..."

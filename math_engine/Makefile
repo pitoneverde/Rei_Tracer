@@ -5,7 +5,7 @@ include config.mk
 
 STATIC_LIB  := $(LIB_DIR)/lib$(PROJECT).a
 
-MODULES     := core #algorithms geometry random utils
+MODULES     := core utils #algorithms geometry random
 
 all: static
 

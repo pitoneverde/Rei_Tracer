@@ -54,6 +54,10 @@ int main(int argc, char **argv)
 	cy->color = (t_rgb)(t_color){10, 0, 255, 0}; //parsing & manipulation
 	cy->color = (t_rgb)(uint32_t)0x1000FF00;	//for math & minlibx pixel
 	free(data_file);
+
+	t_vec3 a = vec3_new(3, 9, 2);
+	vec3_print(a);
+	
 	// if (data_file[0]->id == "cy")
     // init();
     // launch();

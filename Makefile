@@ -1,7 +1,4 @@
 NAME = miniRT
-CC = cc
-CFLAGS = -Wall -Wextra -Werror -g -O0 -Iinclude -Iminilibx-linux -Ilibc/include
-LDFLAGS = -lm -Lminilibx-linux -lmlx -Llibc -lft_bonus
 
 SRC_DIR = src
 SRCS = $(SRC_DIR)/main.c \
@@ -25,15 +22,24 @@ OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 MLX_DIR=./minilibx-linux
 LIBC_DIR=./libc
 LIBC=$(LIBC_DIR)/libft_bonus.a
+MATH_E_DIR = ./math_engine
+MATH_E = $(MATH_E_DIR)/build/lib/libmath_engine.a
 
-all: $(NAME) $(LIBC)
+CC = cc
+CFLAGS = -Wall -Wextra -Werror -g -O0 -Iinclude -Iminilibx-linux -Ilibc/include -Imath_engine/include
+LDFLAGS = -Lminilibx-linux -lmlx -Llibc -lft_bonus -Lmath_engine/build/lib -lmath_engine
 
-$(NAME): $(OBJS) $(LIBC)
+all: $(NAME) $(LIBC) $(MATH_E) $(MLX)
+
+$(NAME): $(OBJS) $(LIBC) $(MATH_E) $(MLX)
 	@make -C $(MLX_DIR)
 	$(CC) $(CFLAGS) $(OBJS) $(LDFLAGS) -o $(NAME)
 
 $(LIBC):
 	@make -C $(LIBC_DIR) bonus
+
+$(MATH_E):
+	@make -C $(MATH_E_DIR) all
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c  $(HEADS) | $(OBJ_DIR)
 	@mkdir -p $(dir $@)
@@ -51,11 +57,13 @@ d:
 clean:
 	rm -rf $(OBJ_DIR)
 	make -C $(LIBC_DIR) clean
+	make -C $(MATH_E_DIR) clean
 	make -C $(MLX_DIR) clean
 
 fclean: clean
 	rm -f $(NAME)
 	make -C $(LIBC_DIR) fclean
+	make -C $(MATH_E_DIR) fclean
 # 	make -C $(MLX_DIR) fclean
 
 re: fclean all
