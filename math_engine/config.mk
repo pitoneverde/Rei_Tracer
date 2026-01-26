@@ -13,9 +13,9 @@ LIB_DIR     := $(BUILD_DIR)/lib
 OBJ_DIR     := $(BUILD_DIR)/obj
 BIN_DIR     := $(BUILD_DIR)/bin
 
-CC          := gcc
+CC          := cc
 # compile with -ffast-math and -march=native to get max math speed
-CFLAGS      := -Wall -Wextra -Werror -pedantic -std=c99 -O2 -g -march=native -ffast-math
+CFLAGS      := -Wall -Wextra -Werror -pedantic -std=c99 -O0 -g -march=native #-ffast-math
 INCLUDES    := -I$(INCLUDE_DIR) -I$(INCLUDE_MINIRT_DIR)
 LDFLAGS		:= -lm
 AR          := ar

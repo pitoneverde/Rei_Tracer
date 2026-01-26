@@ -2,7 +2,7 @@
 # define MATH_ENGINE_H
 
 // master header
-
+#define _GNU_SOURCE
 #include <math.h>
 
 #include "core/vec3.h"

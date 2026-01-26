@@ -7,12 +7,10 @@ STATIC_LIB  := $(LIB_DIR)/lib$(PROJECT).a
 
 MODULES     := core utils #algorithms geometry random
 
-all: static
-
-static: $(STATIC_LIB)
+all: $(STATIC_LIB)
 
 # Create static library from modules
-$(STATIC_LIB): $(BUILD_DIR) modules
+$(STATIC_LIB): $(BUILD_DIR) | modules
 	@echo "Creating static library: $(STATIC_LIB)"
 	$(AR) $(ARFLAGS) $@ $(shell find $(OBJ_DIR) -name "*.o" -type f)
 
@@ -43,17 +41,25 @@ clean:
 		fi \
 	done
 
-test: static
-	@echo "Building tests..."
-	$(MAKE) -C tests
+quick-test: $(STATIC_LIB)
+	@echo "Building and running quick tests..."
+	$(MAKE) -C $(SRC_DIR)/tests quick-test
 
-run-test: test
-	@echo "Running tests..."
-	@./$(BUILD_DIR)/bin/tests
+
+test: $(STATIC_LIB)
+	@echo "Building and running full tests..."
+	$(MAKE) -C $(SRC_DIR)/tests test
+
+
+bench: $(STATIC_LIB)
+	@echo "Building and running benchmarks"
+	$(MAKE) -C $(SRC_DIR)/tests bench
+
+build-tests: $(STATIC_LIB)
+	@echo "Building tests..."
+	$(MAKE) -C $(SRC_DIR)/tests
 
 re: fclean all
-
-.PHONY: all static shared modules module-% fclean clean test run-test re
 
 help:
 	@echo "Math Engine Build System"
@@ -66,3 +72,5 @@ help:
 	@echo "  test		- Build tests"
 	@echo "  run-test	- Run tests"
 	@echo "  help		- Show this help"
+
+.PHONY: all static shared modules module-% fclean clean test quick-test bench re help build-tests

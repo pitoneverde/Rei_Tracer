@@ -13,6 +13,10 @@ typedef struct s_vec3
 
 #endif
 
+#ifndef _GNU_SOURCE
+# define _GNU_SOURCE
+#endif
+
 #include "core/constants.h"
 #include <stdbool.h>
 
