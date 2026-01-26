@@ -10,8 +10,6 @@ bool	check_sphere(char *str)
 	}
 	char	**matrix;
 	matrix = ft_split(str, ' ');
-	print_debug_matrix(matrix);
-	printf("[%s]\n", matrix[0]);
 	if (ft_strcmp(matrix[0], "sp"))
 	{
 		PRINT_ERR("Error: missing sp\n");

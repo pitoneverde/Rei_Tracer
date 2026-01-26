@@ -17,6 +17,8 @@ bool    check_ambient(char *str);
 bool	check_camera(char *str);
 bool	check_light(char *str);
 bool	check_sphere(char *str);
+bool	check_plane(char *str);
+bool	check_cylinder(char *str);
 
 // funzione che chiama le funzioni sopra e controlla riga per riga
 bool	check_matrix_data_is_good(char **matrix);

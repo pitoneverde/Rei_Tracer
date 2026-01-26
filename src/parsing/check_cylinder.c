@@ -1,8 +1,28 @@
 #include "minirt.h"
 #include "libft.h"
 
+bool	check_cy_diameter(char *s)
+{
+	double	val;
+
+	if (!convertable_double(&val, s))
+		return (false);
+	return (true);
+}
+
+bool	check_cy_height(char *s)
+{
+	double	val;
+
+	if (!convertable_double(&val, s))
+		return (false);
+	return (true);
+}
+
 bool	check_cylinder(char *str)
 {
+	printf("stringa pssata a cy: %s\n", str);
+	PRINT_ERR("valore di cy: %d\n", ft_word_count(str));
 	if (ft_word_count(str) != 6)
 	{
 		PRINT_ERR("Error: missing element in line cy\n");
@@ -14,7 +34,7 @@ bool	check_cylinder(char *str)
 	printf("[%s]\n", matrix[0]);
 	if (ft_strcmp(matrix[0], "cy"))
 	{
-		PRINT_ERR("Error: missing pl\n");
+		PRINT_ERR("Error: missing cy\n");
 		mtxfree_str(matrix);
 		return (false);
 	}
@@ -30,13 +50,13 @@ bool	check_cylinder(char *str)
 		mtxfree_str(matrix);
 		return (false);
 	}
-	if(!check_cy_diameter(matrix[3])) // da fare
+	if(!check_cy_diameter(matrix[3]))
 	{
 		PRINT_ERR("Error: cylinder diameter\n");
 		mtxfree_str(matrix);
 		return (false);
 	}
-	if(!check_cy_height(matrix[4])) //da fare
+	if(!check_cy_height(matrix[4]))
 	{
 		PRINT_ERR("Error: cylinder height\n");
 		mtxfree_str(matrix);
