@@ -23,20 +23,21 @@ t_vec3	vec3_from_scalar(float s);
 // basic operations
 // vector + vector = vector
 // point + vector = point
-t_vec3	vec3_add(t_vec3 a, t_vec3 b);
 // point - point = vector
+// vector scalar multiplication/division (scale)
+t_vec3	vec3_add(t_vec3 a, t_vec3 b);
 t_vec3	vec3_sub(t_vec3 a, t_vec3 b);
 t_vec3	vec3_neg(t_vec3 v); // = -v
-// vector scalar multiplication/division (scale)
 t_vec3	vec3_scale(t_vec3 v, float s);
 
+// product
 // vector dot product
-float	vec3_dot(t_vec3 a, t_vec3 b);
 // vector cross product
-t_vec3	vec3_cross(t_vec3 a, t_vec3 b);
 // vector triple product (scalar)
-float	vec3_volume(t_vec3 a, t_vec3 b, t_vec3 c);	//triple product a.(b x c)
 // vector triple product (vectorial)
+float	vec3_dot(t_vec3 a, t_vec3 b);
+t_vec3	vec3_cross(t_vec3 a, t_vec3 b);
+float	vec3_volume(t_vec3 a, t_vec3 b, t_vec3 c);	//triple product a.(b x c)
 // t_vec3 vec3_triple(t_vec3 a, t_vec3 b, t_vec3 c);
 
 // component-wise operations
