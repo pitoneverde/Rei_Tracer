@@ -2,6 +2,7 @@
 # define MINIRT_TYPES_H
 
 #include <stdint.h>
+#include "core/vec3.h"
 
 typedef struct s_color
 {
@@ -17,12 +18,17 @@ typedef union u_rgb
 	uint32_t hex;
 } t_rgb;
 
+#ifndef T_VEC3_DEFINED
+# define T_VEC3_DEFINED
+
 typedef struct s_vec3
 {
 	float x;
 	float y;
 	float z;
 } t_vec3;
+
+#endif
 
 typedef t_vec3 t_point3;
 typedef t_vec3 t_vector3;

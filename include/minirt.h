@@ -9,6 +9,7 @@
 #include <stdbool.h>
 #include <errno.h>
 #include "libft.h"
+#include "math_engine.h"
 // Error: message
 #define PRINT_ERR(fmt, ...) \
 	do {\
