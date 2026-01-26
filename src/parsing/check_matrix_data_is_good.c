@@ -37,7 +37,6 @@ bool	check_matrix_data_is_good(char **matrix)
 	{
 		printf("La riga cy va bene[%s][%d]\n", matrix[i], i);
 		shape = true;
-		++i;
 	}
 	++i;
 	return (shape);

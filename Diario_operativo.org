@@ -88,3 +88,6 @@ Creato build system modulare per math_engine e integrato con il preesistente sis
 Iniziati i test del modulo core (vec3), con sketch di una test suite per automatizzare i controlli e integrarlo nel build system. organizzata cartella build/
 che contiene bin/ per gli eseguibili (test, benchmark), lib/ con la libreria statica, obj/ per i file oggetto di tutti i moduli, organizzata in modo speculare a src/.
 Una volta finiti i test proseguo con gli appunti sulle matrici e lo studio sui quaternioni e numeri complessi.
+
+26/01/2026 gmu 19:02
+Sto sempre finendo il parsing e ho aggiunto altri controlli si sta rivelando un po' piu' difficile del previsto

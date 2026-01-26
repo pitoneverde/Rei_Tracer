@@ -193,6 +193,41 @@ char	*read_from_file(int fd)
 // #define ERR_TO_MSG(err) ((ERR_## = MSG_##))	
 // //...
 
+bool	valid_arguments_minirt(char *str)
+{
+	if (((str[0] == 's' && str[1] == 'p') ||
+                (str[0] == 'p' && str[1] == 'l') ||
+                (str[0] == 'c' && str[1] == 'y'))&& str[2] == ' ') {
+		return (true);
+            }
+	return (false);
+}
+
+bool matrix_check_arguments(char **matrix) {
+    for (int i = 0; matrix[i] != NULL; i++) {
+        char *str = matrix[i];
+        bool valid = false;
+        
+        if (str[0] == 'A' || str[0] == 'C' || str[0] == 'L') {
+            valid = true;
+        }
+        else if (ft_strlen(str) >= 2) {
+			if (valid_arguments_minirt(str))
+				{
+                valid = true;
+            }
+        }
+        
+        // Se una stringa non inizia con nessuno dei prefissi validi, ritorna falso
+        if (!valid) {
+            return false;
+        }
+    }
+    
+    // Tutte le stringhe iniziano con prefissi validi
+    return true;
+}
+
 bool	parse_matrix(char *s1)
 {
 	char	**matrix;
@@ -201,6 +236,12 @@ bool	parse_matrix(char *s1)
 	matrix = matrix_compress(matrix);
 	print_debug_matrix(matrix);
 	if ((mtx_count((void **)matrix) < 4) || (matrix_strlen_check((char **)matrix)))
+	{
+		mtxfree_str(matrix);
+		PRINT_ERR("Error: too few items or missing data\n");
+		return (false);
+	}
+	if (!matrix_check_arguments(matrix))
 	{
 		mtxfree_str(matrix);
 		PRINT_ERR("Error: too few items or missing data\n");
