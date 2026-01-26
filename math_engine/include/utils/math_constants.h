@@ -27,8 +27,8 @@ extern const float MATH_EPSILON_ANGLE;	// 1e-4
 extern const float MATH_FLOAT_EPSILON;	// 2^-23, float32 machine epsilon
 
 // Angle convertion coefficients
-extern const DEG_TO_RAD;		// pi/180
-extern const RAD_TO_DEG;		// 180/pi
+extern const float DEG_TO_RAD;		// pi/180
+extern const float RAD_TO_DEG;		// 180/pi
 
 // ... short aliases if needed
 
