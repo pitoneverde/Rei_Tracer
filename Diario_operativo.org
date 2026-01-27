@@ -91,3 +91,9 @@ Una volta finiti i test proseguo con gli appunti sulle matrici e lo studio sui q
 
 26/01/2026 gmu 19:02
 Sto sempre finendo il parsing e ho aggiunto altri controlli si sta rivelando un po' piu' difficile del previsto
+
+26/01/2026 sabruma 01:57
+Godo che i test passano tutti, ho da provare i benchmark ma con calma li sistemo. Confermo che vec3 e' battle-tested nei limiti del possibile e dell'IEEE 754.
+La test suite fa anche da esempio di utilizzo, ora che l'ho fixata, autoesplicativa e fa da docs pure per il momento che non ho voglia di scriverli.
+Domani mi concentro sui miei appunti di mate, ora che la vec3 e' finita devo passare oltre e mi servono le matrici per il camera system. Poi visto che ho tempo
+studio i quaternioni per le rotazioni.
