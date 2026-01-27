@@ -21,8 +21,6 @@ bool	check_cy_height(char *s)
 
 bool	check_cylinder(char *str)
 {
-	printf("stringa pssata a cy: %s\n", str);
-	PRINT_ERR("valore di cy: %d\n", ft_word_count(str));
 	if (ft_word_count(str) != 6)
 	{
 		PRINT_ERR("Error: missing element in line cy\n");
@@ -31,7 +29,6 @@ bool	check_cylinder(char *str)
 	char	**matrix;
 	matrix = ft_split(str, ' ');
 	print_debug_matrix(matrix);
-	printf("[%s]\n", matrix[0]);
 	if (ft_strcmp(matrix[0], "cy"))
 	{
 		PRINT_ERR("Error: missing cy\n");

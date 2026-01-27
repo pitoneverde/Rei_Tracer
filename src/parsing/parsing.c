@@ -234,7 +234,7 @@ bool	parse_matrix(char *s1)
 
 	matrix = ft_split(s1, '\n');
 	matrix = matrix_compress(matrix);
-	print_debug_matrix(matrix);
+	print_debug_matrix(matrix); // da togliere
 	if ((mtx_count((void **)matrix) < 4) || (matrix_strlen_check((char **)matrix)))
 	{
 		mtxfree_str(matrix);

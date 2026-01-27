@@ -14,30 +14,28 @@ bool	check_matrix_data_is_good(char **matrix)
 		return (false);
 	printf("La riga L va bene\n");
 	int	i = 3;
-	bool	shape = false;
-	if (!check_sphere(matrix[i]))
-		return (false);
-	else
+	while (matrix[i] != NULL)
 	{
-		printf("La riga sp va bene[%s][%d]\n", matrix[i], i);
-		shape = true;
+		if (ft_strncmp(matrix[i], "sp ", 3) == 0)
+		{
+			if (!check_sphere(matrix[i]))
+				return (false);
+		}
+		else if (ft_strncmp(matrix[i], "pl ", 3) == 0)
+		{
+			if (!check_plane(matrix[i]))
+				return (false);
+		}
+		else if (ft_strncmp(matrix[i], "cy ", 3) == 0)
+		{
+			if (!check_cylinder(matrix[i]))
+				return (false);
+		}
+		else
+		{
+			return (false);
+		}
+		i++;
 	}
-	++i;
-	if (!check_plane(matrix[i]))
-		return (false);
-	else
-	{
-		printf("La riga pl va bene[%s][%d]\n", matrix[i], i);
-		shape = true;
-	}
-	++i;
-	if (!check_cylinder(matrix[i]))
-		return (false);
-	else
-	{
-		printf("La riga cy va bene[%s][%d]\n", matrix[i], i);
-		shape = true;
-	}
-	++i;
-	return (shape);
+	return (true);
 }
