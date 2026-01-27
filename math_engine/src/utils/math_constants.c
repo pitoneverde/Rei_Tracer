@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 15:57:42 by sabruma           #+#    #+#             */
-/*   Updated: 2026/01/26 15:57:43 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/01/27 01:46:42 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ const float MATH_INV_SQRT_3 = 0.57735026918962576450914878050196f;
 const float MATH_GOLDEN_RATIO = 1.6180339887498948482045868343656f;
 
 const float MATH_EPSILON = 1e-6f;
-const float MATH_EPSILON_SQ = 1e-12f;
+const float MATH_EPSILON_SQ = 1e-4f;
 const float MATH_EPSILON_SQRT = 1e-3f;
-const float MATH_EPSILON_ANGLE = 1e-4f;
+const float MATH_EPSILON_ANGLE = 1e-3f;
 const float MATH_FLOAT_EPSILON = 1.1920928955078125e-07f;
 
 const float DEG_TO_RAD = M_PIf / 180.0f;

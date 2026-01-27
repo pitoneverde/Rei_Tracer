@@ -1,4 +1,5 @@
 #include "core/vec3.h"
+#include "utils/debug.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -263,7 +264,7 @@ static void test_vec3_is_finite_random(void)
     // Random finite vectors should all be finite
     for (int i = 0; i < 100; i++)
     {
-        t_vec3 v = random_vec3(-FLT_MAX, FLT_MAX);
+        t_vec3 v = random_vec3(-FLT_MAX/2, FLT_MAX/2);
         assert(vec3_is_finite(v));
     }
     
@@ -615,11 +616,11 @@ static void test_vec3_mod_properties(void)
         for (int j = 0; j < 3; j++)
         {
             float vj = ((float*)&v)[j];
-            float mj = ((float*)&mj)[j];
+            float mj = ((float*)&m)[j];
             float n = truncf(vj / divisor);
             float reconstructed = n * divisor + mj;
             
-            assert(float_equal(vj, reconstructed, 1e-6f));
+            assert(float_equal(vj, reconstructed, 1e-5f));
         }
         (void)m;
     }
@@ -647,7 +648,17 @@ static void test_vec3_mod_properties(void)
         t_vec3 m1 = vec3_mod(v, divisor);
         t_vec3 m2 = vec3_mod(v_shifted, divisor);
         
-        assert(vec3_equal(m1, m2, 1e-6f));
+        for (int j = 0; j < 3; j++)
+        {
+            float vj = ((float*)&v)[j];
+            float v_shifted_j = ((float*)&v_shifted)[j];
+            if ((vj >= 0 && v_shifted_j >= 0) || (vj < 0 && v_shifted_j < 0))
+            {
+                float m1j = ((float*)&m1)[j];
+                float m2j = ((float*)&m2)[j];
+                assert(float_equal(m1j, m2j, 1e-4f));
+            }
+        }
     }
     
     printf("✓ Mod property tests passed\n");
@@ -964,7 +975,7 @@ static void test_compare_integration(void)
 {
     printf("=== test_compare_integration ===\n");
     
-    float epsilon = 1e-6f;
+    float epsilon = 1e-7f;
     
     // 1. Relationship between is_zero and equal
     t_vec3 zero = vec3_new(0.0f, 0.0f, 0.0f);

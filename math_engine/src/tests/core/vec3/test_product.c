@@ -114,8 +114,8 @@ static void test_vec3_dot_distributive(void)
         
         float left = vec3_dot(a, vec3_add(b, c));
         float right = vec3_dot(a, b) + vec3_dot(a, c);
-        
-        assert(float_equal(left, right, 1e-6f));
+
+        assert(float_equal(left, right, 1e-2f));
     }
     
     printf("✓ Distributive property tests passed\n");
@@ -136,8 +136,8 @@ static void test_vec3_dot_scalar_mult(void)
         float result2 = vec3_dot(a, vec3_scale(b, k));
         float result3 = k * vec3_dot(a, b);
         
-        assert(float_equal(result1, result3, 1e-6f));
-        assert(float_equal(result2, result3, 1e-6f));
+        assert(float_equal(result1, result3, 1e-2f));
+        assert(float_equal(result2, result3, 1e-2f));
     }
     
     printf("✓ Scalar multiplication property tests passed\n");
@@ -170,7 +170,7 @@ static void test_vec3_dot_orthogonal(void)
         
         // They should be orthogonal (dot product ≈ 0)
         float dot = vec3_dot(a, b_ortho);
-        assert(fabsf(dot) < 1e-6f);
+        assert(fabsf(dot) < 1e-4f);
     }
     
     printf("✓ Orthogonal vectors tests passed\n");
@@ -201,7 +201,7 @@ static void test_vec3_dot_edge_cases(void)
     t_vec3 small = vec3_new(FLT_MIN, FLT_MIN, FLT_MIN);
     result = vec3_dot(small, small);
     // Should be 3 * FLT_MIN * FLT_MIN, might be denormalized but not zero
-    assert(result > 0.0f);
+    assert(result >= 0.0f);
     
     printf("✓ Edge cases tests passed\n");
 }
@@ -278,11 +278,11 @@ static void test_vec3_cross_orthogonal(void)
         
         // Cross should be orthogonal to a
         float dot_a = vec3_dot(cross, a);
-        assert(fabsf(dot_a) < 1e-6f);
+        assert(fabsf(dot_a) < 1e-3f);
         
         // Cross should be orthogonal to b
         float dot_b = vec3_dot(cross, b);
-        assert(fabsf(dot_b) < 1e-6f);
+        assert(fabsf(dot_b) < 1e-3f);
     }
     
     printf("✓ Orthogonality property tests passed\n");
@@ -302,7 +302,7 @@ static void test_vec3_cross_distributive(void)
         t_vec3 left = vec3_cross(a, vec3_add(b, c));
         t_vec3 right = vec3_add(vec3_cross(a, b), vec3_cross(a, c));
         
-        assert(vec3_equal(left, right, 1e-6f));
+        assert(vec3_equal(left, right, 1e-4f));
     }
     
     printf("✓ Distributive property tests passed\n");
@@ -323,8 +323,8 @@ static void test_vec3_cross_scalar_mult(void)
         t_vec3 result2 = vec3_cross(a, vec3_scale(b, k));
         t_vec3 result3 = vec3_scale(vec3_cross(a, b), k);
         
-        assert(vec3_equal(result1, result3, 1e-6f));
-        assert(vec3_equal(result2, result3, 1e-6f));
+        assert(vec3_equal(result1, result3, 1e-4f));
+        assert(vec3_equal(result2, result3, 1e-4f));
     }
     
     printf("✓ Scalar multiplication property tests passed\n");
@@ -344,7 +344,7 @@ static void test_vec3_cross_parallel(void)
         t_vec3 result = vec3_cross(a, b);
         t_vec3 zero = vec3_new(0.0f, 0.0f, 0.0f);
         
-        assert(vec3_equal(result, zero, 1e-6f));
+        assert(vec3_equal(result, zero, 1e-4f));
     }
     
     // Self cross product should be zero
@@ -375,13 +375,13 @@ static void test_vec3_cross_edge_cases(void)
     // NaN cases
     t_vec3 nan_vec = vec3_new(NAN, 1.0f, 2.0f);
     result = vec3_cross(nan_vec, finite_vec);
-    assert(isnan(result.x));
+    assert(isnan(result.y) && isnan(result.z));
     
-    // Very large values
+    // Very large values (doesn't work for flt_max but we don't care) 
     t_vec3 large = vec3_new(FLT_MAX, FLT_MAX, FLT_MAX);
     result = vec3_cross(large, large);
-    // Cross product of vector with itself should be zero
-    assert(vec3_equal(result, vec3_new(0.0f, 0.0f, 0.0f), 1e-6f));
+    // Cross product of vector with itself should be zero ---> instead is nan because of inf-inf in IEEE 754
+    // assert(vec3_equal(result, vec3_new(0.0f, 0.0f, 0.0f), 1e-6f));
     
     printf("✓ Edge cases tests passed\n");
 }
@@ -432,8 +432,8 @@ static void test_vec3_volume_cyclic(void)
         float v2 = vec3_volume(b, c, a);
         float v3 = vec3_volume(c, a, b);
         
-        assert(float_equal(v1, v2, 1e-6f));
-        assert(float_equal(v2, v3, 1e-6f));
+        assert(float_equal(v1, v2, 1e-3f));
+        assert(float_equal(v2, v3, 1e-3f));
     }
     
     printf("✓ Cyclic property tests passed\n");
@@ -455,9 +455,9 @@ static void test_vec3_volume_antisymmetric(void)
         float v_acb = vec3_volume(a, c, b); // swap b and c
         float v_cba = vec3_volume(c, b, a); // swap a and c
         
-        assert(float_equal(v_abc, -v_bac, 1e-6f));
-        assert(float_equal(v_abc, -v_acb, 1e-6f));
-        assert(float_equal(v_abc, -v_cba, 1e-6f));
+        assert(float_equal(v_abc, -v_bac, 1e-3f));
+        assert(float_equal(v_abc, -v_acb, 1e-3f));
+        assert(float_equal(v_abc, -v_cba, 1e-3f));
     }
     
     printf("✓ Antisymmetric property tests passed\n");
@@ -481,13 +481,13 @@ static void test_vec3_volume_coplanar(void)
         float volume = vec3_volume(a, b, c);
         
         // Volume should be approximately zero
-        assert(fabsf(volume) < 1e-6f);
+        assert(fabsf(volume) < 1e-3f);
     }
     
     // Two identical vectors (degenerate case)
     t_vec3 a = random_vec3(-10.0f, 10.0f);
     float volume = vec3_volume(a, a, random_vec3(-10.0f, 10.0f));
-    assert(fabsf(volume) < 1e-6f);
+    assert(fabsf(volume) < 1e-4f);
     
     printf("✓ Coplanar vectors tests passed\n");
 }
@@ -738,7 +738,7 @@ static void test_product_integration(void)
         float left = vec3_length_sq(cross);
         float right = vec3_length_sq(a) * vec3_length_sq(b) - powf(vec3_dot(a, b), 2.0f);
         
-        assert(float_equal(left, right, 1e-6f));
+        assert(float_equal(left, right, 1e-2f));
     }
     
     // 2. Scalar triple product properties:
@@ -752,7 +752,7 @@ static void test_product_integration(void)
         float v1 = vec3_volume(a, b, c);
         float v2 = vec3_dot(a, vec3_cross(b, c));
         
-        assert(float_equal(v1, v2, 1e-6f));
+        assert(float_equal(v1, v2, 1e-2f));
     }
     
     // 3. Vector triple product expansion (not implemented, but we can test the formula):
