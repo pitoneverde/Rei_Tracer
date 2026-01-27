@@ -35,6 +35,8 @@
 // 	//if
 // }
 
+#include "utils/math_constants.h"
+
 int main(int argc, char **argv)
 {
 	(void)argv;
@@ -55,8 +57,8 @@ int main(int argc, char **argv)
 	cy->color = (t_rgb)(uint32_t)0x1000FF00;	//for math & minlibx pixel
 	free(data_file);
 
-	t_vec3 a = vec3_new(MATH_LN_10, MATH_E, MATH_SQRT_2);
-	vec3_print(a);
+	// t_vec3 a = vec3_new(MATH_LN_10, MATH_E, MATH_SQRT_2);
+	// vec3_print(a);
 	
 	// if (data_file[0]->id == "cy")
     // init();
