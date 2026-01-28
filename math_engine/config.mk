@@ -17,6 +17,7 @@ CC          := cc
 # compile with -ffast-math and -march=native to get max math speed
 CFLAGS      := -Wall -Wextra -Werror -std=c99 -O0 -g -march=native #-pedantic #-ffast-math
 INCLUDES    := -I$(INCLUDE_DIR) #-I$(INCLUDE_MINIRT_DIR)
-LDFLAGS		:= -lm
+# scommentare se si usa gcc
+# LDFLAGS		:= -lm
 AR          := ar
 ARFLAGS     := rcs

@@ -43,23 +43,27 @@ int main(int argc, char **argv)
 	//printf("[come e' andata: %d]\n", check_a_ok("A 0.2 255,255,255"));
 	if (argc > 2)
 		PRINT_ERR("Invalid argument count: %d", argc);
-	t_element	*data_file = malloc(sizeof(t_element));
+	t_element	*data_file;
+	data_file = NULL;
 	if (!data_file) PRINT_ERR("Malloc error: @data_file init");
-	parse_input(argc, argv, data_file);
+	//parse_input(argc, argv, data_file);
 	
-	data_file->id = "cy";
-	t_cylinder *cy = (t_cylinder *)&data_file->value;
-	cy->center = (t_point3){.x = 0.0, .y = 0.0, .z = 1.0};
-	cy->axis = (t_vector3){.x = 0.0, .y = 0.0, .z = 1.0};
-	cy->diameter = 14.2;
-	cy->height = 21.42;
-	cy->color = (t_rgb)(t_color){10, 0, 255, 0}; //parsing & manipulation
-	cy->color = (t_rgb)(uint32_t)0x1000FF00;	//for math & minlibx pixel
-	free(data_file);
+	// data_file->id = "cy";
+	// t_cylinder *cy = (t_cylinder *)&data_file->value;
+	// cy->center = (t_point3){.x = 0.0, .y = 0.0, .z = 1.0};
+	// cy->axis = (t_vector3){.x = 0.0, .y = 0.0, .z = 1.0};
+	// cy->diameter = 14.2;
+	// cy->height = 21.42;
+	// cy->color = (t_rgb)(t_color){10, 0, 255, 0}; //parsing & manipulation
+	// cy->color = (t_rgb)(uint32_t)0x1000FF00;	//for math & minlibx pixel
+	// free(data_file);
 
 	// t_vec3 a = vec3_new(MATH_LN_10, MATH_E, MATH_SQRT_2);
 	// vec3_print(a);
 	
+	t_vec3 a = vec3_new(10.0f, 3.4f, 4.5f);
+	t_vec3 norm = vec3_normalize(a);
+	(void)norm;
 	// if (data_file[0]->id == "cy")
     // init();
     // launch();

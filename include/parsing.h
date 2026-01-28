@@ -1,7 +1,6 @@
 #ifndef PARSING_H
 # define PARSING_H 1
 
-
 // utility per parsing
 bool	check_n_comma(char *s, int n_comma);
 int	ft_word_count(char *str);
@@ -24,9 +23,12 @@ bool	check_cylinder(char *str);
 bool	check_matrix_data_is_good(char **matrix);
 
 //funzione chiamata nel main che controlla il numero di '\n' minimo e la lunghezza minima della stringa
-bool    parse_input(int argc, char **argv, t_element *data_file);
+bool    parse_input(int argc, char **argv, t_element *elements);
 
 //utility per debug
 void	print_debug_matrix(char **matrix);
+
+//init dei dati
+void    init_data_minirt(char *s, t_element *elements);
 
 #endif

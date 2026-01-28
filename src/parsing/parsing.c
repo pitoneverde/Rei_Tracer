@@ -272,12 +272,11 @@ bool	readable_file_and_check_input(char *s1)
 	return (true);
 }
 
-bool    parse_input(int argc, char **argv, t_element *data_file)
+bool    parse_input(int argc, char **argv, t_element *elements)
 {
-	(void)data_file;
 	if (argc != 2)
 	{
-       	//printf("Usage: ./minirt <scene_file.rt>\n");
+        	//printf("Usage: ./minirt <scene_file.rt>\n");
 		//return (false);
 		return(ERR_BAD_DATA);
 	}
@@ -294,6 +293,7 @@ bool    parse_input(int argc, char **argv, t_element *data_file)
 		free(s1);
 		return (false);
 	}
+	init_data_minirt(s1, elements);
 	free(s1);
 	return (true);
 }

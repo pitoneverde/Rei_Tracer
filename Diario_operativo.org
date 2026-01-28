@@ -106,3 +106,6 @@ Consolidato e ripassato appunti correnti. Aggiunto: sottospazi e somma diretta (
 Dualita' di cardinalita' e dimensione. Notazione in delta. Lemma di Zorn e basi di Hamel (con dimostrazione). Trasformazioni lineari. Spazio nullo,
 immagini, controimmagini, spazio duale. Trasformazioni inettive, suriettive, invertibili. Teorema del rango in forma generale, isomorfismi e funtori.
 Devo ancora finire di scrivere gli appunti, poi mi preparo per l'esame.
+
+28/01/2026 gmu 18:35
+comincio l'init dei dati ma e' in wip ci penso domani dopo l'esame
