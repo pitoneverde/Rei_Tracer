@@ -61,4 +61,7 @@ typedef struct s_element
 	} value;
 } t_element;
 
+t_rgb rgb_new(uint8_t red, uint8_t green, uint8_t blue);
+t_rgb rgb_from_hex(uint32_t hex);
+
 #endif

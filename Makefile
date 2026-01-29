@@ -12,6 +12,7 @@ SRCS = $(SRC_DIR)/main.c \
 		$(SRC_DIR)/parsing/check_cylinder.c \
 		$(SRC_DIR)/parsing/parsing_utils.c \
 		$(SRC_DIR)/parsing/init_data_minirt.c \
+		$(SRC_DIR)/utils/utils.c
 
 HEADERS_DIR = include
 HEADS = $(HEADERS_DIR)/minirt.h \

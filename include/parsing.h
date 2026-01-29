@@ -23,12 +23,12 @@ bool	check_cylinder(char *str);
 bool	check_matrix_data_is_good(char **matrix);
 
 //funzione chiamata nel main che controlla il numero di '\n' minimo e la lunghezza minima della stringa
-bool    parse_input(int argc, char **argv, t_element *elements);
+t_element *parse_input(int argc, char **argv);
 
 //utility per debug
 void	print_debug_matrix(char **matrix);
 
 //init dei dati
-void    init_data_minirt(char *s, t_element *elements);
+t_element *init_data_minirt(char *s);
 
 #endif

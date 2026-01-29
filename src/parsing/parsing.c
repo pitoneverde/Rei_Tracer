@@ -235,7 +235,7 @@ bool	parse_matrix(char *s1)
 	matrix = ft_split(s1, '\n');
 	matrix = matrix_compress(matrix);
 	print_debug_matrix(matrix); // da togliere
-	if ((mtx_count((void **)matrix) < 4) || (matrix_strlen_check((char **)matrix)))
+	if ((mtx_count((void **)matrix) < 4) || (matrix_strlen_check(matrix)))
 	{
 		mtxfree_str(matrix);
 		PRINT_ERR("Error: too few items or missing data\n");
@@ -272,28 +272,28 @@ bool	readable_file_and_check_input(char *s1)
 	return (true);
 }
 
-bool    parse_input(int argc, char **argv, t_element *elements)
+t_element *parse_input(int argc, char **argv)
 {
 	if (argc != 2)
 	{
         	//printf("Usage: ./minirt <scene_file.rt>\n");
 		//return (false);
-		return(ERR_BAD_DATA);
+		return(NULL);
 	}
 	int	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 	{
 		PRINT_ERR("Error: %s does not exist or cannot access\n", argv[1]);
-		return(false);
+		return(NULL);
 	}
 	char *s1 = read_from_file(fd);
 	close(fd);
 	if (!readable_file_and_check_input(s1))
 	{
 		free(s1);
-		return (false);
+		return (NULL);
 	}
-	init_data_minirt(s1, elements);
+	t_element *elements = init_data_minirt(s1);
 	free(s1);
-	return (true);
+	return (elements);
 }
