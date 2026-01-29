@@ -32,9 +32,7 @@ bool	check_matrix_data_is_good(char **matrix)
 				return (false);
 		}
 		else
-		{
 			return (false);
-		}
 		i++;
 	}
 	return (true);

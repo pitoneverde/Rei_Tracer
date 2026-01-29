@@ -47,6 +47,54 @@ void	init_data_light(char *s, t_element *element)
 	mtxfree_str(rgb);
 }
 
+void	init_data_sphere(char *s, t_element *element)
+{
+	char	**matrix = ft_split(s, ' ');
+	char	**coordinates = ft_split(matrix[1], ',');
+	char	**rgb = ft_split(matrix[3], ',');
+
+	t_sphere *sphere = (t_sphere *)&(element->value);
+	sphere->center = (t_point3)vec3_new(atof(coordinates[0]), atof(coordinates[1]), atof(coordinates[2]));
+	sphere->diameter = atof(matrix[2]);
+	sphere->color = rgb_new((uint8_t)ft_atoi(rgb[0]), (uint8_t)ft_atoi(rgb[1]), (uint8_t)ft_atoi(rgb[2]));
+	mtxfree_str(matrix);
+	mtxfree_str(coordinates);
+	mtxfree_str(rgb);
+}
+void	init_data_plane(char *s, t_element *element)
+{
+	char	**matrix = ft_split(s, ' ');
+	char	**point = ft_split(matrix[1], ',');
+	char	**normal = ft_split(matrix[2], ',');
+	char	**rgb = ft_split(matrix[3], ',');
+
+	t_plane *plane = (t_plane *)&(element->value);
+	plane->point = (t_point3)vec3_new(atof(point[0]), atof(point[1]), atof(point[2]));
+	plane->normal = (t_point3)vec3_new(atof(normal[0]), atof(normal[1]), atof(normal[2]));
+	plane->color = rgb_new((uint8_t)ft_atoi(rgb[0]), (uint8_t)ft_atoi(rgb[1]), (uint8_t)ft_atoi(rgb[2]));
+	mtxfree_str(matrix);
+	mtxfree_str(point);
+	mtxfree_str(normal);
+	mtxfree_str(rgb);
+}
+void	init_data_cylinder(char *s, t_element *element)
+{
+	char	**matrix = ft_split(s, ' ');
+	char	**center = ft_split(matrix[1], ',');
+	char	**axis = ft_split(matrix[2], ',');
+	char	**rgb = ft_split(matrix[5], ',');
+	t_cylinder *cylinder = (t_cylinder *)&(element->value);
+	cylinder->center = (t_point3)vec3_new(atof(center[0]), atof(center[1]), atof(center[2]));
+	cylinder->axis = (t_vector3)vec3_new(atof(axis[0]), atof(axis[1]), atof(axis[2]));
+	cylinder->diameter = atof(matrix[3]);
+	cylinder->height = atof(matrix[4]);
+	cylinder->color = rgb_new((uint8_t)ft_atoi(rgb[0]), (uint8_t)ft_atoi(rgb[1]), (uint8_t)ft_atoi(rgb[2]));
+	mtxfree_str(matrix);
+	mtxfree_str(center);
+	mtxfree_str(axis);
+	mtxfree_str(rgb);
+}
+
 t_element *init_data_minirt(char *s)
 {
 	char	**matrix = ft_split(s, '\n');
@@ -61,6 +109,22 @@ t_element *init_data_minirt(char *s)
 	init_data_camera(matrix[i++], &elements[1]);
 	elements[2].id = "L";
 	init_data_light(matrix[i++], &elements[2]);
+	//... e cosi via per gli altri elementi
+
+	while (matrix[i] != NULL)
+	{
+		if (ft_strncmp(matrix[i], "sp ", 3) == 0)
+			init_data_sphere(matrix[i], &elements[i]);
+		else if (ft_strncmp(matrix[i], "pl ", 3) == 0)
+			init_data_plane(matrix[i], &elements[i]);
+		else if (ft_strncmp(matrix[i], "cy ", 3) == 0)
+			init_data_cylinder(matrix[i], &elements[i]);
+		else
+		{
+			return (NULL);
+		}
+		i++;
+	}
 	mtxfree_str(matrix);
 	return (elements);
 }

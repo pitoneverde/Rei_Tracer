@@ -109,3 +109,6 @@ Devo ancora finire di scrivere gli appunti, poi mi preparo per l'esame.
 
 28/01/2026 gmu 18:35
 comincio l'init dei dati ma e' in wip ci penso domani dopo l'esame
+
+29/01/2026 gmu 19:01
+E' finito l'init dei dati
