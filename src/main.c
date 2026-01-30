@@ -65,7 +65,7 @@ int main(int argc, char **argv)
 
 	// t_vec3 a = vec3_new(MATH_LN_10, MATH_E, MATH_SQRT_2);
 	// vec3_print(a);
-	
+	//mlx_init_windows_minirt(&data_file);
 	t_vec3 a = vec3_new(10.0f, 3.4f, 4.5f);
 	t_vec3 norm = vec3_normalize(a);
 	(void)norm;

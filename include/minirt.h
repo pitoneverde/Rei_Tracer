@@ -19,6 +19,7 @@
 
 // to move into parser.h when split files
 #include "minirt_data.h"
-#include "parsing.h"
+#include "parsing_minirt.h"
+#include "mlx_minirt.h"
 
 #endif

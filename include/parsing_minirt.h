@@ -1,5 +1,5 @@
-#ifndef PARSING_H
-# define PARSING_H 1
+#ifndef PARSING_MINIRT_H
+# define PARSING_MINIRT_H 1
 
 // utility per parsing
 bool	check_n_comma(char *s, int n_comma);
