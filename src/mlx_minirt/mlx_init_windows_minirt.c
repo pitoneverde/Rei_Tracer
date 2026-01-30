@@ -1,3 +1,11 @@
+#include "minirt.h"
+
+void	free_all_minirt(t_element *data_file)
+{
+	free(data_file);
+	exit(0);
+}
+
 void    mlx_init_windows_minirt(t_element *data_file)
 {
 	// cose assolutamente obbligatorie per mlx
@@ -10,7 +18,7 @@ void    mlx_init_windows_minirt(t_element *data_file)
 	int line_lenght;
 	int endian;
 	char	*addr = mlx_get_data_addr(img, &bit_per_pixel, &line_lenght, &endian);
-
+	
 	//altre cose assolutament obbligatorie per mlx
 	mlx_put_image_to_window(mlx, win, img, 0, 0);
 	mlx_hook(win, 17, 1 << 17, free_all_minirt, &data_file);
