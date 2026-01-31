@@ -115,3 +115,6 @@ E' finito l'init dei dati
 
 30/01/2026 gmu 17:33
 fatto alcune cose per mlx
+
+31/01/2026 gmu 18:03
+adesso la finestra apre ma dobbiamo cominciare a disegnare dentro quella finestra, funziona il tasto esc e cliccare la 'x' chiude e libera correttamente
