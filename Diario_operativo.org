@@ -104,7 +104,7 @@ il parsing e' completo e dovrebbe funzionare
 28/01/2026 dabruma 01:42
 Consolidato e ripassato appunti correnti. Aggiunto: sottospazi e somma diretta (dimostrata), spazi di funzioni, spazi polinomiali, spazi di tutte le funzioni.
 Dualita' di cardinalita' e dimensione. Notazione in delta. Lemma di Zorn e basi di Hamel (con dimostrazione). Trasformazioni lineari. Spazio nullo,
-immagini, controimmagini, spazio duale. Trasformazioni inettive, suriettive, invertibili. Teorema del rango in forma generale, isomorfismi e funtori.
+immagini, nuclei, spazio duale. Trasformazioni inettive, suriettive, invertibili. Teorema del rango in forma generale, isomorfismi e funtori.
 Devo ancora finire di scrivere gli appunti, poi mi preparo per l'esame.
 
 28/01/2026 gmu 18:35
@@ -118,3 +118,9 @@ fatto alcune cose per mlx
 
 31/01/2026 gmu 18:03
 adesso la finestra apre ma dobbiamo cominciare a disegnare dentro quella finestra, funziona il tasto esc e cliccare la 'x' chiude e libera correttamente
+
+02/02/2026 sabruma 19:28
+Iniziati appunti sulle matrici: intese come trasformazioni lineari, teorema del rango e suo significato geometrico, 
+operazioni su matrici (addizione, moltiplicazione scalare e tra matrici). Trasformazioni invertibili e isomorfismi. Teorema fondamentale dell'algebra lineare,
+Spazio nullo, immagine, nucleo, spazio nullo sinistro applicati alle matrici. Riduzione tramite row echelon form, reduced row echelon form.
+Moltiplicazione tra matrici equivalente alla composizione di trasformazioni lineari. Trasformazioni affini, proiettive, coordinate omogenee e proprieta'.
