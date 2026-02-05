@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 17:23:04 by sabruma           #+#    #+#             */
-/*   Updated: 2026/02/05 18:57:20 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/02/05 20:01:18 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ inline t_mat4	mat4_sub(t_mat4 a, t_mat4 b)
 	});
 }
 
+// very heavy, irreducibile due to math limits, O(n^3)
+// use only when really necessary, prefer precomputed matrices
 t_mat4	mat4_mul(t_mat4 a, t_mat4 b)
 {
 	int		i;

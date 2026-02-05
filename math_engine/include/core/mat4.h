@@ -33,6 +33,7 @@ t_mat4	mat4_scale(t_mat4 m, float scalar);
 t_mat4	mat4_neg(t_mat4 m);
 
 // ===== TRANSFORMATIONS (RT ESSENTIALS) =====
+// all rotations in radians, should convert before
 
 t_mat4	mat4_translation(t_vec3 translation);
 t_mat4	mat4_scaling(t_vec3 scale);
@@ -51,7 +52,7 @@ t_mat4	mat4_inverse(t_mat4 m);
 t_mat4	mat4_transpose(t_mat4 m);
 float	mat4_trace(t_mat4 m);
 
-bool	mat4_is_affine(t_mat4 m);
+bool	mat4_is_affine(t_mat4 m, float epsilon);
 bool	mat4_is_orthogonal(t_mat4 m, float epsilon);
 bool	mat4_is_identity(t_mat4 m, float epsilon);
 
@@ -61,9 +62,9 @@ bool	mat4_is_finite(t_mat4 m);
 
 // ===== VECTOR TRANSFORMATIONS =====
 
-t_vec3	mat4_transform_point(t_mat4 m, t_vec3 point);
-t_vec3	mat4_transform_vector(t_mat4 m, t_vec3 vector);
-t_vec3	mat4_transform_normal(t_mat4 m, t_vec3 normal);
+t_vec3	mat4_transform_point(t_mat4 m, t_vec3 p);
+t_vec3	mat4_transform_vector(t_mat4 m, t_vec3 v);
+t_vec3	mat4_transform_normal(t_mat4 m, t_vec3 n);
 
 // ===== DECOMPOSITION =====
 
