@@ -88,3 +88,18 @@ void	mat4_to_float_array(t_mat4 m, float out[16]);
 // t_mat4	mat4_perspective(float fov, float aspect, float near, float far);
 
 #endif
+
+// TODOS:
+/*
+t_mat4	mat4_look_at(t_vec3 eye, t_vec3 target, t_vec3 up)
+float	mat4_determinant(t_mat4 m)
+t_mat4	mat4_inverse(t_mat4 m)
+t_mat4	mat4_rotation_axis(t_vec3 axis, float angle)
+void	mat4_decompose(t_mat4 m, t_vec3 *translation, t_vec3 *rotation, t_vec3 *scale)
+t_vec3	mat4_get_translation(t_mat4 m)
+t_vec3	mat4_get_scale(t_mat4 m)
+t_mat4	mat4_align_vectors(t_vec3 from, t_vec3 to)
+t_mat4	mat4_billboard(t_vec3 position, t_vec3 camera_pos, t_vec3 camera_up)
+t_mat4	mat4_lerp(t_mat4 a, t_mat4 b, float t)
+
+*/

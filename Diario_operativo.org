@@ -130,3 +130,5 @@ Conclusi appunti sulle matrici, inziato modulo mat4 per la gestione di vettori e
 di geometria per la parte sulle trasformazioni affini e prospettiche che non e' inclusa in genere dentro algebra lineare.
 Dato un senso agli header e commentato dove necessario, mantenendo un'organizzazione piu' pulita che faceva cagare e non si capiva na sega. Se tutto va bene il
 modulo sara' testabile entro sabato, intanto parallelamente continuo lo studio della parte matematica per mantenere rigore.
+P.S. Ho lasciato da fare le 10 funzioni piu' complicate per quando saro' in grado, per oggi no more code (e quello che ho scritto e' da testare, probabile che si rompa come niente)
+
