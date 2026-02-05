@@ -20,80 +20,79 @@ typedef struct s_vec3
 #include "core/constants.h"
 #include <stdbool.h>
 
-// create
+// ===== CORE CREATION & BASIC OPERATIONS =====
+
 t_vec3	vec3_new(float x, float y, float z);
 t_vec3	vec3_from_scalar(float s);
 
-// basic operations
-// vector + vector = vector
-// point + vector = point
-// point - point = vector
-// vector scalar multiplication/division (scale)
 t_vec3	vec3_add(t_vec3 a, t_vec3 b);
 t_vec3	vec3_sub(t_vec3 a, t_vec3 b);
 t_vec3	vec3_neg(t_vec3 v); // = -v
 t_vec3	vec3_scale(t_vec3 v, float s);
 
-// product
-// vector dot product
-// vector cross product
-// vector triple product (scalar)
-// vector triple product (vectorial)
 float	vec3_dot(t_vec3 a, t_vec3 b);
 t_vec3	vec3_cross(t_vec3 a, t_vec3 b);
-float	vec3_volume(t_vec3 a, t_vec3 b, t_vec3 c);	//triple product a.(b x c)
-// t_vec3 vec3_triple(t_vec3 a, t_vec3 b, t_vec3 c);
+float	vec3_volume(t_vec3 a, t_vec3 b, t_vec3 c);
+t_vec3 vec3_triple(t_vec3 a, t_vec3 b, t_vec3 c);
 
-// component-wise operations
+// ===== COMPONENT-WISE OPERATIONS =====
+
 t_vec3	vec3_mul_comp(t_vec3 a, t_vec3 b);
 t_vec3	vec3_div_comp(t_vec3 a, t_vec3 b);
 t_vec3	vec3_min_comp(t_vec3 a, t_vec3 b);
 t_vec3	vec3_max_comp(t_vec3 a, t_vec3 b);
 
-// vector length and lenght_squared (avoid sqrt)
+// ===== LENGTH & NORMALIZATION =====
+
 float	vec3_length(t_vec3 v);
-float	vec3_length_sq(t_vec3 v);	// faster, no sqrt
-// vector normalize
+float	vec3_length_sq(t_vec3 v);
+
 t_vec3	vec3_normalize(t_vec3 v);
-t_vec3	vec3_normalize_or(t_vec3 v, t_vec3 fallback);	// for zero-length
+t_vec3	vec3_normalize_or(t_vec3 v, t_vec3 fallback);
 bool	vec3_is_normalized(t_vec3 v);
 
-// projections and distance (between points)
-t_vec3	vec3_project(t_vec3 v, t_vec3 onto);
-t_vec3	vec3_reject(t_vec3 v, t_vec3 onto);
-float	vec3_distance(t_vec3 a, t_vec3 b);
-float	vec3_distance_sq(t_vec3 a, t_vec3 b);
+// ===== ANGLES & DIRECTIONS =====
 
-// angles and direction
 float	vec3_angle(t_vec3 a, t_vec3 b);
 float	vec3_signed_angle(t_vec3 a, t_vec3 b, t_vec3 axis);
 bool	vec3_is_parallel(t_vec3 a, t_vec3 b, float epsilon);
 bool	vec3_is_perpendicular(t_vec3 a, t_vec3 b, float epsilon);
 
-// coordinate systems
-void	vec3_coordinate_system(t_vec3 a, t_vec3 *b, t_vec3 *c);	// build orthonormal basis 
-//t_vec3 vec3_orthonormal_basis(t_vec3 n, t_vec3* tangent, t_vec3* bitangent); // faster, use in hot path
+// ===== COORDINATE SYSTEMS =====
 
-// point-specific
+void	vec3_coordinate_system(t_vec3 a, t_vec3 *b, t_vec3 *c); 
+//t_vec3 vec3_orthonormal_basis(t_vec3 n, t_vec3* tangent, t_vec3* bitangent); // faster, use in hot path (cross-product)
+
+// ===== PROJECTIONS =====
+
+t_vec3	vec3_project(t_vec3 v, t_vec3 onto);
+t_vec3	vec3_reject(t_vec3 v, t_vec3 onto);
+
+// ===== POINT-SPECIFIC =====
+
+float	vec3_distance(t_vec3 a, t_vec3 b);
+float	vec3_distance_sq(t_vec3 a, t_vec3 b);
 // t_vec3 vec3_midpoint(t_vec3 a, t_vec3 b);
 // t_vec3 vec3_barycentric(t_vec3 a, t_vec3 b, t_vec3 c, float u, float v);
 
-// comparisons
+// ===== COMPARISONS =====
+//use _comp variant to minmax 2 vectors
+
 bool	vec3_equal(t_vec3 a, t_vec3 b, float epsilon);
 bool	vec3_is_zero(t_vec3 v, float epsilon);
 bool	vec3_is_finite(t_vec3 v);
 bool	vec3_any_nan(t_vec3 v);
 
-// utils
+float	vec3_min(t_vec3 v);
+float	vec3_max(t_vec3 v);
+
+// ===== UTILS =====
 t_vec3	vec3_abs(t_vec3 v);
 t_vec3	vec3_floor(t_vec3 v);
 t_vec3	vec3_ceil(t_vec3 v);
 t_vec3	vec3_round(t_vec3 v);
 t_vec3	vec3_mod(t_vec3 v, float divisor);
 
-// minmax, use _comp variant to minmax 2 vectors
-float	vec3_min(t_vec3 v);	//min coord
-float	vec3_max(t_vec3 v);	//max coord
 
 // t_vec3 vec3_fract(t_vec3 v);		//fractional part for shaders
 // t_vec3 vec3_clamp(t_vec3 v, float min_val, float max_val);

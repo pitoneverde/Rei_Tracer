@@ -6,11 +6,16 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 20:00:50 by sabruma           #+#    #+#             */
-/*   Updated: 2026/01/26 22:44:25 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/02/05 17:25:21 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "core/vec3.h"
+
+// basic operations
+// vector + vector = vector
+// point + vector = point
+// point - point = vector
 
 inline t_vec3	vec3_add(t_vec3 a, t_vec3 b)
 {

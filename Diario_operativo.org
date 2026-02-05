@@ -101,7 +101,7 @@ studio i quaternioni per le rotazioni.
 27/01/2026 gmu 11:42
 il parsing e' completo e dovrebbe funzionare
 
-28/01/2026 dabruma 01:42
+28/01/2026 sabruma 01:42
 Consolidato e ripassato appunti correnti. Aggiunto: sottospazi e somma diretta (dimostrata), spazi di funzioni, spazi polinomiali, spazi di tutte le funzioni.
 Dualita' di cardinalita' e dimensione. Notazione in delta. Lemma di Zorn e basi di Hamel (con dimostrazione). Trasformazioni lineari. Spazio nullo,
 immagini, nuclei, spazio duale. Trasformazioni inettive, suriettive, invertibili. Teorema del rango in forma generale, isomorfismi e funtori.
@@ -124,3 +124,9 @@ Iniziati appunti sulle matrici: intese come trasformazioni lineari, teorema del 
 operazioni su matrici (addizione, moltiplicazione scalare e tra matrici). Trasformazioni invertibili e isomorfismi. Teorema fondamentale dell'algebra lineare,
 Spazio nullo, immagine, nucleo, spazio nullo sinistro applicati alle matrici. Riduzione tramite row echelon form, reduced row echelon form.
 Moltiplicazione tra matrici equivalente alla composizione di trasformazioni lineari. Trasformazioni affini, proiettive, coordinate omogenee e proprieta'.
+
+05/05/2026 sabruma 17:33
+Conclusi appunti sulle matrici, inziato modulo mat4 per la gestione di vettori e trasformazioni in coordinate omogenee. Ho anche trovato dei libri interessanti
+di geometria per la parte sulle trasformazioni affini e prospettiche che non e' inclusa in genere dentro algebra lineare.
+Dato un senso agli header e commentato dove necessario, mantenendo un'organizzazione piu' pulita che faceva cagare e non si capiva na sega. Se tutto va bene il
+modulo sara' testabile entro sabato, intanto parallelamente continuo lo studio della parte matematica per mantenere rigore.

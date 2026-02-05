@@ -1,32 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vec3_minmax.c                                      :+:      :+:    :+:   */
+/*   mat4_basic.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/22 22:39:07 by sabruma           #+#    #+#             */
-/*   Updated: 2026/02/05 17:32:02 by sabruma          ###   ########.fr       */
+/*   Created: 2026/02/05 17:23:04 by sabruma           #+#    #+#             */
+/*   Updated: 2026/02/05 17:23:05 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "core/vec3.h"
-#include <math.h>
+#include "core/mat4.h"
 
-// Minimum coordinate
-inline float	vec3_min(t_vec3 v)
+// Basic operations
+
+t_mat4	mat4_add(t_mat4 a, t_mat4 b)
 {
-	float	t;
 
-	t = fminf(v.x, v.y);
-	return (fminf(t, v.z));
 }
 
-// Maximum coordinate
-inline float	vec3_max(t_vec3 v)
+t_mat4	mat4_sub(t_mat4 a, t_mat4 b)
 {
-	float	t;
 
-	t = fmaxf(v.x, v.y);
-	return (fmaxf(t, v.z));
+}
+
+t_mat4	mat4_mul(t_mat4 a, t_mat4 b)
+{
+
+}
+
+t_mat4	mat4_scale(t_mat4 m, float scalar)
+{
+
+}
+
+t_mat4	mat4_neg(t_mat4 m)
+{
+	
 }

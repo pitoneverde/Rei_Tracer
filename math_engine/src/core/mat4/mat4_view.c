@@ -1,32 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vec3_minmax.c                                      :+:      :+:    :+:   */
+/*   mat4_view.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/22 22:39:07 by sabruma           #+#    #+#             */
-/*   Updated: 2026/02/05 17:32:02 by sabruma          ###   ########.fr       */
+/*   Created: 2026/02/05 17:24:15 by sabruma           #+#    #+#             */
+/*   Updated: 2026/02/05 17:24:20 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "core/vec3.h"
-#include <math.h>
+#include "core/mat4.h"
 
-// Minimum coordinate
-inline float	vec3_min(t_vec3 v)
+// View matrix (essential for RT cameras)
+
+t_mat4	mat4_look_at(t_vec3 eye, t_vec3 target, t_vec3 up)
 {
-	float	t;
-
-	t = fminf(v.x, v.y);
-	return (fminf(t, v.z));
-}
-
-// Maximum coordinate
-inline float	vec3_max(t_vec3 v)
-{
-	float	t;
-
-	t = fmaxf(v.x, v.y);
-	return (fmaxf(t, v.z));
+	
 }

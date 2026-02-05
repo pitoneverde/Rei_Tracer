@@ -1,32 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vec3_minmax.c                                      :+:      :+:    :+:   */
+/*   mat4_compare.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/22 22:39:07 by sabruma           #+#    #+#             */
-/*   Updated: 2026/02/05 17:32:02 by sabruma          ###   ########.fr       */
+/*   Created: 2026/02/05 17:23:11 by sabruma           #+#    #+#             */
+/*   Updated: 2026/02/05 17:23:32 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "core/vec3.h"
-#include <math.h>
+#include "core/mat4.h"
 
-// Minimum coordinate
-inline float	vec3_min(t_vec3 v)
+bool	mat4_equal(t_mat4 a, t_mat4 b, float epsilon)
 {
-	float	t;
 
-	t = fminf(v.x, v.y);
-	return (fminf(t, v.z));
 }
 
-// Maximum coordinate
-inline float	vec3_max(t_vec3 v)
+bool	mat4_any_nan(t_mat4 m)
 {
-	float	t;
 
-	t = fmaxf(v.x, v.y);
-	return (fmaxf(t, v.z));
+}
+
+bool	mat4_is_finite(t_mat4 m)
+{
+	
 }

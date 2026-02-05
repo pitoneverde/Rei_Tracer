@@ -1,32 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vec3_minmax.c                                      :+:      :+:    :+:   */
+/*   mat4_create.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/22 22:39:07 by sabruma           #+#    #+#             */
-/*   Updated: 2026/02/05 17:32:02 by sabruma          ###   ########.fr       */
+/*   Created: 2026/02/05 17:23:36 by sabruma           #+#    #+#             */
+/*   Updated: 2026/02/05 17:23:37 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "core/vec3.h"
-#include <math.h>
+#include "core/mat4.h"
 
-// Minimum coordinate
-inline float	vec3_min(t_vec3 v)
+t_mat4	mat4_identity(void)
 {
-	float	t;
 
-	t = fminf(v.x, v.y);
-	return (fminf(t, v.z));
 }
 
-// Maximum coordinate
-inline float	vec3_max(t_vec3 v)
+t_mat4	mat4_zero(void)
 {
-	float	t;
 
-	t = fmaxf(v.x, v.y);
-	return (fmaxf(t, v.z));
+}
+
+t_mat4	mat4_from_rows(t_vec3 row0, t_vec3 row1, t_vec3 row2, t_vec3 row3)
+{
+
+}
+
+t_mat4	mat4_from_cols(t_vec3 col0, t_vec3 col1, t_vec3 col2, t_vec3 col3)
+{
+
+}
+
+t_mat4	mat4_from_float_array(const float arr[16])
+{
+
 }

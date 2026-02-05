@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vec3_minmax.c                                      :+:      :+:    :+:   */
+/*   mat4_decompose.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/22 22:39:07 by sabruma           #+#    #+#             */
-/*   Updated: 2026/02/05 17:32:02 by sabruma          ###   ########.fr       */
+/*   Created: 2026/02/05 17:23:40 by sabruma           #+#    #+#             */
+/*   Updated: 2026/02/05 17:23:41 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "core/vec3.h"
-#include <math.h>
+#include "core/mat4.h"
 
-// Minimum coordinate
-inline float	vec3_min(t_vec3 v)
+// Extract components from transform matrix
+void	mat4_decompose(t_mat4 m, t_vec3 *translation, t_vec3 *rotation, t_vec3 *scale)
 {
-	float	t;
 
-	t = fminf(v.x, v.y);
-	return (fminf(t, v.z));
 }
 
-// Maximum coordinate
-inline float	vec3_max(t_vec3 v)
+t_vec3	mat4_get_translation(t_mat4 m)
 {
-	float	t;
 
-	t = fmaxf(v.x, v.y);
-	return (fmaxf(t, v.z));
+}
+
+t_vec3	mat4_get_scale(t_mat4 m)
+{
+
 }

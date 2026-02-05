@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vec3_minmax.c                                      :+:      :+:    :+:   */
+/*   mat4_transform.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/22 22:39:07 by sabruma           #+#    #+#             */
-/*   Updated: 2026/02/05 17:32:02 by sabruma          ###   ########.fr       */
+/*   Created: 2026/02/05 17:24:06 by sabruma           #+#    #+#             */
+/*   Updated: 2026/02/05 17:24:07 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "core/vec3.h"
-#include <math.h>
+#include "core/mat4.h"
 
-// Minimum coordinate
-inline float	vec3_min(t_vec3 v)
+// Transform point (w=1, includes translation)
+t_vec3	mat4_transform_point(t_mat4 m, t_vec3 point)
 {
-	float	t;
 
-	t = fminf(v.x, v.y);
-	return (fminf(t, v.z));
 }
 
-// Maximum coordinate
-inline float	vec3_max(t_vec3 v)
+// Transform vector (w=0, excludes translation - for directions)
+t_vec3	mat4_transform_vector(t_mat4 m, t_vec3 vector)
 {
-	float	t;
 
-	t = fmaxf(v.x, v.y);
-	return (fmaxf(t, v.z));
+}
+
+// Transform normal (inverse-transpose for non-uniform scaling)
+t_vec3	mat4_transform_normal(t_mat4 m, t_vec3 normal)
+{
+
 }

@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vec3_minmax.c                                      :+:      :+:    :+:   */
+/*   mat4_special.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/22 22:39:07 by sabruma           #+#    #+#             */
-/*   Updated: 2026/02/05 17:32:02 by sabruma          ###   ########.fr       */
+/*   Created: 2026/02/05 17:24:01 by sabruma           #+#    #+#             */
+/*   Updated: 2026/02/05 17:24:04 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "core/vec3.h"
-#include <math.h>
+#include "core/mat4.h"
 
-// Minimum coordinate
-inline float	vec3_min(t_vec3 v)
+// Build rotation matrix that aligns 'from' vector to 'to' vector
+t_mat4	mat4_align_vectors(t_vec3 from, t_vec3 to)
 {
-	float	t;
-
-	t = fminf(v.x, v.y);
-	return (fminf(t, v.z));
+	
 }
 
-// Maximum coordinate
-inline float	vec3_max(t_vec3 v)
+// Create billboard matrix (faces camera, useful for sprites/quads)
+t_mat4	mat4_billboard(t_vec3 position, t_vec3 camera_pos, t_vec3 camera_up)
 {
-	float	t;
 
-	t = fmaxf(v.x, v.y);
-	return (fmaxf(t, v.z));
+}
+
+// Linear interpolation
+t_mat4	mat4_lerp(t_mat4 a, t_mat4 b, float t)
+{
+
 }
