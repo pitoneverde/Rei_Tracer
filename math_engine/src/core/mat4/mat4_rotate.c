@@ -54,4 +54,7 @@ t_mat4	mat4_rotation_z(float angle)
 t_mat4	mat4_rotation_axis(t_vec3 axis, float angle)
 {
 	// TODO
+	(void)axis;
+	(void)angle;
+	return ((t_mat4){0});
 }

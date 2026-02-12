@@ -17,4 +17,8 @@
 t_mat4	mat4_look_at(t_vec3 eye, t_vec3 target, t_vec3 up)
 {
 	// TODO
+	(void)eye;
+	(void)target;
+	(void)up;
+	return ((t_mat4){0});
 }

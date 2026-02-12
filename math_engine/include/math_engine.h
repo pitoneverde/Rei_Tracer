@@ -6,6 +6,7 @@
 #include <math.h>
 
 #include "core/vec3.h"
+#include "core/mat4.h"
 
 #include "utils/common.h"
 #include "utils/debug.h"

@@ -16,16 +16,27 @@
 t_mat4	mat4_align_vectors(t_vec3 from, t_vec3 to)
 {
 	// TODO
+	(void)from;
+	(void)to;
+	return ((t_mat4){0});
 }
 
 // Create billboard matrix (faces camera, useful for sprites/quads)
 t_mat4	mat4_billboard(t_vec3 position, t_vec3 camera_pos, t_vec3 camera_up)
 {
 	// TODO
+	(void)position;
+	(void)camera_pos;
+	(void)camera_up;
+	return ((t_mat4){0});
 }
 
 // Linear interpolation
 t_mat4	mat4_lerp(t_mat4 a, t_mat4 b, float t)
 {
 	// TODO
+	(void)a;
+	(void)b;
+	(void)t;
+	return ((t_mat4){0});
 }

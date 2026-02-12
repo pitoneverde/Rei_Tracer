@@ -15,11 +15,15 @@
 float	mat4_determinant(t_mat4 m)
 {
 	// TODO
+	(void)m;
+	return (0.0f);
 }
 
 t_mat4	mat4_inverse(t_mat4 m)
 {
 	// TODO
+	(void)m;
+	return ((t_mat4){0});
 }
 
 inline t_mat4	mat4_transpose(t_mat4 m)

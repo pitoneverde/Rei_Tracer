@@ -28,7 +28,7 @@ bool	mat4_is_affine(t_mat4 m, float epsilon)
 // semantically incorrect for translation matrices (or with translation component)
 bool	mat4_is_orthogonal(t_mat4 m, float epsilon)
 {
-	return (mat4_is_identity(mat4_mul(m, mat4_transpose(m)), MATH_EPSILON));
+	return (mat4_is_identity(mat4_mul(m, mat4_transpose(m)), epsilon));
 }
 
 bool	mat4_is_identity(t_mat4 m, float epsilon)

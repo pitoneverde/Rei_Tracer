@@ -18,6 +18,10 @@
 void	mat4_decompose(t_mat4 m, t_vec3 *translation, t_vec3 *rotation, t_vec3 *scale)
 {
 	// TODO
+	(void)m;
+	(void)translation;
+	(void)rotation;
+	(void)scale;
 }
 
 t_vec3	mat4_get_translation(t_mat4 m)
@@ -25,6 +29,8 @@ t_vec3	mat4_get_translation(t_mat4 m)
 	// NOT LIKE THIS FFS
 	// return ((t_vec3){m.m30, m.m31, m.m32});
 	// TODO
+	(void)m;
+	return ((t_vec3){0});
 }
 
 t_vec3	mat4_get_scale(t_mat4 m)
@@ -32,4 +38,6 @@ t_vec3	mat4_get_scale(t_mat4 m)
 	// NOT LIKE THIS FFS
 	// return ((t_vec3){m.m11, m.m22, m.m33});
 	// TODO
+	(void)m;
+	return ((t_vec3){0});
 }
