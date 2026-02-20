@@ -132,3 +132,5 @@ Dato un senso agli header e commentato dove necessario, mantenendo un'organizzaz
 modulo sara' testabile entro sabato, intanto parallelamente continuo lo studio della parte matematica per mantenere rigore.
 P.S. Ho lasciato da fare le 10 funzioni piu' complicate per quando saro' in grado, per oggi no more code (e quello che ho scritto e' da testare, probabile che si rompa come niente)
 
+20/02/2026 gmu 18:29
+Fatto refractor a check_rgb_format
