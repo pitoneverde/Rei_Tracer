@@ -36,7 +36,7 @@ LDFLAGS = -Lminilibx-linux -lmlx -Llibc -lft_bonus -Lmath_engine/build/lib -lmat
 all: $(NAME) $(LIBC) $(MATH_E)
 
 $(NAME): $(OBJS) $(LIBC) $(MATH_E)
-# 	@make -C $(MLX_DIR)
+	@make -C $(MLX_DIR)
 	$(CC) $(CFLAGS) $(OBJS) $(LDFLAGS) -o $(NAME)
 
 $(LIBC):
@@ -62,13 +62,13 @@ clean:
 	rm -rf $(OBJ_DIR)
 	make -C $(LIBC_DIR) clean
 	make -C $(MATH_E_DIR) clean
-# 	make -C $(MLX_DIR) clean
+	make -C $(MLX_DIR) clean
 
 fclean: clean
 	rm -f $(NAME)
 	make -C $(LIBC_DIR) fclean
 	make -C $(MATH_E_DIR) fclean
-# 	make -C $(MLX_DIR) fclean
+	make -C $(MLX_DIR) fclean
 
 re: fclean all
 

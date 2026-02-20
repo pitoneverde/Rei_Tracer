@@ -4,7 +4,7 @@
 // utility per parsing
 bool	check_n_comma(char *s, int n_comma);
 int	ft_word_count(char *str);
-int	check_rgb_format(char *str);
+bool	check_rgb_format(char *str);
 bool convertable_double(double *value, const char *str);
 double	convert_double_strtod(char *str);
 bool   check_coordinates(char *s);
