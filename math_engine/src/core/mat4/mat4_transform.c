@@ -40,8 +40,8 @@ t_vec3	mat4_transform_normal(t_mat4 m, t_vec3 n)
 
 	t = mat4_transpose(mat4_inverse(m));
 	return ((t_vec3){
-		n.x * m.m00 + n.y * m.m10 + n.z * m.m20,
-		n.x * m.m01 + n.y * m.m11 + n.z * m.m21,
-		n.x * m.m02 + n.y * m.m12 + n.z * m.m22
+		n.x * t.m00 + n.y * t.m10 + n.z * t.m20,
+		n.x * t.m01 + n.y * t.m11 + n.z * t.m21,
+		n.x * t.m02 + n.y * t.m12 + n.z * t.m22
 	});
 }
