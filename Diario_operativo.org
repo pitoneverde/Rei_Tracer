@@ -137,6 +137,18 @@ Fatto refractor a check_rgb_format
 
 27/02/2026 sabruma 17:56
 Aggiungendo i test di mat4.h. Quando ho finito riorganizzo le test suite per avere un solo main e non spawnare decine di binari. Impazziro' prima o poi. Dalla parte matematica,
-ho concluso la teoria sull'algebra lineare essenziale fino agli spazi prehilbertiani e prodotto interno. Dal sito di scratchpixel, la sezione di geometria e grafica fino al calcolo delle
+ho concluso la teoria sull'algebra lineare essenziale fino agli spazi prehilbertiani e prodotto interno. Dal sito di scratchapixel, la sezione di geometria e grafica fino al calcolo delle
 coordinate in pixel dei punti in 3D. Tra oggi e domani dovrei sistemare il mat4.h, poi gmu hai via libera per usarlo nel rendering. I quaternioni verranno saltati in quanto inutili perche'
 la videocamera non si muove. Muoviamoci che c'e' ancora tanto da fare cazzoo.
+
+27/02/2026 sabruma 21:54
+Ho creato con l'AI e controllato a occhio i nuovi test per il modulo mat4.h. La cartella dei test ha bisogno di un refactor sensato per centralizzare i test di ogni submodulo in un unico binario,
+per comodita' e funzionalita' (se no ne crea infiniti ora che ho finito la mia parte). Oltretutto i test di per sé hanno bisogno di:
+1. test driver che richiama tutti gli unit che ora sono standalone.
+2. header condiviso per gli helper rivolti esclusivamente agli unit test (poi lo faro' con calma quando ho finito mat4).
+3. refactor nel makefile per rispecchiare questi cambiamenti, e creare una gerarchia che rispecchi quella del math_engine originale.
+4. mettere la cartella test al di fuori di math_engine/src, e organizzarla internamente con una sua src/ e una sua include/ (un header per modulo, non per submodulo come nella libreria principale)
+5. controllare i benchmark, per ora secondari, che serviranno dopo per ottimizzare le routine piu' pesanti (o il loro utilizzo nel codice, soprattutto negli hot path).
+Detto questo ora implemento le funzioni mancanti che sono ora commentate in fondo all'header per poter continuare i test. Una volta finito cio', se necessario mi occupo delle funzioni tralasciate
+in vec3.h per dopo che per il rendering e il raytracing servono sicuramente.
+Poi ritorno a buttarmi nella geometria differenziale e definisco ray.h (fatto questo saro' circa a meta' dell'opera, come previsto).

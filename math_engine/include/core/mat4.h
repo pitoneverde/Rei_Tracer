@@ -84,6 +84,7 @@ t_mat4	mat4_lerp(t_mat4 a, t_mat4 b, float t);
 void	mat4_to_float_array(t_mat4 m, float out[16]);
 
 // ======= Projection Matrices ========
+// not needed in RT because of different camera system from classic 3D rendering
 // t_mat4	mat4_orthographic(float left, float right, float bottom, 
 // 						float top, float near, float far);
 // t_mat4	mat4_perspective(float fov, float aspect, float near, float far);
