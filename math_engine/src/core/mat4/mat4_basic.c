@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 17:23:04 by sabruma           #+#    #+#             */
-/*   Updated: 2026/02/05 20:01:18 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/02/27 18:19:08 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,17 +47,19 @@ t_mat4	mat4_mul(t_mat4 a, t_mat4 b)
 	t_mat4	mul;
 
 	i = 0;
-	j = 0;
-	while (++i < 4)
+	while (i < 4)
 	{
-		while (++j < 4)
+		j = 0;
+		while (j < 4)
 		{
 			mul.mat[i][j]
 				= a.mat[i][0] * b.mat[0][j]
 				+ a.mat[i][1] * b.mat[1][j]
 				+ a.mat[i][2] * b.mat[2][j]
 				+ a.mat[i][3] * b.mat[3][j];
+			++j;
 		}
+		++i;
 	}
 	return (mul);
 }

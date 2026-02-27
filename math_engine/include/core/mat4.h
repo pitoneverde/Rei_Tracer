@@ -67,6 +67,7 @@ t_vec3	mat4_transform_vector(t_mat4 m, t_vec3 v);
 t_vec3	mat4_transform_normal(t_mat4 m, t_vec3 n);
 
 // ===== DECOMPOSITION =====
+// likely not needed
 
 void	mat4_decompose(t_mat4 m, t_vec3 *translation, t_vec3 *rotation, t_vec3 *scale);
 t_vec3	mat4_get_translation(t_mat4 m);

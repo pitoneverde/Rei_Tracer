@@ -125,7 +125,7 @@ operazioni su matrici (addizione, moltiplicazione scalare e tra matrici). Trasfo
 Spazio nullo, immagine, nucleo, spazio nullo sinistro applicati alle matrici. Riduzione tramite row echelon form, reduced row echelon form.
 Moltiplicazione tra matrici equivalente alla composizione di trasformazioni lineari. Trasformazioni affini, proiettive, coordinate omogenee e proprieta'.
 
-05/05/2026 sabruma 17:33
+05/02/2026 sabruma 17:33
 Conclusi appunti sulle matrici, inziato modulo mat4 per la gestione di vettori e trasformazioni in coordinate omogenee. Ho anche trovato dei libri interessanti
 di geometria per la parte sulle trasformazioni affini e prospettiche che non e' inclusa in genere dentro algebra lineare.
 Dato un senso agli header e commentato dove necessario, mantenendo un'organizzazione piu' pulita che faceva cagare e non si capiva na sega. Se tutto va bene il
@@ -134,3 +134,9 @@ P.S. Ho lasciato da fare le 10 funzioni piu' complicate per quando saro' in grad
 
 20/02/2026 gmu 18:29
 Fatto refractor a check_rgb_format
+
+27/02/2026 sabruma 17:56
+Aggiungendo i test di mat4.h. Quando ho finito riorganizzo le test suite per avere un solo main e non spawnare decine di binari. Impazziro' prima o poi. Dalla parte matematica,
+ho concluso la teoria sull'algebra lineare essenziale fino agli spazi prehilbertiani e prodotto interno. Dal sito di scratchpixel, la sezione di geometria e grafica fino al calcolo delle
+coordinate in pixel dei punti in 3D. Tra oggi e domani dovrei sistemare il mat4.h, poi gmu hai via libera per usarlo nel rendering. I quaternioni verranno saltati in quanto inutili perche'
+la videocamera non si muove. Muoviamoci che c'e' ancora tanto da fare cazzoo.

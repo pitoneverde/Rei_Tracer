@@ -21,8 +21,17 @@ VEC3_SRCS := $(TEST_CORE)/vec3/test_angles_direction.c \
 
 VEC3_BINS	:= $(VEC3_SRCS:.c=)
 
-ALL_SRCS	:= $(VEC3_SRCS)
-ALL_BINS	:= $(VEC3_BINS)
+MAT4_SRCS := $(TEST_CORE)/mat4/test_basic.c \
+			 $(TEST_CORE)/mat4/test_transform.c #\
+# 			 $(TEST_CORE)/mat4/test_properties.c \
+# 			 $(TEST_CORE)/mat4/test_transformation.c \
+# 			 $(TEST_CORE)/mat4/test_decompose.c \
+# 			 $(TEST_CORE)/mat4/test_special.c
+
+MAT4_BINS	:= $(MAT4_SRCS:.c=)
+
+ALL_SRCS	:= $(VEC3_SRCS) $(MAT4_SRCS)
+ALL_BINS	:= $(VEC3_BINS) $(MAT4_BINS)
 
 BINARIES	:= $(addprefix $(MODULE_BIN_DIR)/, $(ALL_BINS))
 OBJS		:= $(addprefix $(MODULE_OBJ_DIR)/, $(ALL_SRCS:.c=.o))
@@ -34,6 +43,7 @@ all: $(BINARIES)
 $(MODULE_BIN_DIR) $(MODULE_OBJ_DIR):
 	@mkdir -p $@
 	@mkdir -p $@/core/vec3
+	@mkdir -p $@/core/mat4
 
 $(MODULE_OBJ_DIR)/%.o: %.c | $(MODULE_OBJ_DIR)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< $(LDFLAGS) -o $@

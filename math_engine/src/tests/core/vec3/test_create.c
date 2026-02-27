@@ -1,4 +1,3 @@
-#include "core/vec3.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -7,6 +6,7 @@
 #include <assert.h>
 #include <float.h>
 #include <stdint.h>
+#include "core/vec3.h"
 
 #ifdef QUICK_TEST
 #define TEST_ITERATIONS 100
