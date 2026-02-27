@@ -68,7 +68,6 @@ fclean: clean
 	rm -f $(NAME)
 	make -C $(LIBC_DIR) fclean
 	make -C $(MATH_E_DIR) fclean
-	make -C $(MLX_DIR) fclean
 
 re: fclean all
 
