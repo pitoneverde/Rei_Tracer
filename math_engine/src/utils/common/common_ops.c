@@ -1,20 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mat4_determinant.c                                 :+:      :+:    :+:   */
+/*   common_ops.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/27 23:55:30 by sabruma           #+#    #+#             */
-/*   Updated: 2026/02/28 01:57:38 by sabruma          ###   ########.fr       */
+/*   Created: 2026/02/28 01:02:50 by sabruma           #+#    #+#             */
+/*   Updated: 2026/02/28 01:03:04 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "core/mat4.h"
+#include "utils/common.h"
 
-float	mat4_determinant(t_mat4 m)
+inline void swapf(float *a, float *b)
 {
-	// TODO
-	(void)m;
-	return (0.0f);
+	float tmp;
+
+	tmp = *a;
+	*a = *b;
+	*b = tmp;
 }

@@ -30,12 +30,12 @@ static float random_float(float min, float max)
     return min + r * (max - min);
 }
 
-static t_vec3 random_vec3(float min, float max)
-{
-    return vec3_new(random_float(min, max),
-                    random_float(min, max),
-                    random_float(min, max));
-}
+// static t_vec3 random_vec3(float min, float max)
+// {
+//     return vec3_new(random_float(min, max),
+//                     random_float(min, max),
+//                     random_float(min, max));
+// }
 
 static t_mat4 random_mat4(float min, float max)
 {
@@ -54,6 +54,14 @@ static bool mat4_equal_eps(t_mat4 a, t_mat4 b, float eps)
                 return false;
     return true;
 }
+
+// static void print_mat4(const char *name, t_mat4 m)
+// {
+//     printf("%s:\n", name);
+//     for (int i = 0; i < 4; ++i)
+//         printf("  [ %7.3f %7.3f %7.3f %7.3f ]\n",
+//                m.mat[i][0], m.mat[i][1], m.mat[i][2], m.mat[i][3]);
+// }
 
 /*------------------------------------------------------------------------------
   Unit tests
@@ -163,8 +171,8 @@ static void test_mat4_inverse(void)
         5,6,7,8,
         9,10,11,12
     }};
-    t_mat4 Sinv = mat4_inverse(singular);
-    (void)Sinv; // ignore result, just check it compiles
+    t_mat4 SSinv = mat4_inverse(singular);
+    (void)SSinv; // ignore result, just check it compiles
 
     printf("✓ inverse tests passed\n");
 }
@@ -507,8 +515,6 @@ int main(void)
 #else
     printf("===== MATRIX PROPERTIES & INVERSE/TRANSPOSE =====\n\n");
 
-    test_mat4_determinant();
-    printf("\n");
     test_mat4_inverse();
     printf("\n");
     test_mat4_transpose();
@@ -526,6 +532,8 @@ int main(void)
     test_mat4_any_nan();
     printf("\n");
     test_mat4_is_finite();
+    printf("\n");
+    test_mat4_determinant();
     printf("\n");
 
     printf("\nAll properties tests passed.\n");

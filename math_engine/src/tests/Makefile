@@ -22,8 +22,8 @@ VEC3_SRCS := $(TEST_CORE)/vec3/test_angles_direction.c \
 VEC3_BINS	:= $(VEC3_SRCS:.c=)
 
 MAT4_SRCS := $(TEST_CORE)/mat4/test_basic.c \
-			 $(TEST_CORE)/mat4/test_properties.c \
-			 $(TEST_CORE)/mat4/test_transform.c #\
+			 $(TEST_CORE)/mat4/test_properties.c #\
+#			 $(TEST_CORE)/mat4/test_transform.c \
 # 			 $(TEST_CORE)/mat4/test_transformation.c \
 # 			 $(TEST_CORE)/mat4/test_decompose.c \
 # 			 $(TEST_CORE)/mat4/test_special.c

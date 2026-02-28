@@ -25,6 +25,9 @@ MAT4_SRCS := mat4/mat4_affine.c \
         	 mat4/mat4_compare.c \
         	 mat4/mat4_create.c \
         	 mat4/mat4_decompose.c \
+        	 mat4/mat4_determinant.c \
+        	 mat4/mat4_inverse_utils.c \
+        	 mat4/mat4_inverse.c \
         	 mat4/mat4_project.c \
         	 mat4/mat4_props.c \
         	 mat4/mat4_rotate.c \

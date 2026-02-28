@@ -8,4 +8,6 @@ extern const t_vec3 VEC3_RIGHT;		// alias for x
 extern const t_vec3 VEC3_UP;		// alias for y
 extern const t_vec3 VEC3_FORWARD;	// alias for -z
 
+void swapf(float *a, float *b);
+
 #endif

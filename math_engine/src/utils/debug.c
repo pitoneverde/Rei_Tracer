@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 17:04:54 by sabruma           #+#    #+#             */
-/*   Updated: 2026/02/05 17:45:42 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/02/28 01:33:31 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,20 @@ void	vec3_print(t_vec3 v)
 	printf("{%f, %f, %f}\n", v.x, v.y, v.z);
 }
 
-void	mat4_print(t_mat4 m)
+// void	mat4_print(t_mat4 m)
+// {
+// 	printf("[");
+// 	printf("{%f, %f, %f, %f}\n", m.m00, m.m01, m.m02, m.m03);
+// 	printf("{%f, %f, %f, %f}\n", m.m10, m.m11, m.m12, m.m13);
+// 	printf("{%f, %f, %f, %f}\n", m.m20, m.m21, m.m22, m.m23);
+// 	printf("{%f, %f, %f, %f}", m.m30, m.m31, m.m32, m.m33);
+// 	printf("]\n");
+// }
+
+void mat4_print(const char *name, t_mat4 m)
 {
-	printf("[");
-	printf("{%f, %f, %f, %f}\n", m.m00, m.m01, m.m02, m.m03);
-	printf("{%f, %f, %f, %f}\n", m.m10, m.m11, m.m12, m.m13);
-	printf("{%f, %f, %f, %f}\n", m.m20, m.m21, m.m22, m.m23);
-	printf("{%f, %f, %f, %f}", m.m30, m.m31, m.m32, m.m33);
-	printf("]\n");
+    printf("%s:\n", name);
+    for (int i = 0; i < 4; ++i)
+        printf("  [ %7.3f %7.3f %7.3f %7.3f ]\n",
+               m.mat[i][0], m.mat[i][1], m.mat[i][2], m.mat[i][3]);
 }

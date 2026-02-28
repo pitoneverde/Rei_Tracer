@@ -80,8 +80,16 @@ t_mat4	mat4_billboard(t_vec3 position, t_vec3 camera_pos, t_vec3 camera_up);
 t_mat4	mat4_lerp(t_mat4 a, t_mat4 b, float t);
 
 // ===== UTILITY =====
-
 void	mat4_to_float_array(t_mat4 m, float out[16]);
+
+// ===== DO NOT USE, NORMINETTE'S FAULT =====
+//mat4_inverse helpers
+
+int choose_pivot(t_mat4 *m, int i);
+void eliminate_below(t_mat4 *m, t_mat4 *s, int i);
+void reduce_diagonal(t_mat4 *m, t_mat4 *s);
+void eliminate_above(t_mat4 *m, t_mat4 *s);
+int fwd_elimination(t_mat4 *m, t_mat4 *s);
 
 // ======= Projection Matrices ========
 // not needed in RT because of different camera system from classic 3D rendering

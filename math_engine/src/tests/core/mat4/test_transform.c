@@ -63,13 +63,13 @@ static bool vec3_equal_eps(t_vec3 a, t_vec3 b, float eps)
 }
 
 
-static void print_mat4(const char *name, t_mat4 m)
-{
-    printf("%s:\n", name);
-    for (int i = 0; i < 4; ++i)
-        printf("  [ %7.3f %7.3f %7.3f %7.3f ]\n",
-               m.mat[i][0], m.mat[i][1], m.mat[i][2], m.mat[i][3]);
-}
+// static void print_mat4(const char *name, t_mat4 m)
+// {
+//     printf("%s:\n", name);
+//     for (int i = 0; i < 4; ++i)
+//         printf("  [ %7.3f %7.3f %7.3f %7.3f ]\n",
+//                m.mat[i][0], m.mat[i][1], m.mat[i][2], m.mat[i][3]);
+// }
 
 /*------------------------------------------------------------------------------
   Unit tests
