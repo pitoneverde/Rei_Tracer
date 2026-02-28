@@ -6,18 +6,18 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 23:55:27 by sabruma           #+#    #+#             */
-/*   Updated: 2026/02/28 02:05:27 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/02/28 17:23:37 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "core/mat4.h"
 #include "utils/common.h"
-#include "utils/debug.h"
+// #include "utils/debug.h"
 
 #include <math.h>
 
 // 1 on error, 0 on success
-int fwd_elimination(t_mat4 *m, t_mat4 *s)
+int fwd_elimination_inv(t_mat4 *m, t_mat4 *s)
 {
 	int		pivot;
 	int		i;
@@ -39,7 +39,7 @@ int fwd_elimination(t_mat4 *m, t_mat4 *s)
 				j++;
 			}
 		}
-		eliminate_below(m, s, i);
+		eliminate_below_inv(m, s, i);
 		i++;
 	}
 	return (0);
@@ -72,7 +72,7 @@ int choose_pivot(t_mat4 *m, int i)
 }
 
 // set under diagonal to 0 to improve stability
-void eliminate_below(t_mat4 *m, t_mat4 *s, int i)
+void eliminate_below_inv(t_mat4 *m, t_mat4 *s, int i)
 {
 	int		j;
 	int		k;
@@ -95,7 +95,7 @@ void eliminate_below(t_mat4 *m, t_mat4 *s, int i)
 }
 
 // set diagonal to 1 to improve stability
-void reduce_diagonal(t_mat4 *m, t_mat4 *s)
+void reduce_diagonal_inv(t_mat4 *m, t_mat4 *s)
 {
 	int		i;
 	int		j;
@@ -118,7 +118,7 @@ void reduce_diagonal(t_mat4 *m, t_mat4 *s)
 }
 
 // set above diagonal to 0 to improve stability
-void eliminate_above(t_mat4 *m, t_mat4 *s)
+void eliminate_above_inv(t_mat4 *m, t_mat4 *s)
 {
 	int		i;
 	int		j;
