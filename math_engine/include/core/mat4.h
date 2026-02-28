@@ -101,7 +101,6 @@ int fwd_elimination_inv(t_mat4 *m, t_mat4 *s);
 
 // TODOS:
 /*
-t_mat4	mat4_rotation_axis(t_vec3 axis, float angle)
 t_mat4	mat4_look_at(t_vec3 eye, t_vec3 target, t_vec3 up)
 void	mat4_decompose(t_mat4 m, t_vec3 *translation, t_vec3 *rotation, t_vec3 *scale)
 t_vec3	mat4_get_translation(t_mat4 m)

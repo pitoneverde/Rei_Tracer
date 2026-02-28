@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 23:55:30 by sabruma           #+#    #+#             */
-/*   Updated: 2026/02/28 17:22:40 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/02/28 17:47:01 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,32 +91,3 @@ static void eliminate_below(t_mat4 *m, int i)
 		j++;
 	}
 }
-
-
-
-
-// // returns -1 on singular matrix
-// int choose_pivot(t_mat4 *m, int i)
-// {
-// 	int		pivot;
-// 	int		j;
-// 	float	pivot_value;
-// 	float	tmp;
-
-// 	pivot = i;
-// 	pivot_value = fabsf(m->mat[i][i]);
-// 	j = i + 1;
-// 	while (j < 4)
-// 	{
-// 		tmp = fabsf(m->mat[j][i]);
-// 		if (tmp > pivot_value)
-// 		{
-// 			pivot = j;
-// 			pivot_value = tmp;
-// 		}
-// 		j++;
-// 	}
-// 	if (fabsf(pivot_value) < 1e-6)
-// 		return (-1);
-// 	return (pivot);
-// }

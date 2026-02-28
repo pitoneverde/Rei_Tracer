@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 17:23:58 by sabruma           #+#    #+#             */
-/*   Updated: 2026/02/05 22:19:45 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/02/28 17:59:45 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 // Create matrices for rotations (Tait-Bryan, aka yaw, pitch, roll)
 
-t_mat4	mat4_rotation_x(float angle)
+inline t_mat4	mat4_rotation_x(float angle)
 {
 	return ((t_mat4){
 		.mat = {
@@ -27,7 +27,7 @@ t_mat4	mat4_rotation_x(float angle)
 	});
 }
 
-t_mat4	mat4_rotation_y(float angle)
+inline t_mat4	mat4_rotation_y(float angle)
 {
 	return ((t_mat4){
 		.mat = {
@@ -39,7 +39,7 @@ t_mat4	mat4_rotation_y(float angle)
 	});
 }
 
-t_mat4	mat4_rotation_z(float angle)
+inline t_mat4	mat4_rotation_z(float angle)
 {
 	return ((t_mat4){
 		.mat = {
@@ -51,10 +51,29 @@ t_mat4	mat4_rotation_z(float angle)
 	});
 }
 
+// uses Rodrigues' formula directly (could be simpler with unit quaternions)
+// R = I + sinθK + (1 − cosθ)K²
 t_mat4	mat4_rotation_axis(t_vec3 axis, float angle)
 {
-	// TODO
-	(void)axis;
-	(void)angle;
-	return ((t_mat4){0});
+	float	c;
+	float	s;
+	float	t;
+	t_mat4	rot;
+
+	if (!vec3_is_normalized(axis))
+		return (mat4_identity());
+	c = cosf(angle);
+	s = sinf(angle);
+	t = 1.0f - c;
+	rot = mat4_identity();
+	rot.m00 = t * axis.x * axis.x + c;
+	rot.m01 = t * axis.x * axis.y + s * axis.z;
+	rot.m02 = t * axis.x * axis.z - s * axis.y;
+	rot.m10 = t * axis.x * axis.y - s * axis.z;
+	rot.m11 = t * axis.y * axis.y + c;
+	rot.m12 = t * axis.y * axis.z + s * axis.x;
+	rot.m20 = t * axis.x * axis.z + s * axis.y;
+	rot.m21 = t * axis.y * axis.z - s * axis.x;
+	rot.m22 = t * axis.z * axis.z + c;
+	return (rot);
 }

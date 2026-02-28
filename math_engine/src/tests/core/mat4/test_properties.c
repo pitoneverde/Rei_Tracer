@@ -515,26 +515,16 @@ int main(void)
 #else
     printf("===== MATRIX PROPERTIES & INVERSE/TRANSPOSE =====\n\n");
 
-    test_mat4_inverse();
-    printf("\n");
     test_mat4_determinant();
-    printf("\n");
+    test_mat4_inverse();
     test_mat4_transpose();
-    printf("\n");
     test_mat4_trace();
-    printf("\n");
     test_mat4_is_affine();
-    printf("\n");
     test_mat4_is_orthogonal();
-    printf("\n");
     test_mat4_is_identity();
-    printf("\n");
     test_mat4_equal();
-    printf("\n");
     test_mat4_any_nan();
-    printf("\n");
     test_mat4_is_finite();
-    printf("\n");
 
     printf("\nAll properties tests passed.\n");
 #endif

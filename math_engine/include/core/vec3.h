@@ -97,7 +97,7 @@ t_vec3	vec3_mod(t_vec3 v, float divisor);
 // t_vec3 vec3_fract(t_vec3 v);		//fractional part for shaders
 // t_vec3 vec3_clamp(t_vec3 v, float min_val, float max_val);
 // t_vec3 vec3_clamp_length(t_vec3 v, float max_length);
-// rotations
+// rotations (handled in mat4.h)
 // t_vec3 vec3_rotate_axis(t_vec3 v, t_vec3 axis, float angle);
 // t_vec3 vec3_rotate_euler(t_vec3 v, float yaw, float pitch, float roll);
 

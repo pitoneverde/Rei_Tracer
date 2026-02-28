@@ -10,6 +10,7 @@
 #include "core/mat4.h"
 #include "core/vec3.h"
 #include "utils/math_constants.h"
+#include "utils/debug.h"
 
 #ifndef EPSILON
 # define EPSILON 1e-6f
@@ -302,7 +303,7 @@ static void test_mat4_rotation_axis(void)
     assert(mat4_equal_eps(inv, trans, EPSILON));
 
     // Rotate around arbitrary axis
-    axis = (t_vec3){1,1,1}; vec3_normalize(axis);
+    axis = vec3_normalize((t_vec3){1,1,1});
     angle = MATH_PI / 3.0f; // 60°
     R = mat4_rotation_axis(axis, angle);
 
@@ -311,13 +312,14 @@ static void test_mat4_rotation_axis(void)
     assert(vec3_equal(axis_rot, axis, EPSILON));
 
     // Check that a vector perpendicular to axis rotates correctly
-    t_vec3 perp = (t_vec3){1,-1,0}; // perpendicular to (1,1,1)? Dot = 1-1+0=0, yes
-    vec3_normalize(perp);
+    // perpendicular to (1,1,1)? Dot = 1-1+0=0, yes
+    t_vec3 perp = vec3_normalize((t_vec3){1,-1,0});
     t_vec3 perp_rot = mat4_transform_vector(R, perp);
 
     // Angle between perp and perp_rot should be 60°
     float dot = vec3_dot(perp, perp_rot);
     float cos_angle = dot; // both unit
+
     assert(float_equal(cos_angle, cosf(angle), 1e-5f));
 
     // Rotating by 0 gives identity
