@@ -24,27 +24,27 @@ static inline bool float_equal(float a, float b, float eps)
     return fabsf(a - b) < eps;
 }
 
-static float random_float(float min, float max)
-{
-    float r = (float)rand() / RAND_MAX;
-    return min + r * (max - min);
-}
+// static float random_float(float min, float max)
+// {
+//     float r = (float)rand() / RAND_MAX;
+//     return min + r * (max - min);
+// }
 
-static t_vec3 random_vec3(float min, float max)
-{
-    return vec3_new(random_float(min, max),
-                    random_float(min, max),
-                    random_float(min, max));
-}
+// static t_vec3 random_vec3(float min, float max)
+// {
+//     return vec3_new(random_float(min, max),
+//                     random_float(min, max),
+//                     random_float(min, max));
+// }
 
-static t_mat4 random_mat4(float min, float max)
-{
-    t_mat4 m;
-    for (int i = 0; i < 4; ++i)
-        for (int j = 0; j < 4; ++j)
-            m.mat[i][j] = random_float(min, max);
-    return m;
-}
+// static t_mat4 random_mat4(float min, float max)
+// {
+//     t_mat4 m;
+//     for (int i = 0; i < 4; ++i)
+//         for (int j = 0; j < 4; ++j)
+//             m.mat[i][j] = random_float(min, max);
+//     return m;
+// }
 
 static bool mat4_equal_eps(t_mat4 a, t_mat4 b, float eps)
 {
@@ -55,13 +55,13 @@ static bool mat4_equal_eps(t_mat4 a, t_mat4 b, float eps)
     return true;
 }
 
-static void print_mat4(const char *name, t_mat4 m)
-{
-    printf("%s:\n", name);
-    for (int i = 0; i < 4; ++i)
-        printf("  [ %7.3f %7.3f %7.3f %7.3f ]\n",
-               m.mat[i][0], m.mat[i][1], m.mat[i][2], m.mat[i][3]);
-}
+// static void print_mat4(const char *name, t_mat4 m)
+// {
+//     printf("%s:\n", name);
+//     for (int i = 0; i < 4; ++i)
+//         printf("  [ %7.3f %7.3f %7.3f %7.3f ]\n",
+//                m.mat[i][0], m.mat[i][1], m.mat[i][2], m.mat[i][3]);
+// }
 
 /*------------------------------------------------------------------------------
   Unit tests
@@ -88,12 +88,12 @@ static void test_mat4_translation(void)
     t_vec3 p = {1.0f, 2.0f, 3.0f};
     t_vec3 p_trans = mat4_transform_point(T, p);
     t_vec3 expected = vec3_add(p, t);
-    assert(vec3_equal_eps(p_trans, expected, EPSILON));
+    assert(vec3_equal(p_trans, expected, EPSILON));
 
     // Transform a vector (should be unchanged)
     t_vec3 v = {4.0f, 5.0f, 6.0f};
     t_vec3 v_trans = mat4_transform_vector(T, v);
-    assert(vec3_equal_eps(v_trans, v, EPSILON));
+    assert(vec3_equal(v_trans, v, EPSILON));
 
     // Zero translation
     T = mat4_translation(VEC3_ZERO);
@@ -128,32 +128,32 @@ static void test_mat4_scaling(void)
     t_vec3 p = {1.0f, 2.0f, 3.0f};
     t_vec3 p_scaled = mat4_transform_point(S, p);
     t_vec3 expected = vec3_mul_comp(p, s); // component‑wise
-    assert(vec3_equal_eps(p_scaled, expected, EPSILON));
+    assert(vec3_equal(p_scaled, expected, EPSILON));
 
     // Transform a vector (same as point)
     t_vec3 v = {4.0f, 5.0f, 6.0f};
     t_vec3 v_scaled = mat4_transform_vector(S, v);
-    assert(vec3_equal_eps(v_scaled, vec3_mul(v, s), EPSILON));
+    assert(vec3_equal(v_scaled, vec3_mul_comp(v, s), EPSILON));
 
     // Uniform scaling (s.x == s.y == s.z)
     s = (t_vec3){5.0f, 5.0f, 5.0f};
     S = mat4_scaling(s);
     p_scaled = mat4_transform_point(S, p);
     expected = vec3_scale(p, 5.0f);
-    assert(vec3_equal_eps(p_scaled, expected, EPSILON));
+    assert(vec3_equal(p_scaled, expected, EPSILON));
 
     // Zero scaling (should collapse to zero for points/vectors)
     s = VEC3_ZERO;
     S = mat4_scaling(s);
     p_scaled = mat4_transform_point(S, p);
-    assert(vec3_equal_eps(p_scaled, vec3_zero(), EPSILON));
+    assert(vec3_equal(p_scaled, VEC3_ZERO, EPSILON));
 
     // Negative scaling (reflection)
     s = (t_vec3){-1.0f, 1.0f, 1.0f};
     S = mat4_scaling(s);
     p_scaled = mat4_transform_point(S, p);
     expected = (t_vec3){-p.x, p.y, p.z};
-    assert(vec3_equal_eps(p_scaled, expected, EPSILON));
+    assert(vec3_equal(p_scaled, expected, EPSILON));
 
     printf("✓ scaling tests passed\n");
 }
@@ -175,9 +175,9 @@ static void test_mat4_rotation_x(void)
     t_vec3 ry = mat4_transform_vector(R, y_axis);
     t_vec3 rz = mat4_transform_vector(R, z_axis);
 
-    assert(vec3_equal_eps(rx, x_axis, EPSILON));
-    assert(vec3_equal_eps(ry, (t_vec3){0,0,1}, EPSILON)); // y -> z
-    assert(vec3_equal_eps(rz, (t_vec3){0,-1,0}, EPSILON)); // z -> -y
+    assert(vec3_equal(rx, x_axis, EPSILON));
+    assert(vec3_equal(ry, (t_vec3){0,0,1}, EPSILON)); // y -> z
+    assert(vec3_equal(rz, (t_vec3){0,-1,0}, EPSILON)); // z -> -y
 
     // Determinant should be 1
     float det = mat4_determinant(R);
@@ -220,9 +220,9 @@ static void test_mat4_rotation_y(void)
     t_vec3 ry = mat4_transform_vector(R, y_axis);
     t_vec3 rz = mat4_transform_vector(R, z_axis);
 
-    assert(vec3_equal_eps(rx, (t_vec3){0,0,-1}, EPSILON)); // x -> -z
-    assert(vec3_equal_eps(ry, y_axis, EPSILON));
-    assert(vec3_equal_eps(rz, (t_vec3){1,0,0}, EPSILON));  // z -> x
+    assert(vec3_equal(rx, (t_vec3){0,0,-1}, EPSILON)); // x -> -z
+    assert(vec3_equal(ry, y_axis, EPSILON));
+    assert(vec3_equal(rz, (t_vec3){1,0,0}, EPSILON));  // z -> x
 
     float det = mat4_determinant(R);
     assert(float_equal(det, 1.0f, EPSILON));
@@ -253,9 +253,9 @@ static void test_mat4_rotation_z(void)
     t_vec3 ry = mat4_transform_vector(R, y_axis);
     t_vec3 rz = mat4_transform_vector(R, z_axis);
 
-    assert(vec3_equal_eps(rx, (t_vec3){0,1,0}, EPSILON)); // x -> y
-    assert(vec3_equal_eps(ry, (t_vec3){-1,0,0}, EPSILON)); // y -> -x
-    assert(vec3_equal_eps(rz, z_axis, EPSILON));
+    assert(vec3_equal(rx, (t_vec3){0,1,0}, EPSILON)); // x -> y
+    assert(vec3_equal(ry, (t_vec3){-1,0,0}, EPSILON)); // y -> -x
+    assert(vec3_equal(rz, z_axis, EPSILON));
 
     float det = mat4_determinant(R);
     assert(float_equal(det, 1.0f, EPSILON));
@@ -288,9 +288,9 @@ static void test_mat4_rotation_axis(void)
     t_vec3 ry = mat4_transform_vector(R, y_axis);
     t_vec3 rz = mat4_transform_vector(R, z_axis);
 
-    assert(vec3_equal_eps(rx, x_axis, EPSILON));
-    assert(vec3_equal_eps(ry, (t_vec3){0,0,1}, EPSILON));
-    assert(vec3_equal_eps(rz, (t_vec3){0,-1,0}, EPSILON));
+    assert(vec3_equal(rx, x_axis, EPSILON));
+    assert(vec3_equal(ry, (t_vec3){0,0,1}, EPSILON));
+    assert(vec3_equal(rz, (t_vec3){0,-1,0}, EPSILON));
 
     // Determinant = 1
     float det = mat4_determinant(R);
@@ -308,7 +308,7 @@ static void test_mat4_rotation_axis(void)
 
     // Check that axis itself is unchanged
     t_vec3 axis_rot = mat4_transform_vector(R, axis);
-    assert(vec3_equal_eps(axis_rot, axis, EPSILON));
+    assert(vec3_equal(axis_rot, axis, EPSILON));
 
     // Check that a vector perpendicular to axis rotates correctly
     t_vec3 perp = (t_vec3){1,-1,0}; // perpendicular to (1,1,1)? Dot = 1-1+0=0, yes
@@ -369,7 +369,7 @@ static void test_mat4_look_at(void)
     // which is correct: the camera at (0,0,5) sees origin 5 units in front (down -z).
     t_vec3 p_cam = mat4_transform_point(view, (t_vec3){0,0,0});
     t_vec3 expected_p = (t_vec3){0,0,-5};
-    assert(vec3_equal_eps(p_cam, expected_p, EPSILON));
+    assert(vec3_equal(p_cam, expected_p, EPSILON));
 
     // Now look from (1,2,3) to (4,5,6) with up = (0,1,0)
     eye    = (t_vec3){1,2,3};
@@ -388,7 +388,7 @@ static void test_mat4_look_at(void)
     t_vec3 world_fwd = f;
     t_vec3 cam_fwd = mat4_transform_vector(view, world_fwd);
     t_vec3 expected_cam_fwd = (t_vec3){0,0,-1};
-    assert(vec3_equal_eps(cam_fwd, expected_cam_fwd, EPSILON));
+    assert(vec3_equal(cam_fwd, expected_cam_fwd, EPSILON));
 
     // 2. The world up vector should be mapped to camera up (y) in the plane perpendicular to forward.
     // But not exactly, because up is projected onto the plane. Instead, we can check that the transformed up
@@ -406,7 +406,7 @@ static void test_mat4_look_at(void)
     t_vec3 cam_right = mat4_transform_vector(view, expected_right);
     // The camera right should map to (1,0,0)
     t_vec3 expected_cam_right = (t_vec3){1,0,0};
-    assert(vec3_equal_eps(cam_right, expected_cam_right, EPSILON));
+    assert(vec3_equal(cam_right, expected_cam_right, EPSILON));
 
     // Edge: degenerate case when target == eye (should probably return identity or something)
     // Ensure it doesn't crash.

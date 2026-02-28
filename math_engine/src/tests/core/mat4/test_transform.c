@@ -325,8 +325,9 @@ static void test_mat4_transform_edge_cases(void)
     assert(vec3_equal_eps(res, VEC3_ZERO, EPSILON));
     res = mat4_transform_vector(Z, v);
     assert(vec3_equal_eps(res, VEC3_ZERO, EPSILON));
-    res = mat4_transform_normal(Z, n);
-    assert(vec3_equal_eps(res, VEC3_ZERO, EPSILON));
+    // meaningless, can't apply a singular matrix to a normal
+    // res = mat4_transform_normal(Z, n);
+    // assert(vec3_equal_eps(res, VEC3_ZERO, EPSILON));
 
     printf("✓ edge cases tests passed\n");
 }
@@ -425,13 +426,9 @@ int main(void)
     printf("===== VECTOR TRANSFORMATIONS =====\n\n");
 
     test_mat4_transform_point();
-    printf("\n");
     test_mat4_transform_vector();
-    printf("\n");
     test_mat4_transform_normal();
-    printf("\n");
     test_mat4_transform_edge_cases();
-    printf("\n");
 
     printf("\nAll vector transformations tests passed.\n");
 #endif

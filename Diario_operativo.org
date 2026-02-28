@@ -152,3 +152,7 @@ per comodita' e funzionalita' (se no ne crea infiniti ora che ho finito la mia p
 Detto questo ora implemento le funzioni mancanti che sono ora commentate in fondo all'header per poter continuare i test. Una volta finito cio', se necessario mi occupo delle funzioni tralasciate
 in vec3.h per dopo che per il rendering e il raytracing servono sicuramente.
 Poi ritorno a buttarmi nella geometria differenziale e definisco ray.h (fatto questo saro' circa a meta' dell'opera, come previsto).
+
+28/02/2026 sabruma 02:25
+Ho perso tempo come un cretino per una minchiata (avevo messo il risultato di una divisione in una int e ci ho perso un ora a trovarlo). Ora la inversa si comporta come deve,
+quindi posso dormire, e domani riparto dai determinanti.

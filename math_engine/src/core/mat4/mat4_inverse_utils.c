@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 23:55:27 by sabruma           #+#    #+#             */
-/*   Updated: 2026/02/28 01:49:55 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/02/28 02:05:27 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int choose_pivot(t_mat4 *m, int i)
 		}
 		j++;
 	}
-	if (pivot_value == 0)
+	if (fabsf(pivot_value) < 1e-6)
 		return (-1);
 	return (pivot);
 }
