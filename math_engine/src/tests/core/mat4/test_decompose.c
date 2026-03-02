@@ -2,6 +2,7 @@
 # test_decomposition.c – Decomposition tests
 ==============================================================================*/
 
+#define _GNU_SOURCE
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
@@ -10,62 +11,11 @@
 #include "core/mat4.h"
 #include "core/vec3.h"
 #include "utils/math_constants.h"
+#include "core/test.h"
 
 #ifndef EPSILON
 # define EPSILON 1e-6f
 #endif
-
-/*------------------------------------------------------------------------------
-  Helper functions (shared pattern – consider moving to a common header)
-------------------------------------------------------------------------------*/
-
-static inline bool float_equal(float a, float b, float eps)
-{
-    return fabsf(a - b) < eps;
-}
-
-static float random_float(float min, float max)
-{
-    float r = (float)rand() / RAND_MAX;
-    return min + r * (max - min);
-}
-
-static t_vec3 random_vec3(float min, float max)
-{
-    return vec3_new(random_float(min, max),
-                    random_float(min, max),
-                    random_float(min, max));
-}
-
-static t_mat4 random_mat4(float min, float max)
-{
-    t_mat4 m;
-    for (int i = 0; i < 4; ++i)
-        for (int j = 0; j < 4; ++j)
-            m.mat[i][j] = random_float(min, max);
-    return m;
-}
-
-static bool mat4_equal_eps(t_mat4 a, t_mat4 b, float eps)
-{
-    for (int i = 0; i < 4; ++i)
-        for (int j = 0; j < 4; ++j)
-            if (!float_equal(a.mat[i][j], b.mat[i][j], eps))
-                return false;
-    return true;
-}
-
-static bool vec3_equal_eps(t_vec3 a, t_vec3 b, float eps)
-{
-    return float_equal(a.x, b.x, eps) &&
-           float_equal(a.y, b.y, eps) &&
-           float_equal(a.z, b.z, eps);
-}
-
-static void print_vec3(const char *name, t_vec3 v)
-{
-    printf("%s: (%f, %f, %f)\n", name, v.x, v.y, v.z);
-}
 
 /*------------------------------------------------------------------------------
   Unit tests
@@ -176,7 +126,7 @@ static void test_mat4_get_scale(void)
     printf("✓ get_scale tests passed\n");
 }
 
-static void test_mat4_decompose(void)
+static void test_mat4_decompose_function(void)
 {
     printf("=== test_mat4_decompose ===\n");
 
@@ -429,7 +379,7 @@ static void run_benchmarks(void)
   Main – dispatch tests or benchmarks
 ------------------------------------------------------------------------------*/
 
-int main(void)
+void test_mat4_decompose()
 {
     srand(42);
 
@@ -442,13 +392,11 @@ int main(void)
     printf("\n");
     test_mat4_get_scale();
     printf("\n");
-    test_mat4_decompose();
+    test_mat4_decompose_function();
     printf("\n");
     test_mat4_decompose_edge_cases();
     printf("\n");
 
     printf("\nAll decomposition tests passed.\n");
 #endif
-
-    return 0;
 }

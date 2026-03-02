@@ -8,31 +8,7 @@
 #include <float.h>
 #include <stdint.h>
 #include "core/vec3.h"
-
-#ifdef QUICK_TEST
-#define TEST_ITERATIONS 100
-#define STACK_TEST_SIZE 1000
-#elif defined(BENCHMARK)
-#define TEST_ITERATIONS 1000000
-#define STACK_TEST_SIZE 1000000
-#else
-#define TEST_ITERATIONS 10000
-#define STACK_TEST_SIZE 100000
-#endif
-
-// ============================================
-// TEST HELPERS
-// ============================================
-
-static t_vec3 random_vec3(float min, float max)
-{
-    float range = max - min;
-    return vec3_new(
-        min + (float)rand() / RAND_MAX * range,
-        min + (float)rand() / RAND_MAX * range,
-        min + (float)rand() / RAND_MAX * range
-    );
-}
+#include "core/test.h"
 
 // ============================================
 // UNIT TESTS - vec3_add
@@ -40,8 +16,6 @@ static t_vec3 random_vec3(float min, float max)
 
 static void test_vec3_add_basic(void)
 {
-    printf("=== test_vec3_add_basic ===\n");
-    
     // Basic addition
     t_vec3 a = vec3_new(1.0f, 2.0f, 3.0f);
     t_vec3 b = vec3_new(4.0f, 5.0f, 6.0f);
@@ -65,13 +39,11 @@ static void test_vec3_add_basic(void)
     
     assert(vec3_equal(result, a, 1e-6f));
     
-    printf("✓ Basic addition tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_add_commutative(void)
 {
-    printf("=== test_vec3_add_commutative ===\n");
-    
     // Test commutative property: a + b = b + a
     for (int i = 0; i < 100; i++)
     {
@@ -84,13 +56,11 @@ static void test_vec3_add_commutative(void)
         assert(vec3_equal(result1, result2, 1e-6f));
     }
     
-    printf("✓ Commutative property tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_add_associative(void)
 {
-    printf("=== test_vec3_add_associative ===\n");
-    
     // Test associative property: (a + b) + c = a + (b + c)
     for (int i = 0; i < 100; i++)
     {
@@ -104,13 +74,11 @@ static void test_vec3_add_associative(void)
         assert(vec3_equal(result1, result2, 1e-4f));        // considered guarateed 7 significant digits on float32
     }
     
-    printf("✓ Associative property tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_add_identity(void)
 {
-    printf("=== test_vec3_add_identity ===\n");
-    
     // Test identity element: a + 0 = a
     t_vec3 zero = vec3_new(0.0f, 0.0f, 0.0f);
     
@@ -122,13 +90,11 @@ static void test_vec3_add_identity(void)
         assert(vec3_equal(result, a, 1e-6f));
     }
     
-    printf("✓ Identity element tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_add_edge_cases(void)
 {
-    printf("=== test_vec3_add_edge_cases ===\n");
-    
     // Infinity cases
     t_vec3 inf_vec = vec3_new(INFINITY, -INFINITY, INFINITY);
     t_vec3 finite_vec = vec3_new(1.0f, 2.0f, 3.0f);
@@ -147,7 +113,7 @@ static void test_vec3_add_edge_cases(void)
     result = vec3_add(large1, large2);
     assert(isinf(result.x) && isinf(result.y) && isinf(result.z));
     
-    printf("✓ Edge cases tests passed\n");
+    printf("✓ ");
 }
 
 // ============================================
@@ -156,8 +122,6 @@ static void test_vec3_add_edge_cases(void)
 
 static void test_vec3_sub_basic(void)
 {
-    printf("=== test_vec3_sub_basic ===\n");
-    
     // Basic subtraction
     t_vec3 a = vec3_new(5.0f, 10.0f, 15.0f);
     t_vec3 b = vec3_new(1.0f, 2.0f, 3.0f);
@@ -181,13 +145,11 @@ static void test_vec3_sub_basic(void)
     
     assert(vec3_equal(result, a, 1e-6f));
     
-    printf("✓ Basic subtraction tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_sub_anticommutative(void)
 {
-    printf("=== test_vec3_sub_anticommutative ===\n");
-    
     // Test that a - b = -(b - a)
     for (int i = 0; i < 100; i++)
     {
@@ -200,13 +162,11 @@ static void test_vec3_sub_anticommutative(void)
         assert(vec3_equal(result1, result2, 1e-6f));
     }
     
-    printf("✓ Anticommutative property tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_sub_identity(void)
 {
-    printf("=== test_vec3_sub_identity ===\n");
-    
     // Test identity element: a - 0 = a
     t_vec3 zero = vec3_new(0.0f, 0.0f, 0.0f);
     
@@ -227,7 +187,7 @@ static void test_vec3_sub_identity(void)
         assert(vec3_equal(result, zero, 1e-6f));
     }
     
-    printf("✓ Identity and self-subtraction tests passed\n");
+    printf("✓ ");
 }
 
 // ============================================
@@ -236,8 +196,6 @@ static void test_vec3_sub_identity(void)
 
 static void test_vec3_neg_basic(void)
 {
-    printf("=== test_vec3_neg_basic ===\n");
-    
     // Basic negation
     t_vec3 v = vec3_new(1.0f, 2.0f, 3.0f);
     t_vec3 result = vec3_neg(v);
@@ -258,13 +216,11 @@ static void test_vec3_neg_basic(void)
     
     assert(vec3_equal(result, v, 1e-6f));
     
-    printf("✓ Basic negation tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_neg_involutive(void)
 {
-    printf("=== test_vec3_neg_involutive ===\n");
-    
     // Test that neg(neg(a)) = a (involutive property)
     for (int i = 0; i < 100; i++)
     {
@@ -274,13 +230,11 @@ static void test_vec3_neg_involutive(void)
         assert(vec3_equal(result, a, 1e-6f));
     }
     
-    printf("✓ Involutive property tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_neg_relation_to_sub(void)
 {
-    printf("=== test_vec3_neg_relation_to_sub ===\n");
-    
     // Test that neg(a) = 0 - a
     t_vec3 zero = vec3_new(0.0f, 0.0f, 0.0f);
     
@@ -293,7 +247,7 @@ static void test_vec3_neg_relation_to_sub(void)
         assert(vec3_equal(result1, result2, 1e-6f));
     }
     
-    printf("✓ Relation to subtraction tests passed\n");
+    printf("✓ ");
 }
 
 // ============================================
@@ -302,8 +256,6 @@ static void test_vec3_neg_relation_to_sub(void)
 
 static void test_vec3_scale_basic(void)
 {
-    printf("=== test_vec3_scale_basic ===\n");
-    
     // Basic scaling
     t_vec3 v = vec3_new(1.0f, 2.0f, 3.0f);
     t_vec3 result = vec3_scale(v, 2.0f);
@@ -325,13 +277,11 @@ static void test_vec3_scale_basic(void)
     t_vec3 neg_v = vec3_neg(v);
     assert(vec3_equal(result, neg_v, 1e-6f));
     
-    printf("✓ Basic scaling tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_scale_distributive(void)
 {
-    printf("=== test_vec3_scale_distributive ===\n");
-    
     // Test distributive property: s*(a + b) = s*a + s*b
     for (int i = 0; i < 100; i++)
     {
@@ -345,13 +295,11 @@ static void test_vec3_scale_distributive(void)
         assert(vec3_equal(result1, result2, 1e-4f));
     }
     
-    printf("✓ Distributive property tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_scale_associative(void)
 {
-    printf("=== test_vec3_scale_associative ===\n");
-    
     // Test associative property for scalars: (s*t)*a = s*(t*a)
     for (int i = 0; i < 100; i++)
     {
@@ -365,13 +313,11 @@ static void test_vec3_scale_associative(void)
         assert(vec3_equal(result1, result2, 1e-3f));
     }
     
-    printf("✓ Associative property tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_scale_edge_cases(void)
 {
-    printf("=== test_vec3_scale_edge_cases ===\n");
-    
     // Scaling by infinity
     t_vec3 v = vec3_new(1.0f, 2.0f, 3.0f);
     t_vec3 result = vec3_scale(v, INFINITY);
@@ -395,7 +341,7 @@ static void test_vec3_scale_edge_cases(void)
     result = vec3_scale(v, FLT_MIN / 2.0f);
     // Just ensure it doesn't crash
     
-    printf("✓ Edge cases tests passed\n");
+    printf("✓ ");
 }
 
 // ============================================
@@ -404,8 +350,6 @@ static void test_vec3_scale_edge_cases(void)
 
 static void test_basic_stack_operations(void)
 {
-    printf("=== test_basic_stack_operations ===\n");
-    
     // Test multiple operations on stack-allocated vectors
     // This simulates typical raytracing workload
     
@@ -440,7 +384,7 @@ static void test_basic_stack_operations(void)
     assert(vec3_equal(stack_results[0], expected_add, 1e-6f));
     assert(vec3_equal(stack_results[2], expected_neg, 1e-6f));
     
-    printf("✓ Stack operations test passed (%d operations)\n", STACK_TEST_SIZE);
+    printf("✓\tStack operations test passed (%d operations)\n", STACK_TEST_SIZE);
 }
 
 // ============================================
@@ -615,8 +559,6 @@ static void benchmark_basic_mixed(void)
 
 static void test_basic_integration(void)
 {
-    printf("=== test_basic_integration ===\n");
-    
     // Test relationships between operations
     
     // 1. a + (-a) = 0
@@ -662,7 +604,7 @@ static void test_basic_integration(void)
         assert(vec3_equal(result, zero, 1e-6f));
     }
     
-    printf("✓ Integration tests passed\n");
+    printf("✓ ");
 }
 
 // ============================================
@@ -671,8 +613,6 @@ static void test_basic_integration(void)
 
 static void test_basic_minirt_context(void)
 {
-    printf("=== test_basic_minirt_context ===\n");
-    
     // Ray equation: origin + t*direction
     t_vec3 ray_origin = vec3_new(0.0f, 0.0f, 0.0f);
     t_vec3 ray_direction = vec3_new(1.0f, 0.0f, 0.0f);
@@ -710,27 +650,15 @@ static void test_basic_minirt_context(void)
     
     assert(vec3_equal(attenuated_color, vec3_new(0.5f, 0.5f, 0.5f), 1e-6f));
     
-    printf("✓ Minirt context tests passed\n");
+    printf("✓ ");
 }
 
 // ============================================
 // MAIN TEST RUNNER
 // ============================================
 
-int main(void)
-{
-    printf("\n=======================================\n");
-    printf("VEC3 BASIC OPERATIONS TEST SUITE\n");
-    printf("Mode: ");
-#ifdef QUICK_TEST
-    printf("QUICK_TEST (%d iterations)\n", TEST_ITERATIONS);
-#elif defined(BENCHMARK)
-    printf("BENCHMARK (%d iterations)\n", TEST_ITERATIONS);
-#else
-    printf("FULL_TEST (%d iterations)\n", TEST_ITERATIONS);
-#endif
-    printf("=======================================\n\n");
-    
+void test_vec3_basic()
+{ 
     srand(time(NULL));
     
     // Run unit tests
@@ -770,10 +698,4 @@ int main(void)
     benchmark_vec3_scale();
     benchmark_basic_mixed();
 #endif
-    
-    printf("\n=======================================\n");
-    printf("ALL TESTS PASSED SUCCESSFULLY!\n");
-    printf("=======================================\n");
-    
-    return 0;
 }

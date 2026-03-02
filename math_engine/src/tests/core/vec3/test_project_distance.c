@@ -1,3 +1,4 @@
+#define _GNU_SOURCE
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -8,44 +9,14 @@
 #include <stdint.h>
 #include "core/vec3.h"
 #include "utils/math_constants.h"
+#include "core/test.h"
 
-#ifdef QUICK_TEST
-#define TEST_ITERATIONS 100
-#define STACK_TEST_SIZE 1000
-#elif defined(BENCHMARK)
-#define TEST_ITERATIONS 1000000
-#define STACK_TEST_SIZE 1000000
-#else
-#define TEST_ITERATIONS 10000
-#define STACK_TEST_SIZE 100000
-#endif
-
-// ============================================
-// TEST HELPERS
-// ============================================
-
-static bool float_equal(float a, float b, float epsilon)
-{
-    return fabsf(a - b) <= epsilon;
-}
-
-static t_vec3 random_vec3(float min, float max)
-{
-    float range = max - min;
-    return vec3_new(
-        min + (float)rand() / RAND_MAX * range,
-        min + (float)rand() / RAND_MAX * range,
-        min + (float)rand() / RAND_MAX * range
-    );
-}
 // ============================================
 // UNIT TESTS - vec3_project
 // ============================================
 
 static void test_vec3_project_basic(void)
 {
-    printf("=== test_vec3_project_basic ===\n");
-    
     // Projection onto basis vectors
     t_vec3 v = vec3_new(2.0f, 3.0f, 4.0f);
     t_vec3 onto_x = vec3_new(1.0f, 0.0f, 0.0f);
@@ -77,13 +48,11 @@ static void test_vec3_project_basic(void)
     expected = vec3_scale(dir, dot);
     assert(vec3_equal(proj, expected, 1e-6f));
     
-    printf("✓ Basic projection tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_project_properties(void)
 {
-    printf("=== test_vec3_project_properties ===\n");
-    
     // Test projection properties
     
     // 1. Projecting onto zero vector should return zero
@@ -145,13 +114,11 @@ static void test_vec3_project_properties(void)
         assert(vec3_equal(proj, v, 1e-5f));
     }
     
-    printf("✓ Projection property tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_project_orthogonal(void)
 {
-    printf("=== test_vec3_project_orthogonal ===\n");
-    
     // Projection of orthogonal vectors should be zero
     for (int i = 0; i < 50; i++)
     {
@@ -178,13 +145,11 @@ static void test_vec3_project_orthogonal(void)
         assert(vec3_equal(proj, vec3_new(0.0f, 0.0f, 0.0f), 1e-5f));
     }
     
-    printf("✓ Orthogonal projection tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_project_edge_cases(void)
 {
-    printf("=== test_vec3_project_edge_cases ===\n");
-    
     // Infinity cases
     t_vec3 inf_vec = vec3_new(INFINITY, 0.0f, 0.0f);
     t_vec3 finite_vec = vec3_new(1.0f, 2.0f, 3.0f);
@@ -207,7 +172,7 @@ static void test_vec3_project_edge_cases(void)
     proj = vec3_project(finite_vec, large);
     // Should be finite
     
-    printf("✓ Edge cases tests passed\n");
+    printf("✓ ");
 }
 
 // ============================================
@@ -216,8 +181,6 @@ static void test_vec3_project_edge_cases(void)
 
 static void test_vec3_reject_basic(void)
 {
-    printf("=== test_vec3_reject_basic ===\n");
-    
     // Rejection is v - project(v, onto)
     t_vec3 v = vec3_new(2.0f, 3.0f, 4.0f);
     t_vec3 onto_x = vec3_new(1.0f, 0.0f, 0.0f);
@@ -243,13 +206,11 @@ static void test_vec3_reject_basic(void)
     t_vec3 sum = vec3_add(proj, rej);
     assert(vec3_equal(sum, v, 1e-6f));
     
-    printf("✓ Basic rejection tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_reject_properties(void)
 {
-    printf("=== test_vec3_reject_properties ===\n");
-    
     // 1. Rejection of v from itself (normalized) should be zero
     for (int i = 0; i < 50; i++)
     {
@@ -300,13 +261,11 @@ static void test_vec3_reject_properties(void)
         assert(vec3_equal(rej1, rej2, 1e-5f));
     }
     
-    printf("✓ Rejection property tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_reject_relationship(void)
 {
-    printf("=== test_vec3_reject_relationship ===\n");
-    
     // Test the relationship: v = project(v, u) + reject(v, u)
     for (int i = 0; i < 100; i++)
     {
@@ -324,7 +283,7 @@ static void test_vec3_reject_relationship(void)
         assert(vec3_equal(sum, v, 1e-6f));
     }
     
-    printf("✓ Projection-rejection relationship tests passed\n");
+    printf("✓ ");
 }
 
 // ============================================
@@ -333,8 +292,6 @@ static void test_vec3_reject_relationship(void)
 
 static void test_vec3_distance_sq_basic(void)
 {
-    printf("=== test_vec3_distance_sq_basic ===\n");
-    
     // Distance between same point is zero
     t_vec3 a = vec3_new(1.0f, 2.0f, 3.0f);
     float dist_sq = vec3_distance_sq(a, a);
@@ -366,13 +323,11 @@ static void test_vec3_distance_sq_basic(void)
     // Δx=3, Δy=4, Δz=5 → 9+16+25=50
     assert(float_equal(dist_sq, 50.0f, 1e-6f));
     
-    printf("✓ Basic distance squared tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_distance_sq_properties(void)
 {
-    printf("=== test_vec3_distance_sq_properties ===\n");
-    
     // 1. Symmetry: distance_sq(a, b) = distance_sq(b, a)
     for (int i = 0; i < 100; i++)
     {
@@ -411,7 +366,7 @@ static void test_vec3_distance_sq_properties(void)
         assert(float_equal(left, right, 1e-3f));
     }
     
-    printf("✓ Distance squared property tests passed\n");
+    printf("✓ ");
 }
 
 // ============================================
@@ -420,8 +375,6 @@ static void test_vec3_distance_sq_properties(void)
 
 static void test_vec3_distance_basic(void)
 {
-    printf("=== test_vec3_distance_basic ===\n");
-    
     // Distance between same point is zero
     t_vec3 a = vec3_new(1.0f, 2.0f, 3.0f);
     float dist = vec3_distance(a, a);
@@ -446,13 +399,11 @@ static void test_vec3_distance_basic(void)
     // sqrt(50) ≈ 7.0710678
     assert(float_equal(dist, sqrtf(50.0f), 1e-6f));
     
-    printf("✓ Basic distance tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_distance_properties(void)
 {
-    printf("=== test_vec3_distance_properties ===\n");
-    
     // 1. Symmetry: distance(a, b) = distance(b, a)
     for (int i = 0; i < 100; i++)
     {
@@ -492,13 +443,11 @@ static void test_vec3_distance_properties(void)
         assert(float_equal(d * d, d_sq, 1e-2f));
     }
     
-    printf("✓ Distance property tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_distance_edge_cases(void)
 {
-    printf("=== test_vec3_distance_edge_cases ===\n");
-    
     // Infinity
     t_vec3 inf_vec = vec3_new(INFINITY, 0.0f, 0.0f);
     t_vec3 finite_vec = vec3_new(1.0f, 2.0f, 3.0f);
@@ -532,19 +481,16 @@ static void test_vec3_distance_edge_cases(void)
     // sqrt(3 * (1e-20)²) = sqrt(3)*1e-20 ≈ 1.732e-20
     assert(dist > 0.0f && dist < 2e-20f);
     
-    printf("✓ Edge cases tests passed\n");
+    printf("✓ ");
 }
 
 // ============================================
 // STACK ALLOCATION TESTS
 // ============================================
 
+// Test multiple projection/distance operations on stack
 static void test_project_stack_operations(void)
 {
-    printf("=== test_project_stack_operations ===\n");
-    
-    // Test multiple projection/distance operations on stack
-    
 #ifdef BENCHMARK
     printf("Testing with %d operations on stack...\n", STACK_TEST_SIZE);
 #endif
@@ -593,7 +539,7 @@ static void test_project_stack_operations(void)
     (void)distance_results;
     (void)distance_sq_results;
     
-    printf("✓ Stack operations test passed (%d operations)\n", STACK_TEST_SIZE);
+    printf("✓\tStack operations test passed (%d operations)\n", STACK_TEST_SIZE);
 }
 
 // ============================================
@@ -771,8 +717,6 @@ static void benchmark_project_mixed(void)
 
 static void test_project_integration(void)
 {
-    printf("=== test_project_integration ===\n");
-    
     // 1. Projection + Rejection = Original vector
     for (int i = 0; i < 100; i++)
     {
@@ -837,7 +781,7 @@ static void test_project_integration(void)
         assert(float_equal(vec3_distance_sq(a, a), 0.0f, 1e-6f));
     }
     
-    printf("✓ Integration tests passed\n");
+    printf("✓ ");
 }
 
 // ============================================
@@ -846,8 +790,6 @@ static void test_project_integration(void)
 
 static void test_project_minirt_context(void)
 {
-    printf("=== test_project_minirt_context ===\n");
-    
     // 1. Distance to light source (for attenuation)
     t_vec3 point = vec3_new(0.0f, 0.0f, 0.0f);
     t_vec3 light = vec3_new(0.0f, 5.0f, 0.0f);
@@ -928,27 +870,15 @@ static void test_project_minirt_context(void)
     assert(fabsf(vec3_dot(tangent, bitangent)) < 1e-6f);
     assert(fabsf(vec3_dot(bitangent, normal)) < 1e-6f);
     
-    printf("✓ Minirt context tests passed\n");
+    printf("✓ ");
 }
 
 // ============================================
 // MAIN TEST RUNNER
 // ============================================
 
-int main()
-{
-    printf("\n=======================================\n");
-    printf("VEC3 PROJECTION & DISTANCE TEST SUITE\n");
-    printf("Mode: ");
-#ifdef QUICK_TEST
-    printf("QUICK_TEST (%d iterations)\n", TEST_ITERATIONS);
-#elif defined(BENCHMARK)
-    printf("BENCHMARK (%d iterations)\n", TEST_ITERATIONS);
-#else
-    printf("FULL_TEST (%d iterations)\n", TEST_ITERATIONS);
-#endif
-    printf("=======================================\n\n");
-    
+void test_vec3_project_distance()
+{    
     srand(time(NULL));
     
     // Run unit tests
@@ -985,10 +915,4 @@ int main()
     benchmark_vec3_distance_sq();
     benchmark_project_mixed();
 #endif
-    
-    printf("\n=======================================\n");
-    printf("ALL TESTS PASSED SUCCESSFULLY!\n");
-    printf("=======================================\n");
-    
-    return 0;
 }

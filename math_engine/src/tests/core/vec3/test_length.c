@@ -10,48 +10,7 @@
 #include "core/vec3.h"
 #include "utils/math_constants.h"
 #include "utils/debug.h"
-
-#ifdef QUICK_TEST
-#define TEST_ITERATIONS 100
-#define STACK_TEST_SIZE 1000
-#elif defined(BENCHMARK)
-#define TEST_ITERATIONS 1000000
-#define STACK_TEST_SIZE 1000000
-#else
-#define TEST_ITERATIONS 10000
-#define STACK_TEST_SIZE 100000
-#endif
-
-// ============================================
-// TEST HELPERS
-// ============================================
-
-static bool float_equal(float a, float b, float epsilon)
-{
-    return fabsf(a - b) <= epsilon;
-}
-
-static t_vec3 random_vec3(float min, float max)
-{
-    float range = max - min;
-    return vec3_new(
-        min + (float)rand() / RAND_MAX * range,
-        min + (float)rand() / RAND_MAX * range,
-        min + (float)rand() / RAND_MAX * range
-    );
-}
-
-static t_vec3 random_unit_vec3(void)
-{
-    // Generate random point on unit sphere
-    float theta = (float)rand() / RAND_MAX * MATH_TAU;
-    float phi = acosf(2.0f * (float)rand() / RAND_MAX - 1.0f);
-    return vec3_new(
-        sinf(phi) * cosf(theta),
-        sinf(phi) * sinf(theta),
-        cosf(phi)
-    );
-}
+#include "core/test.h"
 
 // ============================================
 // UNIT TESTS - vec3_length_sq
@@ -59,8 +18,6 @@ static t_vec3 random_unit_vec3(void)
 
 static void test_vec3_length_sq_basic(void)
 {
-    printf("=== test_vec3_length_sq_basic ===\n");
-    
     // Zero vector
     t_vec3 zero = vec3_new(0.0f, 0.0f, 0.0f);
     float result = vec3_length_sq(zero);
@@ -90,13 +47,11 @@ static void test_vec3_length_sq_basic(void)
     result = vec3_length_sq(v);
     assert(float_equal(result, expected, 1e-6f));
     
-    printf("✓ Basic length squared tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_length_sq_properties(void)
 {
-    printf("=== test_vec3_length_sq_properties ===\n");
-    
     // Test that length_sq(v) = dot(v, v)
     for (int i = 0; i < 100; i++)
     {
@@ -119,13 +74,11 @@ static void test_vec3_length_sq_properties(void)
         assert(float_equal(left, right, 1e-3f));
     }
     
-    printf("✓ Mathematical property tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_length_sq_edge_cases(void)
 {
-    printf("=== test_vec3_length_sq_edge_cases ===\n");
-    
     // Infinity
     t_vec3 inf_vec = vec3_new(INFINITY, INFINITY, INFINITY);
     float result = vec3_length_sq(inf_vec);
@@ -152,7 +105,7 @@ static void test_vec3_length_sq_edge_cases(void)
     result = vec3_length_sq(denorm);
     // Should still work, even if result is denormalized
     
-    printf("✓ Edge cases tests passed\n");
+    printf("✓ ");
 }
 
 // ============================================
@@ -161,8 +114,6 @@ static void test_vec3_length_sq_edge_cases(void)
 
 static void test_vec3_length_basic(void)
 {
-    printf("=== test_vec3_length_basic ===\n");
-    
     // Zero vector
     t_vec3 zero = vec3_new(0.0f, 0.0f, 0.0f);
     float result = vec3_length(zero);
@@ -188,13 +139,11 @@ static void test_vec3_length_basic(void)
     result = vec3_length(v);
     assert(float_equal(result, expected, 1e-6f));
     
-    printf("✓ Basic length tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_length_positive_definite(void)
 {
-    printf("=== test_vec3_length_positive_definite ===\n");
-    
     // Length should always be >= 0
     for (int i = 0; i < 100; i++)
     {
@@ -213,13 +162,11 @@ static void test_vec3_length_positive_definite(void)
         }
     }
     
-    printf("✓ Positive definite property tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_length_triangle_inequality(void)
 {
-    printf("=== test_vec3_length_triangle_inequality ===\n");
-    
     // Triangle inequality: |a + b| <= |a| + |b|
     for (int i = 0; i < 100; i++)
     {
@@ -233,13 +180,11 @@ static void test_vec3_length_triangle_inequality(void)
         assert(left <= right + 1e-6f);
     }
     
-    printf("✓ Triangle inequality tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_length_scaling(void)
 {
-    printf("=== test_vec3_length_scaling ===\n");
-    
     // Test that length(s*v) = |s| * length(v)
     for (int i = 0; i < 100; i++)
     {
@@ -252,13 +197,11 @@ static void test_vec3_length_scaling(void)
         assert(float_equal(left, right, 1e-5f));
     }
     
-    printf("✓ Scaling property tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_length_relation_to_sq(void)
 {
-    printf("=== test_vec3_length_relation_to_sq ===\n");
-    
     // Test that length(v)² = length_sq(v)
     for (int i = 0; i < 100; i++)
     {
@@ -269,13 +212,11 @@ static void test_vec3_length_relation_to_sq(void)
         assert(float_equal(len * len, len_sq, 1e-2f));
     }
     
-    printf("✓ Relationship to length squared tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_length_edge_cases(void)
 {
-    printf("=== test_vec3_length_edge_cases ===\n");
-    
     // Infinity
     t_vec3 inf_vec = vec3_new(INFINITY, 0.0f, 0.0f);
     float result = vec3_length(inf_vec);
@@ -304,7 +245,7 @@ static void test_vec3_length_edge_cases(void)
     assert(result > 0.0f && result < 2e-20f);
     
     (void)expected;
-    printf("✓ Edge cases tests passed\n");
+    printf("✓ ");
 }
 
 // ============================================
@@ -313,8 +254,6 @@ static void test_vec3_length_edge_cases(void)
 
 static void test_vec3_min_max_basic(void)
 {
-    printf("=== test_vec3_min_max_basic ===\n");
-    
     // Test vec3_min (minimum component)
     t_vec3 v = vec3_new(1.0f, 2.0f, 3.0f);
     float result = vec3_min(v);
@@ -355,13 +294,11 @@ static void test_vec3_min_max_basic(void)
     result = vec3_max(v);
     assert(float_equal(result, 1.0f, 1e-6f));
     
-    printf("✓ Basic min/max tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_min_max_edge_cases(void)
 {
-    printf("=== test_vec3_min_max_edge_cases ===\n");
-    
     // Infinity
     t_vec3 inf_vec = vec3_new(INFINITY, -INFINITY, 0.0f);
     float result = vec3_min(inf_vec);
@@ -398,13 +335,11 @@ static void test_vec3_min_max_edge_cases(void)
     result = vec3_max(equal);
     assert(float_equal(result, 5.0f, 1e-6f));
     
-    printf("✓ Edge cases min/max tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_min_max_properties(void)
 {
-    printf("=== test_vec3_min_max_properties ===\n");
-    
     // Test that min(v) <= max(v) for all vectors
     for (int i = 0; i < 100; i++)
     {
@@ -430,19 +365,16 @@ static void test_vec3_min_max_properties(void)
         assert(float_equal(min_v, -max_neg_v, 1e-6f));
     }
     
-    printf("✓ Mathematical property tests passed\n");
+    printf("✓ ");
 }
 
 // ============================================
 // STACK ALLOCATION TESTS
 // ============================================
 
+// Test multiple length operations on stack-allocated vectors
 static void test_length_stack_operations(void)
 {
-    printf("=== test_length_stack_operations ===\n");
-    
-    // Test multiple length operations on stack-allocated vectors
-    
 #ifdef BENCHMARK
     printf("Testing with %d operations on stack...\n", STACK_TEST_SIZE);
 #endif
@@ -482,7 +414,7 @@ static void test_length_stack_operations(void)
     (void)length_sq_results;
     (void)min_results;
     (void)max_results;
-    printf("✓ Stack operations test passed (%d vectors)\n", STACK_TEST_SIZE);
+    printf("✓\tStack operations test passed (%d vectors)\n", STACK_TEST_SIZE);
 }
 
 // ============================================
@@ -603,8 +535,6 @@ static void benchmark_length_mixed(void)
 
 static void test_length_integration(void)
 {
-    printf("=== test_length_integration ===\n");
-    
     // Test relationships between length functions and other operations
     
     // 1. length(v) = sqrt(length_sq(v))
@@ -653,7 +583,7 @@ static void test_length_integration(void)
         assert(float_equal(len, 1.0f, 1e-6f));
     }
     
-    printf("✓ Integration tests passed\n");
+    printf("✓ ");
 }
 
 // ============================================
@@ -662,8 +592,6 @@ static void test_length_integration(void)
 
 static void test_length_minirt_context(void)
 {
-    printf("=== test_length_minirt_context ===\n");
-    
     // 1. Distance checking for intersection tests
     // Often we compare squared distances to avoid sqrt
     t_vec3 point1 = vec3_new(0.0f, 0.0f, 0.0f);
@@ -711,27 +639,15 @@ static void test_length_minirt_context(void)
     float attenuation = 1.0f / (light_distance * light_distance);
     // Just testing the concept
     (void)attenuation;
-    printf("✓ Minirt context tests passed\n");
+    printf("✓ ");
 }
 
 // ============================================
 // MAIN TEST RUNNER
 // ============================================
 
-int main()
+void test_vec3_length()
 {
-    printf("\n=======================================\n");
-    printf("VEC3 LENGTH & MIN/MAX TEST SUITE\n");
-    printf("Mode: ");
-#ifdef QUICK_TEST
-    printf("QUICK_TEST (%d iterations)\n", TEST_ITERATIONS);
-#elif defined(BENCHMARK)
-    printf("BENCHMARK (%d iterations)\n", TEST_ITERATIONS);
-#else
-    printf("FULL_TEST (%d iterations)\n", TEST_ITERATIONS);
-#endif
-    printf("=======================================\n\n");
-    
     srand(time(NULL));
     
     // Run unit tests
@@ -765,10 +681,4 @@ int main()
     benchmark_vec3_length_sq();
     benchmark_length_mixed();
 #endif
-    
-    printf("\n=======================================\n");
-    printf("ALL TESTS PASSED SUCCESSFULLY!\n");
-    printf("=======================================\n");
-    
-    return 0;
 }

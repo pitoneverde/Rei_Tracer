@@ -10,48 +10,7 @@
 #include "core/vec3.h"
 #include "utils/math_constants.h"
 #include "utils/debug.h"
-
-#ifdef QUICK_TEST
-#define TEST_ITERATIONS 100
-#define STACK_TEST_SIZE 1000
-#elif defined(BENCHMARK)
-#define TEST_ITERATIONS 1000000
-#define STACK_TEST_SIZE 1000000
-#else
-#define TEST_ITERATIONS 10000
-#define STACK_TEST_SIZE 100000
-#endif
-
-// ============================================
-// TEST HELPERS
-// ============================================
-
-static bool float_equal(float a, float b, float epsilon)
-{
-    return fabsf(a - b) <= epsilon;
-}
-
-static t_vec3 random_vec3(float min, float max)
-{
-    float range = max - min;
-    return vec3_new(
-        min + (float)rand() / RAND_MAX * range,
-        min + (float)rand() / RAND_MAX * range,
-        min + (float)rand() / RAND_MAX * range
-    );
-}
-
-static t_vec3 random_unit_vec3(void)
-{
-    // Generate random point on unit sphere
-    float theta = (float)rand() / RAND_MAX * MATH_TAU;
-    float phi = acosf(2.0f * (float)rand() / RAND_MAX - 1.0f);
-    return vec3_new(
-        sinf(phi) * cosf(theta),
-        sinf(phi) * sinf(theta),
-        cosf(phi)
-    );
-}
+#include "core/test.h"
 
 // ============================================
 // UNIT TESTS - vec3_coordinate_system
@@ -59,8 +18,6 @@ static t_vec3 random_unit_vec3(void)
 
 static void test_vec3_coordinate_system_basic(void)
 {
-    printf("=== test_vec3_coordinate_system_basic ===\n");
-    
     // Test with standard basis vectors
     
     // X-axis
@@ -112,13 +69,11 @@ static void test_vec3_coordinate_system_basic(void)
     cross_bc = vec3_cross(b3, c3);
     assert(vec3_equal(cross_bc, a3, 1e-4f));
     
-    printf("✓ Basic coordinate system tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_coordinate_system_random_directions(void)
 {
-    printf("=== test_vec3_coordinate_system_random_directions ===\n");
-    
     // Test with random unit vectors
     for (int i = 0; i < 100; i++)
     {
@@ -155,13 +110,11 @@ static void test_vec3_coordinate_system_random_directions(void)
         assert(vec3_equal(cross_ab, c, 1e-4f));
     }
     
-    printf("✓ Random direction tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_coordinate_system_non_unit_input(void)
 {
-    printf("=== test_vec3_coordinate_system_non_unit_input ===\n");
-    
     // The function should handle non-unit vectors (it will normalize internally or not?)
     // Let's test with vectors of various lengths
     
@@ -203,13 +156,11 @@ static void test_vec3_coordinate_system_non_unit_input(void)
         assert(direction_dot > 0.0f);
     }
     
-    printf("✓ Non-unit input tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_coordinate_system_consistency(void)
 {
-    printf("=== test_vec3_coordinate_system_consistency ===\n");
-    
     // Test that multiple calls with same input produce consistent results
     // (not necessarily identical, but should have same properties)
     
@@ -264,13 +215,11 @@ static void test_vec3_coordinate_system_consistency(void)
         }
     }
     
-    printf("✓ Consistency tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_coordinate_system_edge_cases(void)
 {
-    printf("=== test_vec3_coordinate_system_edge_cases ===\n");
-    
     // Test edge cases
     
     // Near-zero vector (should handle gracefully or crash)
@@ -278,10 +227,10 @@ static void test_vec3_coordinate_system_edge_cases(void)
     t_vec3 b = random_unit_vec3();
     t_vec3 c = random_unit_vec3();
     
-    // This might produce NaN or zero vectors, or might normalize
+    // This might produce NaN or zero vectors, but normalizes
     vec3_coordinate_system(tiny, &b, &c);
-    printf("  Note: tiny vector result - b: (%.6f, %.6f, %.6f), c: (%.6f, %.6f, %.6f)\n",
-           b.x, b.y, b.z, c.x, c.y, c.z);
+    // printf("\n  Note: tiny vector result - b: (%.6f, %.6f, %.6f), c: (%.6f, %.6f, %.6f)\n",
+    //        b.x, b.y, b.z, c.x, c.y, c.z);
     
     // Vector with one component zero
     // t_vec3 a1 = vec3_new(0.0f, 0.0f, 1.0f); // Already tested
@@ -308,13 +257,11 @@ static void test_vec3_coordinate_system_edge_cases(void)
     t_vec3 cross_bc = vec3_cross(b, c);
     assert(vec3_equal(cross_bc, neg_z, 1e-4f));
     
-    printf("✓ Edge cases tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_coordinate_system_degenerate_cases(void)
 {
-    printf("=== test_vec3_coordinate_system_degenerate_cases ===\n");
-    
     // Test potentially problematic cases
     
     // Vector with two components zero
@@ -362,19 +309,16 @@ static void test_vec3_coordinate_system_degenerate_cases(void)
     t_vec3 cross_bc = vec3_cross(b, c);
     assert(vec3_equal(cross_bc, repeated, 1e-4f));
     
-    printf("✓ Degenerate cases tests passed\n");
+    printf("✓ ");
 }
 
 // ============================================
 // STACK ALLOCATION TESTS
 // ============================================
 
+// Test multiple coordinate system constructions on stack
 static void test_coordinates_stack_operations(void)
 {
-    printf("=== test_coordinates_stack_operations ===\n");
-    
-    // Test multiple coordinate system constructions on stack
-    
 #ifdef BENCHMARK
     printf("Testing with %d operations on stack...\n", STACK_TEST_SIZE);
 #endif
@@ -429,7 +373,7 @@ static void test_coordinates_stack_operations(void)
     
     (void)b_results;
     (void)c_results;
-    printf("✓ Stack operations test passed (%d coordinate systems)\n", STACK_TEST_SIZE);
+    printf("✓\tStack operations test passed (%d coordinate systems)\n", STACK_TEST_SIZE);
 }
 
 // ============================================
@@ -466,7 +410,7 @@ static void benchmark_vec3_coordinate_system(void)
         );
         a_mod = vec3_normalize(a_mod);
         
-        vec3_coordinate_system(a_mod, &b_result, &c_result);
+        vec3_coordinate_system(a_mod, (t_vec3*)&b_result, (t_vec3*)&c_result);
     }
     
     double end = get_time();
@@ -489,8 +433,6 @@ static void benchmark_vec3_coordinate_system(void)
 
 static void test_coordinates_integration(void)
 {
-    printf("=== test_coordinates_integration ===\n");
-    
     // Test integration with other vector operations
     
     // 1. Transform vector from local to world coordinates
@@ -590,7 +532,7 @@ static void test_coordinates_integration(void)
         assert(float_equal(det, 1.0f, 1e-4f));
     }
     
-    printf("✓ Integration tests passed\n");
+    printf("✓ ");
 }
 
 // ============================================
@@ -599,8 +541,6 @@ static void test_coordinates_integration(void)
 
 static void test_coordinates_minirt_context(void)
 {
-    printf("=== test_coordinates_minirt_context ===\n");
-    
    // 1. Building camera coordinate system
     t_vec3 view_dir = vec3_new(0.0f, 0.0f, -1.0f); // Looking along -Z
 
@@ -663,7 +603,7 @@ static void test_coordinates_minirt_context(void)
     // 8. Coordinate system for area lights
     // To sample points on area lights, we need a coordinate system on the light surface
     
-    printf("✓ Minirt context tests passed\n");
+    printf("✓ ");
 }
 
 // ============================================
@@ -672,8 +612,6 @@ static void test_coordinates_minirt_context(void)
 
 static void test_coordinate_system_alternatives(void)
 {
-    printf("=== test_coordinate_system_alternatives ===\n");
-    
     // Common method: Frisvad's method (robust and fast)
     // We can compare our implementation's properties
     
@@ -726,27 +664,15 @@ static void test_coordinate_system_alternatives(void)
         assert(!isnan(c.x) && !isnan(c.y) && !isnan(c.z));
     }
     
-    printf("✓ Alternative implementation comparison passed\n");
+    printf("✓ ");
 }
 
 // ============================================
 // MAIN TEST RUNNER
 // ============================================
 
-int main()
+void test_vec3_coordinates()
 {
-    printf("\n=======================================\n");
-    printf("VEC3 COORDINATE SYSTEM TEST SUITE\n");
-    printf("Mode: ");
-#ifdef QUICK_TEST
-    printf("QUICK_TEST (%d iterations)\n", TEST_ITERATIONS);
-#elif defined(BENCHMARK)
-    printf("BENCHMARK (%d iterations)\n", TEST_ITERATIONS);
-#else
-    printf("FULL_TEST (%d iterations)\n", TEST_ITERATIONS);
-#endif
-    printf("=======================================\n\n");
-    
     srand(time(NULL));
     
     // Run unit tests
@@ -771,10 +697,4 @@ int main()
     
     benchmark_vec3_coordinate_system();
 #endif
-    
-    printf("\n=======================================\n");
-    printf("ALL TESTS PASSED SUCCESSFULLY!\n");
-    printf("=======================================\n");
-    
-    return 0;
 }

@@ -8,22 +8,7 @@
 #include <float.h>
 #include <stdint.h>
 #include "core/vec3.h"
-
-#ifdef QUICK_TEST
-#define TEST_ITERATIONS 100
-#define STACK_TEST_SIZE 1000
-#elif defined(BENCHMARK)
-#define TEST_ITERATIONS 1000000
-#define STACK_TEST_SIZE 1000000
-#else
-#define TEST_ITERATIONS 10000
-#define STACK_TEST_SIZE 100000
-#endif
-
-// ============================================
-// TEST HELPERS
-// ============================================
-
+#include "core/test.h"
 
 // ============================================
 // UNIT TESTS - vec3_new
@@ -31,8 +16,6 @@
 
 static void test_vec3_new_basic(void)
 {
-    printf("=== test_vec3_new_basic ===\n");
-    
     // Normal cases
     t_vec3 v1 = vec3_new(1.0f, 2.0f, 3.0f);
     assert(v1.x == 1.0f && v1.y == 2.0f && v1.z == 3.0f);
@@ -48,13 +31,11 @@ static void test_vec3_new_basic(void)
     t_vec3 v4 = vec3_new(1e6f, -1e6f, 1e-6f);
     assert(v4.x == 1e6f && v4.y == -1e6f && v4.z == 1e-6f);
     
-    printf("✓ Basic tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_new_edge_cases(void)
 {
-    printf("=== test_vec3_new_edge_cases ===\n");
-    
     // Infinity and NaN tests
     t_vec3 v1 = vec3_new(INFINITY, -INFINITY, NAN);
     assert(isinf(v1.x) && isinf(v1.y) && isnan(v1.z));
@@ -68,13 +49,11 @@ static void test_vec3_new_edge_cases(void)
     assert(v3.x == FLT_MAX && v3.y == -FLT_MAX && v3.z == FLT_EPSILON);
     
     (void)v2;
-    printf("✓ Edge cases tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_new_consistency(void)
 {
-    printf("=== test_vec3_new_consistency ===\n");
-    
     // Test that multiple calls with same parameters produce same results
     for (int i = 0; i < 100; i++)
     {
@@ -88,7 +67,7 @@ static void test_vec3_new_consistency(void)
         assert(v1.x == v2.x && v1.y == v2.y && v1.z == v2.z);
     }
     
-    printf("✓ Consistency tests passed\n");
+    printf("✓ ");
 }
 
 // ============================================
@@ -97,8 +76,6 @@ static void test_vec3_new_consistency(void)
 
 static void test_vec3_from_scalar_basic(void)
 {
-    printf("=== test_vec3_from_scalar_basic ===\n");
-    
     // Positive scalar
     t_vec3 v1 = vec3_from_scalar(5.0f);
     assert(v1.x == 5.0f && v1.y == 5.0f && v1.z == 5.0f);
@@ -115,13 +92,11 @@ static void test_vec3_from_scalar_basic(void)
     t_vec3 v4 = vec3_from_scalar(1.0f);
     assert(v4.x == 1.0f && v4.y == 1.0f && v4.z == 1.0f);
     
-    printf("✓ Basic tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_from_scalar_edge_cases(void)
 {
-    printf("=== test_vec3_from_scalar_edge_cases ===\n");
-    
     // Infinity
     t_vec3 v1 = vec3_from_scalar(INFINITY);
     assert(isinf(v1.x) && isinf(v1.y) && isinf(v1.z));
@@ -142,13 +117,11 @@ static void test_vec3_from_scalar_edge_cases(void)
     t_vec3 v5 = vec3_from_scalar(FLT_MIN / 2.0f);
     // Just ensure it doesn't crash
     (void)v5;
-    printf("✓ Edge cases tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_from_scalar_consistency(void)
 {
-    printf("=== test_vec3_from_scalar_consistency ===\n");
-    
     // Test that it's truly uniform
     t_vec3 v = vec3_from_scalar(7.5f);
     assert(v.x == v.y && v.y == v.z);
@@ -164,7 +137,7 @@ static void test_vec3_from_scalar_consistency(void)
         assert(v1.x == v1.y && v1.y == v1.z);
     }
     
-    printf("✓ Consistency tests passed\n");
+    printf("✓ ");
 }
 
 // ============================================
@@ -173,8 +146,6 @@ static void test_vec3_from_scalar_consistency(void)
 
 static void test_create_stack_overflow(void)
 {
-    printf("=== test_create_stack_overflow ===\n");
-    
     // Test creating many vectors on stack - this tests stack allocation limits
     // This is important for raytracing where many temporary vectors are created
     
@@ -198,7 +169,7 @@ static void test_create_stack_overflow(void)
         assert(vec3_equal(stack_vectors[100], vec3_new(100.0f, 200.0f, 300.0f), 1e-6f));
     }
     
-    printf("✓ Stack allocation test passed (created %d vectors)\n", STACK_TEST_SIZE);
+    printf("✓\tStack allocation test passed (created %d vectors)\n", STACK_TEST_SIZE);
 }
 
 // ============================================
@@ -307,8 +278,6 @@ static void benchmark_create_mixed(void)
 
 static void test_create_integration(void)
 {
-    printf("=== test_create_integration ===\n");
-    
     // Test that vec3_from_scalar is equivalent to vec3_new with same value
     for (int i = 0; i < 10; i++)
     {
@@ -326,7 +295,7 @@ static void test_create_integration(void)
     
     assert(vec3_equal(composed, expected, 1e-6f));
     
-    printf("✓ Integration tests passed\n");
+    printf("✓ ");
 }
 
 // ============================================
@@ -335,8 +304,6 @@ static void test_create_integration(void)
 
 static void test_create_minirt_context(void)
 {
-    printf("=== test_create_minirt_context ===\n");
-    
     // Common vectors used in raytracing
     t_vec3 origin = vec3_new(0.0f, 0.0f, 0.0f);
     t_vec3 right = vec3_new(1.0f, 0.0f, 0.0f);
@@ -362,27 +329,15 @@ static void test_create_minirt_context(void)
     
     (void)green;
     (void)blue;
-    printf("✓ Minirt context tests passed\n");
+    printf("✓ ");
 }
 
 // ============================================
 // MAIN TEST RUNNER
 // ============================================
 
-int main()
+void test_vec3_create()
 {
-    printf("\n=======================================\n");
-    printf("VEC3 CREATE TEST SUITE\n");
-    printf("Mode: ");
-#ifdef QUICK_TEST
-    printf("QUICK_TEST (%d iterations)\n", TEST_ITERATIONS);
-#elif defined(BENCHMARK)
-    printf("BENCHMARK (%d iterations)\n", TEST_ITERATIONS);
-#else
-    printf("FULL_TEST (%d iterations)\n", TEST_ITERATIONS);
-#endif
-    printf("=======================================\n\n");
-    
     srand(time(NULL));
     
     // Run unit tests
@@ -409,10 +364,4 @@ int main()
     benchmark_vec3_from_scalar();
     benchmark_create_mixed();
 #endif
-    
-    printf("\n=======================================\n");
-    printf("ALL TESTS PASSED SUCCESSFULLY!\n");
-    printf("=======================================\n");
-    
-    return 0;
 }

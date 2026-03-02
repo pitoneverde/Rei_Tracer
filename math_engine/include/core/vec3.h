@@ -33,7 +33,7 @@ t_vec3	vec3_scale(t_vec3 v, float s);
 float	vec3_dot(t_vec3 a, t_vec3 b);
 t_vec3	vec3_cross(t_vec3 a, t_vec3 b);
 float	vec3_volume(t_vec3 a, t_vec3 b, t_vec3 c);
-t_vec3 vec3_triple(t_vec3 a, t_vec3 b, t_vec3 c);
+t_vec3	vec3_triple(t_vec3 a, t_vec3 b, t_vec3 c);
 
 // ===== COMPONENT-WISE OPERATIONS =====
 

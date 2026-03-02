@@ -9,36 +9,7 @@
 #include <stdint.h>
 #include "core/vec3.h"
 #include "utils/debug.h"
-
-#ifdef QUICK_TEST
-#define TEST_ITERATIONS 100
-#define STACK_TEST_SIZE 1000
-#elif defined(BENCHMARK)
-#define TEST_ITERATIONS 1000000
-#define STACK_TEST_SIZE 1000000
-#else
-#define TEST_ITERATIONS 10000
-#define STACK_TEST_SIZE 100000
-#endif
-
-// ============================================
-// TEST HELPERS
-// ============================================
-
-static bool float_equal(float a, float b, float epsilon)
-{
-    return fabsf(a - b) <= epsilon;
-}
-
-static t_vec3 random_vec3(float min, float max)
-{
-    float range = max - min;
-    return vec3_new(
-        min + (float)rand() / RAND_MAX * range,
-        min + (float)rand() / RAND_MAX * range,
-        min + (float)rand() / RAND_MAX * range
-    );
-}
+#include "core/test.h"
 
 // ============================================
 // UNIT TESTS - vec3_equal
@@ -46,8 +17,6 @@ static t_vec3 random_vec3(float min, float max)
 
 static void test_vec3_equal_basic(void)
 {
-    printf("=== test_vec3_equal_basic ===\n");
-    
     float epsilon = 1e-6f;
     
     // Same vectors
@@ -78,13 +47,11 @@ static void test_vec3_equal_basic(void)
     t_vec3 neg_similar = vec3_new(-1.0000005f, -2.0000005f, -3.0000005f);
     assert(vec3_equal(neg, neg_similar, 1e-6f));
     
-    printf("✓ Basic equality tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_equal_properties(void)
 {
-    printf("=== test_vec3_equal_properties ===\n");
-    
     float epsilon = 1e-6f;
     
     // Reflexive: a == a
@@ -109,22 +76,20 @@ static void test_vec3_equal_properties(void)
     // Not necessarily transitive with epsilon comparisons
     // But test consistency
     
-    printf("✓ Equality property tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_equal_edge_cases(void)
 {
-    printf("=== test_vec3_equal_edge_cases ===\n");
-    
     float epsilon = 1e-6f;
     
     // Infinity
-    t_vec3 inf1 = vec3_new(INFINITY, INFINITY, INFINITY);
-    t_vec3 inf2 = vec3_new(INFINITY, INFINITY, INFINITY);
+    // t_vec3 inf1 = vec3_new(INFINITY, INFINITY, INFINITY);
+    // t_vec3 inf2 = vec3_new(INFINITY, INFINITY, INFINITY);
     
     // Infinity == Infinity (mathematically, but floating point comparisons may vary)
-    bool inf_equal = vec3_equal(inf1, inf2, epsilon);
-    printf("  Note: inf == inf = %d\n", inf_equal);
+    // bool inf_equal = vec3_equal(inf1, inf2, epsilon);
+    // printf("\n  Note: inf == inf = %d\n", inf_equal);   // = 0
     
     // Different infinities
     t_vec3 pos_inf = vec3_new(INFINITY, 0.0f, 0.0f);
@@ -132,24 +97,24 @@ static void test_vec3_equal_edge_cases(void)
     assert(!vec3_equal(pos_inf, neg_inf, epsilon));
     
     // NaN - NaN != NaN in IEEE 754
-    t_vec3 nan_vec = vec3_new(NAN, 1.0f, 2.0f);
-    t_vec3 nan_vec2 = vec3_new(NAN, 1.0f, 2.0f);
-    bool nan_equal = vec3_equal(nan_vec, nan_vec2, epsilon);
-    printf("  Note: nan == nan = %d\n", nan_equal); // Typically false
+    // t_vec3 nan_vec = vec3_new(NAN, 1.0f, 2.0f);
+    // t_vec3 nan_vec2 = vec3_new(NAN, 1.0f, 2.0f);
+    // bool nan_equal = vec3_equal(nan_vec, nan_vec2, epsilon);
+    // printf("  Note: nan == nan = %d\n", nan_equal);     // = 0
     
     // Very large numbers
-    t_vec3 large1 = vec3_new(1e20f, 1e20f, 1e20f);
-    t_vec3 large2 = vec3_new(1e20f + 1.0f, 1e20f, 1e20f);
+    // t_vec3 large1 = vec3_new(1e20f, 1e20f, 1e20f);
+    // t_vec3 large2 = vec3_new(1e20f + 1.0f, 1e20f, 1e20f);
     // At this scale, 1.0 is within epsilon of 1e20?
-    bool large_equal = vec3_equal(large1, large2, 1.0f); // Large epsilon
-    printf("  Note: large numbers equality with epsilon=1.0 = %d\n", large_equal);
+    // bool large_equal = vec3_equal(large1, large2, 1.0f); // Large epsilon
+    // printf("  Note: large numbers equality with epsilon=1.0 = %d\n", large_equal);   // = 1
     
     // Very small numbers (denormalized)
     t_vec3 tiny1 = vec3_new(1e-30f, 1e-30f, 1e-30f);
     t_vec3 tiny2 = vec3_new(1e-30f, 1e-30f, 1e-30f);
     assert(vec3_equal(tiny1, tiny2, 1e-6f));
     
-    printf("✓ Edge cases tests passed\n");
+    printf("✓ ");
 }
 
 // ============================================
@@ -158,8 +123,6 @@ static void test_vec3_equal_edge_cases(void)
 
 static void test_vec3_is_zero_basic(void)
 {
-    printf("=== test_vec3_is_zero_basic ===\n");
-    
     float epsilon = 1e-6f;
     
     // Zero vector
@@ -185,13 +148,11 @@ static void test_vec3_is_zero_basic(void)
     t_vec3 neg_near_zero = vec3_new(-1e-7f, -1e-7f, -1e-7f);
     assert(vec3_is_zero(neg_near_zero, 1e-6f));
     
-    printf("✓ Basic is_zero tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_is_zero_properties(void)
 {
-    printf("=== test_vec3_is_zero_properties ===\n");
-    
     // Zero vector scaled is still zero
     t_vec3 zero = vec3_new(0.0f, 0.0f, 0.0f);
     float epsilon = 1e-6f;
@@ -209,7 +170,7 @@ static void test_vec3_is_zero_properties(void)
     // Zero minus zero is zero
     assert(vec3_is_zero(vec3_sub(zero, zero), epsilon));
     
-    printf("✓ Zero property tests passed\n");
+    printf("✓ ");
 }
 
 // ============================================
@@ -218,8 +179,6 @@ static void test_vec3_is_zero_properties(void)
 
 static void test_vec3_is_finite_basic(void)
 {
-    printf("=== test_vec3_is_finite_basic ===\n");
-    
     // Finite vectors
     t_vec3 finite = vec3_new(1.0f, 2.0f, 3.0f);
     assert(vec3_is_finite(finite));
@@ -255,13 +214,11 @@ static void test_vec3_is_finite_basic(void)
     t_vec3 large = vec3_new(FLT_MAX, -FLT_MAX, FLT_MAX/2.0f);
     assert(vec3_is_finite(large));
     
-    printf("✓ Basic is_finite tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_is_finite_random(void)
 {
-    printf("=== test_vec3_is_finite_random ===\n");
-    
     // Random finite vectors should all be finite
     for (int i = 0; i < 100; i++)
     {
@@ -269,7 +226,7 @@ static void test_vec3_is_finite_random(void)
         assert(vec3_is_finite(v));
     }
     
-    printf("✓ Random finite tests passed\n");
+    printf("✓ ");
 }
 
 // ============================================
@@ -278,8 +235,6 @@ static void test_vec3_is_finite_random(void)
 
 static void test_vec3_any_nan_basic(void)
 {
-    printf("=== test_vec3_any_nan_basic ===\n");
-    
     // No NaN
     t_vec3 no_nan = vec3_new(1.0f, 2.0f, 3.0f);
     assert(!vec3_any_nan(no_nan));
@@ -308,7 +263,7 @@ static void test_vec3_any_nan_basic(void)
     t_vec3 zero = vec3_new(0.0f, 0.0f, 0.0f);
     assert(!vec3_any_nan(zero));
     
-    printf("✓ Basic any_nan tests passed\n");
+    printf("✓ ");
 }
 
 // ============================================
@@ -317,8 +272,6 @@ static void test_vec3_any_nan_basic(void)
 
 static void test_vec3_abs_basic(void)
 {
-    printf("=== test_vec3_abs_basic ===\n");
-    
     // Positive numbers unchanged
     t_vec3 pos = vec3_new(1.0f, 2.0f, 3.0f);
     t_vec3 abs_pos = vec3_abs(pos);
@@ -346,13 +299,11 @@ static void test_vec3_abs_basic(void)
     t_vec3 abs_twice = vec3_abs(abs_once);
     assert(vec3_equal(abs_once, abs_twice, 1e-6f));
     
-    printf("✓ Basic abs tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_abs_properties(void)
 {
-    printf("=== test_vec3_abs_properties ===\n");
-    
     // abs(-v) == abs(v)
     for (int i = 0; i < 100; i++)
     {
@@ -388,7 +339,7 @@ static void test_vec3_abs_properties(void)
         assert(vec3_equal(abs_product, product_abs, 1e-6f));
     }
     
-    printf("✓ Abs property tests passed\n");
+    printf("✓ ");
 }
 
 // ============================================
@@ -397,8 +348,6 @@ static void test_vec3_abs_properties(void)
 
 static void test_vec3_floor_basic(void)
 {
-    printf("=== test_vec3_floor_basic ===\n");
-    
     // Positive numbers
     t_vec3 v1 = vec3_new(1.3f, 2.7f, 3.0f);
     t_vec3 floor1 = vec3_floor(v1);
@@ -428,13 +377,11 @@ static void test_vec3_floor_basic(void)
     t_vec3 expected5 = vec3_new(123456.0f, -987655.0f, 0.0f);
     assert(vec3_equal(floor5, expected5, 1e-6f));
     
-    printf("✓ Basic floor tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_ceil_basic(void)
 {
-    printf("=== test_vec3_ceil_basic ===\n");
-    
     // Positive numbers
     t_vec3 v1 = vec3_new(1.3f, 2.7f, 3.0f);
     t_vec3 ceil1 = vec3_ceil(v1);
@@ -464,13 +411,11 @@ static void test_vec3_ceil_basic(void)
     t_vec3 expected5 = vec3_new(123457.0f, -987654.0f, 1.0f);
     assert(vec3_equal(ceil5, expected5, 1e-6f));
     
-    printf("✓ Basic ceil tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_round_basic(void)
 {
-    printf("=== test_vec3_round_basic ===\n");
-    
     // Positive numbers
     t_vec3 v1 = vec3_new(1.3f, 2.7f, 3.0f);
     t_vec3 round1 = vec3_round(v1);
@@ -486,8 +431,9 @@ static void test_vec3_round_basic(void)
     // .5 cases (ties to even typically, but implementation may vary)
     t_vec3 v3 = vec3_new(1.5f, 2.5f, -1.5f);
     t_vec3 round3 = vec3_round(v3);
-    printf("  Note: round(1.5, 2.5, -1.5) = (%.1f, %.1f, %.1f)\n", 
-           round3.x, round3.y, round3.z);
+    (void)round3;
+    // printf("\n  Note: round(1.5, 2.5, -1.5) = (%.1f, %.1f, %.1f)\n", 
+    //        round3.x, round3.y, round3.z);    // = {2.0, 3.0, -2.0}
     
     // Already integer
     t_vec3 v4 = vec3_new(2.0f, -3.0f, 0.0f);
@@ -500,13 +446,11 @@ static void test_vec3_round_basic(void)
     t_vec3 expected5 = vec3_new(123457.0f, -987654.0f, 0.0f);
     assert(vec3_equal(round5, expected5, 1e-6f));
     
-    printf("✓ Basic round tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_floor_ceil_round_relationships(void)
 {
-    printf("=== test_vec3_floor_ceil_round_relationships ===\n");
-    
     for (int i = 0; i < 100; i++)
     {
         t_vec3 v = random_vec3(-100.0f, 100.0f);
@@ -551,7 +495,7 @@ static void test_vec3_floor_ceil_round_relationships(void)
         assert(vec3_equal(floor_neg, neg_ceil, 1e-6f));
     }
     
-    printf("✓ Floor/ceil/round relationship tests passed\n");
+    printf("✓ ");
 }
 
 // ============================================
@@ -560,8 +504,6 @@ static void test_vec3_floor_ceil_round_relationships(void)
 
 static void test_vec3_mod_basic(void)
 {
-    printf("=== test_vec3_mod_basic ===\n");
-    
     // Basic modulo operations
     t_vec3 v = vec3_new(5.0f, 7.0f, 9.0f);
     float divisor = 3.0f;
@@ -597,13 +539,11 @@ static void test_vec3_mod_basic(void)
     expected = vec3_new(0.0f, 0.0f, 0.0f);
     assert(vec3_equal(mod_result, expected, 1e-6f));
     
-    printf("✓ Basic mod tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_mod_properties(void)
 {
-    printf("=== test_vec3_mod_properties ===\n");
-    
     // Test that v = k*divisor + mod(v, divisor) for some integer k
     // Actually, fmod(v, d) = v - n*d where n = trunc(v/d)
     for (int i = 0; i < 100; i++)
@@ -662,21 +602,19 @@ static void test_vec3_mod_properties(void)
         }
     }
     
-    printf("✓ Mod property tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_mod_edge_cases(void)
 {
-    printf("=== test_vec3_mod_edge_cases ===\n");
-    
     // Division by zero (should produce NaN or crash)
     t_vec3 v = vec3_new(1.0f, 2.0f, 3.0f);
     float divisor = 0.0f;
     
-    // This is undefined behavior - fmod(x, 0) returns NaN
+    // fmod(x, 0) returns 0
     t_vec3 mod_result = vec3_mod(v, divisor);
-    printf("  Note: mod(v, 0) = (%.6f, %.6f, %.6f)\n", 
-           mod_result.x, mod_result.y, mod_result.z);
+    // printf("\n  Note: mod(v, 0) = (%.6f, %.6f, %.6f)\n", 
+    //        mod_result.x, mod_result.y, mod_result.z);
     
     // Very small divisor
     divisor = 1e-30f;
@@ -704,11 +642,11 @@ static void test_vec3_mod_edge_cases(void)
     divisor = -3.0f;
     mod_result = vec3_mod(v, divisor);
     // fmod with negative divisor: fmod(5, -3) = 2 (sign of divisor ignored for result sign)
-    // Actually fmod(5, -3) = 2, fmod(-5, -3) = -2
-    printf("  Note: mod((1,2,3), -3) = (%.6f, %.6f, %.6f)\n",
-           mod_result.x, mod_result.y, mod_result.z);
+    // fmod(5, -3) = 2, fmod(-5, -3) = -2
+    // printf("  Note: mod((1,2,3), -3) = (%.6f, %.6f, %.6f)\n",
+    //        mod_result.x, mod_result.y, mod_result.z);
     
-    printf("✓ Edge cases tests passed\n");
+    printf("✓ ");
 }
 
 // ============================================
@@ -717,8 +655,6 @@ static void test_vec3_mod_edge_cases(void)
 
 static void test_compare_stack_operations(void)
 {
-    printf("=== test_compare_stack_operations ===\n");
-    
 #ifdef BENCHMARK
     printf("Testing with %d operations on stack...\n", STACK_TEST_SIZE);
 #endif
@@ -772,7 +708,7 @@ static void test_compare_stack_operations(void)
     assert(vec3_equal(floor_test, vec3_new(-2.0f, 2.0f, 0.0f), eps));
     (void)bool_results;
     (void)vec_results;
-    printf("✓ Stack operations test passed (%d operations)\n", STACK_TEST_SIZE);
+    printf("✓\tStack operations test passed (%d operations)\n", STACK_TEST_SIZE);
 }
 
 // ============================================
@@ -974,8 +910,6 @@ static void benchmark_compare_mixed(void)
 
 static void test_compare_integration(void)
 {
-    printf("=== test_compare_integration ===\n");
-    
     float epsilon = 1e-7f;
     
     // 1. Relationship between is_zero and equal
@@ -1050,7 +984,7 @@ static void test_compare_integration(void)
         // Actually not always true due to sign preservation in fmod
     }
     
-    printf("✓ Integration tests passed\n");
+    printf("✓ ");
 }
 
 // ============================================
@@ -1059,15 +993,13 @@ static void test_compare_integration(void)
 
 static void test_compare_minirt_context(void)
 {
-    printf("=== test_compare_minirt_context ===\n");
-    
     float epsilon = 1e-6f;
     
     // 1. Checking if vectors are zero (e.g., degenerate triangles)
     t_vec3 triangle_normal = vec3_new(0.0f, 0.0f, 0.0f); // Degenerate triangle
     if (vec3_is_zero(triangle_normal, epsilon))
     {
-        printf("  Note: Degenerate triangle detected (zero area)\n");
+        // printf("\n  Note: Degenerate triangle detected (zero area)\n");
         // Handle degenerate case
     }
     
@@ -1078,7 +1010,7 @@ static void test_compare_minirt_context(void)
     
     if (vec3_any_nan(intersection_point))
     {
-        printf("  Note: NaN in intersection result\n");
+        // printf("  Note: NaN in intersection result\n");
         // Skip this intersection
     }
     
@@ -1086,7 +1018,7 @@ static void test_compare_minirt_context(void)
     t_vec3 ray_direction = vec3_new(1.0f, 2.0f, 3.0f);
     if (!vec3_is_finite(ray_direction))
     {
-        printf("  Note: Non-finite ray direction\n");
+        // printf("  Note: Non-finite ray direction\n");
         // Handle error
     }
     
@@ -1130,27 +1062,15 @@ static void test_compare_minirt_context(void)
     (void)voxel_coord;
     (void)tiled_tex;
 
-    printf("✓ Minirt context tests passed\n");
+    printf("✓ ");
 }
 
 // ============================================
 // MAIN TEST RUNNER
 // ============================================
 
-int main()
+void test_vec3_compare()
 {
-    printf("\n=======================================\n");
-    printf("VEC3 COMPARISON & UTILITY TEST SUITE\n");
-    printf("Mode: ");
-#ifdef QUICK_TEST
-    printf("QUICK_TEST (%d iterations)\n", TEST_ITERATIONS);
-#elif defined(BENCHMARK)
-    printf("BENCHMARK (%d iterations)\n", TEST_ITERATIONS);
-#else
-    printf("FULL_TEST (%d iterations)\n", TEST_ITERATIONS);
-#endif
-    printf("=======================================\n\n");
-    
     srand(time(NULL));
     
     // Run unit tests
@@ -1195,10 +1115,4 @@ int main()
     benchmark_vec3_abs();
     benchmark_compare_mixed();
 #endif
-    
-    printf("\n=======================================\n");
-    printf("ALL TESTS PASSED SUCCESSFULLY!\n");
-    printf("=======================================\n");
-    
-    return 0;
 }

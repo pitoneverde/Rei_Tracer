@@ -2,6 +2,7 @@
 # test_mat4_transformations.c – Transformations tests
 ==============================================================================*/
 
+#define _GNU_SOURCE
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
@@ -11,58 +12,11 @@
 #include "core/vec3.h"
 #include "utils/math_constants.h"
 #include "utils/debug.h"
+#include "core/test.h"
 
 #ifndef EPSILON
 # define EPSILON 1e-6f
 #endif
-
-/*------------------------------------------------------------------------------
-  Helper functions (identical to previous section – can be moved to a shared .h)
-------------------------------------------------------------------------------*/
-
-static inline bool float_equal(float a, float b, float eps)
-{
-    return fabsf(a - b) < eps;
-}
-
-// static float random_float(float min, float max)
-// {
-//     float r = (float)rand() / RAND_MAX;
-//     return min + r * (max - min);
-// }
-
-// static t_vec3 random_vec3(float min, float max)
-// {
-//     return vec3_new(random_float(min, max),
-//                     random_float(min, max),
-//                     random_float(min, max));
-// }
-
-// static t_mat4 random_mat4(float min, float max)
-// {
-//     t_mat4 m;
-//     for (int i = 0; i < 4; ++i)
-//         for (int j = 0; j < 4; ++j)
-//             m.mat[i][j] = random_float(min, max);
-//     return m;
-// }
-
-static bool mat4_equal_eps(t_mat4 a, t_mat4 b, float eps)
-{
-    for (int i = 0; i < 4; ++i)
-        for (int j = 0; j < 4; ++j)
-            if (!float_equal(a.mat[i][j], b.mat[i][j], eps))
-                return false;
-    return true;
-}
-
-// static void print_mat4(const char *name, t_mat4 m)
-// {
-//     printf("%s:\n", name);
-//     for (int i = 0; i < 4; ++i)
-//         printf("  [ %7.3f %7.3f %7.3f %7.3f ]\n",
-//                m.mat[i][0], m.mat[i][1], m.mat[i][2], m.mat[i][3]);
-// }
 
 /*------------------------------------------------------------------------------
   Unit tests
@@ -70,8 +24,6 @@ static bool mat4_equal_eps(t_mat4 a, t_mat4 b, float eps)
 
 static void test_mat4_translation(void)
 {
-    printf("=== test_mat4_translation ===\n");
-
     t_vec3 t = {2.0f, -3.0f, 5.0f};
     t_mat4 T = mat4_translation(t);
 
@@ -105,13 +57,11 @@ static void test_mat4_translation(void)
     T = mat4_translation(huge);
     (void)T;
 
-    printf("✓ translation tests passed\n");
+    printf("✓ ");
 }
 
 static void test_mat4_scaling(void)
 {
-    printf("=== test_mat4_scaling ===\n");
-
     t_vec3 s = {2.0f, 3.0f, 4.0f};
     t_mat4 S = mat4_scaling(s);
 
@@ -156,13 +106,11 @@ static void test_mat4_scaling(void)
     expected = (t_vec3){-p.x, p.y, p.z};
     assert(vec3_equal(p_scaled, expected, EPSILON));
 
-    printf("✓ scaling tests passed\n");
+    printf("✓ ");
 }
 
 static void test_mat4_rotation_x(void)
 {
-    printf("=== test_mat4_rotation_x ===\n");
-
     float angle = MATH_PI / 2.0f; // 90°
     t_mat4 R = mat4_rotation_x(angle);
 
@@ -203,13 +151,11 @@ static void test_mat4_rotation_x(void)
     t_mat4 prod = mat4_mul(R90, Rneg);
     assert(mat4_equal_eps(prod, mat4_identity(), EPSILON));
 
-    printf("✓ rotation_x tests passed\n");
+    printf("✓ ");
 }
 
 static void test_mat4_rotation_y(void)
 {
-    printf("=== test_mat4_rotation_y ===\n");
-
     float angle = MATH_PI / 2.0f;
     t_mat4 R = mat4_rotation_y(angle);
 
@@ -236,13 +182,11 @@ static void test_mat4_rotation_y(void)
     R = mat4_rotation_y(0.0f);
     assert(mat4_equal_eps(R, mat4_identity(), EPSILON));
 
-    printf("✓ rotation_y tests passed\n");
+    printf("✓ ");
 }
 
 static void test_mat4_rotation_z(void)
 {
-    printf("=== test_mat4_rotation_z ===\n");
-
     float angle = MATH_PI / 2.0f;
     t_mat4 R = mat4_rotation_z(angle);
 
@@ -269,13 +213,11 @@ static void test_mat4_rotation_z(void)
     R = mat4_rotation_z(0.0f);
     assert(mat4_equal_eps(R, mat4_identity(), EPSILON));
 
-    printf("✓ rotation_z tests passed\n");
+    printf("✓ ");
 }
 
 static void test_mat4_rotation_axis(void)
 {
-    printf("=== test_mat4_rotation_axis ===\n");
-
     // Rotate around X axis by 90° using axis = (1,0,0)
     t_vec3 axis = {1,0,0};
     float angle = MATH_PI / 2.0f;
@@ -336,13 +278,11 @@ static void test_mat4_rotation_axis(void)
     R = mat4_rotation_axis(zero_axis, angle);
     (void)R;
 
-    printf("✓ rotation_axis tests passed\n");
+    printf("✓ ");
 }
 
 static void test_mat4_look_at(void)
 {
-    printf("=== test_mat4_look_at ===\n");
-
     // -----------------------------------------------------------------
     // Test 1: eye at origin, looking down -z, up = y.
     //         Camera axes align with world axes, so matrix = identity.
@@ -433,7 +373,7 @@ static void test_mat4_look_at(void)
     degenerate = mat4_look_at(eye, target, bad_up);
     (void)degenerate;
 
-    printf("✓ look_at tests passed\n");
+    printf("✓ ");
 }
 
 /*------------------------------------------------------------------------------
@@ -470,8 +410,7 @@ static void bench_mat4_translation(void)
 static void bench_mat4_rotation_axis(void)
 {
     const int N = 1000000;
-    t_vec3 axis = {1,1,1};
-    vec3_normalize(&axis);
+    t_vec3 axis = vec3_normalize((t_vec3){1,1,1});
     float angle = MATH_PI / 3.0f;
     t_mat4 M;
 
@@ -521,15 +460,13 @@ static void run_benchmarks(void)
   Main – dispatch tests or benchmarks
 ------------------------------------------------------------------------------*/
 
-int main(void)
+void test_mat4_transformation()
 {
     srand(42);
 
 #ifdef BENCHMARK
     run_benchmarks();
 #else
-    printf("===== TRANSFORMATIONS (RT ESSENTIALS) =====\n\n");
-
     test_mat4_translation();
     test_mat4_scaling();
     test_mat4_rotation_x();
@@ -537,9 +474,6 @@ int main(void)
     test_mat4_rotation_z();
     test_mat4_rotation_axis();
     test_mat4_look_at();
-
-    printf("\nAll transformations tests passed.\n");
+    printf("\n");
 #endif
-
-    return 0;
 }

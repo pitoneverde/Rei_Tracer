@@ -50,7 +50,6 @@ test: $(STATIC_LIB)
 	@echo "Building and running full tests..."
 	$(MAKE) -C $(SRC_DIR)/tests test
 
-
 bench: $(STATIC_LIB)
 	@echo "Building and running benchmarks"
 	$(MAKE) -C $(SRC_DIR)/tests bench

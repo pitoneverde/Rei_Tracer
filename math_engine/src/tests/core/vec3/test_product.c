@@ -1,3 +1,4 @@
+#define _GNU_SOURCE
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -7,46 +8,7 @@
 #include <float.h>
 #include <stdint.h>
 #include "core/vec3.h"
-
-#ifdef QUICK_TEST
-#define TEST_ITERATIONS 100
-#define STACK_TEST_SIZE 1000
-#elif defined(BENCHMARK)
-#define TEST_ITERATIONS 1000000
-#define STACK_TEST_SIZE 1000000
-#else
-#define TEST_ITERATIONS 10000
-#define STACK_TEST_SIZE 100000
-#endif
-
-// ============================================
-// TEST HELPERS
-// ============================================
-
-static bool float_equal(float a, float b, float epsilon)
-{
-    return fabsf(a - b) <= epsilon;
-}
-
-static t_vec3 random_vec3(float min, float max)
-{
-    float range = max - min;
-    return vec3_new(
-        min + (float)rand() / RAND_MAX * range,
-        min + (float)rand() / RAND_MAX * range,
-        min + (float)rand() / RAND_MAX * range
-    );
-}
-
-// Orthogonalize b relative to a (Gram-Schmidt)
-static t_vec3 orthogonalize(t_vec3 a, t_vec3 b)
-{
-    float dot = vec3_dot(a, b);
-    float length_sq = vec3_length_sq(a);
-    if (length_sq < 1e-12f) return b;
-    float scale = dot / length_sq;
-    return vec3_sub(b, vec3_scale(a, scale));
-}
+#include "core/test.h"
 
 // ============================================
 // UNIT TESTS - vec3_dot
@@ -54,8 +16,6 @@ static t_vec3 orthogonalize(t_vec3 a, t_vec3 b)
 
 static void test_vec3_dot_basic(void)
 {
-    printf("=== test_vec3_dot_basic ===\n");
-    
     // Basic dot product
     t_vec3 a = vec3_new(1.0f, 2.0f, 3.0f);
     t_vec3 b = vec3_new(4.0f, 5.0f, 6.0f);
@@ -79,13 +39,11 @@ static void test_vec3_dot_basic(void)
     
     assert(float_equal(result, 0.0f, 1e-6f));
     
-    printf("✓ Basic dot product tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_dot_commutative(void)
 {
-    printf("=== test_vec3_dot_commutative ===\n");
-    
     // Test commutative property: a·b = b·a
     for (int i = 0; i < 100; i++)
     {
@@ -98,13 +56,11 @@ static void test_vec3_dot_commutative(void)
         assert(float_equal(result1, result2, 1e-6f));
     }
     
-    printf("✓ Commutative property tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_dot_distributive(void)
 {
-    printf("=== test_vec3_dot_distributive ===\n");
-    
     // Test distributive property: a·(b + c) = a·b + a·c
     for (int i = 0; i < 100; i++)
     {
@@ -118,13 +74,11 @@ static void test_vec3_dot_distributive(void)
         assert(float_equal(left, right, 1e-2f));
     }
     
-    printf("✓ Distributive property tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_dot_scalar_mult(void)
 {
-    printf("=== test_vec3_dot_scalar_mult ===\n");
-    
     // Test scalar multiplication: (k*a)·b = k*(a·b) = a·(k*b)
     for (int i = 0; i < 100; i++)
     {
@@ -140,13 +94,11 @@ static void test_vec3_dot_scalar_mult(void)
         assert(float_equal(result2, result3, 1e-2f));
     }
     
-    printf("✓ Scalar multiplication property tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_dot_orthogonal(void)
 {
-    printf("=== test_vec3_dot_orthogonal ===\n");
-    
     // Test that orthogonal vectors have dot product = 0
     t_vec3 basis[3] = {
         vec3_new(1.0f, 0.0f, 0.0f),
@@ -173,13 +125,11 @@ static void test_vec3_dot_orthogonal(void)
         assert(fabsf(dot) < 1e-4f);
     }
     
-    printf("✓ Orthogonal vectors tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_dot_edge_cases(void)
 {
-    printf("=== test_vec3_dot_edge_cases ===\n");
-    
     // Infinity cases
     t_vec3 inf_vec = vec3_new(INFINITY, INFINITY, INFINITY);
     t_vec3 finite_vec = vec3_new(1.0f, 2.0f, 3.0f);
@@ -203,7 +153,7 @@ static void test_vec3_dot_edge_cases(void)
     // Should be 3 * FLT_MIN * FLT_MIN, might be denormalized but not zero
     assert(result >= 0.0f);
     
-    printf("✓ Edge cases tests passed\n");
+    printf("✓ ");
 }
 
 // ============================================
@@ -212,8 +162,6 @@ static void test_vec3_dot_edge_cases(void)
 
 static void test_vec3_cross_basic(void)
 {
-    printf("=== test_vec3_cross_basic ===\n");
-    
     // Standard basis cross products
     t_vec3 i = vec3_new(1.0f, 0.0f, 0.0f);
     t_vec3 j = vec3_new(0.0f, 1.0f, 0.0f);
@@ -241,13 +189,11 @@ static void test_vec3_cross_basic(void)
     result = vec3_cross(i, zero);
     assert(vec3_equal(result, zero, 1e-6f));
     
-    printf("✓ Basic cross product tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_cross_anticommutative(void)
 {
-    printf("=== test_vec3_cross_anticommutative ===\n");
-    
     // Test anticommutative property: a × b = -(b × a)
     for (int i = 0; i < 100; i++)
     {
@@ -261,13 +207,11 @@ static void test_vec3_cross_anticommutative(void)
         assert(vec3_equal(result1, vec3_neg(result2), 1e-6f));
     }
     
-    printf("✓ Anticommutative property tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_cross_orthogonal(void)
 {
-    printf("=== test_vec3_cross_orthogonal ===\n");
-    
     // Cross product should be orthogonal to both inputs
     for (int i = 0; i < 100; i++)
     {
@@ -285,13 +229,11 @@ static void test_vec3_cross_orthogonal(void)
         assert(fabsf(dot_b) < 1e-3f);
     }
     
-    printf("✓ Orthogonality property tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_cross_distributive(void)
 {
-    printf("=== test_vec3_cross_distributive ===\n");
-    
     // Test distributive property: a × (b + c) = a × b + a × c
     for (int i = 0; i < 100; i++)
     {
@@ -305,13 +247,11 @@ static void test_vec3_cross_distributive(void)
         assert(vec3_equal(left, right, 1e-4f));
     }
     
-    printf("✓ Distributive property tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_cross_scalar_mult(void)
 {
-    printf("=== test_vec3_cross_scalar_mult ===\n");
-    
     // Test scalar multiplication: (k*a) × b = k*(a × b) = a × (k*b)
     for (int i = 0; i < 100; i++)
     {
@@ -327,13 +267,11 @@ static void test_vec3_cross_scalar_mult(void)
         assert(vec3_equal(result2, result3, 1e-4f));
     }
     
-    printf("✓ Scalar multiplication property tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_cross_parallel(void)
 {
-    printf("=== test_vec3_cross_parallel ===\n");
-    
     // Cross product of parallel vectors should be zero
     for (int i = 0; i < 50; i++)
     {
@@ -357,13 +295,11 @@ static void test_vec3_cross_parallel(void)
         assert(vec3_equal(result, zero, 1e-6f));
     }
     
-    printf("✓ Parallel vectors tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_cross_edge_cases(void)
 {
-    printf("=== test_vec3_cross_edge_cases ===\n");
-    
     // Infinity cases
     t_vec3 inf_vec = vec3_new(INFINITY, INFINITY, INFINITY);
     t_vec3 finite_vec = vec3_new(1.0f, 2.0f, 3.0f);
@@ -383,7 +319,7 @@ static void test_vec3_cross_edge_cases(void)
     // Cross product of vector with itself should be zero ---> instead is nan because of inf-inf in IEEE 754
     // assert(vec3_equal(result, vec3_new(0.0f, 0.0f, 0.0f), 1e-6f));
     
-    printf("✓ Edge cases tests passed\n");
+    printf("✓ ");
 }
 
 // ============================================
@@ -392,8 +328,6 @@ static void test_vec3_cross_edge_cases(void)
 
 static void test_vec3_volume_basic(void)
 {
-    printf("=== test_vec3_volume_basic ===\n");
-    
     // Volume of parallelepiped formed by basis vectors should be 1
     t_vec3 i = vec3_new(1.0f, 0.0f, 0.0f);
     t_vec3 j = vec3_new(0.0f, 1.0f, 0.0f);
@@ -414,13 +348,11 @@ static void test_vec3_volume_basic(void)
     volume = vec3_volume(i, k, j); // i · (k × j) = i · (-i) = -1
     assert(float_equal(volume, -1.0f, 1e-6f));
     
-    printf("✓ Basic triple product tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_volume_cyclic(void)
 {
-    printf("=== test_vec3_volume_cyclic ===\n");
-    
     // Test cyclic property: a·(b×c) = b·(c×a) = c·(a×b)
     for (int i = 0; i < 100; i++)
     {
@@ -436,13 +368,11 @@ static void test_vec3_volume_cyclic(void)
         assert(float_equal(v2, v3, 1e-3f));
     }
     
-    printf("✓ Cyclic property tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_volume_antisymmetric(void)
 {
-    printf("=== test_vec3_volume_antisymmetric ===\n");
-    
     // Test antisymmetric property: swapping any two vectors changes sign
     for (int i = 0; i < 100; i++)
     {
@@ -460,13 +390,11 @@ static void test_vec3_volume_antisymmetric(void)
         assert(float_equal(v_abc, -v_cba, 1e-3f));
     }
     
-    printf("✓ Antisymmetric property tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_volume_coplanar(void)
 {
-    printf("=== test_vec3_volume_coplanar ===\n");
-    
     // Volume should be zero for coplanar vectors
     for (int i = 0; i < 50; i++)
     {
@@ -489,13 +417,11 @@ static void test_vec3_volume_coplanar(void)
     float volume = vec3_volume(a, a, random_vec3(-10.0f, 10.0f));
     assert(fabsf(volume) < 1e-4f);
     
-    printf("✓ Coplanar vectors tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_volume_relation_to_det(void)
 {
-    printf("=== test_vec3_volume_relation_to_det ===\n");
-    
     // Triple product equals determinant of matrix with vectors as columns
     for (int i = 0; i < 100; i++)
     {
@@ -513,20 +439,17 @@ static void test_vec3_volume_relation_to_det(void)
         assert(float_equal(triple, det, 1e-6f));
     }
     
-    printf("✓ Relationship to determinant tests passed\n");
+    printf("✓ ");
 }
 
 // ============================================
 // STACK ALLOCATION TESTS
 // ============================================
 
+// Test multiple product operations on stack-allocated vectors
+// This simulates typical raytracing workload with many dot/cross products
 static void test_product_stack_operations(void)
 {
-    printf("=== test_product_stack_operations ===\n");
-    
-    // Test multiple product operations on stack-allocated vectors
-    // This simulates typical raytracing workload with many dot/cross products
-    
 #ifdef BENCHMARK
     printf("Testing with %d operations on stack...\n", STACK_TEST_SIZE);
 #endif
@@ -570,7 +493,7 @@ static void test_product_stack_operations(void)
     (void)dot_results;
     (void)cross_results;
     (void)volume_results;
-    printf("✓ Stack operations test passed (%d total operations)\n", 
+    printf("✓\tStack operations test passed (%d total operations)\n", 
            dot_idx + cross_idx + volume_idx);
 }
 
@@ -724,8 +647,6 @@ static void benchmark_product_mixed(void)
 
 static void test_product_integration(void)
 {
-    printf("=== test_product_integration ===\n");
-    
     // Test relationships between dot, cross, and volume
     
     // 1. Lagrange's identity: |a × b|² = |a|²|b|² - (a·b)²
@@ -759,7 +680,7 @@ static void test_product_integration(void)
     //    a × (b × c) = b(a·c) - c(a·b)
     //    This would require vec3_triple function which is commented out in header
     
-    printf("✓ Integration tests passed\n");
+    printf("✓ ");
 }
 
 // ============================================
@@ -768,8 +689,6 @@ static void test_product_integration(void)
 
 static void test_product_minirt_context(void)
 {
-    printf("=== test_product_minirt_context ===\n");
-    
     // 1. Surface normal calculation using cross product
     // For a triangle with vertices A, B, C, normal = normalize((B-A) × (C-A))
     t_vec3 A = vec3_new(0.0f, 0.0f, 0.0f);
@@ -843,27 +762,15 @@ static void test_product_minirt_context(void)
     (void)CP;
     (void)BP;
 
-    printf("✓ Minirt context tests passed\n");
+    printf("✓ ");
 }
 
 // ============================================
 // MAIN TEST RUNNER
 // ============================================
 
-int main()
+void test_vec3_product()
 {
-    printf("\n=======================================\n");
-    printf("VEC3 PRODUCT OPERATIONS TEST SUITE\n");
-    printf("Mode: ");
-#ifdef QUICK_TEST
-    printf("QUICK_TEST (%d iterations)\n", TEST_ITERATIONS);
-#elif defined(BENCHMARK)
-    printf("BENCHMARK (%d iterations)\n", TEST_ITERATIONS);
-#else
-    printf("FULL_TEST (%d iterations)\n", TEST_ITERATIONS);
-#endif
-    printf("=======================================\n\n");
-    
     srand(time(NULL));
     
     // Run unit tests
@@ -904,10 +811,4 @@ int main()
     benchmark_vec3_volume();
     benchmark_product_mixed();
 #endif
-    
-    printf("\n=======================================\n");
-    printf("ALL TESTS PASSED SUCCESSFULLY!\n");
-    printf("=======================================\n");
-    
-    return 0;
 }

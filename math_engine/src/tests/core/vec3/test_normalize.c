@@ -9,48 +9,7 @@
 #include <stdint.h>
 #include "core/vec3.h"
 #include "utils/math_constants.h"
-
-#ifdef QUICK_TEST
-#define TEST_ITERATIONS 100
-#define STACK_TEST_SIZE 1000
-#elif defined(BENCHMARK)
-#define TEST_ITERATIONS 1000000
-#define STACK_TEST_SIZE 1000000
-#else
-#define TEST_ITERATIONS 10000
-#define STACK_TEST_SIZE 100000
-#endif
-
-// ============================================
-// TEST HELPERS
-// ============================================
-
-static bool float_equal(float a, float b, float epsilon)
-{
-    return fabsf(a - b) <= epsilon;
-}
-
-static t_vec3 random_vec3(float min, float max)
-{
-    float range = max - min;
-    return vec3_new(
-        min + (float)rand() / RAND_MAX * range,
-        min + (float)rand() / RAND_MAX * range,
-        min + (float)rand() / RAND_MAX * range
-    );
-}
-
-static t_vec3 random_unit_vec3(void)
-{
-    // Generate random point on unit sphere
-    float theta = (float)rand() / RAND_MAX * MATH_TAU;
-    float phi = acosf(2.0f * (float)rand() / RAND_MAX - 1.0f);
-    return vec3_new(
-        sinf(phi) * cosf(theta),
-        sinf(phi) * sinf(theta),
-        cosf(phi)
-    );
-}
+#include "core/test.h"
 
 // ============================================
 // UNIT TESTS - vec3_normalize
@@ -58,8 +17,6 @@ static t_vec3 random_unit_vec3(void)
 
 static void test_vec3_normalize_basic(void)
 {
-    printf("=== test_vec3_normalize_basic ===\n");
-    
     // Unit vectors should stay unit vectors
     t_vec3 i = vec3_new(1.0f, 0.0f, 0.0f);
     t_vec3 normalized = vec3_normalize(i);
@@ -94,13 +51,11 @@ static void test_vec3_normalize_basic(void)
     expected = vec3_new(-0.6f, -0.8f, 0.0f);
     assert(vec3_equal(normalized, expected, 1e-6f));
     
-    printf("✓ Basic normalization tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_normalize_random(void)
 {
-    printf("=== test_vec3_normalize_random ===\n");
-    
     // Test with random vectors
     for (int i = 0; i < 100; i++)
     {
@@ -122,13 +77,11 @@ static void test_vec3_normalize_random(void)
         assert(vec3_equal(scaled_back, v, 1e-5f));
     }
     
-    printf("✓ Random vector normalization tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_normalize_direction_preservation(void)
 {
-    printf("=== test_vec3_normalize_direction_preservation ===\n");
-    
     // Normalization should preserve direction (up to sign for zero vectors)
     for (int i = 0; i < 100; i++)
     {
@@ -147,13 +100,11 @@ static void test_vec3_normalize_direction_preservation(void)
         assert(vec3_equal(normalized, expected, 1e-6f));
     }
     
-    printf("✓ Direction preservation tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_normalize_zero_vector(void)
 {
-    printf("=== test_vec3_normalize_zero_vector ===\n");
-    
     // Normalizing zero vector is undefined in pure math
     // We need to see how your implementation handles it
     // Common approaches: return zero vector, return a default, or assert/crash
@@ -163,8 +114,8 @@ static void test_vec3_normalize_zero_vector(void)
     
     // Check what happens - we'll just make sure it doesn't crash
     // The actual behavior depends on your implementation
-    printf("  Note: zero vector normalization result: (%.6f, %.6f, %.6f)\n",
-           result.x, result.y, result.z);
+    // printf("\n  Note: zero vector normalization result: (%.6f, %.6f, %.6f)\n",
+    //        result.x, result.y, result.z); //{-nan, -nan, -nan}
     
     // For very small vectors (near zero), should still work
     t_vec3 tiny = vec3_new(1e-10f, 1e-10f, 1e-10f);
@@ -174,20 +125,18 @@ static void test_vec3_normalize_zero_vector(void)
     // Should still have length approximately 1 (might have errors)
     assert(fabsf(length - 1.0f) < 1e-6f);
     
-    printf("✓ Zero/near-zero vector tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_normalize_edge_cases(void)
 {
-    printf("=== test_vec3_normalize_edge_cases ===\n");
-    
     // Infinity - normalization of infinite vector
     t_vec3 inf_vec = vec3_new(INFINITY, 0.0f, 0.0f);
     t_vec3 result = vec3_normalize(inf_vec);
     
     // Result should be (1, 0, 0) or (NaN, NaN, NaN) depending on implementation
-    printf("  Note: infinity normalization result: (%.6f, %.6f, %.6f)\n",
-           result.x, result.y, result.z);
+    // printf("\n  Note: infinity normalization result: (%.6f, %.6f, %.6f)\n",
+    //        result.x, result.y, result.z); //{-nan, 0, 0}
     
     // NaN
     t_vec3 nan_vec = vec3_new(NAN, 1.0f, 2.0f);
@@ -212,7 +161,7 @@ static void test_vec3_normalize_edge_cases(void)
     length = vec3_length(result);
     assert(float_equal(length, 1.0f, 1e-6f));
     
-    printf("✓ Edge cases tests passed\n");
+    printf("✓ ");
 }
 
 // ============================================
@@ -221,8 +170,6 @@ static void test_vec3_normalize_edge_cases(void)
 
 static void test_vec3_normalize_or_basic(void)
 {
-    printf("=== test_vec3_normalize_or_basic ===\n");
-    
     // Normal case - should behave like vec3_normalize
     t_vec3 v = vec3_new(3.0f, 4.0f, 0.0f);
     t_vec3 fallback = vec3_new(1.0f, 0.0f, 0.0f);
@@ -242,16 +189,14 @@ static void test_vec3_normalize_or_basic(void)
     
     // Could return normalized tiny or fallback
     // We'll just check it doesn't crash
-    printf("  Note: tiny vector with normalize_or: (%.6f, %.6f, %.6f)\n",
-           result.x, result.y, result.z);
+    // printf("\n  Note: tiny vector with normalize_or: (%.6f, %.6f, %.6f)\n",
+    //        result.x, result.y, result.z); //{1,0,0}
     
-    printf("✓ Basic normalize_or tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_normalize_or_fallback_variations(void)
 {
-    printf("=== test_vec3_normalize_or_fallback_variations ===\n");
-    
     // Test different fallback vectors
     t_vec3 zero = vec3_new(0.0f, 0.0f, 0.0f);
     
@@ -273,7 +218,7 @@ static void test_vec3_normalize_or_fallback_variations(void)
     result = vec3_normalize_or(v, vec3_new(0.0f, 0.0f, 1.0f));
     assert(vec3_equal(result, v, 1e-6f)); // Should normalize to (1,0,0), not use fallback
     
-    printf("✓ Fallback variation tests passed\n");
+    printf("✓ ");
 }
 
 // ============================================
@@ -282,8 +227,6 @@ static void test_vec3_normalize_or_fallback_variations(void)
 
 static void test_vec3_is_normalized_basic(void)
 {
-    printf("=== test_vec3_is_normalized_basic ===\n");
-    
     // Unit vectors should return true
     assert(vec3_is_normalized(vec3_new(1.0f, 0.0f, 0.0f)));
     assert(vec3_is_normalized(vec3_new(0.0f, 1.0f, 0.0f)));
@@ -305,17 +248,15 @@ static void test_vec3_is_normalized_basic(void)
     assert(!vec3_is_normalized(vec3_new(0.0f, 0.0f, 0.0f)));
     
     // Very close to unit length (should return true with reasonable epsilon)
-    t_vec3 almost_unit = vec3_new(1.000001f, 0.0f, 0.0f);
+    // t_vec3 almost_unit = vec3_new(1.000001f, 0.0f, 0.0f);
     // Depends on epsilon used in implementation
-    printf("  Note: is_normalized(1.000001, 0, 0) = %d\n", vec3_is_normalized(almost_unit));
+    // printf("\n  Note: is_normalized(1.000001, 0, 0) = %d\n", vec3_is_normalized(almost_unit)); // = 1
     
-    printf("✓ Basic is_normalized tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_is_normalized_tolerance(void)
 {
-    printf("=== test_vec3_is_normalized_tolerance ===\n");
-    
     // Test vectors very close to unit length
     float epsilons[] = {1e-3f, 1e-6f, 1e-9f};
     
@@ -325,11 +266,12 @@ static void test_vec3_is_normalized_tolerance(void)
         // This test just shows what the function does
         t_vec3 v1 = vec3_new(1.0f + epsilons[e], 0.0f, 0.0f);
         t_vec3 v2 = vec3_new(1.0f - epsilons[e], 0.0f, 0.0f);
-        
-        printf("  Epsilon ~%g: is_normalized(1±%g, 0, 0) = %d / %d\n",
-               epsilons[e], epsilons[e],
-               vec3_is_normalized(v1),
-               vec3_is_normalized(v2));
+        (void)v1;
+        (void)v2;
+        // printf("\n  Epsilon ~%g: is_normalized(1±%g, 0, 0) = %d / %d\n",
+        //        epsilons[e], epsilons[e],
+        //        vec3_is_normalized(v1),
+        //        vec3_is_normalized(v2));
     }
     
     // Random vectors normalized by our function should pass is_normalized
@@ -343,19 +285,16 @@ static void test_vec3_is_normalized_tolerance(void)
         }
     }
     
-    printf("✓ Tolerance tests completed\n");
+    printf("✓ ");
 }
 
 // ============================================
 // STACK ALLOCATION TESTS
 // ============================================
 
+// Test multiple normalization operations on stack
 static void test_normalize_stack_operations(void)
 {
-    printf("=== test_normalize_stack_operations ===\n");
-    
-    // Test multiple normalization operations on stack
-    
 #ifdef BENCHMARK
     printf("Testing with %d operations on stack...\n", STACK_TEST_SIZE);
 #endif
@@ -393,7 +332,7 @@ static void test_normalize_stack_operations(void)
     (void)normalize_or_results;
     (void)normalize_results;
     (void)is_normalized_results;
-    printf("✓ Stack operations test passed (%d vectors)\n", STACK_TEST_SIZE);
+    printf("✓\tStack operations test passed (%d vectors)\n", STACK_TEST_SIZE);
 }
 
 // ============================================
@@ -539,8 +478,6 @@ static void benchmark_normalize_mixed(void)
 
 static void test_normalize_integration(void)
 {
-    printf("=== test_normalize_integration ===\n");
-    
     // 1. normalize(v) should always produce a vector with length 1 (for non-zero v)
     for (int i = 0; i < 100; i++)
     {
@@ -594,7 +531,7 @@ static void test_normalize_integration(void)
         assert(vec3_equal(result1, result2, 1e-6f));
     }
     
-    printf("✓ Integration tests passed\n");
+    printf("✓ ");
 }
 
 // ============================================
@@ -603,8 +540,6 @@ static void test_normalize_integration(void)
 
 static void test_normalize_minirt_context(void)
 {
-    printf("=== test_normalize_minirt_context ===\n");
-    
     // 1. Normalizing ray directions
     t_vec3 ray_dir = vec3_new(1.0f, 1.0f, 1.0f);
     t_vec3 ray_dir_normalized = vec3_normalize(ray_dir);
@@ -660,27 +595,15 @@ static void test_normalize_minirt_context(void)
     // v1 should still be normalized
     assert(vec3_is_normalized(v1));
     
-    printf("✓ Minirt context tests passed\n");
+    printf("✓ ");
 }
 
 // ============================================
 // MAIN TEST RUNNER
 // ============================================
 
-int main()
+void test_vec3_normalize()
 {
-    printf("\n=======================================\n");
-    printf("VEC3 NORMALIZATION TEST SUITE\n");
-    printf("Mode: ");
-#ifdef QUICK_TEST
-    printf("QUICK_TEST (%d iterations)\n", TEST_ITERATIONS);
-#elif defined(BENCHMARK)
-    printf("BENCHMARK (%d iterations)\n", TEST_ITERATIONS);
-#else
-    printf("FULL_TEST (%d iterations)\n", TEST_ITERATIONS);
-#endif
-    printf("=======================================\n\n");
-    
     srand(time(NULL));
     
     // Run unit tests
@@ -712,10 +635,4 @@ int main()
     benchmark_vec3_is_normalized();
     benchmark_normalize_mixed();
 #endif
-    
-    printf("\n=======================================\n");
-    printf("ALL TESTS PASSED SUCCESSFULLY!\n");
-    printf("=======================================\n");
-    
-    return 0;
 }

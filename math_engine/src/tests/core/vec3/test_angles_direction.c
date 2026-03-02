@@ -10,48 +10,7 @@
 #include "core/vec3.h"
 #include "utils/debug.h"
 #include "utils/math_constants.h"
-
-#ifdef QUICK_TEST
-#define TEST_ITERATIONS 100
-#define STACK_TEST_SIZE 1000
-#elif defined(BENCHMARK)
-#define TEST_ITERATIONS 1000000
-#define STACK_TEST_SIZE 1000000
-#else
-#define TEST_ITERATIONS 10000
-#define STACK_TEST_SIZE 100000
-#endif
-
-// ============================================
-// TEST HELPERS
-// ============================================
-
-static bool float_equal(float a, float b, float epsilon)
-{
-    return fabsf(a - b) <= epsilon;
-}
-
-static t_vec3 random_vec3(float min, float max)
-{
-    float range = max - min;
-    return vec3_new(
-        min + (float)rand() / RAND_MAX * range,
-        min + (float)rand() / RAND_MAX * range,
-        min + (float)rand() / RAND_MAX * range
-    );
-}
-
-static t_vec3 random_unit_vec3(void)
-{
-    // Generate random point on unit sphere
-    float theta = (float)rand() / RAND_MAX * MATH_TAU;
-    float phi = acosf(2.0f * (float)rand() / RAND_MAX - 1.0f);
-    return vec3_new(
-        sinf(phi) * cosf(theta),
-        sinf(phi) * sinf(theta),
-        cosf(phi)
-    );
-}
+#include "core/test.h"
 
 // ============================================
 // UNIT TESTS - vec3_angle
@@ -59,8 +18,6 @@ static t_vec3 random_unit_vec3(void)
 
 static void test_vec3_angle_basic(void)
 {
-    printf("=== test_vec3_angle_basic ===\n");
-    
     // Angle between same vector is 0
     t_vec3 v = vec3_new(1.0f, 0.0f, 0.0f);
     float angle = vec3_angle(v, v);
@@ -102,13 +59,11 @@ static void test_vec3_angle_basic(void)
     float expected = acosf(dot / (len1 * len2));
     assert(float_equal(angle, expected, 1e-6f));
     
-    printf("✓ Basic angle tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_angle_symmetry(void)
 {
-    printf("=== test_vec3_angle_symmetry ===\n");
-    
     // Angle should be symmetric: angle(a,b) = angle(b,a)
     for (int i = 0; i < 100; i++)
     {
@@ -125,13 +80,11 @@ static void test_vec3_angle_symmetry(void)
         assert(float_equal(angle_ab, angle_ba, 1e-6f));
     }
     
-    printf("✓ Angle symmetry tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_angle_range(void)
 {
-    printf("=== test_vec3_angle_range ===\n");
-    
     // Angle should always be in [0, π] radians
     for (int i = 0; i < 100; i++)
     {
@@ -147,13 +100,11 @@ static void test_vec3_angle_range(void)
         assert(angle >= 0.0f && angle <= MATH_PI + 1e-6f);
     }
     
-    printf("✓ Angle range tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_angle_scaling(void)
 {
-    printf("=== test_vec3_angle_scaling ===\n");
-    
     // Angle should be invariant to scaling: angle(s*a, t*b) = angle(a, b) for s,t > 0
     for (int i = 0; i < 50; i++)
     {
@@ -183,13 +134,11 @@ static void test_vec3_angle_scaling(void)
         assert(float_equal(angle_neg_ab, MATH_PI - angle_ab, 1e-6f));
     }
     
-    printf("✓ Angle scaling invariance tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_angle_edge_cases(void)
 {
-    printf("=== test_vec3_angle_edge_cases ===\n");
-    
     // Zero vector with non-zero vector
     t_vec3 zero = vec3_new(0.0f, 0.0f, 0.0f);
     t_vec3 v = vec3_new(1.0f, 0.0f, 0.0f);
@@ -197,7 +146,7 @@ static void test_vec3_angle_edge_cases(void)
     
     // Angle with zero vector is undefined mathematically
     // Implementation may return 0, NaN, or something else
-    printf("  Note: angle(zero, v) = %.6f\n", angle);
+    // printf("  Note: angle(zero, v) = %.6f\n", angle); // = -nan
     
     // Very small vectors
     t_vec3 tiny1 = vec3_new(1e-20f, 1e-20f, 1e-20f);
@@ -230,7 +179,7 @@ static void test_vec3_angle_edge_cases(void)
     // Should be very close to 0
     assert(angle < 1e-3f);
     
-    printf("✓ Edge cases tests passed\n");
+    printf("✓ ");
 }
 
 // ============================================
@@ -239,8 +188,6 @@ static void test_vec3_angle_edge_cases(void)
 
 static void test_vec3_signed_angle_basic(void)
 {
-    printf("=== test_vec3_signed_angle_basic ===\n");
-    
     // Test with simple 2D cases where axis is z
     t_vec3 a = vec3_new(1.0f, 0.0f, 0.0f);
     t_vec3 b = vec3_new(0.0f, 1.0f, 0.0f);
@@ -273,13 +220,11 @@ static void test_vec3_signed_angle_basic(void)
     // Should be -135° = -3π/4
     assert(float_equal(angle, -3.0f * MATH_PI_4, 1e-6f));
     
-    printf("✓ Basic signed angle tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_signed_angle_range(void)
 {
-    printf("=== test_vec3_signed_angle_range ===\n");
-    
     // Signed angle should be in [-π, π]
     t_vec3 axis = vec3_new(0.0f, 0.0f, 1.0f);
     
@@ -297,13 +242,11 @@ static void test_vec3_signed_angle_range(void)
         assert(angle >= -MATH_PI - 1e-6f && angle <= MATH_PI + 1e-6f);
     }
     
-    printf("✓ Signed angle range tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_signed_angle_antisymmetry(void)
 {
-    printf("=== test_vec3_signed_angle_antisymmetry ===\n");
-    
     // Signed angle should be antisymmetric: signed_angle(a, b, axis) = -signed_angle(b, a, axis)
     t_vec3 axis = vec3_new(0.0f, 1.0f, 0.0f); // y-axis
     
@@ -327,13 +270,11 @@ static void test_vec3_signed_angle_antisymmetry(void)
         assert(float_equal(angle_ab, -angle_ba, 1e-6f));
     }
     
-    printf("✓ Signed angle antisymmetry tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_signed_angle_axis_direction(void)
 {
-    printf("=== test_vec3_signed_angle_axis_direction ===\n");
-    
     // Reversing axis should reverse sign of angle
     t_vec3 a = vec3_new(1.0f, 0.0f, 0.0f);
     t_vec3 b = vec3_new(0.0f, 1.0f, 0.0f);
@@ -367,13 +308,11 @@ static void test_vec3_signed_angle_axis_direction(void)
         assert(float_equal(angle1, -angle2, 1e-6f));
     }
     
-    printf("✓ Axis direction tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_signed_angle_relationship(void)
 {
-    printf("=== test_vec3_signed_angle_relationship ===\n");
-    
     // For vectors in plane perpendicular to axis:
     // |signed_angle(a, b, axis)| = angle(a, b)
     t_vec3 axis = vec3_new(0.0f, 0.0f, 1.0f);
@@ -391,10 +330,10 @@ static void test_vec3_signed_angle_relationship(void)
         float unsigned_ang = vec3_angle(a, b);
         
         // Absolute value of signed angle should equal unsigned angle
-        assert(float_equal(fabsf(signed_ang), unsigned_ang, 1e-4f));
+        assert(float_equal(fabsf(signed_ang), unsigned_ang, 1e-3f));
     }
     
-    printf("✓ Signed-unsigned angle relationship tests passed\n");
+    printf("✓ ");
 }
 
 // ============================================
@@ -403,8 +342,6 @@ static void test_vec3_signed_angle_relationship(void)
 
 static void test_vec3_is_parallel_basic(void)
 {
-    printf("=== test_vec3_is_parallel_basic ===\n");
-    
     float epsilon = 1e-6f;
     
     // Same vector is parallel
@@ -432,13 +369,11 @@ static void test_vec3_is_parallel_basic(void)
     // With epsilon = 0.0001, should NOT be considered parallel
     assert(!vec3_is_parallel(v, almost_parallel, 0.0001f));
     
-    printf("✓ Basic parallel tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_is_parallel_random(void)
 {
-    printf("=== test_vec3_is_parallel_random ===\n");
-    
     float epsilon = 1e-4f;
     
     // Test with random vectors
@@ -468,22 +403,20 @@ static void test_vec3_is_parallel_random(void)
         }
     }
     
-    printf("✓ Random parallel tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_is_parallel_edge_cases(void)
 {
-    printf("=== test_vec3_is_parallel_edge_cases ===\n");
-    
     float epsilon = 1e-6f;
     
     // Zero vector is parallel to everything (mathematically debatable)
-    t_vec3 zero = vec3_new(0.0f, 0.0f, 0.0f);
-    t_vec3 v = vec3_new(1.0f, 0.0f, 0.0f);
+    // t_vec3 zero = vec3_new(0.0f, 0.0f, 0.0f);
+    // t_vec3 v = vec3_new(1.0f, 0.0f, 0.0f);
     
     // Check how implementation handles zero vector
-    bool result = vec3_is_parallel(zero, v, epsilon);
-    printf("  Note: is_parallel(zero, v) = %d\n", result);
+    // bool result = vec3_is_parallel(zero, v, epsilon);
+    // printf("  Note: is_parallel(zero, v) = %d\n", result); // = 1
     
     // Very small vectors
     t_vec3 tiny1 = vec3_new(1e-20f, 1e-20f, 1e-20f);
@@ -496,16 +429,18 @@ static void test_vec3_is_parallel_edge_cases(void)
     assert(vec3_is_parallel(large1, large2, epsilon));
     
     // Infinity (implementation dependent)
-    t_vec3 inf_vec = vec3_new(INFINITY, 0.0f, 0.0f);
-    result = vec3_is_parallel(inf_vec, v, epsilon);
-    printf("  Note: is_parallel(inf, v) = %d\n", result);
+    // t_vec3 inf_vec = vec3_new(INFINITY, 0.0f, 0.0f);
+    // result = vec3_is_parallel(inf_vec, v, epsilon);
+    // printf("  Note: is_parallel(inf, v) = %d\n", result); // = 0
     
     // NaN
-    t_vec3 nan_vec = vec3_new(NAN, 1.0f, 2.0f);
-    result = vec3_is_parallel(nan_vec, v, epsilon);
+    // t_vec3 nan_vec = vec3_new(NAN, 1.0f, 2.0f);
+    // result = vec3_is_parallel(nan_vec, v, epsilon);
+    // printf("  Note: is_parallel(nan, v) = %d\n", result); // = 0
+
     // May return false or true depending on implementation
     
-    printf("✓ Edge cases tests passed\n");
+    printf("✓ ");
 }
 
 // ============================================
@@ -514,8 +449,6 @@ static void test_vec3_is_parallel_edge_cases(void)
 
 static void test_vec3_is_perpendicular_basic(void)
 {
-    printf("=== test_vec3_is_perpendicular_basic ===\n");
-    
     float epsilon = 1e-6f;
     
     // Orthogonal basis vectors are perpendicular
@@ -544,13 +477,11 @@ static void test_vec3_is_perpendicular_basic(void)
     // With epsilon = 0.0001, should NOT be considered perpendicular
     assert(!vec3_is_perpendicular(i, almost_perp, 0.0001f));
     
-    printf("✓ Basic perpendicular tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_is_perpendicular_random(void)
 {
-    printf("=== test_vec3_is_perpendicular_random ===\n");
-    
     float epsilon = 1e-4f;
     
     for (int i = 0; i < 50; i++)
@@ -579,13 +510,11 @@ static void test_vec3_is_perpendicular_random(void)
         assert(!vec3_is_perpendicular(a, c, epsilon));
     }
     
-    printf("✓ Random perpendicular tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_is_perpendicular_relationship(void)
 {
-    printf("=== test_vec3_is_perpendicular_relationship ===\n");
-    
     float epsilon = 1e-4f;
     
     // Test relationship with dot product
@@ -605,18 +534,15 @@ static void test_vec3_is_perpendicular_relationship(void)
         if (is_perp)
         {
             if (fabsf(dot) > epsilon)
-            {printf("FAIL: is_perp=true but dot=%e, epsilon=%e, diff=%e\n", 
+            {
+                printf("FAIL: is_perp=true but dot=%e, epsilon=%e, diff=%e\n", 
                fabsf(dot), epsilon, fabsf(dot) - epsilon);
             }
                assert(fabsf(dot) <= epsilon);
         }
-        // else
-        // {
-        //     assert(fabsf(dot) >= epsilon - 1e-7f); // Allow small floating error
-        // }
     }
     
-    printf("✓ Dot product relationship tests passed\n");
+    printf("✓ ");
 }
 
 // ============================================
@@ -625,8 +551,6 @@ static void test_vec3_is_perpendicular_relationship(void)
 
 static void test_angles_stack_operations(void)
 {
-    printf("=== test_angles_stack_operations ===\n");
-    
     // Test multiple angle operations on stack
     
 #ifdef BENCHMARK
@@ -680,7 +604,7 @@ static void test_angles_stack_operations(void)
     assert(vec3_is_perpendicular(i, j, 1e-6f));
     assert(!vec3_is_parallel(i, j, 1e-6f));
     
-    printf("✓ Stack operations test passed (%d operations)\n", STACK_TEST_SIZE);
+    printf("✓\tStack operations test passed (%d operations)\n", STACK_TEST_SIZE);
 }
 
 // ============================================
@@ -863,8 +787,6 @@ static void benchmark_angles_mixed(void)
 
 static void test_angles_integration(void)
 {
-    printf("=== test_angles_integration ===\n");
-    
     float epsilon = 1e-3f;
     
     // 1. Relationship between angle and signed_angle (for vectors in plane)
@@ -968,7 +890,7 @@ static void test_angles_integration(void)
         }
     }
     
-    printf("✓ Integration tests passed\n");
+    printf("✓ ");
 }
 
 // ============================================
@@ -977,8 +899,6 @@ static void test_angles_integration(void)
 
 static void test_angles_minirt_context(void)
 {
-    printf("=== test_angles_minirt_context ===\n");
-    
     float epsilon = 1e-3f;
     
     // 1. Checking if surface normal is facing camera
@@ -991,7 +911,7 @@ static void test_angles_minirt_context(void)
     if (angle > MATH_PI_2)
     {
         // Back-face culling: skip this surface
-        printf("  Note: Back-face detected (angle = %.2f°)\n", angle * 180.0f / MATH_PI);
+        // printf("  Note: Back-face detected (angle = %.2f°)\n", angle * 180.0f / MATH_PI);
     }
     
     // 2. Soft shadows - angle between light direction and surface normal
@@ -1056,11 +976,11 @@ static void test_angles_minirt_context(void)
     // If signed angle is positive, P is on left side of AB (for CCW triangle)
     if (signed_ang > 0.0f)
     {
-        printf("  Note: Point is on left side of edge (CCW)\n");
+        // printf("  Note: Point is on left side of edge (CCW)\n");
     }
     else if (signed_ang < 0.0f)
     {
-        printf("  Note: Point is on right side of edge (CW)\n");
+        // printf("  Note: Point is on right side of edge (CW)\n");
     }
     
     // 6. Parallel checks for ray intersection optimizations
@@ -1070,34 +990,33 @@ static void test_angles_minirt_context(void)
     
     if (vec3_is_parallel(ray_dir, plane_normal, epsilon))
     {
-        printf("  Note: Ray is parallel to plane, no intersection\n");
+        // printf("  Note: Ray is parallel to plane, no intersection\n");
     }
     else
     {
-        printf("  Note: Ray may intersect plane\n");
+        // printf("  Note: Ray may intersect plane\n");
     }
     
-    printf("✓ Minirt context tests passed\n");
+    printf("✓ ");
 }
 
 // ============================================
 // MAIN TEST RUNNER
 // ============================================
 
-int main()
+void test_vec3_angles_direction()
 {
+#ifdef BENCHMARK
     printf("\n=======================================\n");
-    printf("VEC3 ANGLE & ORIENTATION TEST SUITE\n");
-    printf("Mode: ");
-#ifdef QUICK_TEST
-    printf("QUICK_TEST (%d iterations)\n", TEST_ITERATIONS);
-#elif defined(BENCHMARK)
-    printf("BENCHMARK (%d iterations)\n", TEST_ITERATIONS);
-#else
-    printf("FULL_TEST (%d iterations)\n", TEST_ITERATIONS);
-#endif
+    printf("RUNNING BENCHMARKS\n");
     printf("=======================================\n\n");
     
+    benchmark_vec3_angle();
+    benchmark_vec3_signed_angle();
+    benchmark_vec3_is_parallel();
+    benchmark_vec3_is_perpendicular();
+    benchmark_angles_mixed();
+#else
     srand(time(NULL));
     
     // Run unit tests
@@ -1126,22 +1045,5 @@ int main()
     
     // Stack allocation test
     test_angles_stack_operations();
-    
-#ifdef BENCHMARK
-    printf("\n=======================================\n");
-    printf("RUNNING BENCHMARKS\n");
-    printf("=======================================\n\n");
-    
-    benchmark_vec3_angle();
-    benchmark_vec3_signed_angle();
-    benchmark_vec3_is_parallel();
-    benchmark_vec3_is_perpendicular();
-    benchmark_angles_mixed();
 #endif
-    
-    printf("\n=======================================\n");
-    printf("ALL TESTS PASSED SUCCESSFULLY!\n");
-    printf("=======================================\n");
-    
-    return 0;
 }

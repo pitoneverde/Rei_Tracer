@@ -2,6 +2,7 @@
 # test_properties.c – Matrix properties, inverse, transpose tests
 ==============================================================================*/
 
+#define _GNU_SOURCE
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
@@ -10,58 +11,11 @@
 #include "core/mat4.h"
 #include "core/vec3.h"
 #include "utils/math_constants.h"
+#include "core/test.h"
 
 #ifndef EPSILON
 # define EPSILON 1e-6f
 #endif
-
-/*------------------------------------------------------------------------------
-  Helper functions (shared pattern – consider moving to a common header)
-------------------------------------------------------------------------------*/
-
-static inline bool float_equal(float a, float b, float eps)
-{
-    return fabsf(a - b) < eps;
-}
-
-static float random_float(float min, float max)
-{
-    float r = (float)rand() / RAND_MAX;
-    return min + r * (max - min);
-}
-
-// static t_vec3 random_vec3(float min, float max)
-// {
-//     return vec3_new(random_float(min, max),
-//                     random_float(min, max),
-//                     random_float(min, max));
-// }
-
-static t_mat4 random_mat4(float min, float max)
-{
-    t_mat4 m;
-    for (int i = 0; i < 4; ++i)
-        for (int j = 0; j < 4; ++j)
-            m.mat[i][j] = random_float(min, max);
-    return m;
-}
-
-static bool mat4_equal_eps(t_mat4 a, t_mat4 b, float eps)
-{
-    for (int i = 0; i < 4; ++i)
-        for (int j = 0; j < 4; ++j)
-            if (!float_equal(a.mat[i][j], b.mat[i][j], eps))
-                return false;
-    return true;
-}
-
-// static void print_mat4(const char *name, t_mat4 m)
-// {
-//     printf("%s:\n", name);
-//     for (int i = 0; i < 4; ++i)
-//         printf("  [ %7.3f %7.3f %7.3f %7.3f ]\n",
-//                m.mat[i][0], m.mat[i][1], m.mat[i][2], m.mat[i][3]);
-// }
 
 /*------------------------------------------------------------------------------
   Unit tests
@@ -69,8 +23,6 @@ static bool mat4_equal_eps(t_mat4 a, t_mat4 b, float eps)
 
 static void test_mat4_determinant(void)
 {
-    printf("=== test_mat4_determinant ===\n");
-
     // Identity
     t_mat4 I = mat4_identity();
     assert(float_equal(mat4_determinant(I), 1.0f, EPSILON));
@@ -119,13 +71,11 @@ static void test_mat4_determinant(void)
     // Known approximate value: 1.6512e-7 (from literature)
     assert(float_equal(det_hilbert, 1.6512e-7f, 1e-4f)); // coarse tolerance
 
-    printf("✓ determinant tests passed\n");
+    printf("✓ ");
 }
 
 static void test_mat4_inverse(void)
 {
-    printf("=== test_mat4_inverse ===\n");
-
     // Identity inverse is identity
     t_mat4 I = mat4_identity();
     t_mat4 Iinv = mat4_inverse(I);
@@ -174,13 +124,11 @@ static void test_mat4_inverse(void)
     t_mat4 SSinv = mat4_inverse(singular);
     (void)SSinv; // ignore result, just check it compiles
 
-    printf("✓ inverse tests passed\n");
+    printf("✓ ");
 }
 
 static void test_mat4_transpose(void)
 {
-    printf("=== test_mat4_transpose ===\n");
-
     t_mat4 A = random_mat4(-5, 5);
     t_mat4 AT = mat4_transpose(A);
 
@@ -210,13 +158,11 @@ static void test_mat4_transpose(void)
     t_mat4 symT = mat4_transpose(sym);
     assert(mat4_equal_eps(symT, sym, EPSILON));
 
-    printf("✓ transpose tests passed\n");
+    printf("✓ ");
 }
 
 static void test_mat4_trace(void)
 {
-    printf("=== test_mat4_trace ===\n");
-
     // Identity trace = 4
     t_mat4 I = mat4_identity();
     assert(float_equal(mat4_trace(I), 4.0f, EPSILON));
@@ -237,13 +183,11 @@ static void test_mat4_trace(void)
     t_mat4 BA = mat4_mul(B, A);
     assert(float_equal(mat4_trace(AB), mat4_trace(BA), EPSILON * 10.0f));
 
-    printf("✓ trace tests passed\n");
+    printf("✓ ");
 }
 
 static void test_mat4_is_affine(void)
 {
-    printf("=== test_mat4_is_affine ===\n");
-
     // Identity is affine
     t_mat4 I = mat4_identity();
     assert(mat4_is_affine(I, EPSILON));
@@ -282,13 +226,11 @@ static void test_mat4_is_affine(void)
     }};
     assert(!mat4_is_affine(persp, EPSILON));
 
-    printf("✓ is_affine tests passed\n");
+    printf("✓ ");
 }
 
 static void test_mat4_is_orthogonal(void)
 {
-    printf("=== test_mat4_is_orthogonal ===\n");
-
     // Identity is orthogonal
     t_mat4 I = mat4_identity();
     assert(mat4_is_orthogonal(I, EPSILON));
@@ -325,13 +267,11 @@ static void test_mat4_is_orthogonal(void)
     not_ortho.mat[0][0] *= 1.1f;
     assert(!mat4_is_orthogonal(not_ortho, EPSILON));
 
-    printf("✓ is_orthogonal tests passed\n");
+    printf("✓ ");
 }
 
 static void test_mat4_is_identity(void)
 {
-    printf("=== test_mat4_is_identity ===\n");
-
     t_mat4 I = mat4_identity();
     assert(mat4_is_identity(I, EPSILON));
 
@@ -349,13 +289,11 @@ static void test_mat4_is_identity(void)
     t_mat4 T = mat4_translation((t_vec3){1,2,3});
     assert(!mat4_is_identity(T, EPSILON));
 
-    printf("✓ is_identity tests passed\n");
+    printf("✓ ");
 }
 
 static void test_mat4_equal(void)
 {
-    printf("=== test_mat4_equal ===\n");
-
     t_mat4 A = random_mat4(-5,5);
     t_mat4 B = A; // copy
 
@@ -372,13 +310,11 @@ static void test_mat4_equal(void)
     t_mat4 NaN2 = NaN; // copy by value, but NaNs don't compare equal
     assert(!mat4_equal(NaN, NaN2, EPSILON)); // because NaN != NaN
 
-    printf("✓ equal tests passed\n");
+    printf("✓ ");
 }
 
 static void test_mat4_any_nan(void)
 {
-    printf("=== test_mat4_any_nan ===\n");
-
     t_mat4 A = random_mat4(-5,5);
     assert(!mat4_any_nan(A));
 
@@ -397,13 +333,11 @@ static void test_mat4_any_nan(void)
                                 INFINITY, INFINITY, INFINITY, INFINITY} };
     assert(!mat4_any_nan(inf_mat));
 
-    printf("✓ any_nan tests passed\n");
+    printf("✓ ");
 }
 
 static void test_mat4_is_finite(void)
 {
-    printf("=== test_mat4_is_finite ===\n");
-
     t_mat4 A = random_mat4(-5,5);
     assert(mat4_is_finite(A));
 
@@ -421,7 +355,7 @@ static void test_mat4_is_finite(void)
                                 INFINITY, INFINITY, INFINITY, INFINITY} };
     assert(!mat4_is_finite(all_inf));
 
-    printf("✓ is_finite tests passed\n");
+    printf("✓ ");
 }
 
 /*------------------------------------------------------------------------------
@@ -506,15 +440,13 @@ static void run_benchmarks(void)
   Main – dispatch tests or benchmarks
 ------------------------------------------------------------------------------*/
 
-int main(void)
+void test_mat4_properties()
 {
     srand(42);
 
 #ifdef BENCHMARK
     run_benchmarks();
 #else
-    printf("===== MATRIX PROPERTIES & INVERSE/TRANSPOSE =====\n\n");
-
     test_mat4_determinant();
     test_mat4_inverse();
     test_mat4_transpose();
@@ -525,9 +457,6 @@ int main(void)
     test_mat4_equal();
     test_mat4_any_nan();
     test_mat4_is_finite();
-
-    printf("\nAll properties tests passed.\n");
+    printf("\n");
 #endif
-
-    return 0;
 }

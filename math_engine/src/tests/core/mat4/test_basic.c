@@ -2,6 +2,7 @@
 # test_basic.c – Core matrix operations tests
 ==============================================================================*/
 
+#define _GNU_SOURCE
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
@@ -9,58 +10,11 @@
 #include <assert.h>
 #include "core/mat4.h"
 #include "core/vec3.h"          // mat4 uses t_vec3
+#include "core/test.h"
 
 #ifndef EPSILON
 # define EPSILON 1e-6f
 #endif
-
-/*------------------------------------------------------------------------------
-  Helper functions
-------------------------------------------------------------------------------*/
-
-static inline bool float_equal(float a, float b, float eps)
-{
-    return fabsf(a - b) < eps;
-}
-
-static float random_float(float min, float max)
-{
-    float r = (float)rand() / RAND_MAX;
-    return min + r * (max - min);
-}
-
-// static t_vec3 random_vec3(float min, float max)
-// {
-//     return vec3_new(random_float(min, max),
-//                     random_float(min, max),
-//                     random_float(min, max));
-// }
-
-static t_mat4 random_mat4(float min, float max)
-{
-    t_mat4 m;
-    for (int i = 0; i < 4; ++i)
-        for (int j = 0; j < 4; ++j)
-            m.mat[i][j] = random_float(min, max);
-    return m;
-}
-
-static bool mat4_equal_eps(t_mat4 a, t_mat4 b, float eps)
-{
-    for (int i = 0; i < 4; ++i)
-        for (int j = 0; j < 4; ++j)
-            if (!float_equal(a.mat[i][j], b.mat[i][j], eps))
-                return false;
-    return true;
-}
-
-// static void print_mat4(const char *name, t_mat4 m)
-// {
-//     printf("%s:\n", name);
-//     for (int i = 0; i < 4; ++i)
-//         printf("  [ %7.3f %7.3f %7.3f %7.3f ]\n",
-//                m.mat[i][0], m.mat[i][1], m.mat[i][2], m.mat[i][3]);
-// }
 
 /*------------------------------------------------------------------------------
   Unit tests
@@ -68,8 +22,6 @@ static bool mat4_equal_eps(t_mat4 a, t_mat4 b, float eps)
 
 static void test_mat4_identity(void)
 {
-    printf("=== test_mat4_identity ===\n");
-
     t_mat4 I = mat4_identity();
 
     // Check diagonal = 1, off-diagonal = 0
@@ -85,25 +37,21 @@ static void test_mat4_identity(void)
     assert(mat4_equal_eps(A, AI, EPSILON));
     assert(mat4_equal_eps(A, IA, EPSILON));
 
-    printf("✓ identity tests passed\n");
+    printf("✓ ");
 }
 
 static void test_mat4_zero(void)
 {
-    printf("=== test_mat4_zero ===\n");
-
     t_mat4 Z = mat4_zero();
     for (int i = 0; i < 4; ++i)
         for (int j = 0; j < 4; ++j)
             assert(float_equal(Z.mat[i][j], 0.0f, EPSILON));
 
-    printf("✓ zero tests passed\n");
+    printf("✓ ");
 }
 
 static void test_mat4_from_float_array(void)
 {
-    printf("=== test_mat4_from_float_array ===\n");
-
     float arr[16] = {
          1.0f,  2.0f,  3.0f,  4.0f,
          5.0f,  6.0f,  7.0f,  8.0f,
@@ -122,13 +70,11 @@ static void test_mat4_from_float_array(void)
     t_mat4 N = mat4_from_float_array(nan_arr);
     (void)N; // silence unused warning
 
-    printf("✓ from_float_array tests passed\n");
+    printf("✓ ");
 }
 
 static void test_mat4_from_basis(void)
 {
-    printf("=== test_mat4_from_basis ===\n");
-
     t_vec3 rx = {1.0f, 0.0f, 0.0f};
     t_vec3 up = {0.0f, 1.0f, 0.0f};
     t_vec3 fw = {0.0f, 0.0f, 1.0f};
@@ -154,13 +100,11 @@ static void test_mat4_from_basis(void)
     assert(float_equal(M.mat[2][0], fw.x, EPSILON) && float_equal(M.mat[2][1], fw.y, EPSILON) && float_equal(M.mat[2][2], fw.z, EPSILON) && float_equal(M.mat[2][3], 0.0f, EPSILON));
     assert(float_equal(M.mat[3][0], ps.x, EPSILON) && float_equal(M.mat[3][1], ps.y, EPSILON) && float_equal(M.mat[3][2], ps.z, EPSILON) && float_equal(M.mat[3][3], 1.0f, EPSILON));
 
-    printf("✓ from_basis tests passed\n");
+    printf("✓ ");
 }
 
 static void test_mat4_add(void)
 {
-    printf("=== test_mat4_add ===\n");
-
     t_mat4 A = random_mat4(-5.0f, 5.0f);
     t_mat4 B = random_mat4(-5.0f, 5.0f);
     t_mat4 Z = mat4_zero();
@@ -199,13 +143,11 @@ static void test_mat4_add(void)
     t_mat4 InfNaN = mat4_add(Inf, NaN);
     (void)InfNaN;
 
-    printf("✓ addition tests passed\n");
+    printf("✓ ");
 }
 
 static void test_mat4_sub(void)
 {
-    printf("=== test_mat4_sub ===\n");
-
     t_mat4 A = random_mat4(-5.0f, 5.0f);
     t_mat4 B = random_mat4(-5.0f, 5.0f);
     t_mat4 Z = mat4_zero();
@@ -229,13 +171,11 @@ static void test_mat4_sub(void)
     t_mat4 AplusNegB = mat4_add(A, negB);
     assert(mat4_equal_eps(AminusB, AplusNegB, EPSILON));
 
-    printf("✓ subtraction tests passed\n");
+    printf("✓ ");
 }
 
 static void test_mat4_mul(void)
 {
-    printf("=== test_mat4_mul ===\n");
-
     t_mat4 A = random_mat4(-2.0f, 2.0f);
     t_mat4 B = random_mat4(-2.0f, 2.0f);
     t_mat4 I = mat4_identity();
@@ -278,7 +218,7 @@ static void test_mat4_mul(void)
     t_mat4 B2 = mat4_from_float_array((float*)b);
     t_mat4 P = mat4_mul(A2, B2);
 
-    // Expected product computed by hand (or using known formula)
+    // Expected product computed by hand
     float expected[4][4] = {
         { 20, 22, 50, 48 },   // row0 * cols
         { 44, 54, 114, 108 },
@@ -290,13 +230,11 @@ static void test_mat4_mul(void)
         for (int j = 0; j < 4; ++j)
             assert(float_equal(P.mat[i][j], expected[i][j], 1e-5f));
 
-    printf("✓ multiplication tests passed\n");
+    printf("✓ ");
 }
 
 static void test_mat4_scale(void)
 {
-    printf("=== test_mat4_scale ===\n");
-
     t_mat4 A = random_mat4(-3.0f, 3.0f);
     float s = 2.5f;
 
@@ -326,13 +264,11 @@ static void test_mat4_scale(void)
     t_mat4 tiny = mat4_scale(A, 1e-20f);
     (void)tiny;
 
-    printf("✓ scaling tests passed\n");
+    printf("✓ ");
 }
 
 static void test_mat4_neg(void)
 {
-    printf("=== test_mat4_neg ===\n");
-
     t_mat4 A = random_mat4(-5.0f, 5.0f);
     t_mat4 negA = mat4_neg(A);
 
@@ -349,7 +285,7 @@ static void test_mat4_neg(void)
     t_mat4 negZ = mat4_neg(Z);
     assert(mat4_equal_eps(Z, negZ, EPSILON));
 
-    printf("✓ negation tests passed\n");
+    printf("✓ ");
 }
 
 /*------------------------------------------------------------------------------
@@ -416,15 +352,13 @@ static void run_benchmarks(void)
   Main – dispatch tests or benchmarks
 ------------------------------------------------------------------------------*/
 
-int main(void)
+void test_mat4_basic()
 {
     srand(42);  // deterministic seed for reproducibility
 
 #ifdef BENCHMARK
     run_benchmarks();
 #else
-    printf("===== CORE CREATION & BASIC OPERATIONS =====\n\n");
-
     test_mat4_identity();
     test_mat4_zero();
     test_mat4_from_float_array();
@@ -434,8 +368,6 @@ int main(void)
     test_mat4_mul();
     test_mat4_scale();
     test_mat4_neg();
-    printf("\nAll core tests passed.\n");
+    printf("\n");
 #endif
-
-    return 0;
 }

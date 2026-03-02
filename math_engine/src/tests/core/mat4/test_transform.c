@@ -2,6 +2,7 @@
 # test_transform.c – Vector transformation tests
 ==============================================================================*/
 
+#define _GNU_SOURCE
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
@@ -10,66 +11,11 @@
 #include "core/mat4.h"
 #include "core/vec3.h"
 #include "utils/math_constants.h"
+#include "core/test.h"
 
 #ifndef EPSILON
 # define EPSILON 1e-6f
 #endif
-
-/*------------------------------------------------------------------------------
-  Helper functions (shared pattern)
-------------------------------------------------------------------------------*/
-
-static inline bool float_equal(float a, float b, float eps)
-{
-    return fabsf(a - b) < eps;
-}
-
-// static float random_float(float min, float max)
-// {
-//     float r = (float)rand() / RAND_MAX;
-//     return min + r * (max - min);
-// }
-
-// static t_vec3 random_vec3(float min, float max)
-// {
-//     return vec3_new(random_float(min, max),
-//                     random_float(min, max),
-//                     random_float(min, max));
-// }
-
-// static t_mat4 random_mat4(float min, float max)
-// {
-//     t_mat4 m;
-//     for (int i = 0; i < 4; ++i)
-//         for (int j = 0; j < 4; ++j)
-//             m.mat[i][j] = random_float(min, max);
-//     return m;
-// }
-
-// static bool mat4_equal_eps(t_mat4 a, t_mat4 b, float eps)
-// {
-//     for (int i = 0; i < 4; ++i)
-//         for (int j = 0; j < 4; ++j)
-//             if (!float_equal(a.mat[i][j], b.mat[i][j], eps))
-//                 return false;
-//     return true;
-// }
-
-static bool vec3_equal_eps(t_vec3 a, t_vec3 b, float eps)
-{
-    return float_equal(a.x, b.x, eps) &&
-           float_equal(a.y, b.y, eps) &&
-           float_equal(a.z, b.z, eps);
-}
-
-
-// static void print_mat4(const char *name, t_mat4 m)
-// {
-//     printf("%s:\n", name);
-//     for (int i = 0; i < 4; ++i)
-//         printf("  [ %7.3f %7.3f %7.3f %7.3f ]\n",
-//                m.mat[i][0], m.mat[i][1], m.mat[i][2], m.mat[i][3]);
-// }
 
 /*------------------------------------------------------------------------------
   Unit tests
@@ -77,8 +23,6 @@ static bool vec3_equal_eps(t_vec3 a, t_vec3 b, float eps)
 
 static void test_mat4_transform_point(void)
 {
-    printf("=== test_mat4_transform_point ===\n");
-
     t_vec3 p = {1.0f, 2.0f, 3.0f};
 
     // Identity
@@ -130,13 +74,11 @@ static void test_mat4_transform_point(void)
     tp = mat4_transform_point(I, inf_vec);
     (void)tp;
 
-    printf("✓ transform_point tests passed\n");
+    printf("✓ ");
 }
 
 static void test_mat4_transform_vector(void)
 {
-    printf("=== test_mat4_transform_vector ===\n");
-
     t_vec3 v = {1.0f, 2.0f, 3.0f};
 
     // Identity
@@ -178,13 +120,11 @@ static void test_mat4_transform_vector(void)
     tv = mat4_transform_vector(I, huge);
     assert(vec3_equal_eps(tv, huge, EPSILON));
 
-    printf("✓ transform_vector tests passed\n");
+    printf("✓ ");
 }
 
 static void test_mat4_transform_normal(void)
 {
-    printf("=== test_mat4_transform_normal ===\n");
-
     t_vec3 n = {1.0f, 0.0f, 0.0f}; // unit normal along X
 
     // Identity
@@ -271,7 +211,7 @@ static void test_mat4_transform_normal(void)
     tn = mat4_transform_normal(I, inf_vec);
     (void)tn;
 
-    printf("✓ transform_normal tests passed\n");
+    printf("✓ ");
 }
 
 /*------------------------------------------------------------------------------
@@ -280,8 +220,6 @@ static void test_mat4_transform_normal(void)
 
 static void test_mat4_transform_edge_cases(void)
 {
-    printf("=== test_mat4_transform_edge_cases ===\n");
-
     // Matrices with NaN, Inf – ensure functions don't crash
     t_mat4 nan_mat = { .arr = {NAN, NAN, NAN, NAN,
                                 NAN, NAN, NAN, NAN,
@@ -329,7 +267,7 @@ static void test_mat4_transform_edge_cases(void)
     // res = mat4_transform_normal(Z, n);
     // assert(vec3_equal_eps(res, VEC3_ZERO, EPSILON));
 
-    printf("✓ edge cases tests passed\n");
+    printf("✓ ");
 }
 
 /*------------------------------------------------------------------------------
@@ -416,22 +354,17 @@ static void run_benchmarks(void)
   Main – dispatch tests or benchmarks
 ------------------------------------------------------------------------------*/
 
-int main(void)
+void test_mat4_transform()
 {
     srand(42);
 
 #ifdef BENCHMARK
     run_benchmarks();
 #else
-    printf("===== VECTOR TRANSFORMATIONS =====\n\n");
-
     test_mat4_transform_point();
     test_mat4_transform_vector();
     test_mat4_transform_normal();
     test_mat4_transform_edge_cases();
-
-    printf("\nAll vector transformations tests passed.\n");
+    printf("\n");
 #endif
-
-    return 0;
 }

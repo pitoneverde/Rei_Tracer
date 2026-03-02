@@ -8,36 +8,7 @@
 #include <float.h>
 #include <stdint.h>
 #include "core/vec3.h"
-
-#ifdef QUICK_TEST
-#define TEST_ITERATIONS 100
-#define STACK_TEST_SIZE 1000
-#elif defined(BENCHMARK)
-#define TEST_ITERATIONS 1000000
-#define STACK_TEST_SIZE 1000000
-#else
-#define TEST_ITERATIONS 10000
-#define STACK_TEST_SIZE 100000
-#endif
-
-// ============================================
-// TEST HELPERS
-// ============================================
-
-// static bool float_equal(float a, float b, float epsilon)
-// {
-//     return fabsf(a - b) <= epsilon;
-// }
-
-static t_vec3 random_vec3(float min, float max)
-{
-    float range = max - min;
-    return vec3_new(
-        min + (float)rand() / RAND_MAX * range,
-        min + (float)rand() / RAND_MAX * range,
-        min + (float)rand() / RAND_MAX * range
-    );
-}
+#include "core/test.h"
 
 // ============================================
 // UNIT TESTS - vec3_mul_comp
@@ -45,8 +16,6 @@ static t_vec3 random_vec3(float min, float max)
 
 static void test_vec3_mul_comp_basic(void)
 {
-    printf("=== test_vec3_mul_comp_basic ===\n");
-    
     // Basic component-wise multiplication
     t_vec3 a = vec3_new(2.0f, 3.0f, 4.0f);
     t_vec3 b = vec3_new(5.0f, 6.0f, 7.0f);
@@ -72,13 +41,11 @@ static void test_vec3_mul_comp_basic(void)
     expected = vec3_new(-10.0f, -18.0f, -28.0f);
     assert(vec3_equal(result, expected, 1e-6f));
     
-    printf("✓ Basic component-wise multiplication tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_mul_comp_commutative(void)
 {
-    printf("=== test_vec3_mul_comp_commutative ===\n");
-    
     // Component-wise multiplication is commutative: a*b = b*a
     for (int i = 0; i < 100; i++)
     {
@@ -91,13 +58,11 @@ static void test_vec3_mul_comp_commutative(void)
         assert(vec3_equal(result1, result2, 1e-6f));
     }
     
-    printf("✓ Commutative property tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_mul_comp_associative(void)
 {
-    printf("=== test_vec3_mul_comp_associative ===\n");
-    
     // Component-wise multiplication is associative: (a*b)*c = a*(b*c)
     for (int i = 0; i < 100; i++)
     {
@@ -111,18 +76,14 @@ static void test_vec3_mul_comp_associative(void)
         assert(vec3_equal(result1, result2, 1e-4f));
     }
     
-    printf("✓ Associative property tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_mul_comp_distributive(void)
 {
-    printf("=== test_vec3_mul_comp_distributive ===\n");
-    
     // Component-wise multiplication distributes over addition (scalar-wise, not vector dot)
-    // Actually, for component-wise multiplication, we have:
     // mul_comp(a, b+c) = mul_comp(a, b) + mul_comp(a, c) (component-wise)
     // But this is NOT true for standard vector multiplication!
-    // Let's verify the component-wise property:
     for (int i = 0; i < 100; i++)
     {
         t_vec3 a = random_vec3(-10.0f, 10.0f);
@@ -135,13 +96,11 @@ static void test_vec3_mul_comp_distributive(void)
         assert(vec3_equal(left, right, 1e-4f));
     }
     
-    printf("✓ Distributive property tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_mul_comp_identity(void)
 {
-    printf("=== test_vec3_mul_comp_identity ===\n");
-    
     // Identity element is (1, 1, 1)
     t_vec3 ones = vec3_new(1.0f, 1.0f, 1.0f);
     
@@ -153,13 +112,11 @@ static void test_vec3_mul_comp_identity(void)
         assert(vec3_equal(result, a, 1e-6f));
     }
     
-    printf("✓ Identity element tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_mul_comp_edge_cases(void)
 {
-    printf("=== test_vec3_mul_comp_edge_cases ===\n");
-    
     // Infinity
     t_vec3 inf_vec = vec3_new(INFINITY, 0.0f, -INFINITY);
     t_vec3 finite_vec = vec3_new(2.0f, 3.0f, 4.0f);
@@ -188,7 +145,7 @@ static void test_vec3_mul_comp_edge_cases(void)
     result = vec3_mul_comp(zero_inf, inf_zero);
     assert(isnan(result.x) && isnan(result.y) && result.z == 0.0f);
     
-    printf("✓ Edge cases tests passed\n");
+    printf("✓ ");
 }
 
 // ============================================
@@ -197,8 +154,6 @@ static void test_vec3_mul_comp_edge_cases(void)
 
 static void test_vec3_div_comp_basic(void)
 {
-    printf("=== test_vec3_div_comp_basic ===\n");
-    
     // Basic component-wise division
     t_vec3 a = vec3_new(10.0f, 18.0f, 28.0f);
     t_vec3 b = vec3_new(2.0f, 3.0f, 4.0f);
@@ -223,13 +178,11 @@ static void test_vec3_div_comp_basic(void)
     expected = vec3_new(-5.0f, -6.0f, 7.0f);
     assert(vec3_equal(result, expected, 1e-6f));
     
-    printf("✓ Basic component-wise division tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_div_comp_zero_division(void)
 {
-    printf("=== test_vec3_div_comp_zero_division ===\n");
-    
     // Division by zero - check how implementation handles it
     t_vec3 a = vec3_new(1.0f, 2.0f, 3.0f);
     t_vec3 b = vec3_new(0.0f, 1.0f, 2.0f);
@@ -237,8 +190,8 @@ static void test_vec3_div_comp_zero_division(void)
     t_vec3 result = vec3_div_comp(a, b);
     
     // x component is 1/0 which is infinity or a very large number
-    printf("  Note: division by zero result: (%.6f, %.6f, %.6f)\n",
-           result.x, result.y, result.z);
+    // printf("\n  Note: division by zero result: (%.6f, %.6f, %.6f)\n",
+    //        result.x, result.y, result.z);    //{inf, 2, 1.5}
     
     // Division of zero by non-zero
     a = vec3_new(0.0f, 0.0f, 0.0f);
@@ -255,13 +208,11 @@ static void test_vec3_div_comp_zero_division(void)
     // 0/0 is NaN in IEEE 754
     assert(isnan(result.x) && isnan(result.y) && isnan(result.z));
     
-    printf("✓ Zero division tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_div_comp_inverse(void)
 {
-    printf("=== test_vec3_div_comp_inverse ===\n");
-    
     // Test that a / b = a * (1/b) component-wise
     for (int i = 0; i < 100; i++)
     {
@@ -279,13 +230,11 @@ static void test_vec3_div_comp_inverse(void)
         assert(vec3_equal(result1, result2, 1e-4f));
     }
     
-    printf("✓ Inverse relationship tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_div_comp_edge_cases(void)
 {
-    printf("=== test_vec3_div_comp_edge_cases ===\n");
-    
     // Infinity divided by finite
     t_vec3 inf_vec = vec3_new(INFINITY, -INFINITY, INFINITY);
     t_vec3 finite = vec3_new(2.0f, 3.0f, 4.0f);
@@ -313,7 +262,7 @@ static void test_vec3_div_comp_edge_cases(void)
     result = vec3_div_comp(small, vec3_new(2.0f, 2.0f, 2.0f));
     // Should be FLT_MIN/2 (might be denormalized)
     
-    printf("✓ Edge cases tests passed\n");
+    printf("✓ ");
 }
 
 // ============================================
@@ -322,8 +271,6 @@ static void test_vec3_div_comp_edge_cases(void)
 
 static void test_vec3_min_comp_basic(void)
 {
-    printf("=== test_vec3_min_comp_basic ===\n");
-    
     // Basic component-wise minimum
     t_vec3 a = vec3_new(1.0f, 5.0f, 3.0f);
     t_vec3 b = vec3_new(4.0f, 2.0f, 6.0f);
@@ -350,13 +297,11 @@ static void test_vec3_min_comp_basic(void)
     expected = vec3_new(-1.0f, -3.0f, 0.0f);
     assert(vec3_equal(result, expected, 1e-6f));
     
-    printf("✓ Basic component-wise minimum tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_min_comp_properties(void)
 {
-    printf("=== test_vec3_min_comp_properties ===\n");
-    
     // min_comp is commutative: min_comp(a,b) = min_comp(b,a)
     for (int i = 0; i < 100; i++)
     {
@@ -391,13 +336,11 @@ static void test_vec3_min_comp_properties(void)
         assert(vec3_equal(result, a, 1e-6f));
     }
     
-    printf("✓ Mathematical property tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_min_comp_relationship_with_max(void)
 {
-    printf("=== test_vec3_min_comp_relationship_with_max ===\n");
-    
     // Relationship: min_comp(a,b) + max_comp(a,b) = a + b (component-wise)
     for (int i = 0; i < 100; i++)
     {
@@ -424,7 +367,7 @@ static void test_vec3_min_comp_relationship_with_max(void)
         assert(min_result.z <= a.z + 1e-6f && min_result.z <= b.z + 1e-6f);
     }
     
-    printf("✓ Relationship with max tests passed\n");
+    printf("✓ ");
 }
 
 // ============================================
@@ -433,8 +376,6 @@ static void test_vec3_min_comp_relationship_with_max(void)
 
 static void test_vec3_max_comp_basic(void)
 {
-    printf("=== test_vec3_max_comp_basic ===\n");
-    
     // Basic component-wise maximum
     t_vec3 a = vec3_new(1.0f, 5.0f, 3.0f);
     t_vec3 b = vec3_new(4.0f, 2.0f, 6.0f);
@@ -461,13 +402,11 @@ static void test_vec3_max_comp_basic(void)
     expected = vec3_new(2.0f, 5.0f, 1.0f);
     assert(vec3_equal(result, expected, 1e-6f));
     
-    printf("✓ Basic component-wise maximum tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_max_comp_properties(void)
 {
-    printf("=== test_vec3_max_comp_properties ===\n");
-    
     // max_comp is commutative: max_comp(a,b) = max_comp(b,a)
     for (int i = 0; i < 100; i++)
     {
@@ -502,13 +441,11 @@ static void test_vec3_max_comp_properties(void)
         assert(vec3_equal(result, a, 1e-6f));
     }
     
-    printf("✓ Mathematical property tests passed\n");
+    printf("✓ ");
 }
 
 static void test_vec3_max_comp_edge_cases(void)
 {
-    printf("=== test_vec3_max_comp_edge_cases ===\n");
-    
     // Infinity
     t_vec3 inf_vec = vec3_new(INFINITY, -INFINITY, 0.0f);
     t_vec3 finite = vec3_new(1.0f, 2.0f, 3.0f);
@@ -533,7 +470,7 @@ static void test_vec3_max_comp_edge_cases(void)
     result = vec3_max_comp(small, vec3_new(0.0f, 0.0f, 0.0f));
     assert(vec3_equal(result, vec3_new(0.0f, 0.0f, 0.0f), 1e-6f));
     
-    printf("✓ Edge cases tests passed\n");
+    printf("✓ ");
 }
 
 // ============================================
@@ -542,8 +479,6 @@ static void test_vec3_max_comp_edge_cases(void)
 
 static void test_comp_stack_operations(void)
 {
-    printf("=== test_comp_stack_operations ===\n");
-    
     // Test multiple component-wise operations on stack
     
 #ifdef BENCHMARK
@@ -596,7 +531,7 @@ static void test_comp_stack_operations(void)
     (void)min_results;
     (void)div_results;
 
-    printf("✓ Stack operations test passed (%d operations)\n", STACK_TEST_SIZE);
+    printf("✓\tStack operations test passed (%d operations)\n", STACK_TEST_SIZE);
 }
 
 // ============================================
@@ -772,8 +707,6 @@ static void benchmark_comp_mixed(void)
 
 static void test_comp_integration(void)
 {
-    printf("=== test_comp_integration ===\n");
-    
     // 1. Relationship between mul_comp and div_comp: (a * b) / b = a (when b != 0)
     for (int i = 0; i < 50; i++)
     {
@@ -829,7 +762,7 @@ static void test_comp_integration(void)
         assert(vec3_equal(left, right, 1e-6f));
     }
     
-    printf("✓ Integration tests passed\n");
+    printf("✓ ");
 }
 
 // ============================================
@@ -838,8 +771,6 @@ static void test_comp_integration(void)
 
 static void test_comp_minirt_context(void)
 {
-    printf("=== test_comp_minirt_context ===\n");
-    
     // 1. Color operations (RGB colors as vec3)
     t_vec3 color1 = vec3_new(0.5f, 0.2f, 0.8f);  // RGB color
     t_vec3 color2 = vec3_new(0.3f, 0.7f, 0.4f);  // Another color
@@ -922,27 +853,15 @@ static void test_comp_minirt_context(void)
     (void)scaled_tex;
     (void)scaled_point;
     (void)green_only;
-    printf("✓ Minirt context tests passed\n");
+    printf("✓ ");
 }
 
 // ============================================
 // MAIN TEST RUNNER
 // ============================================
 
-int main()
+void test_vec3_comp()
 {
-    printf("\n=======================================\n");
-    printf("VEC3 COMPONENT-WISE OPERATIONS TEST SUITE\n");
-    printf("Mode: ");
-#ifdef QUICK_TEST
-    printf("QUICK_TEST (%d iterations)\n", TEST_ITERATIONS);
-#elif defined(BENCHMARK)
-    printf("BENCHMARK (%d iterations)\n", TEST_ITERATIONS);
-#else
-    printf("FULL_TEST (%d iterations)\n", TEST_ITERATIONS);
-#endif
-    printf("=======================================\n\n");
-    
     srand(time(NULL));
     
     // Run unit tests
@@ -983,10 +902,4 @@ int main()
     benchmark_vec3_max_comp();
     benchmark_comp_mixed();
 #endif
-    
-    printf("\n=======================================\n");
-    printf("ALL TESTS PASSED SUCCESSFULLY!\n");
-    printf("=======================================\n");
-    
-    return 0;
 }
