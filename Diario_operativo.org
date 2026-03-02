@@ -160,3 +160,6 @@ quindi posso dormire, e domani riparto dai determinanti.
 28/02/2026 sabruma 18:15
 Aggiunte mat4_determinant e mat4_rotation_axis. Tutti i test finora passano fino a mat4_look_at (non implementata). Guardo come va costruita la matrice su scratchapixel lunedi' e la implemento.
 Poi il grosso e' fatto, le decomposizioni e roba speciale posso metterle da parte per ora (a parte l'interpolazione, ma la faccio poi mentre creo ray.h che ci conta su quello).
+
+02/03/2026 gmu 21:13
+Aggiunto i colori che che sono stati fatti ho preso la formula per vec3_srgb_to_linear e vec3_linear_to_srgb da wikipedia nella pagina srgb, gamma_corretct pre distorce

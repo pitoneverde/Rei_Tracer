@@ -37,14 +37,17 @@ MAT4_SRCS := mat4/mat4_affine.c \
         	 mat4/mat4_utils.c \
         	 mat4/mat4_view.c \
 
+COLORS_SRCS := color/color.c
+
 CORE_SRCS := constants.c
 
-ALL_SRCS := $(CORE_SRCS) $(VEC3_SRCS) $(MAT4_SRCS)
+ALL_SRCS := $(CORE_SRCS) $(VEC3_SRCS) $(MAT4_SRCS) $(COLORS_SRCS)
 
 # Object files (with full paths)
 OBJS := $(addprefix $(MODULE_OBJ_DIR)/, $(CORE_SRCS:.c=.o)) \
         $(addprefix $(MODULE_OBJ_DIR)/, $(VEC3_SRCS:.c=.o)) \
-        $(addprefix $(MODULE_OBJ_DIR)/, $(MAT4_SRCS:.c=.o))
+        $(addprefix $(MODULE_OBJ_DIR)/, $(MAT4_SRCS:.c=.o)) \
+        $(addprefix $(MODULE_OBJ_DIR)/, $(COLORS_SRCS:.c=.o))
 
 all: $(OBJS)
 
@@ -52,6 +55,7 @@ $(MODULE_OBJ_DIR):
 	@mkdir -p $(MODULE_OBJ_DIR)
 	@mkdir -p $(MODULE_OBJ_DIR)/vec3
 	@mkdir -p $(MODULE_OBJ_DIR)/mat4
+	@mkdir -p $(MODULE_OBJ_DIR)/color
 
 $(MODULE_OBJ_DIR)/%.o: %.c | $(MODULE_OBJ_DIR)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< $(LDFLAGS) -o $@
@@ -63,6 +67,10 @@ $(MODULE_OBJ_DIR)/vec3/%.o: vec3/%.c | $(MODULE_OBJ_DIR)
 
 # Build mat4 submodule
 $(MODULE_OBJ_DIR)/mat4/%.o: mat4/%.c | $(MODULE_OBJ_DIR)
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< $(LDFLAGS) -o $@
+
+# Build color submodule
+$(MODULE_OBJ_DIR)/color/%.o: color/%.c | $(MODULE_OBJ_DIR)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< $(LDFLAGS) -o $@
 
 clean:
