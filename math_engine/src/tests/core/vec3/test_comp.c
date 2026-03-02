@@ -862,6 +862,13 @@ static void test_comp_minirt_context(void)
 
 void test_vec3_comp()
 {
+#ifdef BENCHMARK
+    benchmark_vec3_mul_comp();
+    benchmark_vec3_div_comp();
+    benchmark_vec3_min_comp();
+    benchmark_vec3_max_comp();
+    benchmark_comp_mixed();
+#else
     srand(time(NULL));
     
     // Run unit tests
@@ -890,16 +897,5 @@ void test_vec3_comp()
     
     // Stack allocation test
     test_comp_stack_operations();
-    
-#ifdef BENCHMARK
-    printf("\n=======================================\n");
-    printf("RUNNING BENCHMARKS\n");
-    printf("=======================================\n\n");
-    
-    benchmark_vec3_mul_comp();
-    benchmark_vec3_div_comp();
-    benchmark_vec3_min_comp();
-    benchmark_vec3_max_comp();
-    benchmark_comp_mixed();
 #endif
 }

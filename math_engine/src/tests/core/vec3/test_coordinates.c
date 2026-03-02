@@ -673,6 +673,9 @@ static void test_coordinate_system_alternatives(void)
 
 void test_vec3_coordinates()
 {
+#ifdef BENCHMARK
+    benchmark_vec3_coordinate_system();
+#else
     srand(time(NULL));
     
     // Run unit tests
@@ -689,12 +692,5 @@ void test_vec3_coordinates()
     
     // Stack allocation test
     test_coordinates_stack_operations();
-    
-#ifdef BENCHMARK
-    printf("\n=======================================\n");
-    printf("RUNNING BENCHMARKS\n");
-    printf("=======================================\n\n");
-    
-    benchmark_vec3_coordinate_system();
 #endif
 }

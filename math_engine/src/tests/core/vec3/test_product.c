@@ -771,6 +771,12 @@ static void test_product_minirt_context(void)
 
 void test_vec3_product()
 {
+#ifdef BENCHMARK
+    benchmark_vec3_dot();
+    benchmark_vec3_cross();
+    benchmark_vec3_volume();
+    benchmark_product_mixed();
+#else
     srand(time(NULL));
     
     // Run unit tests
@@ -800,15 +806,5 @@ void test_vec3_product()
     
     // Stack allocation test
     test_product_stack_operations();
-    
-#ifdef BENCHMARK
-    printf("\n=======================================\n");
-    printf("RUNNING BENCHMARKS\n");
-    printf("=======================================\n\n");
-    
-    benchmark_vec3_dot();
-    benchmark_vec3_cross();
-    benchmark_vec3_volume();
-    benchmark_product_mixed();
 #endif
 }

@@ -659,6 +659,13 @@ static void test_basic_minirt_context(void)
 
 void test_vec3_basic()
 { 
+#ifdef BENCHMARK
+    benchmark_vec3_add();
+    benchmark_vec3_sub();
+    benchmark_vec3_neg();
+    benchmark_vec3_scale();
+    benchmark_basic_mixed();
+#else
     srand(time(NULL));
     
     // Run unit tests
@@ -686,16 +693,5 @@ void test_vec3_basic()
     
     // Stack allocation test
     test_basic_stack_operations();
-    
-#ifdef BENCHMARK
-    printf("\n=======================================\n");
-    printf("RUNNING BENCHMARKS\n");
-    printf("=======================================\n\n");
-    
-    benchmark_vec3_add();
-    benchmark_vec3_sub();
-    benchmark_vec3_neg();
-    benchmark_vec3_scale();
-    benchmark_basic_mixed();
 #endif
 }

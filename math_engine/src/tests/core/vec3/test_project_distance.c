@@ -878,7 +878,14 @@ static void test_project_minirt_context(void)
 // ============================================
 
 void test_vec3_project_distance()
-{    
+{
+#ifdef BENCHMARK
+    benchmark_vec3_project();
+    benchmark_vec3_reject();
+    benchmark_vec3_distance();
+    benchmark_vec3_distance_sq();
+    benchmark_project_mixed();
+#else
     srand(time(NULL));
     
     // Run unit tests
@@ -903,16 +910,5 @@ void test_vec3_project_distance()
     
     // Stack allocation test
     test_project_stack_operations();
-    
-#ifdef BENCHMARK
-    printf("\n=======================================\n");
-    printf("RUNNING BENCHMARKS\n");
-    printf("=======================================\n\n");
-    
-    benchmark_vec3_project();
-    benchmark_vec3_reject();
-    benchmark_vec3_distance();
-    benchmark_vec3_distance_sq();
-    benchmark_project_mixed();
 #endif
 }

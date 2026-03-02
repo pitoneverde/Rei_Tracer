@@ -117,7 +117,7 @@ bench: CFLAGS += -DBENCHMARK -Wno-unused-function
 bench: $(BENCH_BINS)
 	@echo "Running benchmarks..."
 	@for test in $(BENCH_BINS); do \
-		echo "=== Running $$(basename $$test) ===" \
+		echo "=== Running $$(basename $$test) ==="; \
 		$$test; \
 	done
 

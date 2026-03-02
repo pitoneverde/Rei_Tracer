@@ -1007,10 +1007,6 @@ static void test_angles_minirt_context(void)
 void test_vec3_angles_direction()
 {
 #ifdef BENCHMARK
-    printf("\n=======================================\n");
-    printf("RUNNING BENCHMARKS\n");
-    printf("=======================================\n\n");
-    
     benchmark_vec3_angle();
     benchmark_vec3_signed_angle();
     benchmark_vec3_is_parallel();

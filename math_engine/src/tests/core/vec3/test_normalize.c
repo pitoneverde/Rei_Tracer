@@ -604,6 +604,12 @@ static void test_normalize_minirt_context(void)
 
 void test_vec3_normalize()
 {
+#ifdef BENCHMARK
+    benchmark_vec3_normalize();
+    benchmark_vec3_normalize_or();
+    benchmark_vec3_is_normalized();
+    benchmark_normalize_mixed();
+#else
     srand(time(NULL));
     
     // Run unit tests
@@ -624,15 +630,5 @@ void test_vec3_normalize()
     
     // Stack allocation test
     test_normalize_stack_operations();
-    
-#ifdef BENCHMARK
-    printf("\n=======================================\n");
-    printf("RUNNING BENCHMARKS\n");
-    printf("=======================================\n\n");
-    
-    benchmark_vec3_normalize();
-    benchmark_vec3_normalize_or();
-    benchmark_vec3_is_normalized();
-    benchmark_normalize_mixed();
 #endif
 }

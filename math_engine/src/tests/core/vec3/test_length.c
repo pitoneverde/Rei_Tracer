@@ -648,6 +648,11 @@ static void test_length_minirt_context(void)
 
 void test_vec3_length()
 {
+#ifdef BENCHMARK
+    benchmark_vec3_length();
+    benchmark_vec3_length_sq();
+    benchmark_length_mixed();
+#else
     srand(time(NULL));
     
     // Run unit tests
@@ -671,14 +676,5 @@ void test_vec3_length()
     
     // Stack allocation test
     test_length_stack_operations();
-    
-#ifdef BENCHMARK
-    printf("\n=======================================\n");
-    printf("RUNNING BENCHMARKS\n");
-    printf("=======================================\n\n");
-    
-    benchmark_vec3_length();
-    benchmark_vec3_length_sq();
-    benchmark_length_mixed();
 #endif
 }

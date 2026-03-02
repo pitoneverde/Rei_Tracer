@@ -15,7 +15,7 @@ BIN_DIR     := $(BUILD_DIR)/bin
 
 CC          := cc
 # compile with -ffast-math and -march=native to get max math speed
-CFLAGS      := -Wall -Wextra -Werror -std=c99 -O0 -g -march=native #-pedantic #-ffast-math
+CFLAGS      := -Wall -Wextra -Werror -std=c99 -O3 -g -march=native #-pedantic #-ffast-math
 INCLUDES    := -I$(INCLUDE_DIR) #-I$(INCLUDE_MINIRT_DIR)
 # scommentare se si usa gcc
 # LDFLAGS		:= -lm

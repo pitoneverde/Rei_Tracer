@@ -1071,6 +1071,13 @@ static void test_compare_minirt_context(void)
 
 void test_vec3_compare()
 {
+#ifdef BENCHMARK
+    benchmark_vec3_equal();
+    benchmark_vec3_is_zero();
+    benchmark_vec3_is_finite();
+    benchmark_vec3_abs();
+    benchmark_compare_mixed();
+#else
     srand(time(NULL));
     
     // Run unit tests
@@ -1103,16 +1110,5 @@ void test_vec3_compare()
     
     // Stack allocation test
     test_compare_stack_operations();
-    
-#ifdef BENCHMARK
-    printf("\n=======================================\n");
-    printf("RUNNING BENCHMARKS\n");
-    printf("=======================================\n\n");
-    
-    benchmark_vec3_equal();
-    benchmark_vec3_is_zero();
-    benchmark_vec3_is_finite();
-    benchmark_vec3_abs();
-    benchmark_compare_mixed();
 #endif
 }
