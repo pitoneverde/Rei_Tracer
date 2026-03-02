@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 18:01:51 by sabruma           #+#    #+#             */
-/*   Updated: 2026/01/27 00:49:22 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/02 15:37:28 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,3 +44,4 @@ void	vec3_coordinate_system(t_vec3 a, t_vec3 *b, t_vec3 *c)
 	*b = b_ortho;
 	*c = c_ortho;
 }
+

@@ -343,82 +343,95 @@ static void test_mat4_look_at(void)
 {
     printf("=== test_mat4_look_at ===\n");
 
-    // Standard look-at: eye at (0,0,0), target at (0,0,-1), up = (0,1,0)
-    // This should produce identity (camera looks down -z, y up)
-    t_vec3 eye    = {0,0,0};
-    t_vec3 target = {0,0,-1};
-    t_vec3 up     = {0,1,0};
+    // -----------------------------------------------------------------
+    // Test 1: eye at origin, looking down -z, up = y.
+    //         Camera axes align with world axes, so matrix = identity.
+    // -----------------------------------------------------------------
+    t_vec3 eye    = {0, 0, 0};
+    t_vec3 target = {0, 0, -1};
+    t_vec3 up     = {0, 1, 0};
     t_mat4 view = mat4_look_at(eye, target, up);
     t_mat4 expected = mat4_identity();
     assert(mat4_equal_eps(view, expected, EPSILON));
 
-    // Look from (0,0,5) to origin – camera at +z looking towards -z
-    // Should be a translation by -5 in z (since we move world so that camera goes to origin)
-    eye    = (t_vec3){0,0,5};
-    target = (t_vec3){0,0,0};
-    up     = (t_vec3){0,1,0};
+    // -----------------------------------------------------------------
+    // Test 2: eye at (0,0,5), looking at origin.
+    //         Forward = (0,0,-1), so rotation part is identity.
+    //         Camera‑to‑world should be translation by (0,0,5).
+    // -----------------------------------------------------------------
+    eye    = (t_vec3){0, 0, 5};
+    target = (t_vec3){0, 0, 0};
+    up     = (t_vec3){0, 1, 0};
     view = mat4_look_at(eye, target, up);
-
-    // Expected: rotation part identity (since direction is still -z), translation by -eye
-    // Actually, view matrix should map eye to origin, so T = translation(-eye)
-    t_mat4 T = mat4_translation((t_vec3){0,0,-5});
+    t_mat4 T = mat4_translation((t_vec3){0, 0, 5});  // last row = (0,0,5,1)
     assert(mat4_equal_eps(view, T, EPSILON));
 
-    // Check that a point at world origin transforms to camera space at (0,0,-5)?? Wait,
-    // In camera space, the camera is at origin looking down -z, so world origin should be at (0,0,-distance)
-    // With eye at (0,0,5) looking at (0,0,0), the direction is -z. So view matrix = translation(-5,0,0)? No,
-    // It should be translation by (-0, -0, -5) = (0,0,-5). Then world origin (0,0,0) becomes (0,0,-5) in camera space,
-    // which is correct: the camera at (0,0,5) sees origin 5 units in front (down -z).
-    t_vec3 p_cam = mat4_transform_point(view, (t_vec3){0,0,0});
-    t_vec3 expected_p = (t_vec3){0,0,-5};
-    assert(vec3_equal(p_cam, expected_p, EPSILON));
+    // Check that the camera‑space point (0,0,-5) maps to world origin.
+    // (Because world = eye + camera_point, and camera_point = (0,0,-5) gives (0,0,0))
+    t_vec3 cam_point = {0, 0, -5};
+    t_vec3 world_point = mat4_transform_point(view, cam_point);
+    assert(vec3_equal(world_point, (t_vec3){0, 0, 0}, EPSILON));
 
-    // Now look from (1,2,3) to (4,5,6) with up = (0,1,0)
-    eye    = (t_vec3){1,2,3};
-    target = (t_vec3){4,5,6};
-    up     = (t_vec3){0,1,0};
+    // -----------------------------------------------------------------
+    // Test 3: arbitrary look‑at
+    // -----------------------------------------------------------------
+    eye    = (t_vec3){1, 2, 3};
+    target = (t_vec3){4, 5, 6};
+    up     = (t_vec3){0, 1, 0};
     view = mat4_look_at(eye, target, up);
 
-    // Verify properties:
-    // 1. The forward vector (z-axis in camera space) should point from eye to target.
-    t_vec3 f = vec3_normalize(vec3_sub(target, eye)); // world forward
-    // In view matrix, the third row (since we use row-major? careful) Actually our convention:
-    // mat4_from_basis places right, up, forward in rows 0,1,2, and translation in row 3.
-    // For look_at, the matrix should transform world to camera. So the camera axes (right, up, -forward) should
-    // be the rows of the rotation part? Let's test: transform the world forward vector by the view matrix.
-    // The view matrix should map world forward to (0,0,-1) (camera's -z).
-    t_vec3 world_fwd = f;
-    t_vec3 cam_fwd = mat4_transform_vector(view, world_fwd);
-    t_vec3 expected_cam_fwd = (t_vec3){0,0,-1};
-    assert(vec3_equal(cam_fwd, expected_cam_fwd, EPSILON));
+    // Compute the expected camera axes in world coordinates
+    t_vec3 forward = vec3_normalize(vec3_sub(target, eye));   // direction from eye to target
+    t_vec3 right   = vec3_normalize(vec3_cross(forward, up)); // right‑handed: cross(forward, up)
+    t_vec3 new_up  = vec3_cross(right, forward);              // orthonormal up
+    t_vec3 back    = vec3_neg(forward);                    // camera's +z axis in world (points opposite to view direction)
 
-    // 2. The world up vector should be mapped to camera up (y) in the plane perpendicular to forward.
-    // But not exactly, because up is projected onto the plane. Instead, we can check that the transformed up
-    // has zero x and positive y (if up is (0,1,0) world).
-    t_vec3 world_up = up;
-    t_vec3 cam_up = mat4_transform_vector(view, world_up);
-    // cam_up should lie in the y-z plane? Actually with our look_at, the camera's y axis is the projection of world up
-    // onto the plane orthogonal to forward. So we expect cam_up.x ≈ 0, cam_up.y positive.
-    assert(float_equal(cam_up.x, 0.0f, 1e-5f));
-    assert(cam_up.y > 0);
-    // Also, the camera's right vector should be cross(up, forward) (or forward x up?). For a right-handed system,
-    // typically right = up x forward (if forward is -z). Let's compute expected right:
-    t_vec3 expected_right = vec3_cross(up, f); // because we want right = up x f (to get orthogonal basis)
-    vec3_normalize(expected_right);
-    t_vec3 cam_right = mat4_transform_vector(view, expected_right);
-    // The camera right should map to (1,0,0)
-    t_vec3 expected_cam_right = (t_vec3){1,0,0};
-    assert(vec3_equal(cam_right, expected_cam_right, EPSILON));
+    // Verify that the matrix rows match these axes (ignoring translation)
+    t_vec3 row0 = {view.m00, view.m01, view.m02};
+    t_vec3 row1 = {view.m10, view.m11, view.m12};
+    t_vec3 row2 = {view.m20, view.m21, view.m22};
+    t_vec3 row3 = {view.m30, view.m31, view.m32};
 
-    // Edge: degenerate case when target == eye (should probably return identity or something)
-    // Ensure it doesn't crash.
-    view = mat4_look_at(eye, eye, up);
-    (void)view;
+    assert(vec3_equal(row0, right,   EPSILON));
+    assert(vec3_equal(row1, new_up,  EPSILON));
+    assert(vec3_equal(row2, back,    EPSILON));
+    assert(vec3_equal(row3, eye,     EPSILON));
+    assert(float_equal(view.m33, 1.0f, EPSILON));
 
-    // Edge: up parallel to forward (gimbal lock) – should still produce a matrix (maybe with some axis)
-    up = vec3_normalize(vec3_sub(target, eye)); // up = forward
-    view = mat4_look_at(eye, target, up);
-    (void)view;
+    // Check orthonormality of the rotation part
+    assert(float_equal(vec3_dot(right, new_up), 0.0f, EPSILON));
+    assert(float_equal(vec3_dot(right, back),   0.0f, EPSILON));
+    assert(float_equal(vec3_dot(new_up, back),  0.0f, EPSILON));
+    assert(float_equal(vec3_length(right), 1.0f, EPSILON));
+    assert(float_equal(vec3_length(new_up), 1.0f, EPSILON));
+    assert(float_equal(vec3_length(back),  1.0f, EPSILON));
+
+    // Check that the matrix transforms camera basis vectors correctly
+    t_vec3 cam_x = {1, 0, 0};
+    t_vec3 cam_y = {0, 1, 0};
+    t_vec3 cam_z = {0, 0, 1};
+    t_vec3 cam_look = {0, 0, -1};   // the direction the camera looks in its own space
+
+    assert(vec3_equal(mat4_transform_vector(view, cam_x),    right,   EPSILON));
+    assert(vec3_equal(mat4_transform_vector(view, cam_y),    new_up,  EPSILON));
+    assert(vec3_equal(mat4_transform_vector(view, cam_z),    back,    EPSILON));
+    assert(vec3_equal(mat4_transform_vector(view, cam_look), forward, EPSILON));
+
+    // Determinant should be 1 (rigid transformation)
+    float det = mat4_determinant(view);
+    assert(float_equal(det, 1.0f, EPSILON));
+
+    // -----------------------------------------------------------------
+    // Edge cases – just ensure no crash
+    // -----------------------------------------------------------------
+    // target == eye (degenerate)
+    t_mat4 degenerate = mat4_look_at(eye, eye, up);
+    (void)degenerate;
+
+    // up parallel to forward (gimbal lock)
+    t_vec3 bad_up = vec3_normalize(vec3_sub(target, eye));
+    degenerate = mat4_look_at(eye, target, bad_up);
+    (void)degenerate;
 
     printf("✓ look_at tests passed\n");
 }
@@ -518,19 +531,12 @@ int main(void)
     printf("===== TRANSFORMATIONS (RT ESSENTIALS) =====\n\n");
 
     test_mat4_translation();
-    printf("\n");
     test_mat4_scaling();
-    printf("\n");
     test_mat4_rotation_x();
-    printf("\n");
     test_mat4_rotation_y();
-    printf("\n");
     test_mat4_rotation_z();
-    printf("\n");
     test_mat4_rotation_axis();
-    printf("\n");
     test_mat4_look_at();
-    printf("\n");
 
     printf("\nAll transformations tests passed.\n");
 #endif

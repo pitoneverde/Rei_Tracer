@@ -1,10 +1,11 @@
+#define _GNU_SOURCE
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
-#include <time.h>
 #include <assert.h>
 #include <float.h>
+#include <time.h>
 #include <stdint.h>
 #include "core/vec3.h"
 #include "utils/debug.h"
