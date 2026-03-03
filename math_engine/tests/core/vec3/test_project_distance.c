@@ -587,8 +587,6 @@ static void bench_vec3_reject(void)
 
 static void bench_vec3_distance(void)
 {
-	printf("=== BENCHMARK: vec3_distance ===\n");
-	
 	volatile float result;
 	t_vec3 a = vec3_new(1.0f, 2.0f, 3.0f);
 	t_vec3 b = vec3_new(4.0f, 5.0f, 6.0f);
@@ -607,8 +605,6 @@ static void bench_vec3_distance(void)
 
 static void bench_vec3_distance_sq(void)
 {
-	printf("=== BENCHMARK: vec3_distance_sq ===\n");
-	
 	volatile float result;
 	t_vec3 a = vec3_new(1.0f, 2.0f, 3.0f);
 	t_vec3 b = vec3_new(4.0f, 5.0f, 6.0f);
@@ -627,8 +623,6 @@ static void bench_vec3_distance_sq(void)
 
 static void bench_project_mixed(void)
 {
-	printf("=== BENCHMARK: Mixed projection/distance operations ===\n");
-	
 	volatile t_vec3 vec_result;
 	volatile float float_result;
 	t_vec3 a = vec3_new(1.0f, 2.0f, 3.0f);
