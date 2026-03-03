@@ -174,3 +174,6 @@ ricordarsi che non va consegnato. Se non ho piu' voglia di impazzire dietro i be
 Ho avuto l'ispirazione per fixare i benchmark mentre ero al cesso. Ovviamente avevo tralasciato un fottuto punto e virgola, dio mostro.
 Nota importante per il me del futuro: i benchmark rivelano che mat4_transform_normal e vec3_coordinate_system sono dei bottleneck paurosi, e' necessario implementare vec3_orthonormal_basis (con prodotto vettoriale)
 e una versione alternativa per le normali, mantenendo in cache la inversa trasposta anziche' ricalcolarla per ogni normale. Il rendering e ray.h ringrazieranno.
+
+03/03/2026 gmu 18:04
+Ho separato i colori in file diversi fra poco li commento

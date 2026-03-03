@@ -37,7 +37,12 @@ MAT4_SRCS := mat4/mat4_affine.c \
         	 mat4/mat4_utils.c \
         	 mat4/mat4_view.c \
 
-COLORS_SRCS := color/color.c
+COLORS_SRCS := color/vec3_from_color.c \
+			   color/vec3_srgb_to_linear.c \
+			   color/vec3_linear_to_srgb.c \
+			   color/vec3_gamma_correct.c \
+			   color/vec3_saturate.c \
+			   color/vec3_luminance.c \
 
 CORE_SRCS := constants.c
 
