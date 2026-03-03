@@ -1,5 +1,7 @@
+#define _GNU_SOURCE
 #include <stdlib.h>
 #include <math.h>
+#include <time.h>
 #include "core/test.h"
 #include "utils/math_constants.h"
 
@@ -79,4 +81,9 @@ t_vec3 orthogonalize(t_vec3 a, t_vec3 b)
     if (length_sq < 1e-12f) return b;
     float scale = dot / length_sq;
     return vec3_sub(b, vec3_scale(a, scale));
+}
+
+double time_diff_sec(struct timespec start, struct timespec end)
+{
+    return (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) * 1e-9;
 }

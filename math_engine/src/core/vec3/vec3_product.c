@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 21:44:27 by sabruma           #+#    #+#             */
-/*   Updated: 2026/01/26 22:50:18 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/03 16:14:07 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,11 @@ inline float	vec3_volume(t_vec3 a, t_vec3 b, t_vec3 c)
 }
 
 // vectorial triple product -> a x (b x c)
+// a × (b × c) = b(a·c) - c(a·b)
 inline t_vec3	vec3_triple(t_vec3 a, t_vec3 b, t_vec3 c)
 {
-	return (vec3_cross(a, vec3_cross(b, c)));	
+	// return (vec3_cross(a, vec3_cross(b, c)));
+	return(vec3_sub
+			(vec3_scale(b, vec3_dot(a, c)),
+				vec3_scale(c, vec3_dot(a, b))));
 }

@@ -12,6 +12,10 @@ int main(void)
 	test_vec3_normalize();
 	test_vec3_product();
 	test_vec3_project_distance();
-    printf("✓ ALL VEC3 TESTS PASSED!\n");
+#ifdef BENCHMARK
+	printf("✓ ALL VEC3 BECNHMARKS COMPLETE!\n");
+#else
+	printf("✓ ALL VEC3 TESTS PASSED!\n");
+#endif
 	return 0;
 }

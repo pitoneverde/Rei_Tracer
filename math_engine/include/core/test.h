@@ -6,8 +6,8 @@
 #define TEST_ITERATIONS 100
 #define STACK_TEST_SIZE 1000
 #elif defined(BENCHMARK)
-#define TEST_ITERATIONS 1000000
-#define STACK_TEST_SIZE 1000000
+#define TEST_ITERATIONS 10000000
+#define STACK_TEST_SIZE 10000000
 #else
 #define TEST_ITERATIONS 10000
 #define STACK_TEST_SIZE 100000
@@ -33,9 +33,11 @@ void test_mat4_transform();
 void test_mat4_transformation();
 
 // ====== UTILS ======
+#define _GNU_SOURCE
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <time.h>
 #include "core/mat4.h"
 #include "core/vec3.h"
 
@@ -49,3 +51,4 @@ t_vec3	random_unit_vec3(void);
 t_vec3	random_vec3(float min, float max);
 t_vec3	orthogonalize(t_vec3 a, t_vec3 b);
 t_mat4	random_mat4(float min, float max);
+double	time_diff_sec(struct timespec start, struct timespec end);

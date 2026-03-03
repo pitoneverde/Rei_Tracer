@@ -169,3 +169,8 @@ Refactor dei test che valgono per ora, punti 1-3 del 27/02. Iniziato a controlla
 e con calma do un senso alle unit (per ora l'output e' un po' piu' carino e leggibile in caso). Sto valutando se splittare in file separati i test con make quick-test/make test e i benchmark triggerati da make bench.
 Per ora non danno output non so come mai, probabilmente ho sputtanato le macro e i file oggetto. Alla fine quando sono sicuro muovo tests/ sotto math_engine/ per chiarezza che non e' parte della libreria e
 ricordarsi che non va consegnato. Se non ho piu' voglia di impazzire dietro i benchmark faccio le funzioni di interpolazione, dopo aver studiato la teoria.
+
+03/03/2026 sabruma 00:00
+Ho avuto l'ispirazione per fixare i benchmark mentre ero al cesso. Ovviamente avevo tralasciato un fottuto punto e virgola, dio mostro.
+Nota importante per il me del futuro: i benchmark rivelano che mat4_transform_normal e vec3_coordinate_system sono dei bottleneck paurosi, e' necessario implementare vec3_orthonormal_basis (con prodotto vettoriale)
+e una versione alternativa per le normali, mantenendo in cache la inversa trasposta anziche' ricalcolarla per ogni normale. Il rendering e ray.h ringrazieranno.
