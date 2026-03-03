@@ -62,3 +62,4 @@ minilibx-linux
 miniRT
 Makefile.gen
 .vscode
+*.txt

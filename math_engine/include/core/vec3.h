@@ -61,7 +61,7 @@ bool	vec3_is_perpendicular(t_vec3 a, t_vec3 b, float epsilon);
 // ===== COORDINATE SYSTEMS =====
 
 void	vec3_coordinate_system(t_vec3 a, t_vec3 *b, t_vec3 *c); 
-//t_vec3 vec3_orthonormal_basis(t_vec3 n, t_vec3* tangent, t_vec3* bitangent); // faster, use in hot path (cross-product)
+void	vec3_orthonormal_basis(t_vec3 n, t_vec3 *t, t_vec3 *b);
 
 // ===== PROJECTIONS =====
 
