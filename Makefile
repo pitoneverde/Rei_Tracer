@@ -69,6 +69,15 @@ fclean: clean
 	make -C $(LIBC_DIR) fclean
 	make -C $(MATH_E_DIR) fclean
 
+quick-test: 
+	$(MAKE) -C $(MATH_E_DIR) quick-test
+
+test:
+	$(MAKE) -C $(MATH_E_DIR) test
+
+bench:
+	$(MAKE) -C $(MATH_E_DIR) bench
+
 re: fclean all
 
 .PHONY: all mlx d clean fclean re

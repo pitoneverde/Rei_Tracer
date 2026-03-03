@@ -43,20 +43,19 @@ clean:
 
 quick-test: $(STATIC_LIB)
 	@echo "Building and running quick tests..."
-	$(MAKE) -C $(SRC_DIR)/tests quick-test
-
+	$(MAKE) -C $(ROOT_DIR)/tests quick-test
 
 test: $(STATIC_LIB)
 	@echo "Building and running full tests..."
-	$(MAKE) -C $(SRC_DIR)/tests test
+	$(MAKE) -C $(ROOT_DIR)/tests test
 
 bench: $(STATIC_LIB)
 	@echo "Building and running benchmarks"
-	$(MAKE) -C $(SRC_DIR)/tests bench
+	$(MAKE) -C $(ROOT_DIR)/tests bench
 
 build-tests: $(STATIC_LIB)
 	@echo "Building tests..."
-	$(MAKE) -C $(SRC_DIR)/tests
+	$(MAKE) -C $(ROOT_DIR)/tests
 
 re: fclean all
 
