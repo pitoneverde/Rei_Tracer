@@ -56,9 +56,9 @@ static void test_vec3_new_consistency(void)
 	// Test that multiple calls with same parameters produce same results
 	for (int i = 0; i < 100; i++)
 	{
-		float x = (float)rand() / RAND_MAX * 1000.0f - 500.0f;
-		float y = (float)rand() / RAND_MAX * 1000.0f - 500.0f;
-		float z = (float)rand() / RAND_MAX * 1000.0f - 500.0f;
+		float x = random_float(-500.0f, 500.0f);
+		float y = random_float(-500.0f, 500.0f);
+		float z = random_float(-500.0f, 500.0f);
 		
 		t_vec3 v1 = vec3_new(x, y, z);
 		t_vec3 v2 = vec3_new(x, y, z);
@@ -128,7 +128,7 @@ static void test_vec3_from_scalar_consistency(void)
 	// Multiple calls consistency
 	for (int i = 0; i < 100; i++)
 	{
-		float s = (float)rand() / RAND_MAX * 200.0f - 100.0f;
+		float s = random_float(-100.0f, 100.0f);
 		t_vec3 v1 = vec3_from_scalar(s);
 		t_vec3 v2 = vec3_from_scalar(s);
 		

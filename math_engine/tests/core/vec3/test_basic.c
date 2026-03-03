@@ -286,7 +286,7 @@ static void test_vec3_scale_distributive(void)
 	{
 		t_vec3 a = random_vec3(-100.0f, 100.0f);
 		t_vec3 b = random_vec3(-100.0f, 100.0f);
-		float s = (float)rand() / RAND_MAX * 10.0f - 5.0f;
+		float s = random_float(-5.0f, 5.0f);
 		
 		t_vec3 result1 = vec3_scale(vec3_add(a, b), s);
 		t_vec3 result2 = vec3_add(vec3_scale(a, s), vec3_scale(b, s));
@@ -303,8 +303,8 @@ static void test_vec3_scale_associative(void)
 	for (int i = 0; i < 100; i++)
 	{
 		t_vec3 a = random_vec3(-100.0f, 100.0f);
-		float s = (float)rand() / RAND_MAX * 10.0f - 5.0f;
-		float t = (float)rand() / RAND_MAX * 10.0f - 5.0f;
+		float s = random_float(-5.0f, 5.0f);
+		float t = random_float(-5.0f, 5.0f);
 		
 		t_vec3 result1 = vec3_scale(a, s * t);
 		t_vec3 result2 = vec3_scale(vec3_scale(a, t), s);

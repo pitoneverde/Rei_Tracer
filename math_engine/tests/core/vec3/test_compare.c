@@ -158,7 +158,7 @@ static void test_vec3_is_zero_properties(void)
 	
 	for (int i = 0; i < 50; i++)
 	{
-		float scale = (float)rand() / RAND_MAX * 100.0f - 50.0f;
+		float scale = random_float(-50.0f, 50.0f);
 		t_vec3 scaled = vec3_scale(zero, scale);
 		assert(vec3_is_zero(scaled, epsilon));
 	}
@@ -548,7 +548,7 @@ static void test_vec3_mod_properties(void)
 	for (int i = 0; i < 100; i++)
 	{
 		t_vec3 v = random_vec3(-100.0f, 100.0f);
-		float divisor = (float)rand() / RAND_MAX * 10.0f + 0.1f; // Avoid zero
+		float divisor = random_float(0.1f, 10.0f); // Avoid zero
 		
 		t_vec3 m = vec3_mod(v, divisor);
 		
@@ -569,7 +569,7 @@ static void test_vec3_mod_properties(void)
 	for (int i = 0; i < 50; i++)
 	{
 		t_vec3 v = random_vec3(-100.0f, 100.0f);
-		float divisor = (float)rand() / RAND_MAX * 10.0f + 0.1f;
+		float divisor = random_float(0.1f, 10.0f);
 		
 		t_vec3 m1 = vec3_mod(v, divisor);
 		t_vec3 m2 = vec3_mod(m1, divisor);
@@ -581,7 +581,7 @@ static void test_vec3_mod_properties(void)
 	for (int i = 0; i < 50; i++)
 	{
 		t_vec3 v = random_vec3(-100.0f, 100.0f);
-		float divisor = (float)rand() / RAND_MAX * 10.0f + 0.1f;
+		float divisor = random_float(0.1f, 10.0f);
 		int k = rand() % 10 - 5; // -5 to 4
 		
 		t_vec3 v_shifted = vec3_add(v, vec3_scale(vec3_from_scalar(divisor), (float)k));
@@ -995,7 +995,7 @@ static void test_compare_integration(void)
 	for (int i = 0; i < 20; i++)
 	{
 		t_vec3 v = random_vec3(-10.0f, 10.0f);
-		float divisor = (float)rand() / RAND_MAX * 5.0f + 0.1f;
+		float divisor = random_float(0.1f, 5.0f);
 		
 		t_vec3 m = vec3_mod(v, divisor);
 		

@@ -65,7 +65,7 @@ static void test_vec3_length_sq_properties(void)
 	for (int i = 0; i < 100; i++)
 	{
 		t_vec3 v = random_vec3(-10.0f, 10.0f);
-		float s = (float)rand() / RAND_MAX * 5.0f - 2.5f;
+		float s = random_float(-2.5f, 2.5f);
 		
 		float left = vec3_length_sq(vec3_scale(v, s));
 		float right = s * s * vec3_length_sq(v);
@@ -188,7 +188,7 @@ static void test_vec3_length_scaling(void)
 	for (int i = 0; i < 100; i++)
 	{
 		t_vec3 v = random_vec3(-10.0f, 10.0f);
-		float s = (float)rand() / RAND_MAX * 10.0f - 5.0f;
+		float s = random_float(-5.0f, 5.0f);
 		
 		float left = vec3_length(vec3_scale(v, s));
 		float right = fabsf(s) * vec3_length(v);

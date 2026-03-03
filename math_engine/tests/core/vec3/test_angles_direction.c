@@ -110,8 +110,8 @@ static void test_vec3_angle_scaling(void)
 		t_vec3 a = random_vec3(0.1f, 10.0f); // Positive to avoid sign issues
 		t_vec3 b = random_vec3(0.1f, 10.0f);
 		
-		float s = (float)rand() / RAND_MAX * 5.0f + 0.1f;
-		float t = (float)rand() / RAND_MAX * 5.0f + 0.1f;
+		float s = random_float(0.1f, 5.1f);
+		float t = random_float(0.1f, 5.1f);
 		
 		float angle1 = vec3_angle(a, b);
 		float angle2 = vec3_angle(vec3_scale(a, s), vec3_scale(b, t));
@@ -230,8 +230,8 @@ static void test_vec3_signed_angle_range(void)
 	for (int i = 0; i < 50; i++)
 	{
 		// Generate random vectors in XY plane
-		float theta1 = (float)rand() / RAND_MAX * MATH_TAU;
-		float theta2 = (float)rand() / RAND_MAX * MATH_TAU;
+		float theta1 = random_float(0.0f, MATH_TAU);
+		float theta2 = random_float(0.0f, MATH_TAU);
 		
 		t_vec3 a = vec3_new(cosf(theta1), sinf(theta1), 0.0f);
 		t_vec3 b = vec3_new(cosf(theta2), sinf(theta2), 0.0f);
@@ -319,8 +319,8 @@ static void test_vec3_signed_angle_relationship(void)
 	for (int i = 0; i < 50; i++)
 	{
 		// Generate vectors in XY plane (perpendicular to Z axis)
-		float theta1 = (float)rand() / RAND_MAX * MATH_TAU;
-		float theta2 = (float)rand() / RAND_MAX * MATH_TAU;
+		float theta1 = random_float(0.0f, MATH_TAU);
+		float theta2 = random_float(0.0f, MATH_TAU);
 		
 		t_vec3 a = vec3_new(cosf(theta1), sinf(theta1), 0.0f);
 		t_vec3 b = vec3_new(cosf(theta2), sinf(theta2), 0.0f);
@@ -385,7 +385,7 @@ static void test_vec3_is_parallel_random(void)
 			continue;
 		
 		// Create parallel vector
-		float scale = (float)rand() / RAND_MAX * 10.0f - 5.0f;
+		float scale = random_float(-5.0f, 5.0f);
 		t_vec3 b = vec3_scale(a, scale);
 		
 		assert(vec3_is_parallel(a, b, epsilon));
@@ -744,8 +744,8 @@ static void test_angles_integration(void)
 	for (int i = 0; i < 50; i++)
 	{
 		// Generate vectors in XY plane
-		float theta1 = (float)rand() / RAND_MAX * MATH_TAU;
-		float theta2 = (float)rand() / RAND_MAX * MATH_TAU;
+		float theta1 = random_float(0.0f, MATH_TAU);
+		float theta2 = random_float(0.0f, MATH_TAU);
 		
 		t_vec3 a = vec3_new(cosf(theta1), sinf(theta1), 0.0f);
 		t_vec3 b = vec3_new(cosf(theta2), sinf(theta2), 0.0f);
@@ -765,7 +765,7 @@ static void test_angles_integration(void)
 		if (vec3_length_sq(a) < 1e-4f)
 			continue;
 		
-		float scale = (float)rand() / RAND_MAX * 4.0f - 2.0f;
+		float scale = random_float(-2.0f, 2.0f);
 		t_vec3 b = vec3_scale(a, scale);
 		
 		float ang = vec3_angle(a, b);

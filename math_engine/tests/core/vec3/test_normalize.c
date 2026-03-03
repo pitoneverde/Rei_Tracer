@@ -481,7 +481,7 @@ static void test_normalize_integration(void)
 	for (int i = 0; i < 50; i++)
 	{
 		t_vec3 v = random_vec3(0.1f, 100.0f);
-		float s = (float)rand() / RAND_MAX * 10.0f + 0.1f; // Positive
+		float s = random_float(0.1f, 10.0f); // Positive
 		
 		t_vec3 result1 = vec3_normalize(v);
 		t_vec3 result2 = vec3_normalize(vec3_scale(v, s));

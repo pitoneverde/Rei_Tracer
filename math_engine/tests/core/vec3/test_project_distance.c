@@ -87,8 +87,8 @@ static void test_vec3_project_properties(void)
 		if (vec3_length_sq(u) < 1e-12f)
 			continue;
 		
-		float a = (float)rand() / RAND_MAX * 4.0f - 2.0f;
-		float b = (float)rand() / RAND_MAX * 4.0f - 2.0f;
+		float a = random_float(-2.0f, 2.0f);
+		float b = random_float(-2.0f, 2.0f);
 		
 		t_vec3 left = vec3_project(vec3_add(vec3_scale(v1, a), vec3_scale(v2, b)), u);
 		t_vec3 right = vec3_add(vec3_scale(vec3_project(v1, u), a),
@@ -358,7 +358,7 @@ static void test_vec3_distance_sq_properties(void)
 	{
 		t_vec3 a = random_vec3(-10.0f, 10.0f);
 		t_vec3 b = random_vec3(-10.0f, 10.0f);
-		float k = (float)rand() / RAND_MAX * 5.0f - 2.5f;
+		float k = random_float(-2.5f, 2.5f);
 		
 		float left = vec3_distance_sq(vec3_scale(a, k), vec3_scale(b, k));
 		float right = k * k * vec3_distance_sq(a, b);

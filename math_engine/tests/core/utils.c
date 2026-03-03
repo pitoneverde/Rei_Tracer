@@ -12,8 +12,8 @@ inline bool float_equal(float a, float b, float eps)
 
 float random_float(float min, float max)
 {
-    float r = (float)rand() / RAND_MAX;
-    return min + r * (max - min);
+    double r = (double)rand() / RAND_MAX;
+    return (float)(min + r * (max - min));
 }
 
 t_vec3 random_vec3(float min, float max)
@@ -64,8 +64,8 @@ void print_vec3(const char *name, t_vec3 v)
 t_vec3 random_unit_vec3(void)
 {
     // Generate random point on unit sphere
-    float theta = (float)rand() / RAND_MAX * MATH_TAU;
-    float phi = acosf(2.0f * (float)rand() / RAND_MAX - 1.0f);
+    float theta = random_float(0.0f, MATH_TAU);
+    float phi = acosf(random_float(-1.0f, 1.0f));
     return vec3_new(
         sinf(phi) * cosf(theta),
         sinf(phi) * sinf(theta),

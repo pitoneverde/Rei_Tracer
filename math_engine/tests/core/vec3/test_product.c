@@ -83,7 +83,7 @@ static void test_vec3_dot_scalar_mult(void)
 	{
 		t_vec3 a = random_vec3(-100.0f, 100.0f);
 		t_vec3 b = random_vec3(-100.0f, 100.0f);
-		float k = (float)rand() / RAND_MAX * 10.0f - 5.0f;
+		float k = random_float(-5.0f, 5.0f);
 		
 		float result1 = vec3_dot(vec3_scale(a, k), b);
 		float result2 = vec3_dot(a, vec3_scale(b, k));
@@ -256,7 +256,7 @@ static void test_vec3_cross_scalar_mult(void)
 	{
 		t_vec3 a = random_vec3(-10.0f, 10.0f);
 		t_vec3 b = random_vec3(-10.0f, 10.0f);
-		float k = (float)rand() / RAND_MAX * 10.0f - 5.0f;
+		float k = random_float(-5.0f, 5.0f);
 		
 		t_vec3 result1 = vec3_cross(vec3_scale(a, k), b);
 		t_vec3 result2 = vec3_cross(a, vec3_scale(b, k));
@@ -275,7 +275,7 @@ static void test_vec3_cross_parallel(void)
 	for (int i = 0; i < 50; i++)
 	{
 		t_vec3 a = random_vec3(-10.0f, 10.0f);
-		float scalar = (float)rand() / RAND_MAX * 5.0f - 2.5f;
+		float scalar = random_float(-2.5f, 2.5f);
 		t_vec3 b = vec3_scale(a, scalar); // b is parallel to a
 		
 		t_vec3 result = vec3_cross(a, b);
@@ -401,8 +401,8 @@ static void test_vec3_volume_coplanar(void)
 		t_vec3 b = random_vec3(-10.0f, 10.0f);
 		
 		// Create c as linear combination of a and b (so they're coplanar)
-		float u = (float)rand() / RAND_MAX * 2.0f - 1.0f;
-		float v = (float)rand() / RAND_MAX * 2.0f - 1.0f;
+		float u = random_float(-1.0f, 1.0f);
+		float v = random_float(-1.0f, 1.0f);
 		t_vec3 c = vec3_add(vec3_scale(a, u), vec3_scale(b, v));
 		
 		float volume = vec3_volume(a, b, c);

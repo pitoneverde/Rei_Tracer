@@ -687,7 +687,7 @@ static void test_comp_integration(void)
 	for (int i = 0; i < 50; i++)
 	{
 		t_vec3 a = random_vec3(-10.0f, 10.0f);
-		float s = (float)rand() / RAND_MAX * 10.0f - 5.0f;
+		float s = random_float(-5.0f, 5.0f);
 		
 		t_vec3 scaled = vec3_scale(a, s);
 		t_vec3 mul_scalar = vec3_mul_comp(a, vec3_from_scalar(s));
