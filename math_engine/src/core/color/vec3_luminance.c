@@ -1,5 +1,7 @@
 #include "core/color.h"
 
+/*Uso lo standard Rec. 709 / sRGB (usato per HDTV e computer grafica moderna)*/
+
 float vec3_luminance(t_vec3 color)
 {
     const float r_weight = 0.2126f;

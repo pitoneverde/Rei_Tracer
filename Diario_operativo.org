@@ -177,3 +177,6 @@ e una versione alternativa per le normali, mantenendo in cache la inversa traspo
 
 03/03/2026 gmu 18:04
 Ho separato i colori in file diversi fra poco li commento
+
+06/03/2026 gmu 18:04
+ci ho messo piu' del previsto a commentarli a causa di "imprevisti"

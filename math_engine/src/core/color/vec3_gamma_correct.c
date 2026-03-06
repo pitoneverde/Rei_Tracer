@@ -1,5 +1,7 @@
 #include "core/color.h"
 
+/*applica una correzione gamma outpot = input^(1/gamma), Il valore tipico di gamma è 2.2*/
+
 t_vec3 vec3_gamma_correct(t_vec3 color, float gamma)
 {
     t_vec3 result;

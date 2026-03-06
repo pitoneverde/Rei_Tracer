@@ -1,5 +1,7 @@
 #include "core/color.h"
 
+/*converte il lineare a srgb*/
+
 t_vec3 vec3_linear_to_srgb(t_vec3 linear_color)
 {
     t_vec3 srgb;
