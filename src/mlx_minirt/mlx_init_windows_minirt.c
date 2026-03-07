@@ -157,18 +157,18 @@ void	print_t_element(t_element *elem)
 	}
 }
 
-void print_t_element_array_sentinel(t_element *arr, int size)
+void print_t_element_array_sentinel(t_element *arr)
 {
     int i;
 
     if (!arr)
         return;
     i = 0;
-    while (i < size)
+    while (arr->id)
     {
-        printf("\n=== Element %d ===\n", i);
-        print_t_element(&arr[i]);
-        i++;
+        printf("\n=== Element %d ===\n", i++);
+        print_t_element(arr);
+        arr++;
     }
 }
 // minilibx e altre cose
@@ -185,7 +185,7 @@ void    mlx_init_windows_minirt(t_element *data_file)
 	// mlx.charptr_addr = mlx_get_data_addr(mlx.voidptr_img, &mlx.int_bits_per_pixel, &mlx.int_line_length, &mlx.int_endian);
 
 
-	print_t_element_array_sentinel(data_file, data_file->size); // da togliere, solo per debug
+	print_t_element_array_sentinel(data_file); // da togliere, solo per debug
 	//render ray tracing
 	// render_minirt(&mlx);
 
@@ -193,4 +193,5 @@ void    mlx_init_windows_minirt(t_element *data_file)
 	// mlx_hook(mlx.voidptr_win, 17, 1 << 17, free_all_minirt, &mlx);
 	// mlx_key_hook(mlx.voidptr_win, key_hook_minirt, &mlx);
 	// mlx_loop(mlx.voidptr_mlx);
+	(void)mlx;
 }

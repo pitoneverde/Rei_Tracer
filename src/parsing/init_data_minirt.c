@@ -106,10 +106,10 @@ t_element *init_data_minirt(char *s)
 {
 	char	**matrix = ft_split(s, '\n');
 	int		i = 0;
-	t_element *elements = malloc(sizeof(t_element) * mtx_count((void **)matrix));
+	t_element *elements = malloc(sizeof(t_element) * (mtx_count((void **)matrix) + 1));
 	if (!elements)
 		return (NULL);
-	elements->size = mtx_count((void **)matrix);
+	// elements->size = mtx_count((void **)matrix);
 	init_data_ambient(matrix[i++], &elements[0]);
 	init_data_camera(matrix[i++], &elements[1]);
 	init_data_light(matrix[i++], &elements[2]);
@@ -127,6 +127,7 @@ t_element *init_data_minirt(char *s)
 			return (NULL);
 		i++;
 	}
+	elements[i].id = NULL;	// NULL termination (id for valid data is always non-null)
 	mtxfree_str(matrix);
 	return (elements);
 }

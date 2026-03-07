@@ -183,3 +183,7 @@ ci ho messo piu' del previsto a commentarli a causa di "imprevisti"
 
 07/03/2026 gmu 22:16
 Ho aggiunto a t_element size per evitare in invalid read e poi il render e' in work in progress proseguiro' poi perche' ho dei impegni futuri, inoltre ho aggiunto dei print per debug
+
+07/03/2026 sabruma 23:55
+Ho fixato l'init con la null-termination implicita e riportato il t_element a come avevamo concordato. Continuo con uno sketch di ray.h che ho incontrato una serie di strani benchmark e mi sono
+fermato a investigare. Non so ancora il motivo, ma il rallentamento del 50% e' scomparso (probabile che fosse solo il mio portatile con una qualche roba di risparmio energetico inventata da ubuntu).

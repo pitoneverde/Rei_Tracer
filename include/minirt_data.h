@@ -50,7 +50,6 @@ typedef struct s_cylinder
 typedef struct s_element
 {
 	char *id;
-	int	size;
 	union
 	{
 		t_ambient_lighting a;
