@@ -298,39 +298,37 @@ static void test_mat4_neg(void)
 
 static void bench_mat4_add(void)
 {
-	const int N = TEST_ITERATIONS;
 	t_mat4 A = random_mat4(-10, 10);
 	t_mat4 B = random_mat4(-10, 10);
 	t_mat4 C;
 
 	struct timespec t1, t2;
 	clock_gettime(CLOCK_MONOTONIC, &t1);
-	for (int i = 0; i < N; ++i)
+	for (int i = 0; i < TEST_ITERATIONS; ++i)
 		C = mat4_add(A, B);
 	clock_gettime(CLOCK_MONOTONIC, &t2);
 
 	double sec = time_diff_sec(t1, t2);
 	printf("mat4_add: %d ops in %.3f s -> %.1f Mops/s\n",
-		   N, sec, N / sec / 1e6);
+		   TEST_ITERATIONS, sec, TEST_ITERATIONS / sec / 1e6);
 	(void)C;
 }
 
 static void bench_mat4_mul(void)
 {
-	const int N = TEST_ITERATIONS;
 	t_mat4 A = random_mat4(-10, 10);
 	t_mat4 B = random_mat4(-10, 10);
 	t_mat4 C;
 
 	struct timespec t1, t2;
 	clock_gettime(CLOCK_MONOTONIC, &t1);
-	for (int i = 0; i < N; ++i)
+	for (int i = 0; i < TEST_ITERATIONS; ++i)
 		C = mat4_mul(A, B);
 	clock_gettime(CLOCK_MONOTONIC, &t2);
 
 	double sec = time_diff_sec(t1, t2);
 	printf("mat4_mul: %d ops in %.3f s -> %.1f Mops/s\n",
-		   N, sec, N / sec / 1e6);
+		   TEST_ITERATIONS, sec, TEST_ITERATIONS / sec / 1e6);
 	(void)C;
 }
 

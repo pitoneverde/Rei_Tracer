@@ -280,58 +280,73 @@ static void test_mat4_transform_edge_cases(void)
 
 static void bench_mat4_transform_point(void)
 {
-	const int N = 10000000;
 	t_mat4 M = random_mat4(-10, 10);
 	t_vec3 p = {1,2,3};
 	t_vec3 r;
 
 	struct timespec t1, t2;
 	clock_gettime(CLOCK_MONOTONIC, &t1);
-	for (int i = 0; i < N; ++i)
+	for (int i = 0; i < TEST_ITERATIONS; ++i)
 		r = mat4_transform_point(M, p);
 	clock_gettime(CLOCK_MONOTONIC, &t2);
 
 	double sec = time_diff_sec(t1, t2);
 	printf("mat4_transform_point: %d ops in %.3f s -> %.1f Mops/s\n",
-		   N, sec, N / sec / 1e6);
+		   TEST_ITERATIONS, sec, TEST_ITERATIONS / sec / 1e6);
 	(void)r;
 }
 
 static void bench_mat4_transform_vector(void)
 {
-	const int N = 10000000;
 	t_mat4 M = random_mat4(-10, 10);
 	t_vec3 v = {4,5,6};
 	t_vec3 r;
 
 	struct timespec t1, t2;
 	clock_gettime(CLOCK_MONOTONIC, &t1);
-	for (int i = 0; i < N; ++i)
+	for (int i = 0; i < TEST_ITERATIONS; ++i)
 		r = mat4_transform_vector(M, v);
 	clock_gettime(CLOCK_MONOTONIC, &t2);
 
 	double sec = time_diff_sec(t1, t2);
 	printf("mat4_transform_vector: %d ops in %.3f s -> %.1f Mops/s\n",
-		   N, sec, N / sec / 1e6);
+		   TEST_ITERATIONS, sec, TEST_ITERATIONS / sec / 1e6);
 	(void)r;
 }
 
 static void bench_mat4_transform_normal(void)
 {
-	const int N = 10000000;
 	t_mat4 M = random_mat4(-10, 10);
 	t_vec3 n = {0,1,0};
 	t_vec3 r;
 
 	struct timespec t1, t2;
 	clock_gettime(CLOCK_MONOTONIC, &t1);
-	for (int i = 0; i < N; ++i)
+	for (int i = 0; i < TEST_ITERATIONS; ++i)
 		r = mat4_transform_normal(M, n);
 	clock_gettime(CLOCK_MONOTONIC, &t2);
 
 	double sec = time_diff_sec(t1, t2);
 	printf("mat4_transform_normal: %d ops in %.3f s -> %.1f Mops/s\n",
-		   N, sec, N / sec / 1e6);
+		   TEST_ITERATIONS, sec, TEST_ITERATIONS / sec / 1e6);
+	(void)r;
+}
+
+static void bench_mat4_transform_normal2(void)
+{
+	t_mat4 M = random_mat4(-10, 10);
+	t_vec3 n = {0,1,0};
+	t_vec3 r;
+
+	struct timespec t1, t2;
+	clock_gettime(CLOCK_MONOTONIC, &t1);
+	for (int i = 0; i < TEST_ITERATIONS; ++i)
+		r = mat4_transform_normal2(M, n);
+	clock_gettime(CLOCK_MONOTONIC, &t2);
+
+	double sec = time_diff_sec(t1, t2);
+	printf("mat4_transform_normal2: %d ops in %.3f s -> %.1f Mops/s\n",
+		   TEST_ITERATIONS, sec, TEST_ITERATIONS / sec / 1e6);
 	(void)r;
 }
 
@@ -341,6 +356,7 @@ static void run_benchmarks(void)
 	bench_mat4_transform_point();
 	bench_mat4_transform_vector();
 	bench_mat4_transform_normal();
+	bench_mat4_transform_normal2();
 }
 
 #endif /* BENCHMARK */

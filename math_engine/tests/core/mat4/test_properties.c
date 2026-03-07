@@ -368,56 +368,53 @@ static void test_mat4_is_finite(void)
 
 static void bench_mat4_determinant(void)
 {
-	const int N = 1000000;
 	t_mat4 A = random_mat4(-10,10);
 	float det;
 
 	struct timespec t1, t2;
 	clock_gettime(CLOCK_MONOTONIC, &t1);
-	for (int i = 0; i < N; ++i)
+	for (int i = 0; i < TEST_ITERATIONS; ++i)
 		det = mat4_determinant(A);
 	clock_gettime(CLOCK_MONOTONIC, &t2);
 
 	double sec = time_diff_sec(t1, t2);
 	printf("mat4_determinant: %d ops in %.3f s -> %.1f Mops/s\n",
-		   N, sec, N / sec / 1e6);
+		   TEST_ITERATIONS, sec, TEST_ITERATIONS / sec / 1e6);
 	(void)det;
 }
 
 static void bench_mat4_inverse(void)
 {
-	const int N = 100000;
 	t_mat4 A = random_mat4(-10,10);
 	// ensure invertible? Not guaranteed, but for benchmark we ignore.
 	t_mat4 inv;
 
 	struct timespec t1, t2;
 	clock_gettime(CLOCK_MONOTONIC, &t1);
-	for (int i = 0; i < N; ++i)
+	for (int i = 0; i < TEST_ITERATIONS; ++i)
 		inv = mat4_inverse(A);
 	clock_gettime(CLOCK_MONOTONIC, &t2);
 
 	double sec = time_diff_sec(t1, t2);
 	printf("mat4_inverse: %d ops in %.3f s -> %.1f ops/s\n",
-		   N, sec, N / sec);
+		   TEST_ITERATIONS, sec, TEST_ITERATIONS / sec);
 	(void)inv;
 }
 
 static void bench_mat4_transpose(void)
 {
-	const int N = 10000000;
 	t_mat4 A = random_mat4(-10,10);
 	t_mat4 T;
 
 	struct timespec t1, t2;
 	clock_gettime(CLOCK_MONOTONIC, &t1);
-	for (int i = 0; i < N; ++i)
+	for (int i = 0; i < TEST_ITERATIONS; ++i)
 		T = mat4_transpose(A);
 	clock_gettime(CLOCK_MONOTONIC, &t2);
 
 	double sec = time_diff_sec(t1, t2);
 	printf("mat4_transpose: %d ops in %.3f s -> %.1f Mops/s\n",
-		   N, sec, N / sec / 1e6);
+		   TEST_ITERATIONS, sec, TEST_ITERATIONS / sec / 1e6);
 	(void)T;
 }
 

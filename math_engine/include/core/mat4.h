@@ -65,6 +65,7 @@ bool	mat4_is_finite(t_mat4 m);
 t_vec3	mat4_transform_point(t_mat4 m, t_vec3 p);
 t_vec3	mat4_transform_vector(t_mat4 m, t_vec3 v);
 t_vec3	mat4_transform_normal(t_mat4 m, t_vec3 n);
+t_vec3	mat4_transform_normal2(t_mat4 m, t_vec3 n);
 
 // ===== DECOMPOSITION =====
 // likely not needed

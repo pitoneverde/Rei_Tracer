@@ -386,44 +386,41 @@ static void test_mat4_look_at(void)
 
 static void bench_mat4_translation(void)
 {
-	const int N = 10000000;
 	t_vec3 t = {1,2,3};
 	t_mat4 M;
 
 	struct timespec t1, t2;
 	clock_gettime(CLOCK_MONOTONIC, &t1);
-	for (int i = 0; i < N; ++i)
+	for (int i = 0; i < TEST_ITERATIONS; ++i)
 		M = mat4_translation(t);
 	clock_gettime(CLOCK_MONOTONIC, &t2);
 
 	double sec = time_diff_sec(t1, t2);
 	printf("mat4_translation: %d ops in %.3f s -> %.1f Mops/s\n",
-		   N, sec, N / sec / 1e6);
+		   TEST_ITERATIONS, sec, TEST_ITERATIONS / sec / 1e6);
 	(void)M;
 }
 
 static void bench_mat4_rotation_axis(void)
 {
-	const int N = 1000000;
 	t_vec3 axis = vec3_normalize((t_vec3){1,1,1});
 	float angle = MATH_PI / 3.0f;
 	t_mat4 M;
 
 	struct timespec t1, t2;
 	clock_gettime(CLOCK_MONOTONIC, &t1);
-	for (int i = 0; i < N; ++i)
+	for (int i = 0; i < TEST_ITERATIONS; ++i)
 		M = mat4_rotation_axis(axis, angle);
 	clock_gettime(CLOCK_MONOTONIC, &t2);
 
 	double sec = time_diff_sec(t1, t2);
 	printf("mat4_rotation_axis: %d ops in %.3f s -> %.1f Mops/s\n",
-		   N, sec, N / sec / 1e6);
+		   TEST_ITERATIONS, sec, TEST_ITERATIONS / sec / 1e6);
 	(void)M;
 }
 
 static void bench_mat4_look_at(void)
 {
-	const int N = 1000000;
 	t_vec3 eye    = {1,2,3};
 	t_vec3 target = {4,5,6};
 	t_vec3 up     = {0,1,0};
@@ -431,13 +428,13 @@ static void bench_mat4_look_at(void)
 
 	struct timespec t1, t2;
 	clock_gettime(CLOCK_MONOTONIC, &t1);
-	for (int i = 0; i < N; ++i)
+	for (int i = 0; i < TEST_ITERATIONS; ++i)
 		M = mat4_look_at(eye, target, up);
 	clock_gettime(CLOCK_MONOTONIC, &t2);
 
 	double sec = time_diff_sec(t1, t2);
 	printf("mat4_look_at: %d ops in %.3f s -> %.1f Mops/s\n",
-		   N, sec, N / sec / 1e6);
+		   TEST_ITERATIONS, sec, TEST_ITERATIONS / sec / 1e6);
 	(void)M;
 }
 

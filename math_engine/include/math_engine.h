@@ -7,10 +7,16 @@
 
 #include "core/vec3.h"
 #include "core/mat4.h"
+#include "core/test.h"
+#include "core/color.h"
 
 #include "utils/common.h"
 #include "utils/debug.h"
 #include "utils/math_constants.h"
-#include "utils/debug.h"
+
+// ===== TEST SUITE =====
+// void test_vec3();
+// void test_mat4();
+// void test_color();
 
 #endif

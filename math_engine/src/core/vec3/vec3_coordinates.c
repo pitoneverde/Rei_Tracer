@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 18:01:51 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/03 18:04:15 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/03 22:45:17 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ void	vec3_coordinate_system(t_vec3 a, t_vec3 *b, t_vec3 *c)
 	*c = c_ortho;
 }
 
-// faster, use in hot path (cross-product)
+// faster, use in hot path (cross-product method)
 // n is a normal, so it's assumed already normalized
 // t & b are tangent and bitangent, can be any vectors != 0
-void	vec3_orthonormal_basis(t_vec3 n, t_vec3 *t, t_vec3 *b)
+inline void	vec3_orthonormal_basis(t_vec3 n, t_vec3 *t, t_vec3 *b)
 {
 	vec3_normalize(*t);
 	*b = vec3_normalize(vec3_cross(n, *t));

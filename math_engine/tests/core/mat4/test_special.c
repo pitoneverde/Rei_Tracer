@@ -319,33 +319,26 @@ static void test_special_edge_cases(void)
 
 #include <time.h>
 
-static double time_diff_sec(struct timespec start, struct timespec end)
-{
-	return (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) * 1e-9;
-}
-
 static void bench_mat4_align_vectors(void)
 {
-	const int N = 1000000;
 	t_vec3 from = {1,2,3};
 	t_vec3 to   = {4,5,6};
 	t_mat4 R;
 
 	struct timespec t1, t2;
 	clock_gettime(CLOCK_MONOTONIC, &t1);
-	for (int i = 0; i < N; ++i)
+	for (int i = 0; i < TEST_ITERATIONS; ++i)
 		R = mat4_align_vectors(from, to);
 	clock_gettime(CLOCK_MONOTONIC, &t2);
 
 	double sec = time_diff_sec(t1, t2);
 	printf("mat4_align_vectors: %d ops in %.3f s -> %.1f ops/s\n",
-		   N, sec, N / sec);
+		   TEST_ITERATIONS, sec, TEST_ITERATIONS / sec);
 	(void)R;
 }
 
 static void bench_mat4_billboard(void)
 {
-	const int N = 1000000;
 	t_vec3 pos = {0,0,0};
 	t_vec3 cam = {1,2,3};
 	t_vec3 up  = {0,1,0};
@@ -353,19 +346,18 @@ static void bench_mat4_billboard(void)
 
 	struct timespec t1, t2;
 	clock_gettime(CLOCK_MONOTONIC, &t1);
-	for (int i = 0; i < N; ++i)
+	for (int i = 0; i < TEST_ITERATIONS; ++i)
 		B = mat4_billboard(pos, cam, up);
 	clock_gettime(CLOCK_MONOTONIC, &t2);
 
 	double sec = time_diff_sec(t1, t2);
 	printf("mat4_billboard: %d ops in %.3f s -> %.1f ops/s\n",
-		   N, sec, N / sec);
+		   TEST_ITERATIONS, sec, TEST_ITERATIONS / sec);
 	(void)B;
 }
 
 static void bench_mat4_lerp(void)
 {
-	const int N = 1000000;
 	t_mat4 A = random_mat4(-10,10);
 	t_mat4 B = random_mat4(-10,10);
 	float t = 0.3f;
@@ -373,31 +365,30 @@ static void bench_mat4_lerp(void)
 
 	struct timespec t1, t2;
 	clock_gettime(CLOCK_MONOTONIC, &t1);
-	for (int i = 0; i < N; ++i)
+	for (int i = 0; i < TEST_ITERATIONS; ++i)
 		L = mat4_lerp(A, B, t);
 	clock_gettime(CLOCK_MONOTONIC, &t2);
 
 	double sec = time_diff_sec(t1, t2);
 	printf("mat4_lerp: %d ops in %.3f s -> %.1f ops/s\n",
-		   N, sec, N / sec);
+		   TEST_ITERATIONS, sec, TEST_ITERATIONS / sec);
 	(void)L;
 }
 
 static void bench_mat4_to_float_array(void)
 {
-	const int N = 10000000;
 	t_mat4 M = random_mat4(-10,10);
 	float arr[16];
 
 	struct timespec t1, t2;
 	clock_gettime(CLOCK_MONOTONIC, &t1);
-	for (int i = 0; i < N; ++i)
+	for (int i = 0; i < TEST_ITERATIONS; ++i)
 		mat4_to_float_array(M, arr);
 	clock_gettime(CLOCK_MONOTONIC, &t2);
 
 	double sec = time_diff_sec(t1, t2);
 	printf("mat4_to_float_array: %d ops in %.3f s -> %.1f Mops/s\n",
-		   N, sec, N / sec / 1e6);
+		   TEST_ITERATIONS, sec, TEST_ITERATIONS / sec / 1e6);
 }
 
 static void run_benchmarks(void)

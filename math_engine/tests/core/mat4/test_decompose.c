@@ -306,62 +306,54 @@ static void test_mat4_decompose_edge_cases(void)
 
 #include <time.h>
 
-static double time_diff_sec(struct timespec start, struct timespec end)
-{
-	return (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) * 1e-9;
-}
-
 static void bench_mat4_decompose(void)
 {
-	const int N = 1000000;
 	t_mat4 M = random_mat4(-10, 10);
 	t_vec3 trans, rot, scale;
 
 	struct timespec t1, t2;
 	clock_gettime(CLOCK_MONOTONIC, &t1);
-	for (int i = 0; i < N; ++i)
+	for (int i = 0; i < TEST_ITERATIONS; ++i)
 		mat4_decompose(M, &trans, &rot, &scale);
 	clock_gettime(CLOCK_MONOTONIC, &t2);
 
 	double sec = time_diff_sec(t1, t2);
 	printf("mat4_decompose: %d ops in %.3f s -> %.1f ops/s\n",
-		   N, sec, N / sec);
+		   TEST_ITERATIONS, sec, TEST_ITERATIONS / sec);
 	(void)trans; (void)rot; (void)scale;
 }
 
 static void bench_mat4_get_translation(void)
 {
-	const int N = 10000000;
 	t_mat4 M = random_mat4(-10, 10);
 	t_vec3 t;
 
 	struct timespec t1, t2;
 	clock_gettime(CLOCK_MONOTONIC, &t1);
-	for (int i = 0; i < N; ++i)
+	for (int i = 0; i < TEST_ITERATIONS; ++i)
 		t = mat4_get_translation(M);
 	clock_gettime(CLOCK_MONOTONIC, &t2);
 
 	double sec = time_diff_sec(t1, t2);
 	printf("mat4_get_translation: %d ops in %.3f s -> %.1f Mops/s\n",
-		   N, sec, N / sec / 1e6);
+		   TEST_ITERATIONS, sec, TEST_ITERATIONS / sec / 1e6);
 	(void)t;
 }
 
 static void bench_mat4_get_scale(void)
 {
-	const int N = 10000000;
 	t_mat4 M = random_mat4(-10, 10);
 	t_vec3 s;
 
 	struct timespec t1, t2;
 	clock_gettime(CLOCK_MONOTONIC, &t1);
-	for (int i = 0; i < N; ++i)
+	for (int i = 0; i < TEST_ITERATIONS; ++i)
 		s = mat4_get_scale(M);
 	clock_gettime(CLOCK_MONOTONIC, &t2);
 
 	double sec = time_diff_sec(t1, t2);
 	printf("mat4_get_scale: %d ops in %.3f s -> %.1f Mops/s\n",
-		   N, sec, N / sec / 1e6);
+		   TEST_ITERATIONS, sec, TEST_ITERATIONS / sec / 1e6);
 	(void)s;
 }
 

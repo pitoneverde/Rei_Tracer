@@ -402,6 +402,25 @@ static void bench_vec3_coordinate_system(void)
 	(void)c_result;
 }
 
+static void bench_vec3_orthonormal_basis(void)
+{
+	volatile t_vec3 b_result, c_result;
+	t_vec3 a = vec3_new(1.0f, 2.0f, 3.0f);
+	a = vec3_normalize(a);
+	
+	struct timespec t1, t2;
+	clock_gettime(CLOCK_MONOTONIC, &t1);
+	for (int i = 0; i < TEST_ITERATIONS; i++)        
+		vec3_orthonormal_basis(a, (t_vec3*)&b_result, (t_vec3*)&c_result);
+	clock_gettime(CLOCK_MONOTONIC, &t2);
+
+	double sec = time_diff_sec(t1, t2);
+	printf("vec3_orthonormal_basis: %d ops in %.3f s -> %.1f Mops/s\n",
+		   TEST_ITERATIONS, sec, TEST_ITERATIONS / sec / 1e6);
+	(void)b_result;
+	(void)c_result;
+}
+
 #endif // BENCHMARK
 
 // ============================================
@@ -653,6 +672,7 @@ void test_vec3_coordinates()
 #ifdef BENCHMARK
 	printf("\n=== Running benchmarks (coordinate system) ===\n");
 	bench_vec3_coordinate_system();
+	bench_vec3_orthonormal_basis();
 #else
 	srand(42);
 	

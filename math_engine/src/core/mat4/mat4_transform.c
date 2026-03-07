@@ -6,14 +6,14 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 17:24:06 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/03 00:07:56 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/07 23:17:59 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "core/mat4.h"
 
 // Transform point (w=1, includes translation)
-t_vec3	mat4_transform_point(t_mat4 m, t_vec3 p)
+inline t_vec3	mat4_transform_point(t_mat4 m, t_vec3 p)
 {
 	return ((t_vec3){
 		p.x * m.m00 + p.y * m.m10 + p.z * m.m20 + m.m30,
@@ -23,7 +23,7 @@ t_vec3	mat4_transform_point(t_mat4 m, t_vec3 p)
 }
 
 // Transform vector (w=0, excludes translation - for directions)
-t_vec3	mat4_transform_vector(t_mat4 m, t_vec3 v)
+inline t_vec3	mat4_transform_vector(t_mat4 m, t_vec3 v)
 {
 	return ((t_vec3){
 		v.x * m.m00 + v.y * m.m10 + v.z * m.m20,
@@ -33,7 +33,7 @@ t_vec3	mat4_transform_vector(t_mat4 m, t_vec3 v)
 }
 
 // Transform normal (inverse-transpose for non-uniform scaling)
-t_vec3	mat4_transform_normal(t_mat4 m, t_vec3 n)
+inline t_vec3	mat4_transform_normal(t_mat4 m, t_vec3 n)
 {
 	t_mat4	t;
 	t = mat4_transpose(mat4_inverse(m));
@@ -41,5 +41,16 @@ t_vec3	mat4_transform_normal(t_mat4 m, t_vec3 n)
 		n.x * t.m00 + n.y * t.m10 + n.z * t.m20,
 		n.x * t.m01 + n.y * t.m11 + n.z * t.m21,
 		n.x * t.m02 + n.y * t.m12 + n.z * t.m22
+	});
+}
+
+// Faster alternative for hot path
+// m is assumed to be cached inverse transpose
+inline t_vec3	mat4_transform_normal2(t_mat4 m, t_vec3 n)
+{
+	return ((t_vec3){
+		n.x * m.m00 + n.y * m.m10 + n.z * m.m20,
+		n.x * m.m01 + n.y * m.m11 + n.z * m.m21,
+		n.x * m.m02 + n.y * m.m12 + n.z * m.m22
 	});
 }
