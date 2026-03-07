@@ -180,3 +180,6 @@ Ho separato i colori in file diversi fra poco li commento
 
 06/03/2026 gmu 18:04
 ci ho messo piu' del previsto a commentarli a causa di "imprevisti"
+
+07/03/2026 gmu 22:16
+Ho aggiunto a t_element size per evitare in invalid read e poi il render e' in work in progress proseguiro' poi perche' ho dei impegni futuri, inoltre ho aggiunto dei print per debug

@@ -109,7 +109,7 @@ t_element *init_data_minirt(char *s)
 	t_element *elements = malloc(sizeof(t_element) * mtx_count((void **)matrix));
 	if (!elements)
 		return (NULL);
-
+	elements->size = mtx_count((void **)matrix);
 	init_data_ambient(matrix[i++], &elements[0]);
 	init_data_camera(matrix[i++], &elements[1]);
 	init_data_light(matrix[i++], &elements[2]);
