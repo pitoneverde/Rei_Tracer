@@ -20,6 +20,10 @@ typedef union u_mat4 {
 
 #endif
 
+#ifndef _GNU_SOURCE
+# define _GNU_SOURCE
+#endif
+
 // ===== CORE CREATION & BASIC OPERATIONS =====
 t_mat4	mat4_identity(void);
 t_mat4	mat4_zero(void);

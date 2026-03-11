@@ -33,7 +33,10 @@ void test_mat4_transform();
 void test_mat4_transformation();
 
 // ====== UTILS ======
-#define _GNU_SOURCE
+#ifndef _GNU_SOURCE
+# define _GNU_SOURCE
+#endif
+
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>

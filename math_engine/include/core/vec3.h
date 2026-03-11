@@ -13,6 +13,17 @@ typedef struct s_vec3
 
 #endif
 
+#ifndef T_VEC2_DEFINED
+# define T_VEC2_DEFINED
+
+typedef struct s_vec2
+{
+	float x;
+	float y;
+} t_vec2;
+
+#endif
+
 #ifndef _GNU_SOURCE
 # define _GNU_SOURCE
 #endif
@@ -74,6 +85,7 @@ float	vec3_distance(t_vec3 a, t_vec3 b);
 float	vec3_distance_sq(t_vec3 a, t_vec3 b);
 // t_vec3 vec3_midpoint(t_vec3 a, t_vec3 b);
 // t_vec3 vec3_barycentric(t_vec3 a, t_vec3 b, t_vec3 c, float u, float v);
+t_vec3	vec3_barycentric(t_vec2 a, t_vec2 b, t_vec2 c, t_vec2 p);
 
 // ===== COMPARISONS =====
 //use _comp variant to minmax 2 vectors

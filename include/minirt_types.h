@@ -2,7 +2,7 @@
 # define MINIRT_TYPES_H
 
 #include <stdint.h>
-#include "core/vec3.h"
+// #include "core/vec3.h"
 
 typedef struct s_color
 {
