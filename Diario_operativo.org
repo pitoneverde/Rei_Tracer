@@ -189,4 +189,4 @@ Ho fixato l'init con la null-termination implicita e riportato il t_element a co
 fermato a investigare. Non so ancora il motivo, ma il rallentamento del 50% e' scomparso (probabile che fosse solo il mio portatile con una qualche roba di risparmio energetico inventata da ubuntu).
 
 11/03/2026 sabruma 01:10
-Mi sono dedicato alla fotografia sti giorni, cercando di capire come creare le utility per il camera system. Nel frattempo ho aggiunto le coordinate baricentriche (per le shader).
+Mi sono dedicato alla fotografia sti giorni, cercando di capire come creare le utility per il camera system. Nel frattempo ho aggiunto le coordinate baricentriche (per le shader) e la struct della fotocamera.

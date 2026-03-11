@@ -62,7 +62,7 @@ clean:
 	rm -rf $(OBJ_DIR)
 	make -C $(LIBC_DIR) clean
 	make -C $(MATH_E_DIR) clean
-	make -C $(MLX_DIR) clean
+# 	make -C $(MLX_DIR) clean
 
 fclean: clean
 	rm -f $(NAME)
