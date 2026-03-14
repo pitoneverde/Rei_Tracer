@@ -4,6 +4,7 @@
 # include "core/mat4.h"
 # include "geometry/ray.h"
 
+// canvas is left, right, bottom, top
 typedef struct s_camera_math
 {
 	t_mat4	cam_to_world;
@@ -17,6 +18,14 @@ typedef struct s_camera_math
 	float	canvas[4];
 	float	image_aspect;
 }	t_camera_math;
+
+// ^
+// optional, needed if matching real footage
+// float	film_aperture_h;
+// float	film_aperture_w;
+// bool	fit_resolution_gate;
+// float	focal_length;
+// float	film_aspect;
 
 typedef struct s_camera_data
 {
@@ -40,15 +49,7 @@ typedef struct s_pixel
 
 #endif
 
-// ^
-// optional, needed if matching real footage
-// float	film_aperture_h;
-// float	film_aperture_w;
-// bool	fit_resolution_gate;
-// float	focal_length;
-// float	film_aspect;
-
-int		camera_init(t_camera_math *cam, t_camera_math *data);
+int		camera_init(t_camera_math *cam, t_camera_data *data);
 t_ray	camera_raygen(const t_camera_math *cam, t_pixel p);
 t_vec3	camera_eye(const t_camera_math *cam);
 

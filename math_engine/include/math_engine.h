@@ -15,6 +15,9 @@
 #include "utils/math_constants.h"
 
 #include "geometry/camera.h"
+
+// int math_init();
+
 // ===== TEST SUITE =====
 // void test_vec3();
 // void test_mat4();
