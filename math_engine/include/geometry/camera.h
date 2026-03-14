@@ -13,7 +13,7 @@ typedef struct s_camera_math
 	float	far_clip;
 	int		image_h;
 	int		image_w;
-	float	vfov;
+	float	hfov;
 	
 	float	canvas[4];
 	float	image_aspect;
@@ -35,7 +35,7 @@ typedef struct s_camera_data
 	float	far;
 	int		image_h;
 	int		image_w;
-	float	vfov;
+	float	hfov;
 }	t_camera_data;
 
 #ifndef T_PIXEL_DEFINED
