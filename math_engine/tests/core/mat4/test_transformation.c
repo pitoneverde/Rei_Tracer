@@ -289,8 +289,7 @@ static void test_mat4_look_at(void)
 	// -----------------------------------------------------------------
 	t_vec3 eye    = {0, 0, 0};
 	t_vec3 target = {0, 0, -1};
-	t_vec3 up     = {0, 1, 0};
-	t_mat4 view = mat4_look_at(eye, target, up);
+	t_mat4 view = mat4_look_at(eye, target);
 	t_mat4 expected = mat4_identity();
 	assert(mat4_equal_eps(view, expected, EPSILON));
 
@@ -301,8 +300,7 @@ static void test_mat4_look_at(void)
 	// -----------------------------------------------------------------
 	eye    = (t_vec3){0, 0, 5};
 	target = (t_vec3){0, 0, 0};
-	up     = (t_vec3){0, 1, 0};
-	view = mat4_look_at(eye, target, up);
+	view = mat4_look_at(eye, target);
 	t_mat4 T = mat4_translation((t_vec3){0, 0, 5});  // last row = (0,0,5,1)
 	assert(mat4_equal_eps(view, T, EPSILON));
 
@@ -317,12 +315,11 @@ static void test_mat4_look_at(void)
 	// -----------------------------------------------------------------
 	eye    = (t_vec3){1, 2, 3};
 	target = (t_vec3){4, 5, 6};
-	up     = (t_vec3){0, 1, 0};
-	view = mat4_look_at(eye, target, up);
+	view = mat4_look_at(eye, target);
 
 	// Compute the expected camera axes in world coordinates
 	t_vec3 forward = vec3_normalize(vec3_sub(target, eye));   // direction from eye to target
-	t_vec3 right   = vec3_normalize(vec3_cross(forward, up)); // right‑handed: cross(forward, up)
+	t_vec3 right   = vec3_normalize(vec3_cross(forward, VEC3_Y)); // right‑handed: cross(forward, up)
 	t_vec3 new_up  = vec3_cross(right, forward);              // orthonormal up
 	t_vec3 back    = vec3_neg(forward);                    // camera's +z axis in world (points opposite to view direction)
 
@@ -365,13 +362,13 @@ static void test_mat4_look_at(void)
 	// Edge cases – just ensure no crash
 	// -----------------------------------------------------------------
 	// target == eye (degenerate)
-	t_mat4 degenerate = mat4_look_at(eye, eye, up);
+	t_mat4 degenerate = mat4_look_at(eye, eye);
 	(void)degenerate;
 
-	// up parallel to forward (gimbal lock)
-	t_vec3 bad_up = vec3_normalize(vec3_sub(target, eye));
-	degenerate = mat4_look_at(eye, target, bad_up);
-	(void)degenerate;
+	// // up parallel to forward (gimbal lock)
+	// t_vec3 bad_up = vec3_normalize(vec3_sub(target, eye));
+	// degenerate = mat4_look_at(eye, target);
+	// (void)degenerate;
 
 	printf("✓ ");
 }

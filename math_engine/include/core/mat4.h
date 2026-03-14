@@ -47,7 +47,8 @@ t_mat4	mat4_rotation_y(float angle);
 t_mat4	mat4_rotation_z(float angle);
 t_mat4	mat4_rotation_axis(t_vec3 axis, float angle);
 
-t_mat4	mat4_look_at(t_vec3 eye, t_vec3 target, t_vec3 up);
+t_mat4	mat4_look_at(t_vec3 eye, t_vec3 target);
+t_mat4	mat4_look_at_fast(t_vec3 eye, t_vec3 forward);
 
 // ===== MATRIX PROPERTIES & INVERSE/TRANSPOSE =====
 

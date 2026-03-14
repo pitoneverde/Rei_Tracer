@@ -89,7 +89,7 @@ void	print_t_element(t_element *elem)
 			elem->value.c.orientation.x,
 			elem->value.c.orientation.y,
 			elem->value.c.orientation.z);
-		printf("    FOV: %u\n", elem->value.c.fov);
+		printf("    FOV: %.2f\n", elem->value.c.fov);
 	}
 	else if (strcmp(elem->id, "L") == 0)
 	{

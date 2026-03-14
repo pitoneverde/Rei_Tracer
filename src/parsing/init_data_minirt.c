@@ -27,7 +27,7 @@ void	init_data_camera(char *s, t_element *element)
 
 	cam->viewpoint = (t_point3)vec3_new(atof(coordinates[0]), atof(coordinates[1]), atof(coordinates[2]));
 	cam->orientation = (t_vector3)vec3_new(atof(rgb[0]), atof(rgb[1]), atof(rgb[2]));
-	cam->fov = (uint8_t)atoi(matrix[3]);
+	cam->fov = atof(matrix[3]);
 	mtxfree_str(matrix);
 	mtxfree_str(coordinates);
 	mtxfree_str(rgb);

@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 18:01:51 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/11 01:08:09 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/14 01:25:10 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ inline void	vec3_orthonormal_basis(t_vec3 n, t_vec3 *t, t_vec3 *b)
 
 // (b - a) x (c - a)
 // a, b, c triangle vertices in CCW winding order
-static inline edge_function(t_vec2 a, t_vec2 b, t_vec2 c)
+static inline float edge_function(t_vec2 a, t_vec2 b, t_vec2 c)
 {
 	return ((c.x - a.x) * (b.y - a.y) - (c.y - a.y) * (b.x - a.x));
 }

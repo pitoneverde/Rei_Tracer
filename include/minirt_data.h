@@ -12,7 +12,7 @@ typedef	struct s_camera
 {
 	t_point3 viewpoint;
 	t_vector3 orientation;
-	uint8_t fov;	//[0,180]
+	float fov;	//[0,180]
 } t_camera;
 
 typedef	struct s_light
