@@ -6,7 +6,7 @@
 
 // debug utilities (prints, metrics)
 
-void	vec3_print(t_vec3 v);
+void	vec3_print(const char *name, t_vec3 v);
 // void	mat4_print(t_mat4 m);
 void	mat4_print(const char *name, t_mat4 m);
 // void	quat_print(t_vec3 v);

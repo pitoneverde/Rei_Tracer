@@ -15,4 +15,5 @@ t_camera_data *convert_camera(t_camera *cam)
 	cam_data->far = 1000.0f;
 	cam_data->image_h = IMG_HEIGHT;
 	cam_data->image_w = IMG_WIDTH;
+	return (cam_data);
 }

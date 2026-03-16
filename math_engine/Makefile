@@ -64,7 +64,6 @@ help:
 	@echo "========================"
 	@echo "Available targets:"
 	@echo "  all		- Build static library (default)"
-	@echo "  static	- Build static library only"
 	@echo "  fclean	- Remove all build files"
 	@echo "  clean		- Remove object files only"
 	@echo "  test		- Build tests"

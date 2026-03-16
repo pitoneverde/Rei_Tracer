@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 17:24:15 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/14 01:43:40 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/16 17:54:00 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void camera_basis(t_vec3 forward, t_vec3 *right, t_vec3 *up)
 		*right = vec3_normalize(vec3_cross(VEC3_FORWARD, forward));
 	else
 		*right = vec3_normalize(vec3_cross(forward, VEC3_UP));
-	*up = vec3_cross(*right, forward);
+	*up = vec3_normalize(vec3_cross(*right, forward));
 }
 
 // Camera-to-world matrix (essential for RT cameras)
@@ -38,6 +38,7 @@ t_mat4	mat4_look_at(t_vec3 eye, t_vec3 target)
 	return (mat4_from_basis(right, up, forward, eye));	
 }
 
+// Camera-to-world matrix (essential for RT cameras)
 // Like mat4_look_at, but instead of using a point to extrapolate orientation
 // just passes directly the precomputed forward orientation vector.
 t_mat4	mat4_look_at_fast(t_vec3 eye, t_vec3 forward)

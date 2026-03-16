@@ -12,13 +12,18 @@ SRCS = $(SRC_DIR)/main.c \
 		$(SRC_DIR)/parsing/check_cylinder.c \
 		$(SRC_DIR)/parsing/parsing_utils.c \
 		$(SRC_DIR)/parsing/init_data_minirt.c \
+		$(SRC_DIR)/renderer/convert_camera.c \
+		$(SRC_DIR)/renderer/ray_cast.c \
 		$(SRC_DIR)/utils/utils.c \
 		$(SRC_DIR)/mlx_minirt/mlx_init_windows_minirt.c
 
 HEADERS_DIR = include
 HEADS = $(HEADERS_DIR)/minirt.h \
 		$(HEADERS_DIR)/minirt_types.h \
-		$(HEADERS_DIR)/minirt_data.h
+		$(HEADERS_DIR)/minirt_data.h \
+		$(HEADERS_DIR)/minirt_renderer.h \
+		$(HEADERS_DIR)/mlx_minirt.h \
+		$(HEADERS_DIR)/parsing_minirt.h \
 
 OBJ_DIR = obj
 OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)

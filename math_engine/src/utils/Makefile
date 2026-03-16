@@ -27,7 +27,7 @@ $(MODULE_OBJ_DIR)/%.o: %.c | $(MODULE_OBJ_DIR)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< $(LDFLAGS) -o $@
 
 # Build vec3 submodule
-$(MODULE_OBJ_DIR)/common/%.o: vec3/%.c | $(MODULE_OBJ_DIR)
+$(MODULE_OBJ_DIR)/common/%.o: common/%.c | $(MODULE_OBJ_DIR)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< $(LDFLAGS) -o $@
 
 clean:

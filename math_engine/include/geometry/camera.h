@@ -15,6 +15,7 @@ typedef struct s_camera_math
 	int		image_w;
 	float	hfov;
 	
+	float	zoom;
 	float	canvas[4];
 	float	image_aspect;
 }	t_camera_math;
