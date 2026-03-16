@@ -78,10 +78,12 @@ void	render_minirt(t_mlx_minirt *mlx)
 			// col.hex = 0xFF0000; // Red color for testing
 			put_pixel(mlx, x, y, col);
 		}
-		printf("Rendering scanline: %d\n", y);
-		fflush(stdout);
+		// printf("Rendering scanline: %d\n", y);
+		// fflush(stdout);
 		// mlx_put_image_to_window(mlx->voidptr_mlx, mlx->voidptr_win, mlx->voidptr_img, 0, 0);
 	}
+	free(camera_data);
+	free(cam);
 }
 
 // minilibx e altre cose

@@ -197,3 +197,6 @@ Poi domani con calma finisco camera.h e aggiungo qualche test, volendo anche un 
 
 16/03/2026 gmu 19:36
 Separati i debug
+
+16/03/2026 sabruma 19:39
+Finito camera.h, la cam funziona e c'è un mocked ray_cast per avere un minimo di idea delle direzioni dei t_ray generati
