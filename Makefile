@@ -15,7 +15,8 @@ SRCS = $(SRC_DIR)/main.c \
 		$(SRC_DIR)/renderer/convert_camera.c \
 		$(SRC_DIR)/renderer/ray_cast.c \
 		$(SRC_DIR)/utils/utils.c \
-		$(SRC_DIR)/mlx_minirt/mlx_init_windows_minirt.c
+		$(SRC_DIR)/mlx_minirt/mlx_init_windows_minirt.c\
+		$(SRC_DIR)/mlx_minirt/debug_mlx_init_windows_minirt.c
 
 HEADERS_DIR = include
 HEADS = $(HEADERS_DIR)/minirt.h \

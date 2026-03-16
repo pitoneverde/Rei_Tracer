@@ -194,3 +194,6 @@ Mi sono dedicato alla fotografia sti giorni, cercando di capire come creare le u
 14/03/2026 sabruma 02:15
 Ho avuto poco tempo oggi, ma ho creato il makefile del nuovo modulo geometry e fatto un paio di funzioni di camera (+ meccanismi di init/convert). Non ho testato nulla ma dovrebbe funzionare quasi sicuramente.
 Poi domani con calma finisco camera.h e aggiungo qualche test, volendo anche un qualche gradiente di colore tanto per vedere le direzioni dei t_ray che sono spawnati dalla videocamera. Dajee
+
+16/03/2026 gmu 19:36
+Separati i debug
