@@ -1,5 +1,6 @@
 #ifndef MINIRT_H
 # define MINIRT_H 1
+#define _GNU_SOURCE
 
 #include <unistd.h>
 #include <stdlib.h>
@@ -10,6 +11,7 @@
 #include <errno.h>
 #include "libft.h"
 #include "math_engine.h"
+
 // Error: message
 #define PRINT_ERR(fmt, ...) \
 	do {\

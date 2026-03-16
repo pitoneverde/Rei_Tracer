@@ -200,3 +200,6 @@ Separati i debug
 
 16/03/2026 sabruma 19:39
 Finito camera.h, la cam funziona e c'è un mocked ray_cast per avere un minimo di idea delle direzioni dei t_ray generati
+
+17/03/2026 sabruma 00:13
+Aggiunto interop.h, con le funzioni di init, destroy e convert per interfacciare math_engine con il minirt esterno

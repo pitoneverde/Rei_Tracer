@@ -31,12 +31,12 @@ $(MODULE_OBJ_DIR)/%.o: %.c | $(MODULE_OBJ_DIR)
 $(MODULE_OBJ_DIR)/camera/%.o: camera/%.c | $(MODULE_OBJ_DIR)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< $(LDFLAGS) -o $@
 
-# Build mat4 submodule
+# Build ray submodule
 $(MODULE_OBJ_DIR)/ray/%.o: ray/%.c | $(MODULE_OBJ_DIR)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< $(LDFLAGS) -o $@
 
 clean:
-	@echo "Cleaning core module..."
+	@echo "Cleaning $(MODULE) module..."
 	@rm -rf $(MODULE_OBJ_DIR)
 
 .PHONY: all clean debug

@@ -79,7 +79,7 @@ $(MODULE_OBJ_DIR)/color/%.o: color/%.c | $(MODULE_OBJ_DIR)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< $(LDFLAGS) -o $@
 
 clean:
-	@echo "Cleaning core module..."
+	@echo "Cleaning $(MODULE) module..."
 	@rm -rf $(MODULE_OBJ_DIR)
 
 .PHONY: all clean debug

@@ -1,5 +1,5 @@
-#include "minirt_renderer.h"
 #include <stdlib.h>
+#include "utils/interop.h"
 
 t_camera_data *convert_camera(t_camera *cam)
 {

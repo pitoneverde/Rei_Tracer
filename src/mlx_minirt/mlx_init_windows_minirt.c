@@ -48,42 +48,27 @@ void	put_pixel(t_mlx_minirt *mlx, int x, int y, t_rgb color)
 	dst = mlx->charptr_addr + (y * mlx->int_line_length + x * (mlx->int_bits_per_pixel / 8));
 	*(uint32_t *)dst = color.hex;
 }
+#include <math.h>
 
 void	render_minirt(t_mlx_minirt *mlx)
 {
-	t_camera camera = {
-		.fov = 70,
-		.viewpoint = {.x = -50.0f, .y = 0.0f, .z = 20.0f},
-		.orientation = {.x = 0.0f, .y = 0.0f, .z = 1.0f}
-	};
-	t_camera_data *camera_data = convert_camera(&camera);
-	if (!camera_data) printf("PORCA MADONNA");
-	// print_camera_data(camera_data);
-	t_camera_math *cam = malloc(sizeof(t_camera_math));
-	if (!cam)
-	{
-		free(camera_data);
-		return;
-	}
-	if (camera_init(cam, camera_data)) printf("PORCO DIO");
+	init_camera((t_element){0}, NULL);
 	// print_cam(cam);
 	fflush(stdout);
 	for (int y = 0; y < IMG_HEIGHT; ++y)
 	{
 		for (int x = 0; x < IMG_WIDTH; ++x)
 		{
-			// t_rgb col;
-			t_rgb col = ray_cast(camera_raygen(cam, (t_pixel){.x = x, .y = y}));
+			t_rgb col;
+			// t_rgb col = ray_cast(camera_raygen(cam, (t_pixel){.x = x, .y = y}));
 			// printf("color: %x", col.hex);
-			// col.hex = 0xFF0000; // Red color for testing
+			col.hex = 0xFF0000; // Red color for testing
 			put_pixel(mlx, x, y, col);
 		}
 		// printf("Rendering scanline: %d\n", y);
 		// fflush(stdout);
 		// mlx_put_image_to_window(mlx->voidptr_mlx, mlx->voidptr_win, mlx->voidptr_img, 0, 0);
 	}
-	free(camera_data);
-	free(cam);
 }
 
 // minilibx e altre cose

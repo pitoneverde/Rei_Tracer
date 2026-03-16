@@ -12,7 +12,6 @@ SRCS = $(SRC_DIR)/main.c \
 		$(SRC_DIR)/parsing/check_cylinder.c \
 		$(SRC_DIR)/parsing/parsing_utils.c \
 		$(SRC_DIR)/parsing/init_data_minirt.c \
-		$(SRC_DIR)/renderer/convert_camera.c \
 		$(SRC_DIR)/renderer/ray_cast.c \
 		$(SRC_DIR)/utils/utils.c \
 		$(SRC_DIR)/mlx_minirt/mlx_init_windows_minirt.c\
