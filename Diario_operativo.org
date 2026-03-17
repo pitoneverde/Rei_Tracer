@@ -203,3 +203,6 @@ Finito camera.h, la cam funziona e c'è un mocked ray_cast per avere un minimo d
 
 17/03/2026 sabruma 00:13
 Aggiunto interop.h, con le funzioni di init, destroy e convert per interfacciare math_engine con il minirt esterno
+
+17/03/2026 sabruma 02:02
+Rimosso interop.h perché era inutile, ed era responsabilità di minirt gestire quella roba, spostato le convert di nuovo

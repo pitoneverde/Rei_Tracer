@@ -52,17 +52,21 @@ void	put_pixel(t_mlx_minirt *mlx, int x, int y, t_rgb color)
 
 void	render_minirt(t_mlx_minirt *mlx)
 {
-	init_camera((t_element){0}, NULL);
+	t_camera camera = {
+		.fov = 90,
+		.viewpoint = {.x = -50.0f, .y = 0.0f, .z = 20.0f},
+		.orientation = {.x = 1.0f, .y = 0.0f, .z = 0.0f}
+	};
+	t_camera_math *cam = create_camera_math(&camera);
 	// print_cam(cam);
-	fflush(stdout);
 	for (int y = 0; y < IMG_HEIGHT; ++y)
 	{
 		for (int x = 0; x < IMG_WIDTH; ++x)
 		{
-			t_rgb col;
-			// t_rgb col = ray_cast(camera_raygen(cam, (t_pixel){.x = x, .y = y}));
+			// t_rgb col;
+			t_rgb col = ray_cast(camera_raygen(cam, (t_pixel){.x = x, .y = y}));
 			// printf("color: %x", col.hex);
-			col.hex = 0xFF0000; // Red color for testing
+			// col.hex = 0xFF0000; // Red color for testing
 			put_pixel(mlx, x, y, col);
 		}
 		// printf("Rendering scanline: %d\n", y);
@@ -84,26 +88,9 @@ void    mlx_init_windows_minirt(t_element *data_file)
 
 
 	// print_t_element_array_sentinel(data_file); // da togliere, solo per debug
-	// Mocked camera
 	(void)data_file;
-	// t_camera camera = {
-	// 	.fov = 70,
-	// 	.viewpoint = {.x = -50.0f, .y = 0.0f, .z = 20.0f},
-	// 	.orientation = {.x = 0.0f, .y = 0.0f, .z = 1.0f}
-	// };
-	// t_camera_data *camera_data = convert_camera(&camera);
-	// if (!camera_data) printf("PORCA MADONNA");
-	// print_camera_data(camera_data);
-	// t_camera_math *cam = malloc(sizeof(t_camera_math));
-	// if (!cam)
-	// {
-	// 	free(camera_data);
-	// 	return;
-	// }
-	// if (camera_init(cam, camera_data)) printf("PORCO DIO");
-	// print_cam(cam);
-	// fflush(stdout);
 	
+	// Mocked camera
 	//render ray tracing
 	render_minirt(&mlx);
 

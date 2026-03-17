@@ -14,7 +14,6 @@
 #include "utils/common.h"
 #include "utils/debug.h"
 #include "utils/math_constants.h"
-#include "utils/interop.h"
 
 #include "geometry/camera.h"
 

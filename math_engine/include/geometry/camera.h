@@ -50,7 +50,7 @@ typedef struct s_pixel
 
 #endif
 
-int		camera_init(t_camera_math *cam, t_camera_data *data);
+int		camera_init(t_camera_math *cam, t_camera_data data);
 t_ray	camera_raygen(const t_camera_math *cam, t_pixel p);
 t_vec3	camera_eye(const t_camera_math *cam);
 

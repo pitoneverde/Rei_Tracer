@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 01:52:03 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/16 18:50:14 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/17 01:41:38 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,16 @@
 // conventions: hfov is horizontal fov per subject (in degrees)
 // canvas is symmetrical across the center (0, 0)
 // top = ((r - l)/aspect)/2 = 2r/aspect/2 = r/aspect
-int	camera_init(t_camera_math *cam, t_camera_data *data)
+int	camera_init(t_camera_math *cam, t_camera_data data)
 {
-	if (!cam || !data)
+	if (!cam)
 		return (1);
-	cam->cam_to_world = mat4_look_at_fast(data->eye, data->orientation);
-	mat4_print("internal cam matrix", cam->cam_to_world);
-	cam->near_clip = data->near;
-	cam->far_clip = data->far;
-	cam->image_h = data->image_h;
-	cam->image_w = data->image_w;
-	cam->hfov = data->hfov;
+	cam->cam_to_world = mat4_look_at_fast(data.eye, data.orientation);
+	cam->near_clip = data.near;
+	cam->far_clip = data.far;
+	cam->image_h = data.image_h;
+	cam->image_w = data.image_w;
+	cam->hfov = data.hfov;
 	cam->image_aspect = (float)cam->image_w / cam->image_h;
 	cam->zoom = tanf(cam->hfov * 0.5 * DEG_TO_RAD);
 	cam->canvas[1] = cam->zoom * cam->near_clip;
