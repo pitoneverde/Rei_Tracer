@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 01:56:36 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/17 02:01:16 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/17 19:12:28 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "minirt_renderer.h"
 #include "geometry/camera.h"
 
-t_camera_data	convert_camera(const t_camera *cam)
+static t_camera_data	convert_camera(const t_camera *cam)
 {
 	t_camera_data	cam_data;
 
@@ -28,12 +28,11 @@ t_camera_data	convert_camera(const t_camera *cam)
 	return (cam_data);
 }
 
-t_camera_math	*create_camera_math(t_camera *cam)
+int	create_camera(t_camera_math *math, t_camera *cam)
 {
+	if (!math) return (1);
 	t_camera_data camera_data = convert_camera(cam);
-	t_camera_math *math = malloc(sizeof(t_camera_math));
-	if (!math) return NULL;
 	if (camera_init(math, camera_data))
-		return NULL;
-	return (math);
+		return (1);
+	return (0);
 }

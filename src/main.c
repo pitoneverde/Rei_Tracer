@@ -53,7 +53,15 @@ int main(int argc, char **argv)
 		return (1);
 	}
 	printf("Parsing successful!\n");
+	t_math *math = init_math(data_file);
+	if (!math)
+	{
+		PRINT_ERR("Malloc error: failed to initialize math engine");
+		free(data_file);
+		return (1);
+	}
 	mlx_init_windows_minirt(data_file);
+	
 	// data_file->id = "cy";
 	// t_cylinder *cy = (t_cylinder *)&data_file->value;
 	// cy->center = (t_point3){.x = 0.0, .y = 0.0, .z = 1.0};
@@ -68,6 +76,7 @@ int main(int argc, char **argv)
     // init();
     // launch();
     // cleanup();
+	destroy_math(math);
 	free(data_file);
     return (0);
 }

@@ -18,12 +18,18 @@ typedef struct s_pixel
 
 #endif
 
+t_math	*init_math(t_element *d);
+void	destroy_math(t_math *math_engine);
+
 // t_lighting_data	*convert_ambient_lighting(t_ambient_lighting *al);
-t_camera_math	*create_camera_math(t_camera *cam);
+// int	create_ambient(t_ambient_math *math, t_ambient_lighting *al);
+int	create_camera(t_camera_math *math, t_camera *cam);
 // t_cylinder_data	*convert_cylinder(t_cylinder *cy);
 // t_light_data	*convert_light(t_light *l);
 // t_plane_data	*convert_plane(t_plane *p);
 // t_sphere_data	*convert_sphere(t_sphere *sp);
+void	print_t_element(t_element *elem);
+
 
 t_rgb	ray_cast(t_ray ray);
 

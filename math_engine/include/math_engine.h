@@ -17,6 +17,17 @@
 
 #include "geometry/camera.h"
 
+// modify this when supporting new geometry
+typedef struct s_math
+{
+	t_camera_math	camera;
+	// t_ambient_math	*ambient;
+	// t_light_math	*lights;
+	// t_sphere_math	*spheres;
+	// t_plane_math		*planes;
+	// t_cylinder_math	*cylinders;
+}	t_math;
+
 // ===== TEST SUITE =====
 // void test_vec3();
 // void test_mat4();

@@ -11,6 +11,10 @@
 #include <errno.h>
 #include "libft.h"
 #include "math_engine.h"
+#include "minirt_data.h"
+#include "parsing_minirt.h"
+#include "mlx_minirt.h"
+#include "minirt_renderer.h"
 
 // Error: message
 #define PRINT_ERR(fmt, ...) \
@@ -18,10 +22,5 @@
 		fprintf(stderr, "Error\n @ %s:%d in %s() " fmt "\n", \
 		 __FILE__, __LINE__, __func__, ##__VA_ARGS__);\
 	} while(0);
-
-// to move into parser.h when split files
-#include "minirt_data.h"
-#include "parsing_minirt.h"
-#include "mlx_minirt.h"
 
 #endif
