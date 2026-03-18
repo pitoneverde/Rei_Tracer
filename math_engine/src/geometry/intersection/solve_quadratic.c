@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 09:52:39 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/18 12:38:51 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/18 18:48:46 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,18 @@
 #include "utils/common.h"
 #include <math.h>
 
-bool solve_quadratic(t_quadratic *eq)
+bool	solve_quadratic(t_quadratic *eq)
 {
 	float	delta;
 	float	q;
 
-	delta = eq->b * eq->b - 4 * eq->a *eq->c;
+	delta = eq->b * eq->b - 4 * eq->a * eq->c;
 	if (delta < 0.0f)
 		return (false);
 	else if (delta <= MATH_EPSILON)
 	{
 		eq->x0 = -0.5f * eq->b / eq->a;
-		eq->x1 = eq->x0;  
+		eq->x1 = eq->x0;
 	}
 	else
 	{

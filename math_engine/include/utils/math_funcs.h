@@ -1,1 +1,0 @@
-// common math functions (clamp, slerp...)

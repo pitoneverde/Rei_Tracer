@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 17:24:09 by sabruma           #+#    #+#             */
-/*   Updated: 2026/02/05 22:32:57 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/18 18:39:36 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ bool	mat4_is_affine(t_mat4 m, float epsilon)
 }
 
 // Formula -> M * M^T = I
-// semantically incorrect for translation matrices (or with translation component)
+// semantically incorrect for translation matrices
+// (or with translation component)
 bool	mat4_is_orthogonal(t_mat4 m, float epsilon)
 {
 	return (mat4_is_identity(mat4_mul(m, mat4_transpose(m)), epsilon));

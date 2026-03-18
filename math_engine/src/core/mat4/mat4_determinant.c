@@ -6,15 +6,15 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 23:55:30 by sabruma           #+#    #+#             */
-/*   Updated: 2026/02/28 17:47:01 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/18 18:35:27 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "core/mat4.h"
 #include "utils/common.h"
 
-static int fwd_elimination(t_mat4 *m, int *swap_count);
-static void eliminate_below(t_mat4 *m, int i);
+static int	fwd_elimination(t_mat4 *m, int *swap_count);
+static void	eliminate_below(t_mat4 *m, int i);
 
 // just like the inverse, it's mainly LU decomposition in disguise
 // once the matrix is reduced to upper-triangular form, the determinant is
@@ -42,7 +42,7 @@ float	mat4_determinant(t_mat4 m)
 }
 
 // 1 on error, 0 on success + swap_count is valid
-static int fwd_elimination(t_mat4 *m, int *swap_count)
+static int	fwd_elimination(t_mat4 *m, int *swap_count)
 {
 	int		i;
 	int		j;
@@ -71,7 +71,7 @@ static int fwd_elimination(t_mat4 *m, int *swap_count)
 }
 
 // set under diagonal to 0 to improve stability
-static void eliminate_below(t_mat4 *m, int i)
+static void	eliminate_below(t_mat4 *m, int i)
 {
 	int		j;
 	int		k;

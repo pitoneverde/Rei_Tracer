@@ -1,7 +1,19 @@
-#ifndef RAY_H
-#define RAY_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ray.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/18 18:21:05 by sabruma           #+#    #+#             */
+/*   Updated: 2026/03/18 18:21:22 by sabruma          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include "core/vec3.h"
+#ifndef RAY_H
+# define RAY_H
+
+# include "core/vec3.h"
 
 typedef struct s_ray
 {

@@ -93,7 +93,6 @@ void    mlx_init_windows_minirt(t_element *data_file)
 
 	print_t_element_array_sentinel(data_file); // da togliere, solo per debug
 	(void)data_file;
-	// Mocked camera
 	// render ray tracing
 	render_minirt(&mlx);
 

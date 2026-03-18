@@ -1,8 +1,8 @@
 #ifndef SPHERE_H
-#define SPHERE_H
+# define SPHERE_H
 
-#include "core/vec3.h"
-#include "geometry/intersection.h"
+# include "core/vec3.h"
+# include "geometry/intersection.h"
 
 typedef struct s_sphere_math
 {

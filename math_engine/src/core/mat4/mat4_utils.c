@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 17:24:12 by sabruma           #+#    #+#             */
-/*   Updated: 2026/02/05 22:28:26 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/18 18:36:23 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 inline void	mat4_to_float_array(t_mat4 m, float out[16])
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < 16)

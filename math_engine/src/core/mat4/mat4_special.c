@@ -6,37 +6,37 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 17:24:01 by sabruma           #+#    #+#             */
-/*   Updated: 2026/02/05 22:21:11 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/18 18:35:46 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "core/mat4.h"
+// #include "core/mat4.h"
 
-// Build rotation matrix that aligns 'from' vector to 'to' vector
-t_mat4	mat4_align_vectors(t_vec3 from, t_vec3 to)
-{
-	// TODO
-	(void)from;
-	(void)to;
-	return ((t_mat4){0});
-}
+// // Build rotation matrix that aligns 'from' vector to 'to' vector
+// t_mat4	mat4_align_vectors(t_vec3 from, t_vec3 to)
+// {
+// 	// TODO
+// 	(void)from;
+// 	(void)to;
+// 	return ((t_mat4){0});
+// }
 
-// Create billboard matrix (faces camera, useful for sprites/quads)
-t_mat4	mat4_billboard(t_vec3 position, t_vec3 camera_pos, t_vec3 camera_up)
-{
-	// TODO
-	(void)position;
-	(void)camera_pos;
-	(void)camera_up;
-	return ((t_mat4){0});
-}
+// // Create billboard matrix (faces camera, useful for sprites/quads)
+// t_mat4	mat4_billboard(t_vec3 position, t_vec3 camera_pos, t_vec3 camera_up)
+// {
+// 	// TODO
+// 	(void)position;
+// 	(void)camera_pos;
+// 	(void)camera_up;
+// 	return ((t_mat4){0});
+// }
 
-// Linear interpolation
-t_mat4	mat4_lerp(t_mat4 a, t_mat4 b, float t)
-{
-	// TODO
-	(void)a;
-	(void)b;
-	(void)t;
-	return ((t_mat4){0});
-}
+// // Linear interpolation
+// t_mat4	mat4_lerp(t_mat4 a, t_mat4 b, float t)
+// {
+// 	// TODO
+// 	(void)a;
+// 	(void)b;
+// 	(void)t;
+// 	return ((t_mat4){0});
+// }

@@ -1,22 +1,34 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   math_engine.h                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/18 18:26:24 by sabruma           #+#    #+#             */
+/*   Updated: 2026/03/18 18:26:25 by sabruma          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MATH_ENGINE_H
 # define MATH_ENGINE_H
 
 // master header
-#define _GNU_SOURCE
-#include <math.h>
+# define _GNU_SOURCE
+# include <math.h>
 
-#include "core/vec3.h"
-#include "core/mat4.h"
-#include "core/test.h"
-#include "core/color.h"
-#include "core/constants.h"
+# include "core/vec3.h"
+# include "core/mat4.h"
+# include "core/test.h"
+# include "core/color.h"
+# include "core/constants.h"
 
-#include "utils/common.h"
-#include "utils/debug.h"
-#include "utils/math_constants.h"
+# include "utils/common.h"
+# include "utils/debug.h"
+# include "utils/math_constants.h"
 
-#include "geometry/camera.h"
-#include "geometry/sphere.h"
+# include "geometry/camera.h"
+# include "geometry/sphere.h"
 
 // modify this when supporting new geometry
 typedef struct s_math

@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 01:25:01 by sabruma           #+#    #+#             */
-/*   Updated: 2026/02/28 17:13:56 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/18 18:35:32 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 t_mat4	mat4_inverse(t_mat4 m)
 {
 	t_mat4	s;
-	
+
 	s = mat4_identity();
 	if (fwd_elimination_inv(&m, &s))
 		return (mat4_identity());

@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 18:01:51 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/14 01:25:10 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/18 18:43:08 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,31 +19,32 @@
 // if a is zero, can't build basis
 // ensures right-handed system = check for negative
 // b and c must be initialized to apply this method
-void	vec3_coordinate_system(t_vec3 a, t_vec3 *b, t_vec3 *c)
-{
-	t_vec3	b_ortho;
-	t_vec3	c_ortho;
+// commented because unused and norminette freaks out
+// void	vec3_coordinate_system(t_vec3 a, t_vec3 *b, t_vec3 *c)
+// {
+// 	t_vec3	b_ortho;
+// 	t_vec3	c_ortho;
 
-	if (vec3_is_zero(a, MATH_EPSILON))
-		return ;
-	b_ortho = vec3_normalize_or(
-		vec3_sub(*b, vec3_project(*b, a)),
-		vec3_normalize_or(
-			vec3_cross(a, VEC3_X),
-			vec3_normalize_or(
-				vec3_cross(a, VEC3_Y),
-				vec3_normalize(vec3_cross(a, VEC3_Z))
-	)));
-	c_ortho = vec3_sub(*c, vec3_project(*c, a));
-	c_ortho = vec3_sub(c_ortho, vec3_project(c_ortho, b_ortho));
-	c_ortho = vec3_normalize_or(
-		c_ortho,
-		vec3_normalize(vec3_cross(a, b_ortho)));
-	if (vec3_volume(a, b_ortho, c_ortho) < 0.0f)	//cyclic permutation
-		c_ortho = vec3_scale(c_ortho, -1.0f);
-	*b = b_ortho;
-	*c = c_ortho;
-}
+// 	if (vec3_is_zero(a, MATH_EPSILON))
+// 		return ;
+// 	b_ortho = vec3_normalize_or(
+// 		vec3_sub(*b, vec3_project(*b, a)),
+// 		vec3_normalize_or(
+// 			vec3_cross(a, VEC3_X),
+// 			vec3_normalize_or(
+// 				vec3_cross(a, VEC3_Y),
+// 				vec3_normalize(vec3_cross(a, VEC3_Z))
+// 	)));
+// 	c_ortho = vec3_sub(*c, vec3_project(*c, a));
+// 	c_ortho = vec3_sub(c_ortho, vec3_project(c_ortho, b_ortho));
+// 	c_ortho = vec3_normalize_or(
+// 		c_ortho,
+// 		vec3_normalize(vec3_cross(a, b_ortho)));
+// 	if (vec3_volume(a, b_ortho, c_ortho) < 0.0f)	//cyclic permutation
+// 		c_ortho = vec3_scale(c_ortho, -1.0f);
+// 	*b = b_ortho;
+// 	*c = c_ortho;
+// }
 
 // faster, use in hot path (cross-product method)
 // n is a normal, so it's assumed already normalized
@@ -57,16 +58,16 @@ inline void	vec3_orthonormal_basis(t_vec3 n, t_vec3 *t, t_vec3 *b)
 
 // (b - a) x (c - a)
 // a, b, c triangle vertices in CCW winding order
-static inline float edge_function(t_vec2 a, t_vec2 b, t_vec2 c)
+static inline float	edge_function(t_vec2 a, t_vec2 b, t_vec2 c)
 {
 	return ((c.x - a.x) * (b.y - a.y) - (c.y - a.y) * (b.x - a.x));
 }
 
 inline t_vec3	vec3_barycentric(t_vec2 a, t_vec2 b, t_vec2 c, t_vec2 p)
 {
-	float w0;
-	float w1;
-	float w2;
+	float	w0;
+	float	w1;
+	float	w2;
 
 	w0 = edge_function(b, c, p);
 	w1 = edge_function(c, a, p);

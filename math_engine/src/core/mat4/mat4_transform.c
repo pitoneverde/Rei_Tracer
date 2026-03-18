@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 17:24:06 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/07 23:17:59 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/18 18:35:57 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ inline t_vec3	mat4_transform_vector(t_mat4 m, t_vec3 v)
 inline t_vec3	mat4_transform_normal(t_mat4 m, t_vec3 n)
 {
 	t_mat4	t;
+
 	t = mat4_transpose(mat4_inverse(m));
 	return ((t_vec3){
 		n.x * t.m00 + n.y * t.m10 + n.z * t.m20,

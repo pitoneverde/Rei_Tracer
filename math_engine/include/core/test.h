@@ -1,38 +1,5 @@
 // core module test functions
 
-// ====== VEC3 ======
-
-#ifdef QUICK_TEST
-#define TEST_ITERATIONS 100
-#define STACK_TEST_SIZE 1000
-#elif defined(BENCHMARK)
-#define TEST_ITERATIONS 10000000
-#define STACK_TEST_SIZE 10000000
-#else
-#define TEST_ITERATIONS 10000
-#define STACK_TEST_SIZE 100000
-#endif
-
-void test_vec3_angles_direction();
-void test_vec3_basic();
-void test_vec3_comp();
-void test_vec3_compare();
-void test_vec3_coordinates();
-void test_vec3_create();
-void test_vec3_length();
-void test_vec3_normalize();
-void test_vec3_product();
-void test_vec3_project_distance();
-
-// ====== MAT4 ======
-void test_mat4_basic();
-void test_mat4_decompose();
-void test_mat4_properties();
-void test_mat4_special();
-void test_mat4_transform();
-void test_mat4_transformation();
-
-// ====== UTILS ======
 #ifndef _GNU_SOURCE
 # define _GNU_SOURCE
 #endif
@@ -43,6 +10,41 @@ void test_mat4_transformation();
 #include <time.h>
 #include "core/mat4.h"
 #include "core/vec3.h"
+
+#ifdef QUICK_TEST
+# define TEST_ITERATIONS 100
+# define STACK_TEST_SIZE 1000
+#elif defined(BENCHMARK)
+# define TEST_ITERATIONS 10000000
+# define STACK_TEST_SIZE 10000000
+#else
+# define TEST_ITERATIONS 10000
+# define STACK_TEST_SIZE 100000
+#endif
+
+// ====== VEC3 ======
+
+void	test_vec3_angles_direction(void);
+void	test_vec3_basic(void);
+void	test_vec3_comp(void);
+void	test_vec3_compare(void);
+void	test_vec3_coordinates(void);
+void	test_vec3_create(void);
+void	test_vec3_length(void);
+void	test_vec3_normalize(void);
+void	test_vec3_product(void);
+void	test_vec3_project_distance(void);
+
+// ====== MAT4 ======
+
+void	test_mat4_basic(void);
+void	test_mat4_decompose(void);
+void	test_mat4_properties(void);
+void	test_mat4_special(void);
+void	test_mat4_transform(void);
+void	test_mat4_transformation(void);
+
+// ====== UTILS ======
 
 bool	float_equal(float a, float b, float eps);
 bool	mat4_equal_eps(t_mat4 a, t_mat4 b, float eps);

@@ -1,11 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   intersection.h                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/18 18:22:26 by sabruma           #+#    #+#             */
+/*   Updated: 2026/03/18 18:26:13 by sabruma          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef INTERSECTION_H
+# define INTERSECTION_H
+
 // contains the functions to intersect with sphere, plane, cylinder
 // contains also t_hit and normal calcs to enable shading
 
-#include <stdbool.h>
-#include "core/vec3.h"
-#include "geometry/ray.h"
+# include <stdbool.h>
+# include "core/vec3.h"
+# include "geometry/ray.h"
 
-typedef enum	s_obj_type
+typedef enum s_obj_type
 {
 	OBJ_NULL = 0,
 	OBJ_SPHERE,
@@ -33,4 +48,6 @@ typedef struct s_quadratic
 	float	x1;
 }	t_quadratic;
 
-bool solve_quadratic(t_quadratic *eq);
+bool	solve_quadratic(t_quadratic *eq);
+
+#endif

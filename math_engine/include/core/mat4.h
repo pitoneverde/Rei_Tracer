@@ -1,16 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mat4.h                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/18 18:14:36 by sabruma           #+#    #+#             */
+/*   Updated: 2026/03/18 18:24:04 by sabruma          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 // 4x4 matrices to encode transformations in homogeneus coordinates
 #ifndef MAT4_H
 # define MAT4_H
-#include "vec3.h"
 
-#ifndef T_MAT4_DEFINED
-# define T_MAT4_DEFINED
+# include "core/vec3.h"
+
+# ifndef T_MAT4_DEFINED
+#  define T_MAT4_DEFINED
 
 // should reformat for norminette but i don't fucking care now
-typedef union u_mat4 {
+typedef union u_mat4
+{
 	float	arr[16];
 	float	mat[4][4];
-	struct {
+	struct
+	{
 		float	m00, m01, m02, m03;
 		float	m10, m11, m12, m13;
 		float	m20, m21, m22, m23;
@@ -18,11 +33,11 @@ typedef union u_mat4 {
 	};
 }	t_mat4;
 
-#endif
+# endif
 
-#ifndef _GNU_SOURCE
-# define _GNU_SOURCE
-#endif
+# ifndef _GNU_SOURCE
+#  define _GNU_SOURCE
+# endif
 
 // ===== CORE CREATION & BASIC OPERATIONS =====
 t_mat4	mat4_identity(void);
@@ -75,9 +90,10 @@ t_vec3	mat4_transform_normal2(t_mat4 m, t_vec3 n);
 // ===== DECOMPOSITION =====
 // likely not needed
 
-void	mat4_decompose(t_mat4 m, t_vec3 *translation, t_vec3 *rotation, t_vec3 *scale);
-t_vec3	mat4_get_translation(t_mat4 m);
-t_vec3	mat4_get_scale(t_mat4 m);
+// void	mat4_decompose
+//(t_mat4 m, t_vec3 *translation, t_vec3 *rotation, t_vec3 *scale);
+// t_vec3	mat4_get_translation(t_mat4 m);
+// t_vec3	mat4_get_scale(t_mat4 m);
 
 // ===== SPECIAL RT OPERATIONS =====
 
@@ -91,11 +107,11 @@ void	mat4_to_float_array(t_mat4 m, float out[16]);
 // ===== DO NOT USE, NORMINETTE'S FAULT =====
 //mat4_inverse and _determinant helpers
 
-int choose_pivot(t_mat4 *m, int i);
-void eliminate_below_inv(t_mat4 *m, t_mat4 *s, int i);
-void reduce_diagonal_inv(t_mat4 *m, t_mat4 *s);
-void eliminate_above_inv(t_mat4 *m, t_mat4 *s);
-int fwd_elimination_inv(t_mat4 *m, t_mat4 *s);
+int		choose_pivot(t_mat4 *m, int i);
+void	eliminate_below_inv(t_mat4 *m, t_mat4 *s, int i);
+void	reduce_diagonal_inv(t_mat4 *m, t_mat4 *s);
+void	eliminate_above_inv(t_mat4 *m, t_mat4 *s);
+int		fwd_elimination_inv(t_mat4 *m, t_mat4 *s);
 
 // ======= Projection Matrices ========
 // not needed in RT because of different camera system from classic 3D rendering
@@ -107,7 +123,8 @@ int fwd_elimination_inv(t_mat4 *m, t_mat4 *s);
 
 // TODOS:
 /*
-void	mat4_decompose(t_mat4 m, t_vec3 *translation, t_vec3 *rotation, t_vec3 *scale)
+void	mat4_decompose
+(t_mat4 m, t_vec3 *translation, t_vec3 *rotation, t_vec3 *scale)
 t_vec3	mat4_get_translation(t_mat4 m)
 t_vec3	mat4_get_scale(t_mat4 m)
 t_mat4	mat4_align_vectors(t_vec3 from, t_vec3 to)

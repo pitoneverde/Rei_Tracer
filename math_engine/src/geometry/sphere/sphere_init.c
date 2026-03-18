@@ -6,13 +6,13 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 11:03:52 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/18 11:52:15 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/18 18:48:15 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "geometry/sphere.h"
 
-int		sphere_init(t_sphere_math *sp, t_sphere_data data)
+int	sphere_init(t_sphere_math *sp, t_sphere_data data)
 {
 	if (!sp)
 		return (1);

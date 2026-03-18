@@ -1,5 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   math_constants.h                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/18 18:23:36 by sabruma           #+#    #+#             */
+/*   Updated: 2026/03/18 18:29:21 by sabruma          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MATH_CONSTANTS_H
-#define MATH_CONSTANTS_H
+# define MATH_CONSTANTS_H
 
 extern const float MATH_PI;			// pi
 extern const float MATH_PI_2;		// pi/2

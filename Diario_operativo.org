@@ -206,3 +206,9 @@ Aggiunto interop.h, con le funzioni di init, destroy e convert per interfacciare
 
 17/03/2026 sabruma 02:02
 Rimosso interop.h perché era inutile, ed era responsabilità di minirt gestire quella roba, spostato le convert di nuovo
+
+18/03/2026 sabruma 18:51
+Norminettato la maggior parte delle cose, dovrei scambiare le variabili globali per delle funzioni ma non ho voglia di cambiarlo ora. Creata e testata sfera + ray-sphere intersection + integrazione
+con il rendering. Rifinita la pipeline e il passaggio dei dati tra l'engine e il renderer seguendo un modello di inversione delle dipendenze. I sistemi di parser->renderer->math_init->engine si comportano bene.
+Aggiunto anche uno script fatto velocemente con l'AI per generare dati randomici, lo aggiornerò poi in modo che generi una scena intera casuale (poi ne faccio un altro con dati inaccettabili).
+Stasera dovrei riuscire anche a integrare i piani, che sono semplici e mi servono per fare i dischi alle basi dei cilindri.

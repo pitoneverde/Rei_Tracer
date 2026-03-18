@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 17:23:11 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/03 22:54:46 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/18 18:37:42 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 inline bool	mat4_equal(t_mat4 a, t_mat4 b, float epsilon)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < 16)
@@ -29,7 +29,7 @@ inline bool	mat4_equal(t_mat4 a, t_mat4 b, float epsilon)
 
 inline bool	mat4_any_nan(t_mat4 m)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < 16)
@@ -43,7 +43,7 @@ inline bool	mat4_any_nan(t_mat4 m)
 
 inline bool	mat4_is_finite(t_mat4 m)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < 16)

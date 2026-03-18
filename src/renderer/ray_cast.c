@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 17:08:50 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/18 15:13:37 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/18 18:07:44 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ static	t_rgb	vec3_to_rgb(t_vec3 color)
 	uint8_t g;
 	uint8_t b;
 
-	r = (uint8_t)fminf(fmaxf(color.x, 0.0f), 255.0f);
-	g = (uint8_t)fminf(fmaxf(color.y, 0.0f), 255.0f);
-	b = (uint8_t)fminf(fmaxf(color.z, 0.0f), 255.0f);
+	r = (uint8_t)clamp(color.x, 0.0f, 255.0f);
+	g = (uint8_t)clamp(color.y, 0.0f, 255.0f);
+	b = (uint8_t)clamp(color.z, 0.0f, 255.0f);
 	uint32_t hex = (r << 16) | (g << 8) | b;
 	return ((t_rgb){.hex = hex});
 }

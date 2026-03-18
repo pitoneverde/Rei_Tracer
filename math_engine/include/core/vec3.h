@@ -1,35 +1,47 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   vec3.h                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/18 18:11:07 by sabruma           #+#    #+#             */
+/*   Updated: 2026/03/18 18:12:27 by sabruma          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef VEC3_H
 # define VEC3_H
 
-#ifndef T_VEC3_DEFINED
-# define T_VEC3_DEFINED
+# include "core/constants.h"
+# include <stdbool.h>
+
+# ifndef T_VEC3_DEFINED
+#  define T_VEC3_DEFINED
 
 typedef struct s_vec3
 {
-	float x;
-	float y;
-	float z;
-} t_vec3;
+	float	x;
+	float	y;
+	float	z;
+}	t_vec3;
 
-#endif
+# endif
 
-#ifndef T_VEC2_DEFINED
-# define T_VEC2_DEFINED
+# ifndef T_VEC2_DEFINED
+#  define T_VEC2_DEFINED
 
 typedef struct s_vec2
 {
-	float x;
-	float y;
-} t_vec2;
+	float	x;
+	float	y;
+}	t_vec2;
 
-#endif
+# endif
 
-#ifndef _GNU_SOURCE
-# define _GNU_SOURCE
-#endif
-
-#include "core/constants.h"
-#include <stdbool.h>
+# ifndef _GNU_SOURCE
+#  define _GNU_SOURCE
+# endif
 
 // ===== CORE CREATION & BASIC OPERATIONS =====
 
@@ -71,7 +83,7 @@ bool	vec3_is_perpendicular(t_vec3 a, t_vec3 b, float epsilon);
 
 // ===== COORDINATE SYSTEMS =====
 
-void	vec3_coordinate_system(t_vec3 a, t_vec3 *b, t_vec3 *c); 
+void	vec3_coordinate_system(t_vec3 a, t_vec3 *b, t_vec3 *c);
 void	vec3_orthonormal_basis(t_vec3 n, t_vec3 *t, t_vec3 *b);
 
 // ===== PROJECTIONS =====
@@ -104,7 +116,6 @@ t_vec3	vec3_floor(t_vec3 v);
 t_vec3	vec3_ceil(t_vec3 v);
 t_vec3	vec3_round(t_vec3 v);
 t_vec3	vec3_mod(t_vec3 v, float divisor);
-
 
 // t_vec3 vec3_fract(t_vec3 v);		//fractional part for shaders
 // t_vec3 vec3_clamp(t_vec3 v, float min_val, float max_val);

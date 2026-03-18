@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   camera.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/18 18:19:15 by sabruma           #+#    #+#             */
+/*   Updated: 2026/03/18 18:20:41 by sabruma          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CAMERA_H
 # define CAMERA_H
 
@@ -13,8 +25,8 @@ typedef struct s_camera_math
 	float	far_clip;
 	int		image_h;
 	int		image_w;
+
 	float	hfov;
-	
 	float	zoom;
 	float	canvas[4];
 	float	image_aspect;
@@ -39,16 +51,16 @@ typedef struct s_camera_data
 	float	hfov;
 }	t_camera_data;
 
-#ifndef T_PIXEL_DEFINED
-# define T_PIXEL_DEFINED
+# ifndef T_PIXEL_DEFINED
+#  define T_PIXEL_DEFINED
 
 typedef struct s_pixel
 {
 	int	x;
-	int y;
+	int	y;
 }	t_pixel;
 
-#endif
+# endif
 
 int		camera_init(t_camera_math *cam, t_camera_data data);
 t_ray	camera_raygen(const t_camera_math *cam, t_pixel p);
