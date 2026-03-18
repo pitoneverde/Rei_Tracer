@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 10:01:42 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/18 12:51:12 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/18 14:45:58 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,23 @@ bool sphere_intersect(t_sphere_math *s, t_ray ray, t_hit *hit)
 	sphere_eq.x1 = NAN;
 	if (!solve_quadratic(&sphere_eq))
 		return (false);
-	if (sphere_eq.x0 < 0.0f)
+	// if (sphere_eq.x0 < 0.0f)
+	// {
+	// 	sphere_eq.x0 = sphere_eq.x1;
+	// 	if (sphere_eq.x0 < 0.0f)
+	// 		return (false);
+	// }
+	if (sphere_eq.x0 < ray.t_min || sphere_eq.x0 > ray.t_max)
 	{
-		sphere_eq.x0 = sphere_eq.x1;
-		if (sphere_eq.x0 < 0.0f)
+		if (sphere_eq.x1 < ray.t_min || sphere_eq.x1 > ray.t_max)
 			return (false);
+		else
+			hit->t = sphere_eq.x1;
 	}
-	hit->t = sphere_eq.x0;
+	else
+		hit->t = sphere_eq.x0;
+
+	// hit->t = sphere_eq.x0;
 	hit->color = s->color;
 	hit->point = vec3_add(ray.origin, vec3_scale(ray.direction, hit->t));
 	hit->normal = vec3_normalize(vec3_sub(hit->point, s->center));

@@ -6,11 +6,24 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 17:08:50 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/18 12:22:05 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/18 15:13:37 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt_renderer.h"
+
+static	t_rgb	vec3_to_rgb(t_vec3 color)
+{
+	uint8_t r;
+	uint8_t g;
+	uint8_t b;
+
+	r = (uint8_t)fminf(fmaxf(color.x, 0.0f), 255.0f);
+	g = (uint8_t)fminf(fmaxf(color.y, 0.0f), 255.0f);
+	b = (uint8_t)fminf(fmaxf(color.z, 0.0f), 255.0f);
+	uint32_t hex = (r << 16) | (g << 8) | b;
+	return ((t_rgb){.hex = hex});
+}
 
 // here go shaders calls and texture mappings
 t_rgb	ray_cast(const t_ray ray, t_math *math)
@@ -21,16 +34,6 @@ t_rgb	ray_cast(const t_ray ray, t_math *math)
 
 	color = VEC3_ZERO;	// black
 	if (trace(ray, math, &hit, &i))
-	{
-		// color = hit.color;
-		
-		color = vec3_scale(hit.color, 255.0f);
-		vec3_print("color", color);
-		// vec3_print("hit", hit.color);
-		// // color = vec3_scale(color, 255.0f);
-	}
-	t_rgb hit_color = {.rgba = 
-		{.red = (uint8_t)color.x, .green = (uint8_t)color.y, .blue = (uint8_t)color.z, .alpha = (uint8_t)0}
-	};
-	return (hit_color);
+		color = hit.color;
+	return (vec3_to_rgb(color));	
 }
