@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 18:26:24 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/18 18:26:25 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/18 22:12:56 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 
 # include "geometry/camera.h"
 # include "geometry/sphere.h"
+# include "geometry/plane.h"
 
 // modify this when supporting new geometry
 typedef struct s_math
@@ -37,8 +38,9 @@ typedef struct s_math
 	// t_ambient_math	*ambient;
 	// t_light_math	*lights;
 	t_sphere_math	*spheres;
+	t_plane_math	*planes;
 	int				sp_count;
-	// t_plane_math		*planes;
+	int				pl_count;
 	// t_cylinder_math	*cylinders;
 }	t_math;
 

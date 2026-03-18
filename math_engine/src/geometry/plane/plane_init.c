@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   chars.h                                            :+:      :+:    :+:   */
+/*   plane_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/21 20:22:12 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/18 19:07:14 by sabruma          ###   ########.fr       */
+/*   Created: 2026/03/18 21:42:59 by sabruma           #+#    #+#             */
+/*   Updated: 2026/03/18 22:02:06 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#if !defined(CHARS_H)
-# define CHARS_H
+#include "geometry/plane.h"
 
-int		ft_isalnum(int c);
-int		ft_isalpha(int c);
-int		ft_isascii(int c);
-int		ft_isdigit(int c);
-int		ft_islower(int c);
-int		ft_isprint(int c);
-int		ft_ispunct(int c);
-int		ft_isspace(int c);
-int		ft_isupper(int c);
-int		ft_tolower(int c);
-int		ft_toupper(int c);
-
-#endif // CHARS_H
+int		plane_init(t_plane_math *pl, t_plane_data data)
+{
+	if (!pl)
+		return (1);
+	pl->color = data.color;
+	pl->normal = data.normal;
+	pl->point = data.point;
+	pl->dot = -vec3_dot(data.point, data.normal);
+	return (0);
+}

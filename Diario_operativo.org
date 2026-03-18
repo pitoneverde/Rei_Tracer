@@ -212,3 +212,7 @@ Norminettato la maggior parte delle cose, dovrei scambiare le variabili globali 
 con il rendering. Rifinita la pipeline e il passaggio dei dati tra l'engine e il renderer seguendo un modello di inversione delle dipendenze. I sistemi di parser->renderer->math_init->engine si comportano bene.
 Aggiunto anche uno script fatto velocemente con l'AI per generare dati randomici, lo aggiornerò poi in modo che generi una scena intera casuale (poi ne faccio un altro con dati inaccettabili).
 Stasera dovrei riuscire anche a integrare i piani, che sono semplici e mi servono per fare i dischi alle basi dei cilindri.
+
+18/03/2026 sabruma 22:45
+Mi sono rotto il cazzo vado a dormire. I piani hanno deciso che non vogliono essere creati e sono troppo stanco per pensarci ora, sarà un problema del me di domani. Pare strano perché comunque uso lo stesso
+metodo che ho usato per le sfere, ma a quanto pare non gli sta bene. E non sto mallocando 0 byte

@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 10:21:27 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/18 15:02:50 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/18 22:48:17 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,21 @@ bool	trace(const t_ray ray, const t_math *math, t_hit *near, int *idx)
 	while (i < math->sp_count)
 	{
 		hit.t = INFINITY;
-		if (sphere_intersect(&math->spheres[i++], ray, &hit) && hit.t < near->t)
+		if (sphere_intersect(&math->spheres[i], ray, &hit) && hit.t < near->t)
 		{
-			// printf("t: %7.3f", hit.t);
 			*near = hit;
-			*idx = i;
-			// printf("t: %7.3f", near->t);
-			// fflush(stdout);
+			*idx = i++;
 		}
 	}
+	// i = 0;
+	// while (i < math->pl_count)
+	// {
+	// 	hit.t = INFINITY;
+	// 	if (plane_intersect(&math->planes[i], ray, &hit) && hit.t < near->t)
+	// 	{
+	// 		*near = hit;
+	// 		*idx = i++;
+	// 	}
+	// }
 	return (near->obj != OBJ_NULL);
 }
