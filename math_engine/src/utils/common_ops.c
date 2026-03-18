@@ -1,18 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   common_directions.c                                :+:      :+:    :+:   */
+/*   common_ops.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/26 15:57:46 by sabruma           #+#    #+#             */
-/*   Updated: 2026/01/26 15:57:47 by sabruma          ###   ########.fr       */
+/*   Created: 2026/02/28 01:02:50 by sabruma           #+#    #+#             */
+/*   Updated: 2026/03/18 18:33:03 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils/common.h"
-#include "core/constants.h"
+#include <math.h>
 
-const t_vec3 VEC3_RIGHT = {1.0f, 0.0f, 0.0f};
-const t_vec3 VEC3_UP = {0.0f, 1.0f, 0.0f};
-const t_vec3 VEC3_FORWARD = {0.0f, 0.0f, -1.0f};	//maybe?
+inline void	swapf(float *a, float *b)
+{
+	float	tmp;
+
+	tmp = *a;
+	*a = *b;
+	*b = tmp;
+}
+
+inline float	clamp(float val, float min, float max)
+{
+	return (fminf(fmaxf(val, min), max));
+}
