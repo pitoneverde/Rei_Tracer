@@ -1,3 +1,7 @@
+CC = cc
+CFLAGS = -Wall -Wextra -Werror -g -O0 -Iinclude -Iminilibx-linux -Ilibc/include -Imath_engine/include
+LDFLAGS = -Lminilibx-linux -lmlx -Llibc -lft_bonus -Lmath_engine/build/lib -lmath_engine -lm -lX11 -lXext
+
 NAME = miniRT
 
 SRC_DIR = src
@@ -12,6 +16,7 @@ SRCS = $(SRC_DIR)/main.c \
 		$(SRC_DIR)/parsing/check_cylinder.c \
 		$(SRC_DIR)/parsing/parsing_utils.c \
 		$(SRC_DIR)/parsing/init_data_minirt.c \
+		$(SRC_DIR)/renderer/render.c \
 		$(SRC_DIR)/renderer/ray_cast.c \
 		$(SRC_DIR)/renderer/trace.c \
 		$(SRC_DIR)/renderer/init_math.c \
@@ -38,10 +43,6 @@ LIBC_DIR=./libc
 LIBC=$(LIBC_DIR)/libft_bonus.a
 MATH_E_DIR = ./math_engine
 MATH_E = $(MATH_E_DIR)/build/lib/libmath_engine.a
-
-CC = cc
-CFLAGS = -Wall -Wextra -Werror -g -O0 -Iinclude -Iminilibx-linux -Ilibc/include -Imath_engine/include
-LDFLAGS = -Lminilibx-linux -lmlx -Llibc -lft_bonus -Lmath_engine/build/lib -lmath_engine -lm -lX11 -lXext
 
 all: $(NAME) $(LIBC) $(MATH_E)
 

@@ -2,6 +2,7 @@
 # define MINIRT_RENDERER_H
 
 #include "minirt_data.h"
+#include "mlx_minirt.h"
 #include "math_engine.h"
 
 // #define IMG_WIDTH 1368
@@ -21,6 +22,10 @@ typedef struct s_pixel
 
 #endif
 
+void	render_minirt(t_mlx_minirt *mlx);
+t_rgb	ray_cast(const t_ray ray, t_math *math);
+bool	trace(const t_ray ray, const t_math *math, t_hit *near, int *idx);
+
 t_math	*init_math(t_element *d);
 void	destroy_math(t_math *math_engine);
 
@@ -33,9 +38,5 @@ int create_sphere(t_sphere_math *math, t_sphere *sphere);
 // t_plane_data	*convert_plane(t_plane *p);
 
 void	print_t_element(t_element *elem);
-
-
-t_rgb	ray_cast(const t_ray ray, t_math *math);
-bool	trace(const t_ray ray, const t_math *math, t_hit *near, int *idx);
 
 #endif
