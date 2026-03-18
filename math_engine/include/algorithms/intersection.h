@@ -1,1 +1,0 @@
-// contains the functions to intersect with sphere, plane, cylinder

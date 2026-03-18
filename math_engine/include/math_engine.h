@@ -16,6 +16,7 @@
 #include "utils/math_constants.h"
 
 #include "geometry/camera.h"
+#include "geometry/sphere.h"
 
 // modify this when supporting new geometry
 typedef struct s_math
@@ -23,7 +24,8 @@ typedef struct s_math
 	t_camera_math	camera;
 	// t_ambient_math	*ambient;
 	// t_light_math	*lights;
-	// t_sphere_math	*spheres;
+	t_sphere_math	*spheres;
+	int				sp_count;
 	// t_plane_math		*planes;
 	// t_cylinder_math	*cylinders;
 }	t_math;

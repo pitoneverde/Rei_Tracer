@@ -1,0 +1,36 @@
+// contains the functions to intersect with sphere, plane, cylinder
+// contains also t_hit and normal calcs to enable shading
+
+#include <stdbool.h>
+#include "core/vec3.h"
+#include "geometry/ray.h"
+
+typedef enum	s_obj_type
+{
+	OBJ_NULL = 0,
+	OBJ_SPHERE,
+	OBJ_PLANE,
+	OBJ_CYLINDER
+}	t_obj_type;
+
+typedef struct s_hit
+{
+	float		t;
+	t_ray		ray;
+	t_vec3		point;
+	t_vec3		normal;
+	t_vec3		color;
+	t_obj_type	obj;
+}	t_hit;
+
+// quadratic equation: ax² + bx + c = 0
+typedef struct s_quadratic
+{
+	float	a;
+	float	b;
+	float	c;
+	float	x0;
+	float	x1;
+}	t_quadratic;
+
+bool solve_quadratic(t_quadratic *eq);

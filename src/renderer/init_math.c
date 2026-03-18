@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 17:53:42 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/17 19:13:17 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/18 11:50:59 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,14 @@ static t_math	*malloc_math(t_element *data_file)
 	if (!math)
 		return (NULL);
 	count_objects(idx, 3, data_file);
+	math->sp_count = idx[1];
 	printf("cylinders: %d, spheres: %d, planes: %d\n", idx[0], idx[1], idx[2]);
-	// math->spheres = malloc(sp * sizeof(t_sphere_math));
-	// if (!math->spheres)
-	// 	return (destroy_math(math), NULL);
 	// math->cylinders = malloc(cy * sizeof(t_cylinder_math));
 	// if (!math->cylinders)
 	// 	return (destroy_math(math), NULL);
+	math->spheres = malloc(idx[1] * sizeof(t_sphere_math));
+	if (!math->spheres)
+		return (destroy_math(math), NULL);
 	// math->planes = malloc(pl * sizeof(t_plane_math));
 	// if (!math->cylinders)
 	// 	return (destroy_math(math), NULL);
@@ -63,6 +64,7 @@ static t_math	*malloc_math(t_element *data_file)
 t_math	*init_math(t_element *d)
 {
 	t_math	*m;
+	int		i = 0;
 	if (!d)
 		return (NULL);
 	m = malloc_math(d);
@@ -83,6 +85,23 @@ t_math	*init_math(t_element *d)
 			// }
 			else
 				printf("CAM CREATED\n");
+		}
+		else if (ft_strcmp(d->id, "sp") == 0 && i < m->sp_count)
+		{
+			if (create_sphere(&m->spheres[i], (t_sphere *)&d->value))
+			{
+				printf("SPHERE @%p:\n", &m->spheres[i]);
+				printf("i: %d\n", i);
+				printf("DATA:\n");
+				vec3_print("center", m->spheres[i].center);
+				vec3_print("color", m->spheres[i].color);
+				printf("radius: %7.3f\n", m->spheres[i].radius);
+				fflush(stdout);
+				return (destroy_math(m), NULL);
+			}
+			else
+				printf("SPHERE CREATED");
+			i++;
 		}
 		// if (ft_strcmp(d->id, "A") == 0)
 		// 	if (create_ambient(&m->ambient, (t_ambient_lighting *)&d->value))

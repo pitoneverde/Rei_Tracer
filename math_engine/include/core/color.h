@@ -3,8 +3,10 @@
 
 #include "vec3.h"
 #include <math.h>
+#include <stdint.h>
 
 // colors
+t_vec3 vec3_from_color_hex(uint32_t hex);
 t_vec3 vec3_from_color(float r, float g, float b);
 t_vec3 vec3_srgb_to_linear(t_vec3 srgb_color);
 t_vec3 vec3_linear_to_srgb(t_vec3 linear_color);
