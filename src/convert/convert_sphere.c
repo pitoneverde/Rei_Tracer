@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 20:11:23 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/18 22:15:38 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/19 18:09:27 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@ int create_sphere(t_sphere_math *math, t_sphere *sphere)
 	t_sphere_data	sphere_data = convert_sphere(sphere);
 	if (sphere_init(math, sphere_data))
 		return (1);
+	printf("SPHERE INIT GOOD\n");
 	return (0);	
 }

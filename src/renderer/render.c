@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 18:58:38 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/18 19:03:05 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/19 18:21:18 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,16 @@ void	render_minirt(t_mlx_minirt *mlx)
 	// };
 	// t_camera_math *cam = create_camera_math(&camera);
 	t_math *math = init_math(mlx->data_file);
+	if (!math)
+		return;
+	printf("STARTED RENDERING");
+	fflush(stdout);
 	t_ray	ray;
 	// // print_cam(cam);
 	for (int y = 0; y < IMG_HEIGHT; ++y)
 	{
+		printf("Rendering scanline: %d\n", y);
+		fflush(stdout);
 		for (int x = 0; x < IMG_WIDTH; ++x)
 		{
 			ray = camera_raygen(&math->camera, (t_pixel){.x = x, .y = y});
@@ -36,8 +42,6 @@ void	render_minirt(t_mlx_minirt *mlx)
 			// col.hex = 0xFF0000; // Red color for testing
 			put_pixel(mlx, x, y, col);
 		}
-		// printf("Rendering scanline: %d\n", y);
-		fflush(stdout);
 		// mlx_put_image_to_window(mlx->voidptr_mlx, mlx->voidptr_win, mlx->voidptr_img, 0, 0);
 	}
 	destroy_math(math);

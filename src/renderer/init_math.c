@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 17:53:42 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/18 22:48:58 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/19 18:22:05 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,10 @@ static t_math	*malloc_math(t_element *data_file)
 	math->spheres = malloc(idx[1] * sizeof(t_sphere_math));
 	if (!math->spheres)
 		return (destroy_math(math), NULL);
-	// math->planes = malloc(idx[2] * sizeof(t_plane_math));
-	// if (!math->planes)
-	// 	return (destroy_math(math), NULL);
+	else printf("SPHERES MALLOC'ed\n");
+	math->planes = malloc(idx[2] * sizeof(t_plane_math));
+	if (!math->planes)
+		return (destroy_math(math), NULL);
 	return (math);
 }
 
@@ -90,6 +91,23 @@ t_math	*init_math(t_element *d)
 		else if (ft_strcmp(d->id, "sp") == 0 && i < m->sp_count)
 		{
 			if (create_sphere(&m->spheres[i], (t_sphere *)&d->value))
+			{
+				printf("SPHERE @%p:\n", &m->spheres[i]);
+				printf("i: %d\n", i);
+				printf("DATA:\n");
+				vec3_print("center", m->spheres[i].center);
+				vec3_print("color", m->spheres[i].color);
+				printf("radius: %7.3f\n", m->spheres[i].radius);
+				fflush(stdout);
+				return (destroy_math(m), NULL);
+			}
+			else
+				printf("SPHERE CREATED");
+			i++;
+		}
+		else if (ft_strcmp(d->id, "pl") == 0 && j < m->pl_count)
+		{
+			if (create_plane(&m->planes[j], (t_plane *)&d->value))
 			// {
 			// 	printf("SPHERE @%p:\n", &m->spheres[i]);
 			// 	printf("i: %d\n", i);
@@ -101,26 +119,9 @@ t_math	*init_math(t_element *d)
 				return (destroy_math(m), NULL);
 			// }
 			else
-				printf("SPHERE CREATED");
-			i++;
+				printf("PLANE CREATED");
+			j++;
 		}
-		// else if (ft_strcmp(d->id, "pl") == 0 && j < m->pl_count)
-		// {
-		// 	if (create_plane(&m->planes[j], (t_plane *)&d->value))
-		// 	// {
-		// 	// 	printf("SPHERE @%p:\n", &m->spheres[i]);
-		// 	// 	printf("i: %d\n", i);
-		// 	// 	printf("DATA:\n");
-		// 	// 	vec3_print("center", m->spheres[i].center);
-		// 	// 	vec3_print("color", m->spheres[i].color);
-		// 	// 	printf("radius: %7.3f\n", m->spheres[i].radius);
-		// 	// 	fflush(stdout);
-		// 		return (destroy_math(m), NULL);
-		// 	// }
-		// 	else
-		// 		printf("PLANE CREATED");
-		// 	j++;
-		// }
 		
 		// if (ft_strcmp(d->id, "A") == 0)
 		// 	if (create_ambient(&m->ambient, (t_ambient_lighting *)&d->value))
@@ -128,6 +129,7 @@ t_math	*init_math(t_element *d)
 		// if (ft_strcmp(d->id, "L") == 0)
 		// 	if (create_light(&m->ambient, (t_ambient_lighting *)&d->value))
 		// 		return (destroy_math(m), NULL);
+		fflush(stdout);
 		d++;
 	}
 	return (m);

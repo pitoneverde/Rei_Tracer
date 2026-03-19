@@ -42,7 +42,7 @@ void    mlx_init_windows_minirt(t_element *data_file)
 	mlx.charptr_addr = mlx_get_data_addr(mlx.voidptr_img, &mlx.int_bits_per_pixel, &mlx.int_line_length, &mlx.int_endian);
 
 
-	print_t_element_array_sentinel(data_file); // da togliere, solo per debug
+	// print_t_element_array_sentinel(data_file); // da togliere, solo per debug
 	(void)data_file;
 	// render ray tracing
 	render_minirt(&mlx);

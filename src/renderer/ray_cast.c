@@ -6,11 +6,12 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 17:08:50 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/18 18:07:44 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/19 18:20:58 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt_renderer.h"
+#include <math.h>
 
 static	t_rgb	vec3_to_rgb(t_vec3 color)
 {
@@ -25,6 +26,11 @@ static	t_rgb	vec3_to_rgb(t_vec3 color)
 	return ((t_rgb){.hex = hex});
 }
 
+static inline t_vec3 vec3_mix(t_vec3 a, t_vec3 b, float val)
+{
+	return (vec3_add(vec3_scale(a, 1.0f - val), vec3_scale(b, val)));
+}
+// { return a * (1 - mixValue) + b * mixValue; }
 // here go shaders calls and texture mappings
 t_rgb	ray_cast(const t_ray ray, t_math *math)
 {
@@ -35,5 +41,15 @@ t_rgb	ray_cast(const t_ray ray, t_math *math)
 	color = VEC3_ZERO;	// black
 	if (trace(ray, math, &hit, &i))
 		color = hit.color;
+	// basic checkerboard shader to give some volume
+	if (hit.obj == OBJ_SPHERE)
+	{
+		float scale = 4.0f;
+		t_vec2 tex;
+		tex.x = (1 + atan2(hit.normal.z, hit.normal.x) / MATH_PI) * 0.5;
+        tex.y = acosf(hit.normal.y) / MATH_PI;
+		float pattern = ((fmodf(tex.x * scale, 1.0f) > 0.5f) ^ (fmodf(tex.y * scale, 1.0f) > 0.5f));
+		color = vec3_max_comp(VEC3_ZERO, vec3_scale(vec3_mix(hit.color, vec3_scale(hit.color, 0.8f), pattern), vec3_dot(hit.normal, vec3_neg(ray.direction))));
+	}
 	return (vec3_to_rgb(color));	
 }
