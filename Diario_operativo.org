@@ -216,3 +216,12 @@ Stasera dovrei riuscire anche a integrare i piani, che sono semplici e mi servon
 18/03/2026 sabruma 22:45
 Mi sono rotto il cazzo vado a dormire. I piani hanno deciso che non vogliono essere creati e sono troppo stanco per pensarci ora, sarà un problema del me di domani. Pare strano perché comunque uso lo stesso
 metodo che ho usato per le sfere, ma a quanto pare non gli sta bene. E non sto mallocando 0 byte
+
+19/03/2026 sabruma 19:17
+Finito i piani, avevo mangiato un fabsf nel test di plane_intersect. C'era anche un problema dentro trace() che aveva scambiato la i++ dalla if a interna e andava in loop infinito
+(non so se l'ho fatto io per sbaglio o era un merge conflict finito male di cui non mi sono accorto). Aggiunto anche una texture checkerboard colorata per dare volume alle sfere, copiata da scratchapixel
+perché sì. Dovrei aggiungere dei benchmark con X elementi nel renderer, ma ora non ho voglia. Inoltre va aggiornato lo script gen_spheres.py (o creato un altro), per supportare la creazione di piani pseudorandomici.
+Alla fine dovrebbe esistere uno script che genera un file casuale .rt per la correzione, perché no. Per il resto, ora mi metto a fare i dischi (banale una volta fatti i piani) per poi creare i cilindri.
+Finiti i cilindri io mi ritiro e resto a disposizione in caso siano necessari chiarimenti. Poi alle funzioni aggiunte ci si penserà poi quando riconsegnamo il bonus (in cui vorrei metterci le ciambelle, 
+i coni sono troppo scontati e banali). Al momento è banalmente ottimizzato e c'è un grosso margine per migliorare. Se si rende necessario creerò una BVH (utile in caso di 100+ oggetti) per mantenere il rendering
+veloce (a costo di un po' di ram in più).
