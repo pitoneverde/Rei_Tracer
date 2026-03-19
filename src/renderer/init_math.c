@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 17:53:42 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/19 18:47:48 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/19 22:55:20 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ t_math	*init_math(t_element *d)
 	else printf("MATH CREATED\n");
 	while(d->id)
 	{
-		print_t_element(d);
+		// print_t_element(d);
 		if (ft_strcmp(d->id, "C") == 0)
 		{
 			if (create_camera(&m->camera, (t_camera *)&d->value))
@@ -105,7 +105,7 @@ t_math	*init_math(t_element *d)
 				return (destroy_math(m), NULL);
 			}
 			else
-				printf("SPHERE CREATED");
+				printf("SPHERE CREATED\n");
 			i++;
 		}
 		else if (ft_strcmp(d->id, "pl") == 0 && j < m->pl_count)
@@ -122,7 +122,7 @@ t_math	*init_math(t_element *d)
 				return (destroy_math(m), NULL);
 			// }
 			else
-				printf("PLANE CREATED");
+				printf("PLANE CREATED\n");
 			j++;
 		}
 		

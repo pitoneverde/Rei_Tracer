@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g -O0 -Iinclude -Iminilibx-linux -Ilibc/include -Imath_engine/include
+CFLAGS = -Wall -Wextra -Werror -g -O3 -Iinclude -Iminilibx-linux -Ilibc/include -Imath_engine/include
 LDFLAGS = -Lminilibx-linux -lmlx -Llibc -lft_bonus -Lmath_engine/build/lib -lmath_engine -lm -lX11 -lXext
 
 NAME = miniRT

@@ -2,6 +2,7 @@
 # define MLX_MINIRT_H 1
 
 #include "mlx.h"
+#include "math_engine.h"
 
 typedef struct s_mlx_minirt
 {
@@ -15,6 +16,6 @@ typedef struct s_mlx_minirt
 	t_element		*data_file;
 }					t_mlx_minirt;
 
-void    mlx_init_windows_minirt(t_element *data_file);
+void    mlx_init_windows_minirt(t_element *data_file, t_math *math);
 
 #endif

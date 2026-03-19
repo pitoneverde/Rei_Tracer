@@ -6,13 +6,11 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 01:56:36 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/17 19:12:28 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/20 00:17:03 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "minirt_renderer.h"
-#include "geometry/camera.h"
 
 static t_camera_data	convert_camera(const t_camera *cam)
 {
@@ -30,7 +28,8 @@ static t_camera_data	convert_camera(const t_camera *cam)
 
 int	create_camera(t_camera_math *math, t_camera *cam)
 {
-	if (!math) return (1);
+	if (!math)
+		return (1);
 	t_camera_data camera_data = convert_camera(cam);
 	if (camera_init(math, camera_data))
 		return (1);

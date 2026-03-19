@@ -420,13 +420,12 @@ static void bench_mat4_look_at(void)
 {
 	t_vec3 eye    = {1,2,3};
 	t_vec3 target = {4,5,6};
-	t_vec3 up     = {0,1,0};
 	t_mat4 M;
 
 	struct timespec t1, t2;
 	clock_gettime(CLOCK_MONOTONIC, &t1);
 	for (int i = 0; i < TEST_ITERATIONS; ++i)
-		M = mat4_look_at(eye, target, up);
+		M = mat4_look_at(eye, target);
 	clock_gettime(CLOCK_MONOTONIC, &t2);
 
 	double sec = time_diff_sec(t1, t2);

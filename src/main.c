@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/17 10:09:29 by gmu               #+#    #+#             */
+/*   Updated: 2026/03/19 23:11:19 by sabruma          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 #include <math.h>
 
@@ -34,15 +46,18 @@
 // 	//if
 // 	//if
 // }
+//printf("[come e' andata: %d]\n", check_a_ok("A 0.2 255,255,255"));
 
 #include "utils/math_constants.h"
 
 int main(int argc, char **argv)
 {
-	(void)argv;
-	//printf("[come e' andata: %d]\n", check_a_ok("A 0.2 255,255,255"));
+	// init();
 	if (argc > 2)
+	{
 		PRINT_ERR("Invalid argument count: %d", argc);
+		return (1);
+	}
 	// t_element	*data_file;
 	// data_file = NULL;
 	//if (!data_file) PRINT_ERR("Malloc error: @data_file init");
@@ -53,30 +68,18 @@ int main(int argc, char **argv)
 		return (1);
 	}
 	printf("Parsing successful!\n");
-	// t_math *math = init_math(data_file);
-	// if (!math)
-	// {
-	// 	PRINT_ERR("Malloc error: failed to initialize math engine");
-	// 	free(data_file);
-	// 	return (1);
-	// }
-	mlx_init_windows_minirt(data_file);
-	
-	// data_file->id = "cy";
-	// t_cylinder *cy = (t_cylinder *)&data_file->value;
-	// cy->center = (t_point3){.x = 0.0, .y = 0.0, .z = 1.0};
-	// cy->axis = (t_vector3){.x = 0.0, .y = 0.0, .z = 1.0};
-	// cy->diameter = 14.2;
-	// cy->height = 21.42;
-	// cy->color = (t_rgb)(t_color){10, 0, 255, 0}; //parsing & manipulation
-	// cy->color = (t_rgb)(uint32_t)0x1000FF00;	//for math & minlibx pixel
-	// free(data_file);
-	
-	// if (data_file[0]->id == "cy")
-    // init();
-    // launch();
+	t_math *math = init_math(data_file);
+	if (!math)
+	{
+		PRINT_ERR("Malloc error: failed to initialize math engine");
+		free(data_file);
+		return (1);
+	}
+	// launch();
+	mlx_init_windows_minirt(data_file, math);
+
     // cleanup();
-	// destroy_math(math);
+	destroy_math(math);
 	free(data_file);
     return (0);
 }

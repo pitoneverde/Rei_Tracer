@@ -225,3 +225,10 @@ Alla fine dovrebbe esistere uno script che genera un file casuale .rt per la cor
 Finiti i cilindri io mi ritiro e resto a disposizione in caso siano necessari chiarimenti. Poi alle funzioni aggiunte ci si penserà poi quando riconsegnamo il bonus (in cui vorrei metterci le ciambelle, 
 i coni sono troppo scontati e banali). Al momento è banalmente ottimizzato e c'è un grosso margine per migliorare. Se si rende necessario creerò una BVH (utile in caso di 100+ oggetti) per mantenere il rendering
 veloce (a costo di un po' di ram in più).
+
+20/03/2026 sabruma 00:18
+Disegnato le struct che servono per i cilindri, più il loro init. Ho aggiunto anche un benchmark alla cazzo dentro mlx_init_windows_minirt per darmi un'idea di quanto pesante è il rendering.
+Con calma vedremo di ottimizzare, per ora il focus è sul consegnare il mandatory. Quasi mi spiace che abbiamo già quasi finito la parte del mandatory.
+Ho anche dato una sistemata ai benchmark (commentando la funzione con Gram-Schmidt si erano parecchio sputtanati) e un pochino di rework generale. Ne ho approfittato per cazzeggiare un po' con i file .rt
+e ho notato che sopra ad un certo numero di sfere, una parte dello schermo diventa nera completamente, non so se è per causa di una sfera nera o quasi e molto vicina alla fotocamera, o un bug strano. Però
+la forma della regione (angolo alto a sinistra) sembra un arco di ovale, quindi non saprei. Manca solo cylinder_intersect ormai e mi metto a fare netpractice fino alla nausea. Intanto vado a dormire.

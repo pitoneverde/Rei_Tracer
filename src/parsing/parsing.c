@@ -297,3 +297,14 @@ t_element *parse_input(int argc, char **argv)
 	free(s1);
 	return (elements);
 }
+
+// sample for manual init
+// data_file->id = "cy";
+// t_cylinder *cy = (t_cylinder *)&data_file->value;
+// cy->center = (t_point3){.x = 0.0, .y = 0.0, .z = 1.0};
+// cy->axis = (t_vector3){.x = 0.0, .y = 0.0, .z = 1.0};
+// cy->diameter = 14.2;
+// cy->height = 21.42;
+// cy->color = (t_rgb)(t_color){10, 0, 255, 0}; //parsing & manipulation
+// cy->color = (t_rgb)(uint32_t)0x1000FF00;	//for math & minlibx pixel
+// if (data_file[0]->id == "cy")

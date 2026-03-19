@@ -6,13 +6,11 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 20:11:23 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/19 18:38:20 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/19 23:57:58 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "minirt_renderer.h"
-#include "geometry/sphere.h"
 
 static t_sphere_data convert_sphere(const t_sphere *sp)
 {

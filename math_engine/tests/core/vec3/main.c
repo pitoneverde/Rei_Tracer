@@ -6,7 +6,7 @@ int main(void)
 	test_vec3_basic();
 	test_vec3_comp();
 	test_vec3_compare();
-	test_vec3_coordinates();
+	// test_vec3_coordinates();
 	test_vec3_create();
 	test_vec3_length();
 	test_vec3_normalize();
