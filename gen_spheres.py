@@ -15,7 +15,7 @@ def main():
     
     n = int(sys.argv[1])
     # Seed for reproducibility (optional)
-    random.seed(42)
+    # random.seed(42)
     
     # print("# Randomly generated spheres")
     for _ in range(n):

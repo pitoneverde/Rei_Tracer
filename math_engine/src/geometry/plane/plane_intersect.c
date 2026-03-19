@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 21:43:01 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/18 22:43:55 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/19 18:56:13 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,15 @@
 // 	return (false);
 // }
 
+#include <math.h>
+
 bool	plane_intersect(t_plane_math *p, t_ray ray, t_hit *hit)
 {
 	float	div;
 	float	t;
 
 	div = vec3_dot(ray.direction, p->normal);
-	if (div > 1e-6)
+	if (fabsf(div) > 1e-6)
 	{
 		t_vec3 distance = vec3_sub(p->point, ray.origin);
 		t = vec3_dot(distance, p->normal) / div;

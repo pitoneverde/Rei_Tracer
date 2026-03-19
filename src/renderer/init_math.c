@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 17:53:42 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/19 18:22:05 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/19 18:47:48 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,9 @@ static t_math	*malloc_math(t_element *data_file)
 	if (!math)
 		return (NULL);
 	count_objects(idx, 3, data_file);
+	// math->cy_count = idx[0];
 	math->sp_count = idx[1];
+	math->pl_count = idx[2];
 	printf("cylinders: %d, spheres: %d, planes: %d\n", idx[0], idx[1], idx[2]);
 	// math->cylinders = malloc(cy * sizeof(t_cylinder_math));
 	// if (!math->cylinders)
@@ -57,6 +59,7 @@ static t_math	*malloc_math(t_element *data_file)
 	math->planes = malloc(idx[2] * sizeof(t_plane_math));
 	if (!math->planes)
 		return (destroy_math(math), NULL);
+	else printf("PLANES MALLOC'ed\n");
 	return (math);
 }
 

@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 18:26:24 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/18 22:12:56 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/19 18:47:11 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_math
 	t_plane_math	*planes;
 	int				sp_count;
 	int				pl_count;
+	// int				cy_count;
 	// t_cylinder_math	*cylinders;
 }	t_math;
 

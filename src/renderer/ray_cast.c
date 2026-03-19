@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 17:08:50 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/19 18:20:58 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/19 18:25:22 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_rgb	ray_cast(const t_ray ray, t_math *math)
 	// basic checkerboard shader to give some volume
 	if (hit.obj == OBJ_SPHERE)
 	{
-		float scale = 4.0f;
+		float scale = 5.0f;
 		t_vec2 tex;
 		tex.x = (1 + atan2(hit.normal.z, hit.normal.x) / MATH_PI) * 0.5;
         tex.y = acosf(hit.normal.y) / MATH_PI;

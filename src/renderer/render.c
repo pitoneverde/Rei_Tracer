@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 18:58:38 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/19 18:21:18 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/19 18:38:01 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ void	render_minirt(t_mlx_minirt *mlx)
 	t_math *math = init_math(mlx->data_file);
 	if (!math)
 		return;
-	printf("STARTED RENDERING");
+	printf("STARTED RENDERING\n");
 	fflush(stdout);
 	t_ray	ray;
 	// // print_cam(cam);
 	for (int y = 0; y < IMG_HEIGHT; ++y)
 	{
-		printf("Rendering scanline: %d\n", y);
-		fflush(stdout);
+		// printf("Rendering scanline: %d\n", y);
+		// fflush(stdout);
 		for (int x = 0; x < IMG_WIDTH; ++x)
 		{
 			ray = camera_raygen(&math->camera, (t_pixel){.x = x, .y = y});
