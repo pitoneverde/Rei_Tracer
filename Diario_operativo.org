@@ -232,3 +232,6 @@ Con calma vedremo di ottimizzare, per ora il focus è sul consegnare il mandator
 Ho anche dato una sistemata ai benchmark (commentando la funzione con Gram-Schmidt si erano parecchio sputtanati) e un pochino di rework generale. Ne ho approfittato per cazzeggiare un po' con i file .rt
 e ho notato che sopra ad un certo numero di sfere, una parte dello schermo diventa nera completamente, non so se è per causa di una sfera nera o quasi e molto vicina alla fotocamera, o un bug strano. Però
 la forma della regione (angolo alto a sinistra) sembra un arco di ovale, quindi non saprei. Manca solo cylinder_intersect ormai e mi metto a fare netpractice fino alla nausea. Intanto vado a dormire.
+
+20/03/2026 gmu 18:01
+Ho tolto i print di debug ai parser

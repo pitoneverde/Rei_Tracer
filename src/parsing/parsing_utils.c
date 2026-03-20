@@ -6,7 +6,6 @@ void	print_debug_matrix(char **matrix)
 	int	i;
 
 	i = 0;
-	printf("debug matrix\n");
 	while(matrix[i])
 	{
 		printf("%d [%s]\n",i , matrix[i]);

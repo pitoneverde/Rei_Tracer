@@ -3,16 +3,12 @@
 
 bool	check_matrix_data_is_good(char **matrix)
 {
-	print_debug_matrix(matrix);
 	if (!check_ambient(matrix[0]))
 		return (false);
-	printf("La riga A va bene\n");
 	if (!check_camera(matrix[1]))
 		return (false);
-	printf("La riga C va bene\n");
 	if (!check_light(matrix[2]))
 		return (false);
-	printf("La riga L va bene\n");
 	int	i = 3;
 	while (matrix[i] != NULL)
 	{

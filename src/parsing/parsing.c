@@ -234,7 +234,6 @@ bool	parse_matrix(char *s1)
 
 	matrix = ft_split(s1, '\n');
 	matrix = matrix_compress(matrix);
-	print_debug_matrix(matrix); // da togliere
 	if ((mtx_count((void **)matrix) < 4) || (matrix_strlen_check(matrix)))
 	{
 		mtxfree_str(matrix);
@@ -261,7 +260,6 @@ bool	readable_file_and_check_input(char *s1)
 {
 
 	s1 = compress_space(s1);
-	printf("%s", s1); // per debug
 	if (!check_split(s1))
 	{
 		PRINT_ERR("Error: too few items or missing data\n");

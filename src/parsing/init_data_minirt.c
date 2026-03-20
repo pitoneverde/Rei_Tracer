@@ -21,7 +21,6 @@ void	init_data_camera(char *s, t_element *element)
 	char	**rgb = ft_split(matrix[2], ',');
 
 	element->id = "C";
-	//print_debug_matrix(coordinates); // da togliere
 	t_camera *cam = (t_camera *)&(element->value);
 	//riempi camera cam->fov....
 
@@ -109,11 +108,9 @@ t_element *init_data_minirt(char *s)
 	t_element *elements = malloc(sizeof(t_element) * (mtx_count((void **)matrix) + 1));
 	if (!elements)
 		return (NULL);
-	// elements->size = mtx_count((void **)matrix);
 	init_data_ambient(matrix[i++], &elements[0]);
 	init_data_camera(matrix[i++], &elements[1]);
 	init_data_light(matrix[i++], &elements[2]);
-	//... e cosi via per gli altri elementi
 
 	while (matrix[i] != NULL)
 	{

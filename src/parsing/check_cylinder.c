@@ -28,7 +28,6 @@ bool	check_cylinder(char *str)
 	}
 	char	**matrix;
 	matrix = ft_split(str, ' ');
-	print_debug_matrix(matrix);
 	if (ft_strcmp(matrix[0], "cy"))
 	{
 		PRINT_ERR("Error: missing cy\n");
