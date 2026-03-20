@@ -238,3 +238,6 @@ Ho tolto i print di debug ai parser
 
 20/03/2026 gmu 18:27
 Modificato per togliere il leak
+
+20/03/2026 sabruma 20:18
+Iniziata la routine di cylinder_intersect con formula analitica, segnato una bozza delle intersezioni con le basi del cilindro.
