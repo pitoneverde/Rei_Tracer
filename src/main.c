@@ -68,18 +68,10 @@ int main(int argc, char **argv)
 		return (1);
 	}
 	printf("Parsing successful!\n");
-	t_math *math = init_math(data_file);
-	if (!math)
-	{
-		PRINT_ERR("Malloc error: failed to initialize math engine");
-		free(data_file);
-		return (1);
-	}
 	// launch();
-	mlx_init_windows_minirt(data_file, math);
+	mlx_init_windows_minirt(data_file);
 
     // cleanup();
-	destroy_math(math);
 	free(data_file);
     return (0);
 }

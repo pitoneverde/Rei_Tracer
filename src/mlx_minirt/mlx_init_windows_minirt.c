@@ -20,6 +20,7 @@ int	free_all_minirt(t_mlx_minirt *mlx)
 	mlx_destroy_image(mlx->voidptr_mlx, mlx->voidptr_img);
 	mlx_destroy_window(mlx->voidptr_mlx, mlx->voidptr_win);
 	mlx_destroy_display(mlx->voidptr_mlx);
+	destroy_math(mlx->math);
 	free(mlx->voidptr_mlx);
 	exit(0);
 }
@@ -42,9 +43,16 @@ double time_diff_sec(struct timespec start, struct timespec end)
 
 // minilibx e altre cose
 #define N_RUNS 5
-void    mlx_init_windows_minirt(t_element *data_file, t_math *math)
+void    mlx_init_windows_minirt(t_element *data_file)
 {
 	t_mlx_minirt	mlx;
+	mlx.math = init_math(data_file);
+	if (!mlx.math)
+	{
+		PRINT_ERR("Malloc error: failed to initialize math engine");
+		free(data_file);
+		return ;
+	}
 	mlx.data_file = data_file;
 	// cose assolutamente obbligatorie per mlx
 	mlx.voidptr_mlx = mlx_init();
@@ -70,7 +78,7 @@ void    mlx_init_windows_minirt(t_element *data_file, t_math *math)
 	for (int run = 0; run < N_RUNS; run++) {
 		struct timespec t1, t2;
 		clock_gettime(CLOCK_MONOTONIC, &t1);
-		render_minirt(&mlx, math);
+		render_minirt(&mlx, mlx.math);
 		clock_gettime(CLOCK_MONOTONIC, &t2);
 		total_time += time_diff_sec(t1, t2) * 1000;
 	}

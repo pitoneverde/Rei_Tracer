@@ -14,8 +14,9 @@ typedef struct s_mlx_minirt
 	int				int_line_length;
 	int				int_endian;
 	t_element		*data_file;
+	t_math			*math;
 }					t_mlx_minirt;
 
-void    mlx_init_windows_minirt(t_element *data_file, t_math *math);
+void    mlx_init_windows_minirt(t_element *data_file);
 
 #endif

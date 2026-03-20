@@ -235,3 +235,6 @@ la forma della regione (angolo alto a sinistra) sembra un arco di ovale, quindi 
 
 20/03/2026 gmu 18:01
 Ho tolto i print di debug ai parser
+
+20/03/2026 gmu 18:27
+Modificato per togliere il leak
