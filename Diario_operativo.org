@@ -241,3 +241,6 @@ Modificato per togliere il leak
 
 20/03/2026 sabruma 20:18
 Iniziata la routine di cylinder_intersect con formula analitica, segnato una bozza delle intersezioni con le basi del cilindro.
+
+21/03/2026 sabruma 21:57
+Finita la formula di cylider_intersect, da testare perche' per qualche motivo non si vede nulla.
