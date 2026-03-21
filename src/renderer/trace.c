@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 10:21:27 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/19 18:40:23 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/21 23:35:47 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,16 @@ bool	trace(const t_ray ray, const t_math *math, t_hit *near, int *idx)
 	{
 		hit.t = INFINITY;
 		if (plane_intersect(&math->planes[i++], ray, &hit) && hit.t < near->t)
+		{
+			*near = hit;
+			*idx = i;
+		}
+	}
+	i = 0;
+	while (i < math->cy_count)
+	{
+		hit.t = INFINITY;
+		if (cylinder_intersect(&math->cylinders[i++], ray, &hit) && hit.t < near->t)
 		{
 			*near = hit;
 			*idx = i;

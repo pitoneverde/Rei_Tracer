@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 17:53:42 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/19 22:55:20 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/21 23:15:19 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@ static t_math	*malloc_math(t_element *data_file)
 	if (!math)
 		return (NULL);
 	count_objects(idx, 3, data_file);
-	// math->cy_count = idx[0];
+	math->cy_count = idx[0];
 	math->sp_count = idx[1];
 	math->pl_count = idx[2];
 	printf("cylinders: %d, spheres: %d, planes: %d\n", idx[0], idx[1], idx[2]);
-	// math->cylinders = malloc(cy * sizeof(t_cylinder_math));
-	// if (!math->cylinders)
-	// 	return (destroy_math(math), NULL);
+	math->cylinders = malloc(math->cy_count * sizeof(t_cylinder_math));
+	if (!math->cylinders)
+		return (destroy_math(math), NULL);
 	math->spheres = malloc(idx[1] * sizeof(t_sphere_math));
 	if (!math->spheres)
 		return (destroy_math(math), NULL);
@@ -70,6 +70,7 @@ t_math	*init_math(t_element *d)
 	t_math	*m;
 	int		i = 0;
 	int		j = 0;
+	int		k = 0;
 	if (!d)
 		return (NULL);
 	m = malloc_math(d);
@@ -125,7 +126,23 @@ t_math	*init_math(t_element *d)
 				printf("PLANE CREATED\n");
 			j++;
 		}
-		
+		else if (ft_strcmp(d->id, "cy") == 0 && k < m->cy_count)
+		{
+			if (create_cylinder(&m->cylinders[k], (t_cylinder *)&d->value))
+				// {
+				// 	printf("SPHERE @%p:\n", &m->spheres[i]);
+				// 	printf("i: %d\n", i);
+				// 	printf("DATA:\n");
+				// 	vec3_print("center", m->spheres[i].center);
+				// 	vec3_print("color", m->spheres[i].color);
+				// 	printf("radius: %7.3f\n", m->spheres[i].radius);
+				// 	fflush(stdout);
+				return (destroy_math(m), NULL);
+			// }
+			else
+				printf("CYLINDER CREATED\n");
+			j++;
+		}
 		// if (ft_strcmp(d->id, "A") == 0)
 		// 	if (create_ambient(&m->ambient, (t_ambient_lighting *)&d->value))
 		// 		return (destroy_math(m), NULL);

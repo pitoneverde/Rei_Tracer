@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 19:48:43 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/21 21:55:40 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/21 23:42:06 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,11 @@ bool	cylinder_intersect(t_cylinder_math *c, t_ray ray, t_hit *hit)
 		hit->t = cy_eq.x0;
 		hit->point = ray_at(ray, hit->t);
 		float h = vec3_dot(vec3_sub(hit->point, c->disk_down.point), c->axis);
-		if (h > c->half_height || h < -c->half_height)
+		if (h <0.0f || h > c->height)
 			return (false);
 		hit->color = c->color;
 		hit->ray = ray;
-		hit->normal = vec3_add(delta_rej, vec3_scale(dir_rej, hit->t));
+		hit->normal = vec3_normalize(vec3_add(delta_rej, vec3_scale(dir_rej, hit->t)));
 		hit->obj = OBJ_CYLINDER;
 	}
 	return (true);
