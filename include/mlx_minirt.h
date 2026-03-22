@@ -1,22 +1,34 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mlx_minirt.h                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/23 00:01:04 by sabruma           #+#    #+#             */
+/*   Updated: 2026/03/23 00:01:05 by sabruma          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MLX_MINIRT_H
 # define MLX_MINIRT_H 1
 
-#include "mlx.h"
-#include "math_engine.h"
+# include "mlx.h"
+# include "math_engine.h"
 
 typedef struct s_mlx_minirt
 {
-	void			*voidptr_mlx;
-	void			*voidptr_win;
-	void			*voidptr_img;
-	char			*charptr_addr;
-	int				int_bits_per_pixel;
-	int				int_line_length;
-	int				int_endian;
-	t_element		*data_file;
-	t_math			*math;
-}					t_mlx_minirt;
+	void		*voidptr_mlx;
+	void		*voidptr_win;
+	void		*voidptr_img;
+	char		*charptr_addr;
+	int			int_bits_per_pixel;
+	int			int_line_length;
+	int			int_endian;
+	t_element	*data_file;
+	t_math		*math;
+}	t_mlx_minirt;
 
-void    mlx_init_windows_minirt(t_element *data_file);
+void	mlx_init_windows_minirt(t_element *data_file);
 
 #endif

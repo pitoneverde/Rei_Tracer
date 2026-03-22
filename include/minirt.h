@@ -1,20 +1,20 @@
 #ifndef MINIRT_H
 # define MINIRT_H 1
-#define _GNU_SOURCE
+# define _GNU_SOURCE
 
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <fcntl.h>
-#include <stdint.h>
-#include <stdbool.h>
-#include <errno.h>
-#include "libft.h"
-#include "math_engine.h"
-#include "minirt_data.h"
-#include "parsing_minirt.h"
-#include "mlx_minirt.h"
-#include "minirt_renderer.h"
+# include <unistd.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include <fcntl.h>
+# include <stdint.h>
+# include <stdbool.h>
+# include <errno.h>
+# include "libft.h"
+# include "math_engine.h"
+# include "minirt_data.h"
+# include "parsing_minirt.h"
+# include "mlx_minirt.h"
+# include "minirt_renderer.h"
 
 // Error: message
 #define PRINT_ERR(fmt, ...) \
