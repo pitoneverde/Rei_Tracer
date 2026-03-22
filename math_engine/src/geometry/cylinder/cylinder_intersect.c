@@ -6,13 +6,26 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 19:48:43 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/21 23:42:06 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/22 18:44:14 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 #include "geometry/cylinder.h"
 #include "geometry/intersection.h"
+
+static bool disk_intersect(t_plane_math *d, t_ray ray, t_hit *hit, float r_sq)
+{
+	if (plane_intersect(d, ray, hit))
+	{
+		float d_sq = vec3_distance_sq(ray_at(ray, hit->t), d->point);
+		if (d_sq > r_sq)
+			return (false);
+		hit->obj = OBJ_CYLINDER;
+		return (true);
+	}
+	return (false);
+}
 
 bool	cylinder_intersect(t_cylinder_math *c, t_ray ray, t_hit *hit)
 {
@@ -22,21 +35,15 @@ bool	cylinder_intersect(t_cylinder_math *c, t_ray ray, t_hit *hit)
 
 	up.t = INFINITY;
 	down.t = INFINITY;
-	if (plane_intersect(&c->disk_down, ray, &down))
+	if (disk_intersect(&c->disk_down, ray, &down, c->radius_sq))
 	{
-		float d_sq = vec3_distance_sq(ray_at(ray, down.t), c->disk_down.point);
-		if (d_sq > c->radius_sq)
-			return (false);
-		*hit = down;
-		hit->obj = OBJ_CYLINDER;
+		if (down.t < hit->t)
+			*hit = down;
 	}
-	if (plane_intersect(&c->disk_up, ray, &up) && up.t < down.t)
+	if (disk_intersect(&c->disk_up, ray, &up, c->radius_sq))
 	{
-		float d_sq = vec3_distance_sq(ray_at(ray, up.t), c->disk_up.point);
-		if (d_sq > c->radius_sq)
-			return (false);
-		*hit = up;
-		hit->obj = OBJ_CYLINDER;
+		if (up.t < hit->t)
+			*hit = up;
 	}
 	// cylinder side formula test
 	t_vec3	delta_rej = vec3_reject(vec3_sub(ray.origin, c->disk_down.point), c->axis);

@@ -5,11 +5,11 @@
 #include "mlx_minirt.h"
 #include "math_engine.h"
 
-// #define IMG_WIDTH 1368
-// #define IMG_HEIGHT 786
+#define IMG_WIDTH 1368
+#define IMG_HEIGHT 786
 
-#define IMG_WIDTH 400
-#define IMG_HEIGHT 300
+// #define IMG_WIDTH 400
+// #define IMG_HEIGHT 300
 
 #ifndef T_PIXEL_DEFINED
 # define T_PIXEL_DEFINED

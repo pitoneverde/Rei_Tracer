@@ -71,18 +71,18 @@ void    mlx_init_windows_minirt(t_element *data_file)
 	// 	return;
 
 	// print_t_element_array_sentinel(data_file); // da togliere, solo per debug
-	// render_minirt(&mlx, math);
+	render_minirt(&mlx, mlx.math);
 
 	// ===== BENCH RENDERING =====
-	double total_time = 0.0;
-	for (int run = 0; run < N_RUNS; run++) {
-		struct timespec t1, t2;
-		clock_gettime(CLOCK_MONOTONIC, &t1);
-		render_minirt(&mlx, mlx.math);
-		clock_gettime(CLOCK_MONOTONIC, &t2);
-		total_time += time_diff_sec(t1, t2) * 1000;
-	}
-	printf("Average over %d runs: %.2f ms\n", N_RUNS, total_time / N_RUNS);
+	// double total_time = 0.0;
+	// for (int run = 0; run < N_RUNS; run++) {
+	// 	struct timespec t1, t2;
+	// 	clock_gettime(CLOCK_MONOTONIC, &t1);
+	// 	render_minirt(&mlx, mlx.math);
+	// 	clock_gettime(CLOCK_MONOTONIC, &t2);
+	// 	total_time += time_diff_sec(t1, t2) * 1000;
+	// }
+	// printf("Average over %d runs: %.2f ms\n", N_RUNS, total_time / N_RUNS);
 	
 	mlx_put_image_to_window(mlx.voidptr_mlx, mlx.voidptr_win, mlx.voidptr_img, 0, 0);
 	printf("RENDERED\n");
