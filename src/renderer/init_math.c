@@ -6,63 +6,18 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 17:53:42 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/21 23:15:19 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/23 00:26:36 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt_renderer.h"
 #include "strings.h"
 
-static void	count_objects(int *idx, int len, t_element *d)
-{
-	int	i;
+static void		count_objects(int *idx, int len, t_element *d);
+static t_math	*malloc_math(t_element *data_file);
 
-	i = 0;
-	while (i < len)
-		idx[i++] = 0;
-	printf("cylinders: %d, spheres: %d, planes: %d\n", idx[0], idx[1], idx[2]);
-	while(d->id)
-	{
-		if (ft_strcmp(d->id, "cy") == 0)
-			idx[0]++;
-		if (ft_strcmp(d->id, "sp") == 0)
-			idx[1]++;
-		if (ft_strcmp(d->id, "pl") == 0)
-			idx[2]++;
-		d++;		
-	}
-	(void)d;
-	(void)i;
-	(void)len;
-}
-
-static t_math	*malloc_math(t_element *data_file)
-{
-	t_math	*math;
-	int	idx[3];
-
-	math = calloc(1, sizeof(t_math));
-	if (!math)
-		return (NULL);
-	count_objects(idx, 3, data_file);
-	math->cy_count = idx[0];
-	math->sp_count = idx[1];
-	math->pl_count = idx[2];
-	printf("cylinders: %d, spheres: %d, planes: %d\n", idx[0], idx[1], idx[2]);
-	math->cylinders = malloc(math->cy_count * sizeof(t_cylinder_math));
-	if (!math->cylinders)
-		return (destroy_math(math), NULL);
-	math->spheres = malloc(idx[1] * sizeof(t_sphere_math));
-	if (!math->spheres)
-		return (destroy_math(math), NULL);
-	else printf("SPHERES MALLOC'ed\n");
-	math->planes = malloc(idx[2] * sizeof(t_plane_math));
-	if (!math->planes)
-		return (destroy_math(math), NULL);
-	else printf("PLANES MALLOC'ed\n");
-	return (math);
-}
-
+// TODO: if-elif cascade should be extracted each to its own function
+// for id == "A" and id == "L", keep utils in this file, the others go to utils.c
 // Assumes that data_file doesn't contain elements with a NULL id
 // Follows manual RAII for each entity
 t_math	*init_math(t_element *d)
@@ -76,81 +31,83 @@ t_math	*init_math(t_element *d)
 	m = malloc_math(d);
 	if (!m)
 		return (NULL);
-	else printf("MATH CREATED\n");
 	while(d->id)
 	{
-		// print_t_element(d);
 		if (ft_strcmp(d->id, "C") == 0)
 		{
 			if (create_camera(&m->camera, (t_camera *)&d->value))
-			// {
-			// 	vec3_print("viewpoint", ((t_camera *)&d->value)->viewpoint);
-			// 	vec3_print("orientation", ((t_camera *)&d->value)->orientation);
-			// 	// mat4_print("cam to world", m->camera->cam_to_world);
 				return (destroy_math(m), NULL);
-			// }
-			else
-				printf("CAM CREATED\n");
 		}
 		else if (ft_strcmp(d->id, "sp") == 0 && i < m->sp_count)
 		{
 			if (create_sphere(&m->spheres[i], (t_sphere *)&d->value))
-			{
-				printf("SPHERE @%p:\n", &m->spheres[i]);
-				printf("i: %d\n", i);
-				printf("DATA:\n");
-				vec3_print("center", m->spheres[i].center);
-				vec3_print("color", m->spheres[i].color);
-				printf("radius: %7.3f\n", m->spheres[i].radius);
-				fflush(stdout);
 				return (destroy_math(m), NULL);
-			}
-			else
-				printf("SPHERE CREATED\n");
 			i++;
 		}
 		else if (ft_strcmp(d->id, "pl") == 0 && j < m->pl_count)
 		{
 			if (create_plane(&m->planes[j], (t_plane *)&d->value))
-			// {
-			// 	printf("SPHERE @%p:\n", &m->spheres[i]);
-			// 	printf("i: %d\n", i);
-			// 	printf("DATA:\n");
-			// 	vec3_print("center", m->spheres[i].center);
-			// 	vec3_print("color", m->spheres[i].color);
-			// 	printf("radius: %7.3f\n", m->spheres[i].radius);
-			// 	fflush(stdout);
 				return (destroy_math(m), NULL);
-			// }
-			else
-				printf("PLANE CREATED\n");
 			j++;
 		}
 		else if (ft_strcmp(d->id, "cy") == 0 && k < m->cy_count)
 		{
-			if (create_cylinder(&m->cylinders[k], (t_cylinder *)&d->value))
-				// {
-				// 	printf("SPHERE @%p:\n", &m->spheres[i]);
-				// 	printf("i: %d\n", i);
-				// 	printf("DATA:\n");
-				// 	vec3_print("center", m->spheres[i].center);
-				// 	vec3_print("color", m->spheres[i].color);
-				// 	printf("radius: %7.3f\n", m->spheres[i].radius);
-				// 	fflush(stdout);
+			if (create_cylinder(&m->cys[k], (t_cylinder *)&d->value))
 				return (destroy_math(m), NULL);
-			// }
-			else
-				printf("CYLINDER CREATED\n");
 			j++;
 		}
 		// if (ft_strcmp(d->id, "A") == 0)
-		// 	if (create_ambient(&m->ambient, (t_ambient_lighting *)&d->value))
+		// 	if (create_ambient(&m->ambient, (t_ambient *)&d->value))
 		// 		return (destroy_math(m), NULL);
 		// if (ft_strcmp(d->id, "L") == 0)
-		// 	if (create_light(&m->ambient, (t_ambient_lighting *)&d->value))
+		// 	if (create_light(&m->light, (t_light *)&d->value))
 		// 		return (destroy_math(m), NULL);
-		fflush(stdout);
 		d++;
 	}
 	return (m);
+}
+
+static void	count_objects(int *idx, int len, t_element *d)
+{
+	int	i;
+
+	i = 0;
+	while (i < len)
+		idx[i++] = 0;
+	while (d->id)
+	{
+		if (ft_strcmp(d->id, "cy") == 0)
+			idx[0]++;
+		if (ft_strcmp(d->id, "sp") == 0)
+			idx[1]++;
+		if (ft_strcmp(d->id, "pl") == 0)
+			idx[2]++;
+		d++;
+	}
+}
+
+static t_math	*malloc_math(t_element *data_file)
+{
+	t_math	*math;
+	int		idx[3];
+
+	if (!data_file)
+		return (NULL);
+	math = calloc(1, sizeof(t_math));
+	if (!math)
+		return (NULL);
+	count_objects(idx, 3, data_file);
+	math->cy_count = idx[0];
+	math->sp_count = idx[1];
+	math->pl_count = idx[2];
+	math->cys = malloc(idx[0] * sizeof(t_cylinder_math));
+	if (!math->cys)
+		return (destroy_math(math), NULL);
+	math->spheres = malloc(idx[1] * sizeof(t_sphere_math));
+	if (!math->spheres)
+		return (destroy_math(math), NULL);
+	math->planes = malloc(idx[2] * sizeof(t_plane_math));
+	if (!math->planes)
+		return (destroy_math(math), NULL);
+	return (math);
 }

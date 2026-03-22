@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 18:58:38 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/19 22:51:49 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/23 00:51:39 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,23 @@ static void	put_pixel(t_mlx_minirt *mlx, int x, int y, t_rgb color);
 
 void	render_minirt(t_mlx_minirt *mlx, t_math *math)
 {
-	// printf("STARTED RENDERING\n");
-	// fflush(stdout);
+	int		y;
+	int		x;
 	t_ray	ray;
-	for (int y = 0; y < IMG_HEIGHT; ++y)
+	t_rgb	col;
+
+	y = 0;
+	while (y < IMG_HEIGHT)
 	{
-		// printf("Rendering scanline: %d\n", y);
-		// fflush(stdout);
-		for (int x = 0; x < IMG_WIDTH; ++x)
+		x = 0;
+		while (x < IMG_WIDTH)
 		{
 			ray = camera_raygen(&math->camera, (t_pixel){.x = x, .y = y});
-			t_rgb col = ray_cast(ray, math);
+			col = ray_cast(ray, math);
 			put_pixel(mlx, x, y, col);
+			x++;
 		}
-		// mlx_put_image_to_window(mlx->voidptr_mlx, mlx->voidptr_win, mlx->voidptr_img, 0, 0);
+		y++;
 	}
 }
 
@@ -37,6 +40,6 @@ static void	put_pixel(t_mlx_minirt *mlx, int x, int y, t_rgb color)
 {
 	char	*dst;
 
-	dst = mlx->charptr_addr + (y * mlx->int_line_length + x * (mlx->int_bits_per_pixel / 8));
+	dst = mlx->addr + (y * mlx->line_len + x * (mlx->bpp / 8));
 	*(uint32_t *)dst = color.hex;
 }

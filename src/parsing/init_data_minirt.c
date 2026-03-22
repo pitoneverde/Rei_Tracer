@@ -7,7 +7,7 @@ void	init_data_ambient(char *s, t_element *element)
 	char	**rgb = ft_split(matrix[2], ',');
 
 	element->id = "A";
-	t_ambient_lighting *ambient = (t_ambient_lighting *)&(element->value);
+	t_ambient *ambient = (t_ambient *)&(element->value);
 	ambient->brightness = atof(matrix[1]);
 	ambient->color = rgb_new((uint8_t)ft_atoi(rgb[0]), (uint8_t)ft_atoi(rgb[1]), (uint8_t)ft_atoi(rgb[2]));
 	mtxfree_str(matrix);

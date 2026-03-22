@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 23:56:14 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/20 00:16:34 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/23 00:04:48 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,11 @@ static t_cylinder_data	convert_cylinder(t_cylinder *cylinder)
 
 int	create_cylinder(t_cylinder_math *math, t_cylinder *cylinder)
 {
+	t_cylinder_data	cylinder_data;
+
 	if (!math)
 		return (1);
-	t_cylinder_data	cylinder_data = convert_cylinder(cylinder);
+	cylinder_data = convert_cylinder(cylinder);
 	if (cylinder_init(math, cylinder_data))
 		return (1);
 	return (0);

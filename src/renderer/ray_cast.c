@@ -6,31 +6,33 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 17:08:50 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/19 18:25:22 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/23 00:43:36 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt_renderer.h"
 #include <math.h>
 
-static	t_rgb	vec3_to_rgb(t_vec3 color)
+static t_rgb	vec3_to_rgb(t_vec3 color)
 {
-	uint8_t r;
-	uint8_t g;
-	uint8_t b;
+	uint8_t		r;
+	uint8_t		g;
+	uint8_t		b;
+	uint32_t	hex;
 
 	r = (uint8_t)clamp(color.x, 0.0f, 255.0f);
 	g = (uint8_t)clamp(color.y, 0.0f, 255.0f);
 	b = (uint8_t)clamp(color.z, 0.0f, 255.0f);
-	uint32_t hex = (r << 16) | (g << 8) | b;
+	hex = (r << 16) | (g << 8) | b;
 	return ((t_rgb){.hex = hex});
 }
 
-static inline t_vec3 vec3_mix(t_vec3 a, t_vec3 b, float val)
+// { return a * (1 - mixValue) + b * mixValue; }
+static inline t_vec3	vec3_mix(t_vec3 a, t_vec3 b, float val)
 {
 	return (vec3_add(vec3_scale(a, 1.0f - val), vec3_scale(b, val)));
 }
-// { return a * (1 - mixValue) + b * mixValue; }
+
 // here go shaders calls and texture mappings
 t_rgb	ray_cast(const t_ray ray, t_math *math)
 {
