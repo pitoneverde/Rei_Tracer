@@ -248,3 +248,7 @@ Finita la formula di cylider_intersect, da testare perche' per qualche motivo no
 21/03/2026 sabruma 23:45
 Avevo dimenticato di richiamare la routine cylinder_intersect, e' buggato ma funziona. Ho da fixare domani la parte della superficie laterale perche' e' tipo una linea e basta.
 Per il resto tutto ok, dovrei riuscire entro domani/lunedi' a finire, aspetto le shader.
+
+23/03/2026 sabruma 01:05
+Norminettato tutto meno che color, parsing, math_constants (escludendo la cartella dei test di math engine e il suo header). Ufficialmente la geometria è funzionante correttamente, non mi pare che si rompa.
+Domani con calma inizio i cpp e resto a disposizione in caso servano chiarimenti e/o aiuto nello sviluppo.

@@ -6,13 +6,13 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 21:42:59 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/18 22:02:06 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/23 01:04:03 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "geometry/plane.h"
 
-int		plane_init(t_plane_math *pl, t_plane_data data)
+int	plane_init(t_plane_math *pl, t_plane_data data)
 {
 	if (!pl)
 		return (1);

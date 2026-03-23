@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 10:01:42 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/18 18:48:01 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/23 01:04:22 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 // a = 1 if ray.direction is normalized
 bool	sphere_intersect(t_sphere_math *s, t_ray ray, t_hit *hit)
 {
-	t_quadratic	sphere_eq;
-	t_vec3		distance;
+	t_quad	sphere_eq;
+	t_vec3	distance;
 
 	distance = vec3_sub(ray.origin, s->center);
 	sphere_eq.a = vec3_length_sq(ray.direction);

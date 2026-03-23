@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 18:22:26 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/18 18:26:13 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/22 23:30:10 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,15 @@ typedef struct s_hit
 }	t_hit;
 
 // quadratic equation: ax² + bx + c = 0
-typedef struct s_quadratic
+typedef struct s_quad
 {
 	float	a;
 	float	b;
 	float	c;
 	float	x0;
 	float	x1;
-}	t_quadratic;
+}	t_quad;
 
-bool	solve_quadratic(t_quadratic *eq);
+bool	solve_quadratic(t_quad *eq);
 
 #endif

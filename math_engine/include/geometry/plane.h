@@ -6,15 +6,15 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 18:25:22 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/18 22:02:09 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/23 00:57:14 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PLANE_H
 # define PLANE_H
 
-#include "core/vec3.h"
-#include "geometry/intersection.h"
+# include "core/vec3.h"
+# include "geometry/intersection.h"
 
 typedef struct s_plane_math
 {

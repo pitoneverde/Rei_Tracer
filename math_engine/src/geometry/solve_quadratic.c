@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 09:52:39 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/18 18:48:46 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/22 23:30:09 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "utils/common.h"
 #include <math.h>
 
-bool	solve_quadratic(t_quadratic *eq)
+bool	solve_quadratic(t_quad *eq)
 {
 	float	delta;
 	float	q;

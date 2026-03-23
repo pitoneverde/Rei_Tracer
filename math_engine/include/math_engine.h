@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 18:26:24 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/19 22:22:19 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/23 00:17:12 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct s_math
 	// t_light_math	*lights;
 	t_sphere_math	*spheres;
 	t_plane_math	*planes;
-	t_cylinder_math	*cylinders;
+	t_cylinder_math	*cys;	//aka cylinder because of norminette
 	int				sp_count;
 	int				pl_count;
 	int				cy_count;
