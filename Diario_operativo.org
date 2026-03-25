@@ -252,3 +252,6 @@ Per il resto tutto ok, dovrei riuscire entro domani/lunedi' a finire, aspetto le
 23/03/2026 sabruma 01:05
 Norminettato tutto meno che color, parsing, math_constants (escludendo la cartella dei test di math engine e il suo header). Ufficialmente la geometria è funzionante correttamente, non mi pare che si rompa.
 Domani con calma inizio i cpp e resto a disposizione in caso servano chiarimenti e/o aiuto nello sviluppo.
+
+25/03/2026 sabruma 23:52
+Aggiunto la strutture di t_light* nell'engine, e gestita l'inizializzazione, da prendere come esempio per fare la parte di t_ambient* (la procedura è la stessa identica di questo commit).

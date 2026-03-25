@@ -22,9 +22,10 @@ SRCS = $(SRC_DIR)/main.c \
 		$(SRC_DIR)/renderer/init_math.c \
 		$(SRC_DIR)/renderer/destroy_math.c \
 		$(SRC_DIR)/convert/convert_camera.c \
-		$(SRC_DIR)/convert/convert_sphere.c \
-		$(SRC_DIR)/convert/convert_plane.c \
 		$(SRC_DIR)/convert/convert_cylinder.c \
+		$(SRC_DIR)/convert/convert_light.c \
+		$(SRC_DIR)/convert/convert_plane.c \
+		$(SRC_DIR)/convert/convert_sphere.c \
 		$(SRC_DIR)/utils/utils.c \
 		$(SRC_DIR)/mlx_minirt/mlx_init_windows_minirt.c\
 		$(SRC_DIR)/mlx_minirt/debug_mlx_init_windows_minirt.c

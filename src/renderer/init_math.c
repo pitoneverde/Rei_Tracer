@@ -6,12 +6,13 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 17:53:42 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/23 00:26:36 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/25 23:51:23 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt_renderer.h"
 #include "strings.h"
+#include "memory.h"
 
 static void		count_objects(int *idx, int len, t_element *d);
 static t_math	*malloc_math(t_element *data_file);
@@ -38,6 +39,11 @@ t_math	*init_math(t_element *d)
 			if (create_camera(&m->camera, (t_camera *)&d->value))
 				return (destroy_math(m), NULL);
 		}
+		if (ft_strcmp(d->id, "L") == 0)
+		{
+			if (create_light(&m->light, (t_light *)&d->value))
+				return (destroy_math(m), NULL);
+		}
 		else if (ft_strcmp(d->id, "sp") == 0 && i < m->sp_count)
 		{
 			if (create_sphere(&m->spheres[i], (t_sphere *)&d->value))
@@ -58,9 +64,6 @@ t_math	*init_math(t_element *d)
 		}
 		// if (ft_strcmp(d->id, "A") == 0)
 		// 	if (create_ambient(&m->ambient, (t_ambient *)&d->value))
-		// 		return (destroy_math(m), NULL);
-		// if (ft_strcmp(d->id, "L") == 0)
-		// 	if (create_light(&m->light, (t_light *)&d->value))
 		// 		return (destroy_math(m), NULL);
 		d++;
 	}
@@ -93,7 +96,7 @@ static t_math	*malloc_math(t_element *data_file)
 
 	if (!data_file)
 		return (NULL);
-	math = calloc(1, sizeof(t_math));
+	math = ft_calloc(1, sizeof(t_math));
 	if (!math)
 		return (NULL);
 	count_objects(idx, 3, data_file);

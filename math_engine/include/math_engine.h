@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 18:26:24 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/23 00:17:12 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/25 23:50:20 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,14 @@
 # include "geometry/sphere.h"
 # include "geometry/plane.h"
 # include "geometry/cylinder.h"
+# include "geometry/light.h"
 
 // modify this when supporting new geometry
 typedef struct s_math
 {
 	t_camera_math	camera;
 	// t_ambient_math	*ambient;
-	// t_light_math	*lights;
+	t_light_math	light;
 	t_sphere_math	*spheres;
 	t_plane_math	*planes;
 	t_cylinder_math	*cys;	//aka cylinder because of norminette
