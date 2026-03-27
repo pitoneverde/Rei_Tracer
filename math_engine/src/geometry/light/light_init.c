@@ -20,5 +20,6 @@ int	light_init(t_light_math *light, t_light_data data)
 	light->color = data.color;
 	light->intensity = data.intensity;
 	light->point = data.point;
+	light->intensity_scaled_color = data.intensity_scaled_color;
 	return (0);
 }

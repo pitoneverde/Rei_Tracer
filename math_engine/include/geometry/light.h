@@ -20,6 +20,7 @@ typedef struct s_light_math
 	t_vec3	color;
 	float	intensity;
 	t_vec3	point;
+	t_vec3	intensity_scaled_color;
 	// any further precomputed values...
 }	t_light_math;
 
@@ -28,6 +29,7 @@ typedef struct s_light_data
 	t_vec3	color;
 	float	intensity;
 	t_vec3	point;
+	t_vec3	intensity_scaled_color;
 	// any precomputed values...
 }	t_light_data;
 

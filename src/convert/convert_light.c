@@ -20,6 +20,7 @@ static t_light_data	convert_light(const t_light *light)
 	light_data.point = light->position;
 	light_data.intensity = light->brightness;
 	light_data.color = vec3_from_color_hex(light->color.hex);
+	light_data.intensity_scaled_color = vec3_scale(light_data.color, light_data.intensity);
 	return (light_data);
 }
 
