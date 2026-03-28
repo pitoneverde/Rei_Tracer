@@ -255,3 +255,6 @@ Domani con calma inizio i cpp e resto a disposizione in caso servano chiarimenti
 
 25/03/2026 sabruma 23:52
 Aggiunto la strutture di t_light* nell'engine, e gestita l'inizializzazione, da prendere come esempio per fare la parte di t_ambient* (la procedura è la stessa identica di questo commit).
+
+28/03/2026 sabruma 01:14
+Fixato il renderer, mantenendo commentato il sorgente problematico con commenti sul perché è duplicato (apprezzo l'impegno comunque, ma non ha senso rifare le cose due volte...)
