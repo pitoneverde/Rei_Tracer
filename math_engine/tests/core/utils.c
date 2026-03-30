@@ -64,7 +64,7 @@ void print_vec3(const char *name, t_vec3 v)
 t_vec3 random_unit_vec3(void)
 {
     // Generate random point on unit sphere
-    float theta = random_float(0.0f, MATH_TAU);
+    float theta = random_float(0.0f, math_tau());
     float phi = acosf(random_float(-1.0f, 1.0f));
     return vec3_new(
         sinf(phi) * cosf(theta),

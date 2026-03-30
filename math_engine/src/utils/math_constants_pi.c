@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   light_init.c                                       :+:      :+:    :+:   */
+/*   math_constants_pi.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sabruma <sabruma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/25 23:42:54 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/30 21:55:11 by sabruma          ###   ########.fr       */
+/*   Created: 2026/03/30 21:27:28 by sabruma           #+#    #+#             */
+/*   Updated: 2026/03/30 21:54:04 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "geometry/light.h"
+#include "utils/math_constants.h"
 
-// any precomputations used by the engine go there
-int	light_init(t_light_math *light, t_light_data data)
+inline float	math_pi(void)
 {
-	if (!light)
-		return (1);
-	light->color = data.color;
-	light->intensity = data.intensity;
-	light->point = data.point;
-	light->intensity_scaled_color = data.intensity_scaled_color;
-	return (0);
+	return (M_PIf32);
+}
+
+inline float	math_pi_2(void)
+{
+	return (M_PI_2f32);
+}
+
+inline float	math_pi_4(void)
+{
+	return (M_PI_4f32);
+}
+
+inline float	math_inv_pi(void)
+{
+	return (M_1_PIf32);
 }

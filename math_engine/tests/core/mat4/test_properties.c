@@ -36,7 +36,7 @@ static void test_mat4_determinant(void)
 	assert(float_equal(mat4_determinant(S), 2*3*4, EPSILON));
 
 	// Rotation matrix (determinant = 1)
-	t_mat4 R = mat4_rotation_x(MATH_PI/3);
+	t_mat4 R = mat4_rotation_x(math_pi()/3);
 	assert(float_equal(mat4_determinant(R), 1.0f, EPSILON));
 
 	// Translation matrix (determinant = 1)
@@ -82,7 +82,7 @@ static void test_mat4_inverse(void)
 	assert(mat4_equal_eps(Iinv, I, EPSILON));
 
 	// Rotation inverse equals transpose
-	t_mat4 R = mat4_rotation_y(MATH_PI/4);
+	t_mat4 R = mat4_rotation_y(math_pi()/4);
 	t_mat4 Rinv = mat4_inverse(R);
 	t_mat4 Rtrans = mat4_transpose(R);
 	assert(mat4_equal_eps(Rinv, Rtrans, EPSILON));
@@ -197,7 +197,7 @@ static void test_mat4_is_affine(void)
 	assert(mat4_is_affine(T, EPSILON));
 
 	// Rotation is affine
-	t_mat4 R = mat4_rotation_z(MATH_PI/3);
+	t_mat4 R = mat4_rotation_z(math_pi()/3);
 	assert(mat4_is_affine(R, EPSILON));
 
 	// Scaling is affine
@@ -236,13 +236,13 @@ static void test_mat4_is_orthogonal(void)
 	assert(mat4_is_orthogonal(I, EPSILON));
 
 	// Rotations are orthogonal
-	t_mat4 Rx = mat4_rotation_x(MATH_PI/6);
+	t_mat4 Rx = mat4_rotation_x(math_pi()/6);
 	assert(mat4_is_orthogonal(Rx, EPSILON));
 
-	t_mat4 Ry = mat4_rotation_y(MATH_PI/4);
+	t_mat4 Ry = mat4_rotation_y(math_pi()/4);
 	assert(mat4_is_orthogonal(Ry, EPSILON));
 
-	t_mat4 Rz = mat4_rotation_z(MATH_PI/3);
+	t_mat4 Rz = mat4_rotation_z(math_pi()/3);
 	assert(mat4_is_orthogonal(Rz, EPSILON));
 
 	// Axis rotation is orthogonal

@@ -72,7 +72,7 @@ static void test_mat4_align_vectors(void)
 	assert(mat4_is_orthogonal(R, EPSILON));
 
 	// Edge: zero from vector – should handle (maybe return identity or something)
-	from = VEC3_ZERO;
+	from = vec3_zero();
 	to   = (t_vec3){1,0,0};
 	R = mat4_align_vectors(from, to);
 	// Implementation-dependent, but should not crash
@@ -80,12 +80,12 @@ static void test_mat4_align_vectors(void)
 
 	// Edge: zero to vector
 	from = (t_vec3){1,0,0};
-	to   = VEC3_ZERO;
+	to   = vec3_zero();
 	R = mat4_align_vectors(from, to);
 	(void)R;
 
 	// Edge: both zero
-	R = mat4_align_vectors(VEC3_ZERO, VEC3_ZERO);
+	R = mat4_align_vectors(vec3_zero(), vec3_zero());
 	(void)R;
 
 	// Edge: parallel but opposite with near-zero vectors (should still work)
@@ -194,14 +194,14 @@ static void test_mat4_lerp(void)
 
 	// Rotation matrices (should interpolate rotations properly, but linear interpolation may not preserve orthogonality)
 	A = mat4_rotation_z(0.0f);
-	B = mat4_rotation_z(MATH_PI); // 180°
+	B = mat4_rotation_z(math_pi()); // 180°
 	L = mat4_lerp(A, B, 0.5f);
 	// Linear interpolation of rotation matrices gives a matrix that may not be a pure rotation.
 	// But we can test that the interpolation at t=0.5 gives the matrix halfway in terms of angle.
 	// For rotation about Z, the matrix entries are cos(theta), sin(theta), etc.
 	// At theta = 90°, cos=0, sin=1. So expected for 90°:
 	// [0, -1, 0, 0; 1, 0, 0, 0; 0,0,1,0; 0,0,0,1]
-	t_mat4 R90 = mat4_rotation_z(MATH_PI/2);
+	t_mat4 R90 = mat4_rotation_z(math_pi()/2);
 	assert(mat4_equal_eps(L, R90, 1e-5f));
 
 	// Check interpolation extremes
@@ -212,13 +212,13 @@ static void test_mat4_lerp(void)
 
 	// Combined affine matrices
 	A = mat4_mul(mat4_translation((t_vec3){1,0,0}), mat4_rotation_z(0));
-	B = mat4_mul(mat4_translation((t_vec3){0,1,0}), mat4_rotation_z(MATH_PI/2));
+	B = mat4_mul(mat4_translation((t_vec3){0,1,0}), mat4_rotation_z(math_pi()/2));
 	L = mat4_lerp(A, B, 0.5f);
 	// Expected translation: (0.5, 0.5, 0)
 	t_vec3 trans = mat4_get_translation(L);
 	assert(vec3_equal_eps(trans, (t_vec3){0.5f, 0.5f, 0.0f}, EPSILON));
 	// Expected rotation: 45° about Z
-	t_mat4 R45 = mat4_rotation_z(MATH_PI/4);
+	t_mat4 R45 = mat4_rotation_z(math_pi()/4);
 	// Extract rotation part (upper 3x3) from L and compare to R45's upper 3x3
 	t_mat4 L_rot_part = { .mat = {
 		{L.mat[0][0], L.mat[0][1], L.mat[0][2], 0},

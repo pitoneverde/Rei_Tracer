@@ -10,6 +10,7 @@
 #include <assert.h>
 #include "core/mat4.h"
 #include "core/vec3.h"
+#include "core/constants.h"
 #include "utils/math_constants.h"
 #include "utils/debug.h"
 #include "core/test.h"
@@ -49,7 +50,7 @@ static void test_mat4_translation(void)
 	assert(vec3_equal(v_trans, v, EPSILON));
 
 	// Zero translation
-	T = mat4_translation(VEC3_ZERO);
+	T = mat4_translation(vec3_zero());
 	assert(mat4_equal_eps(T, mat4_identity(), EPSILON));
 
 	// Large translation (should not overflow unreasonably)
@@ -94,10 +95,10 @@ static void test_mat4_scaling(void)
 	assert(vec3_equal(p_scaled, expected, EPSILON));
 
 	// Zero scaling (should collapse to zero for points/vectors)
-	s = VEC3_ZERO;
+	s = vec3_zero();
 	S = mat4_scaling(s);
 	p_scaled = mat4_transform_point(S, p);
-	assert(vec3_equal(p_scaled, VEC3_ZERO, EPSILON));
+	assert(vec3_equal(p_scaled, vec3_zero(), EPSILON));
 
 	// Negative scaling (reflection)
 	s = (t_vec3){-1.0f, 1.0f, 1.0f};
@@ -111,7 +112,7 @@ static void test_mat4_scaling(void)
 
 static void test_mat4_rotation_x(void)
 {
-	float angle = MATH_PI / 2.0f; // 90°
+	float angle = math_pi() / 2.0f; // 90°
 	t_mat4 R = mat4_rotation_x(angle);
 
 	// Check structure: rotation about x leaves x unchanged, rotates y,z
@@ -142,12 +143,12 @@ static void test_mat4_rotation_x(void)
 	assert(mat4_equal_eps(R, mat4_identity(), EPSILON));
 
 	// Rotating by 2π gives identity
-	R = mat4_rotation_x(2.0f * MATH_PI);
+	R = mat4_rotation_x(2.0f * math_pi());
 	assert(mat4_equal_eps(R, mat4_identity(), 1e-5f)); // allow some FP error
 
 	// Rotating by -90° is inverse
-	t_mat4 Rneg = mat4_rotation_x(-MATH_PI/2.0f);
-	t_mat4 R90 = mat4_rotation_x(MATH_PI/2.0f);
+	t_mat4 Rneg = mat4_rotation_x(-math_pi()/2.0f);
+	t_mat4 R90 = mat4_rotation_x(math_pi()/2.0f);
 	t_mat4 prod = mat4_mul(R90, Rneg);
 	assert(mat4_equal_eps(prod, mat4_identity(), EPSILON));
 
@@ -156,7 +157,7 @@ static void test_mat4_rotation_x(void)
 
 static void test_mat4_rotation_y(void)
 {
-	float angle = MATH_PI / 2.0f;
+	float angle = math_pi() / 2.0f;
 	t_mat4 R = mat4_rotation_y(angle);
 
 	t_vec3 x_axis = {1,0,0};
@@ -187,7 +188,7 @@ static void test_mat4_rotation_y(void)
 
 static void test_mat4_rotation_z(void)
 {
-	float angle = MATH_PI / 2.0f;
+	float angle = math_pi() / 2.0f;
 	t_mat4 R = mat4_rotation_z(angle);
 
 	t_vec3 x_axis = {1,0,0};
@@ -220,7 +221,7 @@ static void test_mat4_rotation_axis(void)
 {
 	// Rotate around X axis by 90° using axis = (1,0,0)
 	t_vec3 axis = {1,0,0};
-	float angle = MATH_PI / 2.0f;
+	float angle = math_pi() / 2.0f;
 	t_mat4 R = mat4_rotation_axis(axis, angle);
 
 	t_vec3 x_axis = {1,0,0};
@@ -246,7 +247,7 @@ static void test_mat4_rotation_axis(void)
 
 	// Rotate around arbitrary axis
 	axis = vec3_normalize((t_vec3){1,1,1});
-	angle = MATH_PI / 3.0f; // 60°
+	angle = math_pi() / 3.0f; // 60°
 	R = mat4_rotation_axis(axis, angle);
 
 	// Check that axis itself is unchanged
@@ -269,12 +270,12 @@ static void test_mat4_rotation_axis(void)
 	assert(mat4_equal_eps(R, mat4_identity(), EPSILON));
 
 	// Rotating by 2π gives identity (approximately)
-	R = mat4_rotation_axis(axis, 2.0f * MATH_PI);
+	R = mat4_rotation_axis(axis, 2.0f * math_pi());
 	assert(mat4_equal_eps(R, mat4_identity(), 1e-5f));
 
 	// Invalid axis (zero) – should maybe return identity or handle gracefully
 	// We'll just ensure it doesn't crash
-	t_vec3 zero_axis = VEC3_ZERO;
+	t_vec3 zero_axis = vec3_zero();
 	R = mat4_rotation_axis(zero_axis, angle);
 	(void)R;
 
@@ -319,7 +320,7 @@ static void test_mat4_look_at(void)
 
 	// Compute the expected camera axes in world coordinates
 	t_vec3 forward = vec3_normalize(vec3_sub(target, eye));   // direction from eye to target
-	t_vec3 right   = vec3_normalize(vec3_cross(forward, VEC3_Y)); // right‑handed: cross(forward, up)
+	t_vec3 right   = vec3_normalize(vec3_cross(forward, vec3_y())); // right‑handed: cross(forward, up)
 	t_vec3 new_up  = vec3_cross(right, forward);              // orthonormal up
 	t_vec3 back    = vec3_neg(forward);                    // camera's +z axis in world (points opposite to view direction)
 
@@ -401,7 +402,7 @@ static void bench_mat4_translation(void)
 static void bench_mat4_rotation_axis(void)
 {
 	t_vec3 axis = vec3_normalize((t_vec3){1,1,1});
-	float angle = MATH_PI / 3.0f;
+	float angle = math_pi() / 3.0f;
 	t_mat4 M;
 
 	struct timespec t1, t2;

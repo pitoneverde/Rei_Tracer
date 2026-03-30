@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/23 00:56:20 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/30 20:13:46 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/30 21:48:43 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@
 // # define VEC3_Y (t_vec3){0.0f, 1.0f, 0.0f}
 // # define VEC3_Z (t_vec3){0.0f, 0.0f, 1.0f}
 
-t_vec3	vec3_zero();
-t_vec3	vec3_one();
-t_vec3	vec3_x();
-t_vec3	vec3_y();
-t_vec3	vec3_z();
+t_vec3	vec3_zero(void);
+t_vec3	vec3_one(void);
+t_vec3	vec3_x(void);
+t_vec3	vec3_y(void);
+t_vec3	vec3_z(void);
 
 #endif

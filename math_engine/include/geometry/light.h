@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   light.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
+/*   By: sabruma <sabruma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 23:34:37 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/25 23:44:12 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/30 21:48:11 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIGHT_H
-#define LIGHT_H
+# define LIGHT_H
 
-#include "core/vec3.h"
+# include "core/vec3.h"
 
 typedef struct s_light_math
 {

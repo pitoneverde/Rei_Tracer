@@ -26,25 +26,25 @@ static void test_vec3_angle_basic(void)
 	t_vec3 i = vec3_new(1.0f, 0.0f, 0.0f);
 	t_vec3 j = vec3_new(0.0f, 1.0f, 0.0f);
 	angle = vec3_angle(i, j);
-	assert(float_equal(angle, MATH_PI_2, 1e-6f));
+	assert(float_equal(angle, math_pi_2(), 1e-6f));
 	
 	// Angle between opposite vectors is 180 degrees (π radians)
 	t_vec3 neg_i = vec3_new(-1.0f, 0.0f, 0.0f);
 	angle = vec3_angle(i, neg_i);
-	assert(float_equal(angle, MATH_PI, 1e-6f));
+	assert(float_equal(angle, math_pi(), 1e-6f));
 	
 	// 45 degree angle
 	t_vec3 v1 = vec3_new(1.0f, 0.0f, 0.0f);
 	t_vec3 v2 = vec3_new(1.0f, 1.0f, 0.0f);
 	v2 = vec3_normalize(v2);
 	angle = vec3_angle(v1, v2);
-	assert(float_equal(angle, MATH_PI_4, 1e-6f)); // 45° = π/4
+	assert(float_equal(angle, math_pi_4(), 1e-6f)); // 45° = π/4
 	
 	// 60 degree angle
 	v1 = vec3_new(1.0f, 0.0f, 0.0f);
 	v2 = vec3_new(0.5f, sqrtf(3.0f)/2.0f, 0.0f); // cos60=0.5, sin60=√3/2
 	angle = vec3_angle(v1, v2);
-	assert(float_equal(angle, MATH_PI/3.0f, 1e-6f)); // 60° = π/3
+	assert(float_equal(angle, math_pi()/3.0f, 1e-6f)); // 60° = π/3
 	
 	// 3D vectors
 	v1 = vec3_new(1.0f, 2.0f, 3.0f);
@@ -96,7 +96,7 @@ static void test_vec3_angle_range(void)
 		
 		float angle = vec3_angle(a, b);
 		
-		assert(angle >= 0.0f && angle <= MATH_PI + 1e-6f);
+		assert(angle >= 0.0f && angle <= math_pi() + 1e-6f);
 	}
 	
 	printf("✓ ");
@@ -130,7 +130,7 @@ static void test_vec3_angle_scaling(void)
 		float angle_neg_ab = vec3_angle(vec3_neg(a), b);
 		
 		// Should satisfy: angle(-a, b) = π - angle(a, b)
-		assert(float_equal(angle_neg_ab, MATH_PI - angle_ab, 1e-6f));
+		assert(float_equal(angle_neg_ab, math_pi() - angle_ab, 1e-6f));
 	}
 	
 	printf("✓ ");
@@ -159,7 +159,7 @@ static void test_vec3_angle_edge_cases(void)
 	t_vec3 large1 = vec3_new(1e20f, 0.0f, 0.0f);
 	t_vec3 large2 = vec3_new(0.0f, 1e20f, 0.0f);
 	angle = vec3_angle(large1, large2);
-	assert(float_equal(angle, MATH_PI_2, 1e-6f));
+	assert(float_equal(angle, math_pi_2(), 1e-6f));
 	
 	// Infinity
 	t_vec3 inf_vec = vec3_new(INFINITY, 0.0f, 0.0f);
@@ -194,30 +194,30 @@ static void test_vec3_signed_angle_basic(void)
 	
 	// Angle from x-axis to y-axis around z should be +90° (π/2)
 	float angle = vec3_signed_angle(a, b, axis);
-	assert(float_equal(angle, MATH_PI_2, 1e-6f));
+	assert(float_equal(angle, math_pi_2(), 1e-6f));
 	
 	// Reverse direction should be -90° (-π/2)
 	angle = vec3_signed_angle(b, a, axis);
-	assert(float_equal(angle, -MATH_PI_2, 1e-6f));
+	assert(float_equal(angle, -math_pi_2(), 1e-6f));
 	
 	// 45 degree angle
 	t_vec3 b45 = vec3_new(1.0f, 1.0f, 0.0f);
 	b45 = vec3_normalize(b45);
 	angle = vec3_signed_angle(a, b45, axis);
-	assert(float_equal(angle, MATH_PI_4, 1e-6f));
+	assert(float_equal(angle, math_pi_4(), 1e-6f));
 	
 	// 135 degree angle (should be positive, as it's less than 180)
 	t_vec3 b135 = vec3_new(-1.0f, 1.0f, 0.0f);
 	b135 = vec3_normalize(b135);
 	angle = vec3_signed_angle(a, b135, axis);
-	assert(float_equal(angle, 3.0f * MATH_PI_4, 1e-6f)); // 135° = 3π/4
+	assert(float_equal(angle, 3.0f * math_pi_4(), 1e-6f)); // 135° = 3π/4
 	
 	// -135 degree (or 225 degree) - should be negative
 	t_vec3 b225 = vec3_new(-1.0f, -1.0f, 0.0f);
 	b225 = vec3_normalize(b225);
 	angle = vec3_signed_angle(a, b225, axis);
 	// Should be -135° = -3π/4
-	assert(float_equal(angle, -3.0f * MATH_PI_4, 1e-6f));
+	assert(float_equal(angle, -3.0f * math_pi_4(), 1e-6f));
 	
 	printf("✓ ");
 }
@@ -230,15 +230,15 @@ static void test_vec3_signed_angle_range(void)
 	for (int i = 0; i < 50; i++)
 	{
 		// Generate random vectors in XY plane
-		float theta1 = random_float(0.0f, MATH_TAU);
-		float theta2 = random_float(0.0f, MATH_TAU);
+		float theta1 = random_float(0.0f, math_tau());
+		float theta2 = random_float(0.0f, math_tau());
 		
 		t_vec3 a = vec3_new(cosf(theta1), sinf(theta1), 0.0f);
 		t_vec3 b = vec3_new(cosf(theta2), sinf(theta2), 0.0f);
 		
 		float angle = vec3_signed_angle(a, b, axis);
 		
-		assert(angle >= -MATH_PI - 1e-6f && angle <= MATH_PI + 1e-6f);
+		assert(angle >= -math_pi() - 1e-6f && angle <= math_pi() + 1e-6f);
 	}
 	
 	printf("✓ ");
@@ -319,8 +319,8 @@ static void test_vec3_signed_angle_relationship(void)
 	for (int i = 0; i < 50; i++)
 	{
 		// Generate vectors in XY plane (perpendicular to Z axis)
-		float theta1 = random_float(0.0f, MATH_TAU);
-		float theta2 = random_float(0.0f, MATH_TAU);
+		float theta1 = random_float(0.0f, math_tau());
+		float theta2 = random_float(0.0f, math_tau());
 		
 		t_vec3 a = vec3_new(cosf(theta1), sinf(theta1), 0.0f);
 		t_vec3 b = vec3_new(cosf(theta2), sinf(theta2), 0.0f);
@@ -599,7 +599,7 @@ static void test_angles_stack_operations(void)
 	t_vec3 i = vec3_new(1.0f, 0.0f, 0.0f);
 	t_vec3 j = vec3_new(0.0f, 1.0f, 0.0f);
 	
-	assert(float_equal(vec3_angle(i, j), MATH_PI_2, 1e-6f));
+	assert(float_equal(vec3_angle(i, j), math_pi_2(), 1e-6f));
 	assert(vec3_is_perpendicular(i, j, 1e-6f));
 	assert(!vec3_is_parallel(i, j, 1e-6f));
 	
@@ -744,8 +744,8 @@ static void test_angles_integration(void)
 	for (int i = 0; i < 50; i++)
 	{
 		// Generate vectors in XY plane
-		float theta1 = random_float(0.0f, MATH_TAU);
-		float theta2 = random_float(0.0f, MATH_TAU);
+		float theta1 = random_float(0.0f, math_tau());
+		float theta2 = random_float(0.0f, math_tau());
 		
 		t_vec3 a = vec3_new(cosf(theta1), sinf(theta1), 0.0f);
 		t_vec3 b = vec3_new(cosf(theta2), sinf(theta2), 0.0f);
@@ -772,7 +772,7 @@ static void test_angles_integration(void)
 		
 		// Angle should be 0 (same direction) or π (opposite)
 		if (isnan(ang)) continue;
-		assert(float_equal(ang, 0.0f, epsilon) || float_equal(ang, MATH_PI, epsilon));
+		assert(float_equal(ang, 0.0f, epsilon) || float_equal(ang, math_pi(), epsilon));
 		assert(vec3_is_parallel(a, b, epsilon));
 	}
 	
@@ -810,7 +810,7 @@ static void test_angles_integration(void)
 		a = vec3_normalize(a);
 		
 		float ang = vec3_angle(a, b);
-		assert(float_equal(ang, MATH_PI_2, epsilon));
+		assert(float_equal(ang, math_pi_2(), epsilon));
 		assert(vec3_is_perpendicular(a, b, epsilon));
 	}
 	
@@ -834,8 +834,8 @@ static void test_angles_integration(void)
 		if (!parallel && !perpendicular)
 		{
 			// Angle should be strictly between 0 and π, not equal to π/2
-			assert(ang > 0.0f && ang < MATH_PI);
-			assert(!float_equal(ang, MATH_PI_2, epsilon));
+			assert(ang > 0.0f && ang < math_pi());
+			assert(!float_equal(ang, math_pi_2(), epsilon));
 		}
 	}
 	
@@ -857,10 +857,10 @@ static void test_angles_minirt_context(void)
 	float angle = vec3_angle(camera_dir, surface_normal);
 	
 	// If angle > 90° (π/2), surface is facing away from camera
-	if (angle > MATH_PI_2)
+	if (angle > math_pi_2())
 	{
 		// Back-face culling: skip this surface
-		// printf("  Note: Back-face detected (angle = %.2f°)\n", angle * 180.0f / MATH_PI);
+		// printf("  Note: Back-face detected (angle = %.2f°)\n", angle * 180.0f / math_pi());
 	}
 	
 	// 2. Soft shadows - angle between light direction and surface normal
@@ -882,16 +882,16 @@ static void test_angles_minirt_context(void)
 	// For perfect reflection off horizontal surface (normal = (0,1,0))
 	surface_normal = vec3_new(0.0f, 1.0f, 0.0f);
 	float incident_angle = vec3_angle(incident, surface_normal);
-	if (incident_angle > MATH_PI_2)  // If angle > 90°
-		incident_angle = MATH_PI - incident_angle;  // Get acute supplement
+	if (incident_angle > math_pi_2())  // If angle > 90°
+		incident_angle = math_pi() - incident_angle;  // Get acute supplement
 
 	// Reflection vector: R = I - 2*(I·N)*N
 	float I_dot_N = vec3_dot(incident, surface_normal);
 	t_vec3 reflection = vec3_sub(incident, vec3_scale(surface_normal, 2.0f * I_dot_N));
 	
 	float reflection_angle = vec3_angle(reflection, surface_normal);
-	if (reflection_angle > MATH_PI_2)
-		reflection_angle = MATH_PI - reflection_angle;
+	if (reflection_angle > math_pi_2())
+		reflection_angle = math_pi() - reflection_angle;
 	// Incident and reflection angles should be equal
 	assert(float_equal(incident_angle, reflection_angle, epsilon));
 	

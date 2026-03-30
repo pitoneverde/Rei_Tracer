@@ -28,7 +28,7 @@ static void test_mat4_get_translation(void)
 	// Identity
 	t_mat4 I = mat4_identity();
 	t_vec3 t = mat4_get_translation(I);
-	assert(vec3_equal_eps(t, VEC3_ZERO, EPSILON));
+	assert(vec3_equal_eps(t, vec3_zero(), EPSILON));
 
 	// Pure translation
 	t_vec3 trans = {2.0f, -3.0f, 5.0f};
@@ -37,7 +37,7 @@ static void test_mat4_get_translation(void)
 	assert(vec3_equal_eps(t, trans, EPSILON));
 
 	// Rotation + translation
-	t_mat4 R = mat4_rotation_x(MATH_PI/4);
+	t_mat4 R = mat4_rotation_x(math_pi()/4);
 	t_mat4 RT = mat4_mul(T, R); // first rotate then translate
 	t = mat4_get_translation(RT);
 	assert(vec3_equal_eps(t, trans, EPSILON)); // translation unaffected by rotation
@@ -51,7 +51,7 @@ static void test_mat4_get_translation(void)
 	// Zero matrix (translation zero)
 	t_mat4 Z = mat4_zero();
 	t = mat4_get_translation(Z);
-	assert(vec3_equal_eps(t, VEC3_ZERO, EPSILON));
+	assert(vec3_equal_eps(t, vec3_zero(), EPSILON));
 
 	// Matrix with non‑affine last column – translation still extracted from last row
 	t_mat4 non_affine = I;
@@ -82,14 +82,14 @@ static void test_mat4_get_scale(void)
 	assert(vec3_equal_eps(s, scale, EPSILON));
 
 	// Rotation + scaling (orthogonal basis scaled)
-	t_mat4 R = mat4_rotation_z(MATH_PI/6);
+	t_mat4 R = mat4_rotation_z(math_pi()/6);
 	t_mat4 RS = mat4_mul(R, S); // first scale, then rotate
 	s = mat4_get_scale(RS);
 	// Scale should be the same (lengths of basis vectors unchanged by rotation)
 	assert(vec3_equal_eps(s, scale, EPSILON));
 
 	// Rotation alone
-	R = mat4_rotation_x(MATH_PI/3);
+	R = mat4_rotation_x(math_pi()/3);
 	s = mat4_get_scale(R);
 	assert(vec3_equal_eps(s, (t_vec3){1,1,1}, EPSILON));
 
@@ -107,10 +107,10 @@ static void test_mat4_get_scale(void)
 	assert(vec3_equal_eps(s, (t_vec3){2,3,4}, EPSILON));
 
 	// Zero scaling
-	scale = VEC3_ZERO;
+	scale = vec3_zero();
 	S = mat4_scaling(scale);
 	s = mat4_get_scale(S);
-	assert(vec3_equal_eps(s, VEC3_ZERO, EPSILON));
+	assert(vec3_equal_eps(s, vec3_zero(), EPSILON));
 
 	// Non‑orthogonal basis (shear) – scale still computed as lengths, but may not be the original scale factors.
 	t_mat4 shear = { .arr = {
@@ -134,7 +134,7 @@ static void test_mat4_decompose_function(void)
 	t_mat4 I = mat4_identity();
 	t_vec3 trans, rot, scale;
 	mat4_decompose(I, &trans, &rot, &scale);
-	assert(vec3_equal_eps(trans, VEC3_ZERO, EPSILON));
+	assert(vec3_equal_eps(trans, vec3_zero(), EPSILON));
 	assert(vec3_equal_eps(scale, (t_vec3){1,1,1}, EPSILON));
 	// Rotation should be identity; we can check by rotating x axis and see if it stays x.
 	// But decomposition may return rotation as Euler angles; we'll just trust.
@@ -151,14 +151,14 @@ static void test_mat4_decompose_function(void)
 	t_vec3 s = {2, 3, 4};
 	t_mat4 S = mat4_scaling(s);
 	mat4_decompose(S, &trans, &rot, &scale);
-	assert(vec3_equal_eps(trans, VEC3_ZERO, EPSILON));
+	assert(vec3_equal_eps(trans, vec3_zero(), EPSILON));
 	assert(vec3_equal_eps(scale, s, EPSILON));
 
 	// Rotation only (X axis 90°)
-	float angle = MATH_PI/2;
+	float angle = math_pi()/2;
 	t_mat4 R = mat4_rotation_x(angle);
 	mat4_decompose(R, &trans, &rot, &scale);
-	assert(vec3_equal_eps(trans, VEC3_ZERO, EPSILON));
+	assert(vec3_equal_eps(trans, vec3_zero(), EPSILON));
 	assert(vec3_equal_eps(scale, (t_vec3){1,1,1}, EPSILON));
 	// We can't directly check Euler angles, but we can reconstruct matrix from decomposed parts
 	// and compare with original. However, the decomposition function may not reconstruct rotation as Euler.
@@ -191,7 +191,7 @@ static void test_mat4_decompose_function(void)
 	// Combined: T * R * S
 	t = (t_vec3){1,2,3};
 	s = (t_vec3){2,3,4};
-	R = mat4_rotation_z(MATH_PI/3);
+	R = mat4_rotation_z(math_pi()/3);
 	T = mat4_translation(t);
 	S = mat4_scaling(s);
 	t_mat4 RS = mat4_mul(R, S);   // scale then rotate
@@ -228,8 +228,8 @@ static void test_mat4_decompose_function(void)
 	// Edge: zero matrix
 	t_mat4 Z = mat4_zero();
 	mat4_decompose(Z, &trans, &rot, &scale);
-	assert(vec3_equal_eps(trans, VEC3_ZERO, EPSILON));
-	assert(vec3_equal_eps(scale, VEC3_ZERO, EPSILON));
+	assert(vec3_equal_eps(trans, vec3_zero(), EPSILON));
+	assert(vec3_equal_eps(scale, vec3_zero(), EPSILON));
 	// rotation undefined, but function should handle
 
 	// Negative scale (reflection) – should be extracted as positive scale and rotation may include reflection? 
@@ -273,7 +273,7 @@ static void test_mat4_decompose_edge_cases(void)
 	t_mat4 S_huge = mat4_scaling((t_vec3){1e20f, 1e20f, 1e20f});
 	mat4_decompose(S_huge, &trans, &rot, &scale);
 	assert(vec3_equal_eps(scale, (t_vec3){1e20f, 1e20f, 1e20f}, EPSILON));
-	assert(vec3_equal_eps(trans, VEC3_ZERO, EPSILON));
+	assert(vec3_equal_eps(trans, vec3_zero(), EPSILON));
 
 	// Very small scale
 	t_mat4 S_tiny = mat4_scaling((t_vec3){1e-30f, 1e-30f, 1e-30f});

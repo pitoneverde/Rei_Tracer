@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   light_init.c                                       :+:      :+:    :+:   */
+/*   math_constants_tau.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sabruma <sabruma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/25 23:42:54 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/30 21:55:11 by sabruma          ###   ########.fr       */
+/*   Created: 2026/03/30 21:32:49 by sabruma           #+#    #+#             */
+/*   Updated: 2026/03/30 21:53:06 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "geometry/light.h"
+#include "utils/math_constants.h"
 
-// any precomputations used by the engine go there
-int	light_init(t_light_math *light, t_light_data data)
+float	math_tau(void)
 {
-	if (!light)
-		return (1);
-	light->color = data.color;
-	light->intensity = data.intensity;
-	light->point = data.point;
-	light->intensity_scaled_color = data.intensity_scaled_color;
-	return (0);
+	return (2.0f * M_PIf32);
+}
+
+float	math_inv_tau(void)
+{
+	return (0.5f * M_1_PIf32);
 }

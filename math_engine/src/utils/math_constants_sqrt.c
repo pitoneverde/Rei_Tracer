@@ -1,44 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   common_ops.c                                       :+:      :+:    :+:   */
+/*   math_constants_sqrt.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sabruma <sabruma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/28 01:02:50 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/30 21:54:56 by sabruma          ###   ########.fr       */
+/*   Created: 2026/03/30 20:41:51 by sabruma           #+#    #+#             */
+/*   Updated: 2026/03/30 21:53:22 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "core/constants.h"
-#include "utils/common.h"
-#include <math.h>
+#include "utils/math_constants.h"
 
-inline void	swapf(float *a, float *b)
+inline float	math_sqrt_2(void)
 {
-	float	tmp;
-
-	tmp = *a;
-	*a = *b;
-	*b = tmp;
+	return (M_SQRT2f32);
 }
 
-inline float	clamp(float val, float min, float max)
+inline float	math_inv_sqrt_2(void)
 {
-	return (fminf(fmaxf(val, min), max));
+	return (M_SQRT1_2f32);
 }
 
-inline t_vec3	vec3_right(void)
+inline float	math_sqrt_3(void)
 {
-	return (vec3_x());
+	return (1.7320508075688772935274463415059f);
 }
 
-inline t_vec3	vec3_up(void)
+inline float	math_inv_sqrt_3(void)
 {
-	return (vec3_y());
+	return (0.57735026918962576450914878050196f);
 }
 
-inline t_vec3	vec3_forward(void)
+inline float	math_golden_ratio(void)
 {
-	return ((t_vec3){0.0f, 0.0f, -1.0f});
+	return (1.6180339887498948482045868343656f);
 }

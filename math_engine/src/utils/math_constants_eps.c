@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 20:20:31 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/30 20:27:20 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/30 21:54:23 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,27 +18,27 @@
 // const float MATH_EPSILON_ANGLE = 1e-3f;
 // const float MATH_FLOAT_EPSILON = 1.1920928955078125e-07f;
 
-inline float	math_epsilon()
+inline float	math_epsilon(void)
 {
 	return (1e-6f);
 }
 
-inline float	math_epsilon_sq()
+inline float	math_epsilon_sq(void)
 {
 	return (1e-4f);
 }
 
-inline float	math_epsilon_sqrt()
+inline float	math_epsilon_sqrt(void)
 {
 	return (1e-3f);
 }
 
-inline float	math_epsilon_angle()
+inline float	math_epsilon_angle(void)
 {
 	return (1e-3f);
 }
 
-inline float	math_epsilon_float()
+inline float	math_epsilon_float(void)
 {
 	return (1.1920928955078125e-07f);
 }

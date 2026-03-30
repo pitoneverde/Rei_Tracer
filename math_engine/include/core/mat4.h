@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mat4.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
+/*   By: sabruma <sabruma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 18:14:36 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/18 18:24:04 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/30 21:51:08 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,22 @@ typedef union u_mat4
 	float	mat[4][4];
 	struct
 	{
-		float	m00, m01, m02, m03;
-		float	m10, m11, m12, m13;
-		float	m20, m21, m22, m23;
-		float	m30, m31, m32, m33;
+		float	m00;
+		float	m01;
+		float	m02;
+		float	m03;
+		float	m10;
+		float	m11;
+		float	m12;
+		float	m13;
+		float	m20;
+		float	m21;
+		float	m22;
+		float	m23;
+		float	m30;
+		float	m31;
+		float	m32;
+		float	m33;
 	};
 }	t_mat4;
 

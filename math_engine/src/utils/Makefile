@@ -7,6 +7,9 @@ MODULE_OBJ_DIR     := $(OBJ_DIR)/$(MODULE)
 
 UTILS_SRCS :=	math_constants.c \
 				math_constants_eps.c \
+				math_constants_sqrt.c \
+				math_constants_pi.c \
+				math_constants_tau.c \
 				common_ops.c \
 				debug.c
 

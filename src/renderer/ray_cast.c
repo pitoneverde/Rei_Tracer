@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 17:08:50 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/30 20:17:34 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/30 21:44:25 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ static t_rgb	vec3_to_rgb(t_vec3 color)
 //             material = (t_material){.color = hit.color, .ambient = 0.1f, .diffuse = 0.5f,
 //                                     .specular = 0.4f, .shininess = 16.0f};
 //         else
-//             return (vec3_to_rgb(VEC3_ZERO));  // caso non previsto
+//             return (vec3_to_rgb(vec3_zero()));  // caso non previsto
 
 //         t_vec3 color = lighting(material, math->light, hit.point, camera_vector, hit.normal);
 //         return (vec3_to_rgb(color));
@@ -141,17 +141,17 @@ static t_rgb	vec3_to_rgb(t_vec3 color)
 //     else
 //     {
 //         // Nessuna intersezione → colore di sfondo (nero)
-//         return (vec3_to_rgb(VEC3_ZERO));
+//         return (vec3_to_rgb(vec3_zero()));
 //     }
 // 	// basic checkerboard shader to give some volume
 // 	// if (hit.obj == OBJ_SPHERE)
 // 	// {
 // 	// 	float scale = 5.0f;
 // 	// 	t_vec2 tex;
-// 	// 	tex.x = (1 + atan2(hit.normal.z, hit.normal.x) / MATH_PI) * 0.5;
-//     //     tex.y = acosf(hit.normal.y) / MATH_PI;
+// 	// 	tex.x = (1 + atan2(hit.normal.z, hit.normal.x) / math_pi()) * 0.5;
+//     //     tex.y = acosf(hit.normal.y) / math_pi();
 // 	// 	float pattern = ((fmodf(tex.x * scale, 1.0f) > 0.5f) ^ (fmodf(tex.y * scale, 1.0f) > 0.5f));
-// 	// 	color = vec3_max_comp(VEC3_ZERO, vec3_scale(vec3_mix(hit.color, vec3_scale(hit.color, 0.8f), pattern), vec3_dot(hit.normal, vec3_neg(ray.direction))));
+// 	// 	color = vec3_max_comp(vec3_zero(), vec3_scale(vec3_mix(hit.color, vec3_scale(hit.color, 0.8f), pattern), vec3_dot(hit.normal, vec3_neg(ray.direction))));
 // 	// }
 // }
 

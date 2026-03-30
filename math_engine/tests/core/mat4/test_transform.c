@@ -10,6 +10,7 @@
 #include <assert.h>
 #include "core/mat4.h"
 #include "core/vec3.h"
+#include "core/constants.h"
 #include "utils/math_constants.h"
 #include "core/test.h"
 
@@ -38,7 +39,7 @@ static void test_mat4_transform_point(void)
 	assert(vec3_equal_eps(tp, expected, EPSILON));
 
 	// Rotation (90° about Z)
-	t_mat4 R = mat4_rotation_z(MATH_PI/2);
+	t_mat4 R = mat4_rotation_z(math_pi()/2);
 	tp = mat4_transform_point(R, p);
 	expected = (t_vec3){-p.y, p.x, p.z}; // ( -2, 1, 3 )
 	assert(vec3_equal_eps(tp, expected, EPSILON));
@@ -58,8 +59,8 @@ static void test_mat4_transform_point(void)
 	assert(vec3_equal_eps(tp, expected, EPSILON));
 
 	// Zero point
-	tp = mat4_transform_point(S, VEC3_ZERO);
-	assert(vec3_equal_eps(tp, VEC3_ZERO, EPSILON));
+	tp = mat4_transform_point(S, vec3_zero());
+	assert(vec3_equal_eps(tp, vec3_zero(), EPSILON));
 
 	// Large values
 	t_vec3 huge = {1e20f, -1e20f, 1e20f};
@@ -93,7 +94,7 @@ static void test_mat4_transform_vector(void)
 	assert(vec3_equal_eps(tv, v, EPSILON));
 
 	// Rotation (90° about Z)
-	t_mat4 R = mat4_rotation_z(MATH_PI/2);
+	t_mat4 R = mat4_rotation_z(math_pi()/2);
 	tv = mat4_transform_vector(R, v);
 	t_vec3 expected = {-v.y, v.x, v.z}; // ( -2, 1, 3 )
 	assert(vec3_equal_eps(tv, expected, EPSILON));
@@ -112,8 +113,8 @@ static void test_mat4_transform_vector(void)
 	assert(vec3_equal_eps(tv, expected, EPSILON));
 
 	// Zero vector
-	tv = mat4_transform_vector(S, VEC3_ZERO);
-	assert(vec3_equal_eps(tv, VEC3_ZERO, EPSILON));
+	tv = mat4_transform_vector(S, vec3_zero());
+	assert(vec3_equal_eps(tv, vec3_zero(), EPSILON));
 
 	// Large values
 	t_vec3 huge = {1e20f, -1e20f, 1e20f};
@@ -139,7 +140,7 @@ static void test_mat4_transform_normal(void)
 	assert(vec3_equal_eps(tn, n, EPSILON));
 
 	// Rotation (90° about Z) – normal rotates like vector
-	t_mat4 R = mat4_rotation_z(MATH_PI/2);
+	t_mat4 R = mat4_rotation_z(math_pi()/2);
 	tn = mat4_transform_normal(R, n);
 	t_vec3 expected = {0.0f, 1.0f, 0.0f}; // X -> Y
 	assert(vec3_equal_eps(tn, expected, EPSILON));
@@ -195,8 +196,8 @@ static void test_mat4_transform_normal(void)
 	assert(float_equal(dot, 0.0f, EPSILON));
 
 	// Zero normal
-	tn = mat4_transform_normal(S, VEC3_ZERO);
-	assert(vec3_equal_eps(tn, VEC3_ZERO, EPSILON));
+	tn = mat4_transform_normal(S, vec3_zero());
+	assert(vec3_equal_eps(tn, vec3_zero(), EPSILON));
 
 	// Large values
 	t_vec3 huge = {1e20f, 0.0f, 0.0f};
@@ -260,12 +261,12 @@ static void test_mat4_transform_edge_cases(void)
 	// Zero matrix
 	t_mat4 Z = mat4_zero();
 	res = mat4_transform_point(Z, p);
-	assert(vec3_equal_eps(res, VEC3_ZERO, EPSILON));
+	assert(vec3_equal_eps(res, vec3_zero(), EPSILON));
 	res = mat4_transform_vector(Z, v);
-	assert(vec3_equal_eps(res, VEC3_ZERO, EPSILON));
+	assert(vec3_equal_eps(res, vec3_zero(), EPSILON));
 	// meaningless, can't apply a singular matrix to a normal
 	// res = mat4_transform_normal(Z, n);
-	// assert(vec3_equal_eps(res, VEC3_ZERO, EPSILON));
+	// assert(vec3_equal_eps(res, vec3_zero(), EPSILON));
 
 	printf("✓ ");
 }

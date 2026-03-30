@@ -13,7 +13,6 @@ VEC3_SRCS := $(TEST_CORE)/vec3/main.c \
              $(TEST_CORE)/vec3/test_basic.c \
              $(TEST_CORE)/vec3/test_compare.c \
              $(TEST_CORE)/vec3/test_comp.c \
-             $(TEST_CORE)/vec3/test_coordinates.c \
              $(TEST_CORE)/vec3/test_create.c \
              $(TEST_CORE)/vec3/test_length.c \
              $(TEST_CORE)/vec3/test_normalize.c \

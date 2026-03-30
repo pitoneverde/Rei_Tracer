@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
+/*   By: sabruma <sabruma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/14 01:52:03 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/18 18:46:03 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/30 21:39:07 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	camera_init(t_camera_math *cam, t_camera_data data)
 	cam->image_w = data.image_w;
 	cam->hfov = data.hfov;
 	cam->image_aspect = (float)cam->image_w / cam->image_h;
-	cam->zoom = tanf(cam->hfov * 0.5 * DEG_TO_RAD);
+	cam->zoom = tanf(deg_to_rad(cam->hfov * 0.5));
 	cam->canvas[1] = cam->zoom * cam->near_clip;
 	cam->canvas[0] = -cam->canvas[1];
 	cam->canvas[3] = (cam->canvas[1] / cam->image_aspect);
