@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_cast.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
+/*   By: sabruma <sabruma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 17:08:50 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/30 19:10:51 by gmu              ###   ########.fr       */
+/*   Updated: 2026/03/30 20:17:34 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ t_vec3 lighting(t_material material, t_light_math light, t_vec3 point, t_vec3 ey
 
 	if (light_dot_normal < 0.0f)
 	{
-		diffuse = VEC3_ZERO;
-		specular = VEC3_ZERO;
+		diffuse = vec3_zero();
+		specular = vec3_zero();
 	}
 	else
 	{
@@ -70,7 +70,7 @@ t_vec3 lighting(t_material material, t_light_math light, t_vec3 point, t_vec3 ey
 
 		if (reflect_dot_eye <= 0.0f)
 		{
-			specular = VEC3_ZERO;
+			specular = vec3_zero();
 		}
 		else
 		{
@@ -163,12 +163,22 @@ t_rgb	ray_cast(const t_ray ray, t_math *math)
 	t_hit	hit;
 	int		i;
 
-	color = VEC3_ZERO;	// black
+	color = vec3_zero();	// black
 	if (trace(ray, math, &hit, &i))
 	{
 		t_vec3 camera_vector = vec3_neg(ray.direction);
 		t_material material = {0};
 
+		t_ray shadow = {
+			.origin = hit.point,
+			.direction = vec3_normalize(vec3_sub(math->light.point, hit.point)),
+			.t_max = ray.t_max,
+			.t_min = ray.t_min
+		};
+		t_hit shit;
+		int j;
+		if (!trace(shadow, math, &shit, &j))
+		{
 		// Assegna materiale in base al tipo di oggetto colpito
 		if (hit.obj == OBJ_SPHERE)
 			material = (t_material){.color = hit.color, .ambient = 0.1f, .diffuse = 0.7f,
@@ -181,6 +191,7 @@ t_rgb	ray_cast(const t_ray ray, t_math *math)
 									.specular = 0.4f, .shininess = 16.0f};
 		color = lighting(material, math->light, hit.point, camera_vector, hit.normal);
 		// color = hit.color;
+		}
 	}
 	return (vec3_to_rgb(color));	
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mat4_view.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
+/*   By: sabruma <sabruma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 17:24:15 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/18 18:37:10 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/30 20:12:11 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@
 // fallback on -Z works because of cross product anticommutativity
 static void	camera_basis(t_vec3 forward, t_vec3 *right, t_vec3 *up)
 {
-	if (fabsf(vec3_dot(forward, VEC3_UP)) > 0.999f)
-		*right = vec3_normalize(vec3_cross(VEC3_FORWARD, forward));
+	if (fabsf(vec3_dot(forward, vec3_up())) > 0.999f)
+		*right = vec3_normalize(vec3_cross(vec3_forward(), forward));
 	else
-		*right = vec3_normalize(vec3_cross(forward, VEC3_UP));
+		*right = vec3_normalize(vec3_cross(forward, vec3_up()));
 	*up = vec3_normalize(vec3_cross(*right, forward));
 }
 

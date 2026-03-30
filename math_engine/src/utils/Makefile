@@ -6,6 +6,7 @@ MODULE := utils
 MODULE_OBJ_DIR     := $(OBJ_DIR)/$(MODULE)
 
 UTILS_SRCS :=	math_constants.c \
+				math_constants_eps.c \
 				common_ops.c \
 				debug.c
 
