@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 17:08:50 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/28 01:03:59 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/30 19:10:51 by gmu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,7 @@ t_rgb	ray_cast(const t_ray ray, t_math *math)
 	if (trace(ray, math, &hit, &i))
 	{
 		t_vec3 camera_vector = vec3_neg(ray.direction);
-		t_material material;
+		t_material material = {0};
 
 		// Assegna materiale in base al tipo di oggetto colpito
 		if (hit.obj == OBJ_SPHERE)

@@ -1,6 +1,24 @@
 #include "minirt.h"
 #include "libft.h"
 
+bool	check_sphere_app(char **matrix)
+{
+	double val;
+	if(!convertable_double(&val, matrix[2]))
+	{
+		PRINT_ERR("Error: sphere diameter wrong in sp\n");
+		mtxfree_str(matrix);
+		return (false);
+	}
+	if(!check_rgb_format(matrix[3]))
+	{
+		PRINT_ERR("Error: rgb format wrong in sp\n");
+		mtxfree_str(matrix);
+		return (false);
+	}
+	return (true);
+}
+
 bool	check_sphere(char *str)
 {
 	if (ft_word_count(str) != 4)
@@ -22,19 +40,8 @@ bool	check_sphere(char *str)
 		mtxfree_str(matrix);
 		return (false);
 	}
-	double val;
-	if(!convertable_double(&val, matrix[2]))
-	{
-		PRINT_ERR("Error: sphere diameter wrong in sp\n");
-		mtxfree_str(matrix);
+	if (!check_sphere_app(matrix))
 		return (false);
-	}
-	if(!check_rgb_format(matrix[3]))
-	{
-		PRINT_ERR("Error: rgb format wrong in sp\n");
-		mtxfree_str(matrix);
-		return (false);
-	}
 	mtxfree_str(matrix);
 	return (true);
 }

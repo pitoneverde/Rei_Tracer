@@ -1,15 +1,23 @@
-#include "minirt.h"
-#include "libft.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_matrix_data_is_good.c                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gmu <marvin@42.fr>                         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/30 19:37:13 by gmu               #+#    #+#             */
+/*   Updated: 2026/03/30 19:39:24 by gmu              ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-bool	check_matrix_data_is_good(char **matrix)
+#include "libft.h"
+#include "minirt.h"
+
+bool	check_matrix_data_is_good_app(char **matrix)
 {
-	if (!check_ambient(matrix[0]))
-		return (false);
-	if (!check_camera(matrix[1]))
-		return (false);
-	if (!check_light(matrix[2]))
-		return (false);
-	int	i = 3;
+	int	i;
+
+	i = 3;
 	while (matrix[i] != NULL)
 	{
 		if (ft_strncmp(matrix[i], "sp ", 3) == 0)
@@ -32,4 +40,15 @@ bool	check_matrix_data_is_good(char **matrix)
 		i++;
 	}
 	return (true);
+}
+
+bool	check_matrix_data_is_good(char **matrix)
+{
+	if (!check_ambient(matrix[0]))
+		return (false);
+	if (!check_camera(matrix[1]))
+		return (false);
+	if (!check_light(matrix[2]))
+		return (false);
+	return (check_matrix_data_is_good_app(matrix));
 }
