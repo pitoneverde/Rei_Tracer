@@ -54,10 +54,12 @@ t_element	*init_data_minirt(char *s)
 	int			i;
 	t_element	*elements;
 
+	printf("%s", s);
 	matrix = ft_split(s, '\n');
 	elements = malloc(sizeof(t_element) * (mtx_count((void **)matrix) + 1));
 	if (!elements)
 		return (NULL);
+	init_acl(matrix, elements);
 	i = 3;
 	while (matrix[i] != NULL)
 	{

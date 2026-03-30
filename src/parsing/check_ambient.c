@@ -6,7 +6,7 @@
 /*   By: gio <gio@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 15:07:06 by gio               #+#    #+#             */
-/*   Updated: 2026/03/30 15:07:54 by gio              ###   ########.fr       */
+/*   Updated: 2026/03/30 21:01:28 by gmu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,18 +65,6 @@ bool	check_ambient_app(char *str)
 		return (false);
 	}
 	mtxfree_str(check_matrix);
-	return (true);
-}
-
-bool	check_ambient(char *str)
-{
-	if (ft_word_count(str) != 3)
-	{
-		PRINT_ERR("Error: missing element in line A\n");
-		return (false);
-	}
-	if (!check_ambient_app(str))
-		return (false);
 	return (true);
 }
 
