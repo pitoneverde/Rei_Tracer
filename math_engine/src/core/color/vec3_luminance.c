@@ -1,12 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   vec3_luminance.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gmu <marvin@42.fr>                         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/30 22:11:05 by gmu               #+#    #+#             */
+/*   Updated: 2026/03/30 22:11:08 by gmu              ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "core/color.h"
 
 /*Uso lo standard Rec. 709 / sRGB (usato per HDTV e computer grafica moderna)*/
 
-float vec3_luminance(t_vec3 color)
+float	vec3_luminance(t_vec3 color)
 {
-    const float r_weight = 0.2126f;
-    const float g_weight = 0.7152f;
-    const float b_weight = 0.0722f;
+	const float	r_weight = 0.2126f;
+	const float	g_weight = 0.7152f;
+	const float	b_weight = 0.0722f;
 
-    return (color.x * r_weight + color.y * g_weight + color.z * b_weight);
+	return (color.x * r_weight + color.y * g_weight + color.z * b_weight);
 }

@@ -6,7 +6,7 @@
 /*   By: gio <gio@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 15:07:41 by gio               #+#    #+#             */
-/*   Updated: 2026/03/30 15:08:12 by gio              ###   ########.fr       */
+/*   Updated: 2026/03/30 22:25:17 by gmu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,18 +48,10 @@ void	init_acl(char **matrix, t_element *elements)
 	init_data_light(matrix[2], &elements[2]);
 }
 
-t_element	*init_data_minirt(char *s)
+static bool	init_data_minirt_app(char **matrix, t_element *elements)
 {
-	char		**matrix;
 	int			i;
-	t_element	*elements;
 
-	printf("%s", s);
-	matrix = ft_split(s, '\n');
-	elements = malloc(sizeof(t_element) * (mtx_count((void **)matrix) + 1));
-	if (!elements)
-		return (NULL);
-	init_acl(matrix, elements);
 	i = 3;
 	while (matrix[i] != NULL)
 	{
@@ -70,10 +62,26 @@ t_element	*init_data_minirt(char *s)
 		else if (ft_strncmp(matrix[i], "cy ", 3) == 0)
 			init_data_cylinder(matrix[i], &elements[i]);
 		else
-			return (NULL);
+			return (false);
 		i++;
 	}
 	elements[i].id = NULL;
+	return (true);
+}
+
+t_element	*init_data_minirt(char *s)
+{
+	char		**matrix;
+	t_element	*elements;
+
+	printf("%s", s);
+	matrix = ft_split(s, '\n');
+	elements = malloc(sizeof(t_element) * (mtx_count((void **)matrix) + 1));
+	if (!elements)
+		return (NULL);
+	init_acl(matrix, elements);
+	if (!init_data_minirt_app(matrix, elements))
+		return (NULL);
 	mtxfree_str(matrix);
 	return (elements);
 }
