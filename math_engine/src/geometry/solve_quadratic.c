@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   solve_quadratic.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
+/*   By: sabruma <sabruma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 09:52:39 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/22 23:30:09 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/30 20:26:30 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ bool	solve_quadratic(t_quad *eq)
 	delta = eq->b * eq->b - 4 * eq->a * eq->c;
 	if (delta < 0.0f)
 		return (false);
-	else if (delta <= MATH_EPSILON)
+	else if (delta <= math_epsilon())
 	{
 		eq->x0 = -0.5f * eq->b / eq->a;
 		eq->x1 = eq->x0;

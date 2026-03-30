@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   math_constants.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
+/*   By: sabruma <sabruma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 18:23:36 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/18 18:29:21 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/30 20:21:34 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,17 @@ extern const float MATH_SQRT_3;			// sqrt(3)
 extern const float MATH_INV_SQRT_3;		// 1/sqrt(3)
 extern const float MATH_GOLDEN_RATIO;	// phi
 
-extern const float MATH_EPSILON;		// 1e-6
-extern const float MATH_EPSILON_SQ;		// epsilon^2
-extern const float MATH_EPSILON_SQRT;	// sqrt(epsilon)
-extern const float MATH_EPSILON_ANGLE;	// 1e-4
-extern const float MATH_FLOAT_EPSILON;	// 2^-23, float32 machine epsilon
+// extern const float MATH_EPSILON;		// 1e-6
+// extern const float MATH_EPSILON_SQ;		// epsilon^2
+// extern const float MATH_EPSILON_SQRT;	// sqrt(epsilon)
+// extern const float MATH_EPSILON_ANGLE;	// 1e-4
+// extern const float MATH_FLOAT_EPSILON;	// 2^-23, float32 machine epsilon
+
+float	math_epsilon();
+float	math_epsilon_sq();
+float	math_epsilon_sqrt();
+float	math_epsilon_angle();
+float	math_epsilon_float();
 
 // Angle convertion coefficients
 extern const float DEG_TO_RAD;		// pi/180

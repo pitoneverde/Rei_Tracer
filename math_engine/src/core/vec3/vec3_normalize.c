@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vec3_normalize.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
+/*   By: sabruma <sabruma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 21:54:29 by sabruma           #+#    #+#             */
-/*   Updated: 2026/01/27 00:21:25 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/30 20:26:00 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ inline t_vec3	vec3_normalize_or(t_vec3 v, t_vec3 fallback)
 	float	len_inv;
 
 	len_sq = vec3_length_sq(v);
-	if (len_sq > MATH_EPSILON_SQ)
+	if (len_sq > math_epsilon_sq())
 	{
 		len_inv = 1.0f / sqrtf(len_sq);
 		return (vec3_scale(v, len_inv));

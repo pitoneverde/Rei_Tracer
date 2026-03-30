@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   vec3.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
+/*   By: sabruma <sabruma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 18:11:07 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/18 18:12:27 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/30 20:16:36 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VEC3_H
 # define VEC3_H
 
-# include "core/constants.h"
+// # include "core/constants.h"
 # include <stdbool.h>
 
 # ifndef T_VEC3_DEFINED

@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   vec3_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
+/*   By: sabruma <sabruma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 23:17:42 by sabruma           #+#    #+#             */
-/*   Updated: 2026/01/22 23:28:54 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/30 20:26:30 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "core/vec3.h"
+#include "core/constants.h"
 #include "utils/math_constants.h"
 #include <math.h>
 
@@ -36,8 +37,8 @@ inline t_vec3	vec3_round(t_vec3 v)
 
 inline t_vec3	vec3_mod(t_vec3 v, float divisor)
 {
-	if (fabsf(divisor) < MATH_EPSILON)
-		return (VEC3_ZERO);
+	if (fabsf(divisor) < math_epsilon())
+		return (vec3_zero());
 	return ((t_vec3){
 		fmodf(v.x, divisor),
 		fmodf(v.y, divisor),

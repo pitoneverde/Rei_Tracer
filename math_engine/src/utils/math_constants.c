@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   math_constants.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
+/*   By: sabruma <sabruma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 15:57:42 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/18 18:50:29 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/30 20:20:47 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ const float MATH_SQRT_3 = 1.7320508075688772935274463415059f;
 const float MATH_INV_SQRT_3 = 0.57735026918962576450914878050196f;
 const float MATH_GOLDEN_RATIO = 1.6180339887498948482045868343656f;
 
-const float MATH_EPSILON = 1e-6f;
-const float MATH_EPSILON_SQ = 1e-4f;
-const float MATH_EPSILON_SQRT = 1e-3f;
-const float MATH_EPSILON_ANGLE = 1e-3f;
-const float MATH_FLOAT_EPSILON = 1.1920928955078125e-07f;
+// const float MATH_EPSILON = 1e-6f;
+// const float MATH_EPSILON_SQ = 1e-4f;
+// const float MATH_EPSILON_SQRT = 1e-3f;
+// const float MATH_EPSILON_ANGLE = 1e-3f;
+// const float MATH_FLOAT_EPSILON = 1.1920928955078125e-07f;
 
 const float DEG_TO_RAD = M_PIf32 / 180.0f;
 const float RAD_TO_DEG = 180.0f / M_PIf32;
