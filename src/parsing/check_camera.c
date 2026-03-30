@@ -1,36 +1,44 @@
-#include "minirt.h"
-#include "libft.h"
-#include <stdbool.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_camera.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gio <gio@student.42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/30 15:07:16 by gio               #+#    #+#             */
+/*   Updated: 2026/03/30 15:07:59 by gio              ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include <errno.h>
+#include "libft.h"
+#include "minirt.h"
 #include <ctype.h>
+#include <errno.h>
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 
-
 bool	check_camera_vectors_limits_app(char *s)
 {
-	char	**matrix = ft_split(s, ',');
+	char	**matrix;
 	double	coordinates[3];
-	
-	bool good = true;
-	int i = 0;
+	bool	good;
+	int		i;
+
+	matrix = ft_split(s, ',');
+	good = true;
+	i = 0;
 	while (i < 2)
 	{
 		if (!convertable_double(&coordinates[i], matrix[i]))
-		{
 			good = false;
-		}
 		++i;
 	}
 	i = 0;
 	while (i < 2)
 	{
 		if (coordinates[i] < -1 || coordinates[i] > 1)
-		{
 			good = false;
-		}
 		++i;
 	}
 	mtxfree_str(matrix);
@@ -44,7 +52,7 @@ bool	check_camera_vectors_limits(char *s)
 
 	i = 0;
 	n_comma = 0;
-	while(s[i])
+	while (s[i])
 		if (s[i++] == ',')
 			++n_comma;
 	if (n_comma != 2)
@@ -71,20 +79,8 @@ bool	check_camera_fov_limits(char *s)
 	return (true);
 }
 
-bool	check_camera(char *str)
+bool	check_camera_app(char **matrix)
 {
-	if (ft_word_count(str) != 4)
-	{
-		PRINT_ERR("Error: missing element in line C\n");
-		return (false);
-	}
-	char	**matrix = ft_split(str, ' ');
-	if (ft_strcmp(matrix[0], "C"))
-	{
-		PRINT_ERR("Error: missing C\n");
-		mtxfree_str(matrix);
-		return (false);
-	}
 	if (!check_coordinates(matrix[1]))
 	{
 		PRINT_ERR("Error: coordinates format wrong\n");
@@ -103,6 +99,27 @@ bool	check_camera(char *str)
 		mtxfree_str(matrix);
 		return (false);
 	}
+	return (true);
+}
+
+bool	check_camera(char *str)
+{
+	char	**matrix;
+
+	if (ft_word_count(str) != 4)
+	{
+		PRINT_ERR("Error: missing element in line C\n");
+		return (false);
+	}
+	matrix = ft_split(str, ' ');
+	if (ft_strcmp(matrix[0], "C"))
+	{
+		PRINT_ERR("Error: missing C\n");
+		mtxfree_str(matrix);
+		return (false);
+	}
+	if (!check_camera_app(matrix))
+		return (false);
 	mtxfree_str(matrix);
 	return (true);
 }

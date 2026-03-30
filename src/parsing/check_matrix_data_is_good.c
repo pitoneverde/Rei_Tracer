@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   check_matrix_data_is_good.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmu <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: gio <gio@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/30 19:37:13 by gmu               #+#    #+#             */
-/*   Updated: 2026/03/30 19:39:24 by gmu              ###   ########.fr       */
+/*   Created: 2026/03/30 15:07:25 by gio               #+#    #+#             */
+/*   Updated: 2026/03/30 15:08:05 by gio              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "minirt.h"
+#include "libft.h"
 
 bool	check_matrix_data_is_good_app(char **matrix)
 {
@@ -50,5 +50,7 @@ bool	check_matrix_data_is_good(char **matrix)
 		return (false);
 	if (!check_light(matrix[2]))
 		return (false);
-	return (check_matrix_data_is_good_app(matrix));
+	if (!check_matrix_data_is_good_app(matrix))
+		return (false);
+	return (true);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_ambient.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmu <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: gio <gio@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/30 19:29:36 by gmu               #+#    #+#             */
-/*   Updated: 2026/03/30 19:33:42 by gmu              ###   ########.fr       */
+/*   Created: 2026/03/30 15:07:06 by gio               #+#    #+#             */
+/*   Updated: 2026/03/30 15:07:54 by gio              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,22 +50,34 @@ bool	check_ambient_app(char *str)
 	{
 		PRINT_ERR("Error: missing A\n");
 		mtxfree_str(check_matrix);
-		return (0);
+		return (false);
 	}
 	if (!parse_ambient_double_limits(check_matrix[1]))
 	{
 		PRINT_ERR("Error: missing a float in line A\n");
 		mtxfree_str(check_matrix);
-		return (0);
+		return (false);
 	}
 	if (!check_rgb_format(check_matrix[2]))
 	{
 		PRINT_ERR("Error: rgb format wrong\n");
 		mtxfree_str(check_matrix);
-		return (0);
+		return (false);
 	}
 	mtxfree_str(check_matrix);
-	return (1);
+	return (true);
+}
+
+bool	check_ambient(char *str)
+{
+	if (ft_word_count(str) != 3)
+	{
+		PRINT_ERR("Error: missing element in line A\n");
+		return (false);
+	}
+	if (!check_ambient_app(str))
+		return (false);
+	return (true);
 }
 
 bool	check_ambient(char *str)

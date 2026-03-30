@@ -7,6 +7,8 @@ NAME = miniRT
 SRC_DIR = src
 SRCS = $(SRC_DIR)/main.c \
 		$(SRC_DIR)/parsing/parsing.c \
+		$(SRC_DIR)/parsing/parsing_app.c \
+		$(SRC_DIR)/parsing/parsing_app_utils.c \
 		$(SRC_DIR)/parsing/check_matrix_data_is_good.c \
 		$(SRC_DIR)/parsing/check_ambient.c \
 		$(SRC_DIR)/parsing/check_camera.c \
@@ -15,7 +17,9 @@ SRCS = $(SRC_DIR)/main.c \
 		$(SRC_DIR)/parsing/check_plane.c \
 		$(SRC_DIR)/parsing/check_cylinder.c \
 		$(SRC_DIR)/parsing/parsing_utils.c \
+		$(SRC_DIR)/parsing/parsing_utils_app.c \
 		$(SRC_DIR)/parsing/init_data_minirt.c \
+		$(SRC_DIR)/parsing/init_data_minirt_app.c \
 		$(SRC_DIR)/renderer/render.c \
 		$(SRC_DIR)/renderer/ray_cast.c \
 		$(SRC_DIR)/renderer/trace.c \
