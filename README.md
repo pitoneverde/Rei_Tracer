@@ -1,11 +1,7 @@
 # Rei_Tracer
 miniRT project from 42 (evangelion reference)
 
-For faster (parallel) builds do:
-```export MAKEFLAGS="-j$(nproc)"```.
-
-By default ```make``` for your current session will use these flags.
-Sometimes this causes ```make re``` to fail: worry not, just retry one more time!
+*This project has been created as part of the 42 curriculum by gmu and sabruma*
 
 ### Description
 
@@ -38,3 +34,11 @@ to execute:
 Thanks a lot to:
 https://www.scratchapixel.com/
 https://raytracing.github.io/books/RayTracingInOneWeekend.html
+
+
+## Other info
+For faster (parallel) builds do:
+```export MAKEFLAGS="-j$(nproc)"```.
+
+By default ```make``` for your current session will use these flags.
+Sometimes this causes ```make re``` to fail: worry not, just retry one more time!
