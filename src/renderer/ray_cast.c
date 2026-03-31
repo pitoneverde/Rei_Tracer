@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 17:08:50 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/31 16:52:38 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/31 18:49:46 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,24 +39,26 @@ t_vec3 reflect(t_vec3 v, t_vec3 n)
 
 // for now it's useless, only for sample shader
 // // { return a * (1 - mixValue) + b * mixValue; }
-static inline t_vec3	vec3_mix(t_vec3 a, t_vec3 b, float val)
-{
-	return (vec3_add(vec3_scale(a, 1.0f - val), vec3_scale(b, val)));
-}
+// static inline t_vec3	vec3_mix(t_vec3 a, t_vec3 b, float val)
+// {
+// 	return (vec3_add(vec3_scale(a, 1.0f - val), vec3_scale(b, val)));
+// }
 
 // è la shader generica? ma dove sta la ricorsione dell'ambient lighting?
 t_vec3 lighting(t_material material, t_math *math, t_hit hit, t_vec3 eyev)
 {
 	// effective_color = material.color * light.intensity
-	t_vec3 effective_color = vec3_scale(material.color, math->light.intensity);
+	t_vec3 effective_color = vec3_scale(vec3_srgb_to_linear(material.color), math->light.intensity);
 
 	// lightv = normalize(light.position - point)
 	t_vec3 lightv = vec3_normalize(vec3_sub(math->light.point, hit.point));
+	// t_vec3 lightd = vec3_normalize(lightv);
+	// float length = vec3_length(lightv);
 
 	// questo e' assolutamente necessario e' il punto che deve cambiare per ambient
 	// ambient = effective_color * material.ambient
-	t_vec3 shaded = vec3_mix(effective_color, math->ambient.shade, math->ambient.intensity);
-
+	// t_vec3 shaded = vec3_gamma_correct(math->ambient.shade, (1 - math->ambient.intensity));//vec3_mix(effective_color, math->ambient.shade, math->ambient.intensity);
+	t_vec3 shaded = vec3_srgb_to_linear(math->ambient.shade);
 	float light_dot_normal = vec3_dot(lightv, hit.normal);
 	t_vec3 diffuse;
 	t_vec3 specular;
@@ -85,7 +87,7 @@ t_vec3 lighting(t_material material, t_math *math, t_hit hit, t_vec3 eyev)
 			specular = vec3_scale(math->light.intensity_scaled_color, material.specular * factor);
 		}
 	}
-	return vec3_add(shaded, vec3_add(diffuse, specular));
+	return vec3_gamma_correct(vec3_add(shaded, vec3_add(diffuse, specular)), 2.0f);
 }
 // duplicato: già calcolato da sphere_intersect, in t_hit *hit
 // t_vec3	sphere_normal_at(t_sphere *sphere, t_vec3 point)
@@ -120,23 +122,23 @@ t_rgb	ray_cast(const t_ray ray, t_math *math)
 	color = vec3_zero();	// black
 	if (trace(ray, math, &hit, &i))
 	{
-		color = math->ambient.shade;
+		// color = math->ambient.shade;
 		t_vec3 camera_vector = vec3_neg(ray.direction);
 		t_material material = {0};
-
-		t_ray shadow = {
-			.origin = hit.point,
-			.direction = vec3_normalize(vec3_sub(math->light.point, hit.point)),
-			.t_max = ray.t_max,
-			.t_min = ray.t_min
-		};
-		t_hit shit;
-		int j;
-		if (!trace(shadow, math, &shit, &j))
-		{
+		// t_vec3	lightv = vec3_sub(math->light.point, hit.point);
+		// t_ray shadow = {
+		// 	.origin = hit.point,
+		// 	.direction = vec3_normalize(lightv),
+		// 	.t_max = ray.t_max,
+		// 	.t_min = ray.t_min
+		// };
+		// t_hit shit;
+		// int j;
+		// if (!trace(shadow, math, &shit, &j) /* && shit.t < vec3_length(lightv)*/)
+		// {
 			// Assegna materiale in base al tipo di oggetto colpito
 			if (hit.obj == OBJ_SPHERE)
-				material = (t_material){.color = hit.color, .diffuse = 0.7f,
+				material = (t_material){.color = hit.color, .diffuse = 0.5f,
 										.specular = 0.5f, .shininess = 32.0f};
 			else if (hit.obj == OBJ_PLANE)
 				material = (t_material){.color = hit.color, .diffuse = 0.6f,
@@ -144,9 +146,13 @@ t_rgb	ray_cast(const t_ray ray, t_math *math)
 			else if (hit.obj == OBJ_CYLINDER)
 				material = (t_material){.color = hit.color, .diffuse = 0.5f,
 										.specular = 0.4f, .shininess = 16.0f};
-			color = lighting(material, math, hit, camera_vector);
 			// color = hit.color;
-		}
+			color = lighting(material, math, hit, camera_vector);
+		// }
+		// else
+		// {
+		// 	color = lighting(material, math, hit, camera_vector);
+		// }
 	}
 	return (vec3_to_rgb(color));	
 }
