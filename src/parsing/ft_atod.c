@@ -1,34 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atof.c                                          :+:      :+:    :+:   */
+/*   ft_atod.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmu <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/31 22:20:37 by gmu               #+#    #+#             */
-/*   Updated: 2026/03/31 22:20:40 by gmu              ###   ########.fr       */
+/*   Created: 2026/03/31 22:51:26 by gmu               #+#    #+#             */
+/*   Updated: 2026/03/31 22:55:26 by gmu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "minirt.h"
 
-double	ft_atof(const char *str)
+double	ft_atod(const char *str)
 {
-	const int	decimal = ft_atoi (str);
-	double		fractional;
-	double		mul;
-	char		*cp;
+	double	s[3];
+	int		sign;
 
-	fractional = 0.00;
-	mul = 0.10;
-	cp = ft_strchr (str, '.');
-	if (!cp)
-		return ((double)(1.0 * decimal));
-	while (ft_isdigit (*(++cp)) )
+	s[0] = 0.0;
+	s[1] = 0.0;
+	s[2] = 1.0;
+	sign = 1;
+	while (ft_isspace(*str))
+		str++;
+	if (*str == '+' || *str == '-')
+		if (*str++ == '-')
+			sign = -1;
+	while (ft_isdigit(*str))
+		s[0] = s[0] * 10.0 + (*str++ - '0');
+	if (*str == '.')
 	{
-		fractional += (double)(*cp - '0') * mul;
-		mul *= 0.10;
+		str++;
+		while (ft_isdigit(*str))
+		{
+			s[1] = s[1] * 10.0 + (*str++ - '0');
+			s[2] *= 10.0;
+		}
+		s[0] += s[1] / s[2];
 	}
-	return ((double)(decimal * (1.0 + fractional)));
+	return (sign * s[0]);
 }

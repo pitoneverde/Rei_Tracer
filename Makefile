@@ -21,6 +21,7 @@ SRCS = $(SRC_DIR)/main.c \
 		$(SRC_DIR)/parsing/init_data_minirt.c \
 		$(SRC_DIR)/parsing/init_data_minirt_app.c \
 		$(SRC_DIR)/parsing/ft_atod.c \
+		$(SRC_DIR)/parsing/ft_strtod.c \
 		$(SRC_DIR)/renderer/render.c \
 		$(SRC_DIR)/renderer/ray_cast.c \
 		$(SRC_DIR)/renderer/trace.c \

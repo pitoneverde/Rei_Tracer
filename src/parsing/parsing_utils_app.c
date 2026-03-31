@@ -56,7 +56,7 @@ double	convert_double_strtod(char *str)
 	char	*endptr;
 	double	result;
 
-	result = strtod(str, &endptr);
+	result = ft_strtod(str, &endptr);
 	if (str == endptr)
 	{
 		printf("Error: numer not converted\n");
@@ -77,7 +77,7 @@ bool	convertable_double(double *value, const char *str)
 	if (!str || *str == '\0')
 		return (false);
 	errno = 0;
-	result = strtod(str, &endptr);
+	result = ft_strtod(str, &endptr);
 	if (errno == ERANGE)
 		return (false);
 	if (endptr == str)

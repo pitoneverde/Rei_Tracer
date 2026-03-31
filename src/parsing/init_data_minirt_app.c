@@ -23,7 +23,7 @@ void	init_data_ambient(char *s, t_element *element)
 	rgb = ft_split(matrix[2], ',');
 	element->id = "A";
 	ambient = (t_ambient *)&(element->value);
-	ambient->brightness = atof(matrix[1]);
+	ambient->brightness = ft_atod(matrix[1]);
 	ambient->color = rgb_new((uint8_t)ft_atoi(rgb[0]), (uint8_t)ft_atoi(rgb[1]),
 			(uint8_t)ft_atoi(rgb[2]));
 	mtxfree_str(matrix);
@@ -42,11 +42,11 @@ void	init_data_camera(char *s, t_element *element)
 	rgb = ft_split(matrix[2], ',');
 	element->id = "C";
 	cam = (t_camera *)&(element->value);
-	cam->viewpoint = (t_point3)vec3_new(atof(coordinates[0]),
-			atof(coordinates[1]), atof(coordinates[2]));
-	cam->orientation = (t_vector3)vec3_new(atof(rgb[0]), atof(rgb[1]),
-			atof(rgb[2]));
-	cam->fov = atof(matrix[3]);
+	cam->viewpoint = (t_point3)vec3_new(ft_atod(coordinates[0]),
+			ft_atod(coordinates[1]), ft_atod(coordinates[2]));
+	cam->orientation = (t_vector3)vec3_new(ft_atod(rgb[0]), ft_atod(rgb[1]),
+			ft_atod(rgb[2]));
+	cam->fov = ft_atod(matrix[3]);
 	mtxfree_str(matrix);
 	mtxfree_str(coordinates);
 	mtxfree_str(rgb);
@@ -64,9 +64,9 @@ void	init_data_light(char *s, t_element *element)
 	rgb = ft_split(matrix[3], ',');
 	element->id = "L";
 	light = (t_light *)&(element->value);
-	light->position = (t_point3)vec3_new(atof(coordinates[0]),
-			atof(coordinates[1]), atof(coordinates[2]));
-	light->brightness = atof(matrix[2]);
+	light->position = (t_point3)vec3_new(ft_atod(coordinates[0]),
+			ft_atod(coordinates[1]), ft_atod(coordinates[2]));
+	light->brightness = ft_atod(matrix[2]);
 	light->color = rgb_new((uint8_t)ft_atoi(rgb[0]), (uint8_t)ft_atoi(rgb[1]),
 			(uint8_t)ft_atoi(rgb[2]));
 	mtxfree_str(matrix);
@@ -86,9 +86,9 @@ void	init_data_sphere(char *s, t_element *element)
 	rgb = ft_split(matrix[3], ',');
 	element->id = "sp";
 	sphere = (t_sphere *)&(element->value);
-	sphere->center = (t_point3)vec3_new(atof(coordinates[0]),
-			atof(coordinates[1]), atof(coordinates[2]));
-	sphere->diameter = atof(matrix[2]);
+	sphere->center = (t_point3)vec3_new(ft_atod(coordinates[0]),
+			ft_atod(coordinates[1]), ft_atod(coordinates[2]));
+	sphere->diameter = ft_atod(matrix[2]);
 	sphere->color = rgb_new((uint8_t)ft_atoi(rgb[0]), (uint8_t)ft_atoi(rgb[1]),
 			(uint8_t)ft_atoi(rgb[2]));
 	mtxfree_str(matrix);
@@ -110,10 +110,10 @@ void	init_data_plane(char *s, t_element *element)
 	rgb = ft_split(matrix[3], ',');
 	element->id = "pl";
 	plane = (t_plane *)&(element->value);
-	plane->point = (t_point3)vec3_new(atof(point[0]), atof(point[1]),
-			atof(point[2]));
-	plane->normal = (t_point3)vec3_new(atof(normal[0]), atof(normal[1]),
-			atof(normal[2]));
+	plane->point = (t_point3)vec3_new(ft_atod(point[0]), ft_atod(point[1]),
+			ft_atod(point[2]));
+	plane->normal = (t_point3)vec3_new(ft_atod(normal[0]), ft_atod(normal[1]),
+			ft_atod(normal[2]));
 	plane->color = rgb_new((uint8_t)ft_atoi(rgb[0]), (uint8_t)ft_atoi(rgb[1]),
 			(uint8_t)ft_atoi(rgb[2]));
 	mtxfree_str(matrix);
