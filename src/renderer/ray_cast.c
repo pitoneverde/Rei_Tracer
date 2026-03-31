@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 17:08:50 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/30 23:55:09 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/31 16:52:38 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 typedef struct s_material
 {
 	t_vec3 color;
-	float ambient;
 	float diffuse;
 	float specular;
 	float shininess;
@@ -38,6 +37,13 @@ t_vec3 reflect(t_vec3 v, t_vec3 n)
 	return (vec3_sub(v, term));
 }
 
+// for now it's useless, only for sample shader
+// // { return a * (1 - mixValue) + b * mixValue; }
+static inline t_vec3	vec3_mix(t_vec3 a, t_vec3 b, float val)
+{
+	return (vec3_add(vec3_scale(a, 1.0f - val), vec3_scale(b, val)));
+}
+
 // è la shader generica? ma dove sta la ricorsione dell'ambient lighting?
 t_vec3 lighting(t_material material, t_math *math, t_hit hit, t_vec3 eyev)
 {
@@ -49,7 +55,7 @@ t_vec3 lighting(t_material material, t_math *math, t_hit hit, t_vec3 eyev)
 
 	// questo e' assolutamente necessario e' il punto che deve cambiare per ambient
 	// ambient = effective_color * material.ambient
-	t_vec3 ambient = vec3_scale(effective_color, material.ambient);
+	t_vec3 shaded = vec3_mix(effective_color, math->ambient.shade, math->ambient.intensity);
 
 	float light_dot_normal = vec3_dot(lightv, hit.normal);
 	t_vec3 diffuse;
@@ -79,7 +85,7 @@ t_vec3 lighting(t_material material, t_math *math, t_hit hit, t_vec3 eyev)
 			specular = vec3_scale(math->light.intensity_scaled_color, material.specular * factor);
 		}
 	}
-	return vec3_add(ambient, vec3_add(diffuse, specular));
+	return vec3_add(shaded, vec3_add(diffuse, specular));
 }
 // duplicato: già calcolato da sphere_intersect, in t_hit *hit
 // t_vec3	sphere_normal_at(t_sphere *sphere, t_vec3 point)
@@ -104,13 +110,6 @@ static t_rgb	vec3_to_rgb(t_vec3 color)
 	return ((t_rgb){.hex = hex});
 }
 
-// for now it's useless, only for sample shader
-// // { return a * (1 - mixValue) + b * mixValue; }
-// static inline t_vec3	vec3_mix(t_vec3 a, t_vec3 b, float val)
-// {
-// 	return (vec3_add(vec3_scale(a, 1.0f - val), vec3_scale(b, val)));
-// }
-
 // here go shaders calls and texture mappings
 t_rgb	ray_cast(const t_ray ray, t_math *math)
 {
@@ -121,6 +120,7 @@ t_rgb	ray_cast(const t_ray ray, t_math *math)
 	color = vec3_zero();	// black
 	if (trace(ray, math, &hit, &i))
 	{
+		color = math->ambient.shade;
 		t_vec3 camera_vector = vec3_neg(ray.direction);
 		t_material material = {0};
 
@@ -136,13 +136,13 @@ t_rgb	ray_cast(const t_ray ray, t_math *math)
 		{
 			// Assegna materiale in base al tipo di oggetto colpito
 			if (hit.obj == OBJ_SPHERE)
-				material = (t_material){.color = hit.color, .ambient = 0.1f, .diffuse = 0.7f,
+				material = (t_material){.color = hit.color, .diffuse = 0.7f,
 										.specular = 0.5f, .shininess = 32.0f};
 			else if (hit.obj == OBJ_PLANE)
-				material = (t_material){.color = hit.color, .ambient = 0.1f, .diffuse = 0.6f,
+				material = (t_material){.color = hit.color, .diffuse = 0.6f,
 										.specular = 0.3f, .shininess = 8.0f};
 			else if (hit.obj == OBJ_CYLINDER)
-				material = (t_material){.color = hit.color, .ambient = 0.1f, .diffuse = 0.5f,
+				material = (t_material){.color = hit.color, .diffuse = 0.5f,
 										.specular = 0.4f, .shininess = 16.0f};
 			color = lighting(material, math, hit, camera_vector);
 			// color = hit.color;

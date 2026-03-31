@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   math_engine.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
+/*   By: sabruma <sabruma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 18:26:24 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/25 23:50:20 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/31 16:39:57 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include "utils/debug.h"
 # include "utils/math_constants.h"
 
+# include "geometry/ambient.h"
 # include "geometry/camera.h"
 # include "geometry/sphere.h"
 # include "geometry/plane.h"
@@ -36,8 +37,8 @@
 // modify this when supporting new geometry
 typedef struct s_math
 {
+	t_ambient_math	ambient;
 	t_camera_math	camera;
-	// t_ambient_math	*ambient;
 	t_light_math	light;
 	t_sphere_math	*spheres;
 	t_plane_math	*planes;

@@ -25,6 +25,7 @@ SRCS = $(SRC_DIR)/main.c \
 		$(SRC_DIR)/renderer/trace.c \
 		$(SRC_DIR)/renderer/init_math.c \
 		$(SRC_DIR)/renderer/destroy_math.c \
+		$(SRC_DIR)/convert/convert_ambient.c \
 		$(SRC_DIR)/convert/convert_camera.c \
 		$(SRC_DIR)/convert/convert_cylinder.c \
 		$(SRC_DIR)/convert/convert_light.c \

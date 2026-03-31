@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_math.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
+/*   By: sabruma <sabruma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 17:53:42 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/25 23:51:23 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/31 16:45:48 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,11 @@ t_math	*init_math(t_element *d)
 		return (NULL);
 	while(d->id)
 	{
+		if (ft_strcmp(d->id, "A") == 0)
+		{
+			if (create_ambient(&m->ambient, (t_ambient *)&d->value))
+				return (destroy_math(m), NULL);
+		}
 		if (ft_strcmp(d->id, "C") == 0)
 		{
 			if (create_camera(&m->camera, (t_camera *)&d->value))
@@ -62,9 +67,6 @@ t_math	*init_math(t_element *d)
 				return (destroy_math(m), NULL);
 			j++;
 		}
-		// if (ft_strcmp(d->id, "A") == 0)
-		// 	if (create_ambient(&m->ambient, (t_ambient *)&d->value))
-		// 		return (destroy_math(m), NULL);
 		d++;
 	}
 	return (m);

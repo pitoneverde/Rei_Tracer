@@ -15,6 +15,8 @@ CYLINDER_SRCS	:=	cylinder/cylinder_init.c \
 GEOMETRY_SRCS	:=	ray_at.c \
 					solve_quadratic.c
 
+AMBIENT_SRCS	:=	ambient/ambient_init.c
+
 LIGHT_SRCS	:=	light/light_init.c #\
 				plane/plane_intersect.c
 
@@ -24,10 +26,11 @@ PLANE_SRCS	:=	plane/plane_init.c \
 SPHERE_SRCS	:=	sphere/sphere_init.c \
 				sphere/sphere_intersect.c
 
-ALL_SRCS := $(CAMERA_SRCS) $(CYLINDER_SRCS) $(GEOMETRY_SRCS) $(LIGHT_SRCS) $(PLANE_SRCS) $(SPHERE_SRCS)
+ALL_SRCS := $(AMBIENT_SRCS) $(CAMERA_SRCS) $(CYLINDER_SRCS) $(GEOMETRY_SRCS) $(LIGHT_SRCS) $(PLANE_SRCS) $(SPHERE_SRCS)
 
 # Object files (with full paths)
 OBJS := $(addprefix $(MODULE_OBJ_DIR)/, $(CAMERA_SRCS:.c=.o)) \
+        $(addprefix $(MODULE_OBJ_DIR)/, $(AMBIENT_SRCS:.c=.o)) \
         $(addprefix $(MODULE_OBJ_DIR)/, $(CYLINDER_SRCS:.c=.o)) \
         $(addprefix $(MODULE_OBJ_DIR)/, $(GEOMETRY_SRCS:.c=.o)) \
         $(addprefix $(MODULE_OBJ_DIR)/, $(LIGHT_SRCS:.c=.o)) \
@@ -38,6 +41,7 @@ all: $(OBJS)
 
 $(MODULE_OBJ_DIR):
 	@mkdir -p $(MODULE_OBJ_DIR)
+	@mkdir -p $(MODULE_OBJ_DIR)/ambient
 	@mkdir -p $(MODULE_OBJ_DIR)/camera
 	@mkdir -p $(MODULE_OBJ_DIR)/cylinder
 	@mkdir -p $(MODULE_OBJ_DIR)/light
@@ -45,6 +49,10 @@ $(MODULE_OBJ_DIR):
 	@mkdir -p $(MODULE_OBJ_DIR)/sphere
 
 $(MODULE_OBJ_DIR)/%.o: %.c | $(MODULE_OBJ_DIR)
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< $(LDFLAGS) -o $@
+
+# Build ambient submodule
+$(MODULE_OBJ_DIR)/ambient/%.o: ambient/%.c | $(MODULE_OBJ_DIR)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< $(LDFLAGS) -o $@
 
 # Build camera submodule
