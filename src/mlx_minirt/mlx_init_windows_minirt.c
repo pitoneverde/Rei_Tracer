@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/31 15:16:23 by gmu               #+#    #+#             */
-/*   Updated: 2026/03/31 22:24:04 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/31 23:53:15 by gmu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 #include <math.h>
 #include "minirt.h"
 #include "minirt_renderer.h"
-#ifndef XK_Escape
-# define XK_Escape 0xff1b
+#ifndef XK_ESCAPE
+# define XK_ESCAPE 0xff1b
 #endif
 
 // funzione per liberare tutto
@@ -34,7 +34,7 @@ int	free_all_minirt(t_mlx_minirt *mlx)
 // funzione per catturare i tasti della tastiera
 int	key_hook_minirt(int keycode, t_mlx_minirt *mlx)
 {
-	if (keycode == XK_Escape)
+	if (keycode == XK_ESCAPE)
 		free_all_minirt(mlx);
 	return (0);
 }
@@ -57,7 +57,7 @@ void	mlx_init_windows_minirt(t_element *data_file)
 	mlx.math = init_math(data_file);
 	if (!mlx.math)
 	{
-		PRINT_ERR("Malloc error: failed to initialize math engine");
+		printf("Malloc error: failed to initialize math engine");
 		free(data_file);
 		return ;
 	}

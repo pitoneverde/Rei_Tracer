@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 17:08:50 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/31 23:10:41 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/31 23:40:51 by gmu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static t_vec3	cast_shadows(const t_hit *hit, t_math *math, const t_ray ray)
 			material = (t_material){.specular = 0.3f, .shininess = 8.0f};
 		else if (hit->obj == OBJ_CYLINDER)
 			material = (t_material){.specular = 0.4f, .shininess = 16.0f};
-		return (lighting(material, math, *hit, vec3_neg(ray.direction)));
+		return (lighting(material, math, *hit));
 	}
 	return (vec3_zero());
 }

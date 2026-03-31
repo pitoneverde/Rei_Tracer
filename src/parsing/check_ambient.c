@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 15:07:06 by gio               #+#    #+#             */
-/*   Updated: 2026/03/30 21:01:28 by gmu              ###   ########.fr       */
+/*   Updated: 2026/03/31 23:35:23 by gmu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,19 +48,19 @@ bool	check_ambient_app(char *str)
 	check_matrix = ft_split(str, ' ');
 	if (ft_strcmp(check_matrix[0], "A"))
 	{
-		PRINT_ERR("Error: missing A\n");
+		printf("Error: missing A\n");
 		mtxfree_str(check_matrix);
 		return (false);
 	}
 	if (!parse_ambient_double_limits(check_matrix[1]))
 	{
-		PRINT_ERR("Error: missing a float in line A\n");
+		printf("Error: missing a float in line A\n");
 		mtxfree_str(check_matrix);
 		return (false);
 	}
 	if (!check_rgb_format(check_matrix[2]))
 	{
-		PRINT_ERR("Error: rgb format wrong\n");
+		printf("Error: rgb format wrong\n");
 		mtxfree_str(check_matrix);
 		return (false);
 	}
@@ -72,7 +72,7 @@ bool	check_ambient(char *str)
 {
 	if (ft_word_count(str) != 3)
 	{
-		PRINT_ERR("Error: missing element in line A\n");
+		printf("Error: missing element in line A\n");
 		return (0);
 	}
 	return (check_ambient_app(str));

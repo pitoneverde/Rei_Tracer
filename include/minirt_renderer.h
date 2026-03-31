@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/22 23:59:08 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/31 23:10:16 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/31 23:39:56 by gmu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct s_material
 void	render_minirt(t_mlx_minirt *mlx, t_math *math);
 t_rgb	ray_cast(const t_ray ray, t_math *math);
 bool	trace(const t_ray ray, const t_math *math, t_hit *near, int *idx);
-t_vec3	lighting(t_material material, t_math *math, t_hit hit, t_vec3 eyev);
+t_vec3	lighting(t_material material, t_math *math, t_hit hit);
 
 t_math	*init_math(t_element *d);
 

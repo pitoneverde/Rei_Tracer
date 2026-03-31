@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/31 22:18:38 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/31 23:27:12 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/31 23:48:11 by gmu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static t_vec3	specular(t_math *math, t_material m, t_vec3 lv, t_hit hit)
 	return (specular);
 }
 
-t_vec3	lighting(t_material material, t_math *math, t_hit hit, t_vec3 eyev)
+t_vec3	lighting(t_material material, t_math *math, t_hit hit)
 {
 	t_vec3	lightv;
 	t_vec3	ambient;
@@ -49,5 +49,7 @@ t_vec3	lighting(t_material material, t_math *math, t_hit hit, t_vec3 eyev)
 		diff = vec3_scale(vec3_scale(hit.color, math->light.intensity), dot);
 		shiny = specular(math, material, lightv, hit);
 	}
-	return (vec3_add(vec3_add(vec3_linear_to_srgb(vec3_gamma_correct(vec3_srgb_to_linear(ambient), 2.0f)), diff), shiny));
+	return (vec3_add(vec3_add
+			(vec3_linear_to_srgb(vec3_gamma_correct
+					(vec3_srgb_to_linear(ambient), 2.0f)), diff), shiny));
 }

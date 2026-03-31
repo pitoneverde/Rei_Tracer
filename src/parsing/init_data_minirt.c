@@ -6,7 +6,7 @@
 /*   By: gio <gio@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 15:07:41 by gio               #+#    #+#             */
-/*   Updated: 2026/03/30 22:25:17 by gmu              ###   ########.fr       */
+/*   Updated: 2026/03/31 23:49:06 by gmu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ void	init_data_cylinder(char *s, t_element *element)
 	rgb = ft_split(matrix[5], ',');
 	element->id = "cy";
 	cylinder = (t_cylinder *)&(element->value);
-	cylinder->center = (t_point3)vec3_new(atof(center[0]), atof(center[1]),
-			atof(center[2]));
-	cylinder->axis = (t_vector3)vec3_new(atof(axis[0]), atof(axis[1]),
-			atof(axis[2]));
-	cylinder->diameter = atof(matrix[3]);
-	cylinder->height = atof(matrix[4]);
+	cylinder->center = (t_point3)vec3_new(ft_atod(center[0]),
+			ft_atod(center[1]), ft_atod(center[2]));
+	cylinder->axis = (t_vector3)vec3_new(ft_atod(axis[0]),
+			ft_atod(axis[1]), ft_atod(axis[2]));
+	cylinder->diameter = ft_atod(matrix[3]);
+	cylinder->height = ft_atod(matrix[4]);
 	cylinder->color = rgb_new((uint8_t)ft_atoi(rgb[0]),
 			(uint8_t)ft_atoi(rgb[1]), (uint8_t)ft_atoi(rgb[2]));
 	mtxfree_str(matrix);

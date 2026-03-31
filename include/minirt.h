@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/31 15:17:19 by gmu               #+#    #+#             */
-/*   Updated: 2026/03/31 16:34:14 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/31 23:33:41 by gmu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,5 @@
 # include "parsing_minirt.h"
 # include "mlx_minirt.h"
 # include "minirt_renderer.h"
-
-// Error: message
-#define PRINT_ERR(fmt, ...) \
-	do {\
-		fprintf(stderr, "Error\n @ %s:%d in %s() " fmt "\n", \
-		 __FILE__, __LINE__, __func__, ##__VA_ARGS__);\
-	} while(0);
 
 #endif

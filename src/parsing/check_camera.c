@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 15:07:16 by gio               #+#    #+#             */
-/*   Updated: 2026/03/30 23:27:23 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/31 23:36:17 by gmu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,19 +83,19 @@ bool	check_camera_app(char **matrix)
 {
 	if (!check_coordinates(matrix[1]))
 	{
-		PRINT_ERR("Error: coordinates format wrong\n");
+		printf("Error: coordinates format wrong\n");
 		mtxfree_str(matrix);
 		return (false);
 	}
 	if (!check_camera_vectors_limits(matrix[2]))
 	{
-		PRINT_ERR("Error: vector normalizzation wrong\n");
+		printf("Error: vector normalizzation wrong\n");
 		mtxfree_str(matrix);
 		return (false);
 	}
 	if (!check_camera_fov_limits(matrix[3]))
 	{
-		PRINT_ERR("Error: fov wrong\n");
+		printf("Error: fov wrong\n");
 		mtxfree_str(matrix);
 		return (false);
 	}
@@ -108,13 +108,13 @@ bool	check_camera(char *str)
 
 	if (ft_word_count(str) != 4)
 	{
-		PRINT_ERR("Error: missing element in line C\n");
+		printf("Error: missing element in line C\n");
 		return (false);
 	}
 	matrix = ft_split(str, ' ');
 	if (ft_strcmp(matrix[0], "C"))
 	{
-		PRINT_ERR("Error: missing C\n");
+		printf("Error: missing C\n");
 		mtxfree_str(matrix);
 		return (false);
 	}

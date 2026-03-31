@@ -6,7 +6,7 @@
 /*   By: gio <gio@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 15:07:44 by gio               #+#    #+#             */
-/*   Updated: 2026/03/30 15:08:15 by gio              ###   ########.fr       */
+/*   Updated: 2026/03/31 23:34:52 by gmu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,19 +69,19 @@ bool	parse_matrix(char *s1)
 	if ((mtx_count((void **)matrix) < 4) || (matrix_strlen_check(matrix)))
 	{
 		mtxfree_str(matrix);
-		PRINT_ERR("Error: too few items or missing data\n");
+		printf("Error: too few items or missing data\n");
 		return (false);
 	}
 	if (!matrix_check_arguments(matrix))
 	{
 		mtxfree_str(matrix);
-		PRINT_ERR("Error: too few items or missing data\n");
+		printf("Error: too few items or missing data\n");
 		return (false);
 	}
 	if (!check_matrix_data_is_good(matrix))
 	{
 		mtxfree_str(matrix);
-		PRINT_ERR("Error: too few items or missing data\n");
+		printf("Error: too few items or missing data\n");
 		return (false);
 	}
 	mtxfree_str(matrix);
@@ -93,7 +93,7 @@ bool	readable_file_and_check_input(char *s1)
 	s1 = compress_space(s1);
 	if (!check_split(s1))
 	{
-		PRINT_ERR("Error: too few items or missing data\n");
+		printf("Error: too few items or missing data\n");
 		return (false);
 	}
 	if (!parse_matrix(s1))
