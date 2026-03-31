@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
+/*   By: sabruma <sabruma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 18:58:38 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/30 22:29:24 by gmu              ###   ########.fr       */
+/*   Updated: 2026/03/31 22:42:35 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ void	render_minirt(t_mlx_minirt *mlx, t_math *math)
 
 static void	put_pixel(t_mlx_minirt *mlx, int x, int y, t_rgb color)
 {
-	char *dst;
+	char	*dst;
 
 	dst = mlx->addr + (y * mlx->line_len + x * (mlx->bpp / 8));
 	*(uint32_t *)dst = color.hex;

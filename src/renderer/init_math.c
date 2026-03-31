@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 17:53:42 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/31 16:45:48 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/31 23:11:35 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,58 +16,57 @@
 
 static void		count_objects(int *idx, int len, t_element *d);
 static t_math	*malloc_math(t_element *data_file);
+static t_math	*create_unique(t_math *math, t_element *data);
 
 // TODO: if-elif cascade should be extracted each to its own function
-// for id == "A" and id == "L", keep utils in this file, the others go to utils.c
+// for id == "A" and id == "L", keep utils in this file,
+// the others go to utils.c.
 // Assumes that data_file doesn't contain elements with a NULL id
 // Follows manual RAII for each entity
 t_math	*init_math(t_element *d)
 {
 	t_math	*m;
-	int		i = 0;
-	int		j = 0;
-	int		k = 0;
-	if (!d)
-		return (NULL);
+	int		i;
+	int		j;
+	int		k;
+
+	i = 0;
+	j = 0;
+	k = 0;
 	m = malloc_math(d);
 	if (!m)
 		return (NULL);
-	while(d->id)
+	while (d->id)
 	{
-		if (ft_strcmp(d->id, "A") == 0)
-		{
-			if (create_ambient(&m->ambient, (t_ambient *)&d->value))
-				return (destroy_math(m), NULL);
-		}
-		if (ft_strcmp(d->id, "C") == 0)
-		{
-			if (create_camera(&m->camera, (t_camera *)&d->value))
-				return (destroy_math(m), NULL);
-		}
-		if (ft_strcmp(d->id, "L") == 0)
-		{
-			if (create_light(&m->light, (t_light *)&d->value))
-				return (destroy_math(m), NULL);
-		}
-		else if (ft_strcmp(d->id, "sp") == 0 && i < m->sp_count)
-		{
-			if (create_sphere(&m->spheres[i], (t_sphere *)&d->value))
-				return (destroy_math(m), NULL);
-			i++;
-		}
-		else if (ft_strcmp(d->id, "pl") == 0 && j < m->pl_count)
-		{
-			if (create_plane(&m->planes[j], (t_plane *)&d->value))
-				return (destroy_math(m), NULL);
-			j++;
-		}
-		else if (ft_strcmp(d->id, "cy") == 0 && k < m->cy_count)
-		{
-			if (create_cylinder(&m->cys[k], (t_cylinder *)&d->value))
-				return (destroy_math(m), NULL);
-			j++;
-		}
+		if (!create_unique(m, d))
+			return (NULL);
+		else if (!init_spheres(m, d, &i))
+			return (NULL);
+		else if (!init_planes(m, d, &j))
+			return (NULL);
+		else if (!init_cylinders(m, d, &k))
+			return (NULL);
 		d++;
+	}
+	return (m);
+}
+
+static t_math	*create_unique(t_math *m, t_element *d)
+{
+	if (ft_strcmp(d->id, "A") == 0)
+	{
+		if (create_ambient(&m->ambient, (t_ambient *)&d->value))
+			return (destroy_math(m), NULL);
+	}
+	if (ft_strcmp(d->id, "C") == 0)
+	{
+		if (create_camera(&m->camera, (t_camera *)&d->value))
+			return (destroy_math(m), NULL);
+	}
+	if (ft_strcmp(d->id, "L") == 0)
+	{
+		if (create_light(&m->light, (t_light *)&d->value))
+			return (destroy_math(m), NULL);
 	}
 	return (m);
 }

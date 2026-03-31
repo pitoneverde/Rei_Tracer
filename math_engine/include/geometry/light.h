@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 23:34:37 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/30 21:48:11 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/31 23:20:35 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ typedef struct s_light_math
 	t_vec3	color;
 	float	intensity;
 	t_vec3	point;
-	t_vec3	intensity_scaled_color;
+	t_vec3	shade;
 	// any further precomputed values...
 }	t_light_math;
 
@@ -29,7 +29,7 @@ typedef struct s_light_data
 	t_vec3	color;
 	float	intensity;
 	t_vec3	point;
-	t_vec3	intensity_scaled_color;
+	t_vec3	shade;
 	// any precomputed values...
 }	t_light_data;
 

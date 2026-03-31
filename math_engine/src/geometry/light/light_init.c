@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 23:42:54 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/30 21:55:11 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/31 23:20:35 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,6 @@ int	light_init(t_light_math *light, t_light_data data)
 	light->color = data.color;
 	light->intensity = data.intensity;
 	light->point = data.point;
-	light->intensity_scaled_color = data.intensity_scaled_color;
+	light->shade = data.shade;
 	return (0);
 }

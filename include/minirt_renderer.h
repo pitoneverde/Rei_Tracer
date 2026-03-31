@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/22 23:59:08 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/31 22:23:02 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/31 23:10:16 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@
 
 typedef struct s_material
 {
-	t_vec3	color;
 	float	specular;
 	float	shininess;
 }	t_material;
@@ -36,6 +35,12 @@ bool	trace(const t_ray ray, const t_math *math, t_hit *near, int *idx);
 t_vec3	lighting(t_material material, t_math *math, t_hit hit, t_vec3 eyev);
 
 t_math	*init_math(t_element *d);
+
+// Internal init utils because of norminette
+t_math	*init_spheres(t_math *m, t_element *d, int *i);
+t_math	*init_planes(t_math *m, t_element *d, int *i);
+t_math	*init_cylinders(t_math *m, t_element *d, int *i);
+
 void	destroy_math(t_math *math_engine);
 
 int		create_ambient(t_ambient_math *math, t_ambient *a);
