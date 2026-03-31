@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 17:08:50 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/31 18:49:46 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/31 20:47:29 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ t_vec3 lighting(t_material material, t_math *math, t_hit hit, t_vec3 eyev)
 {
 	// effective_color = material.color * light.intensity
 	t_vec3 effective_color = vec3_scale(material.color, math->light.intensity);
+	t_vec3 effective_color = vec3_scale(material.color, math->light.intensity);
 
 	// lightv = normalize(light.position - point)
 	t_vec3 lightv = vec3_normalize(vec3_sub(math->light.point, hit.point));
@@ -58,6 +59,7 @@ t_vec3 lighting(t_material material, t_math *math, t_hit hit, t_vec3 eyev)
 	// questo e' assolutamente necessario e' il punto che deve cambiare per ambient
 	// ambient = effective_color * material.ambient
 	// t_vec3 shaded = vec3_gamma_correct(math->ambient.shade, (1 - math->ambient.intensity));//vec3_mix(effective_color, math->ambient.shade, math->ambient.intensity);
+	t_vec3 shaded = math->ambient.shade;
 	t_vec3 shaded = math->ambient.shade;
 	float light_dot_normal = vec3_dot(lightv, hit.normal);
 	t_vec3 diffuse;
