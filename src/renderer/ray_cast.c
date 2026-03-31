@@ -39,18 +39,19 @@ t_vec3 reflect(t_vec3 v, t_vec3 n)
 }
 
 // è la shader generica? ma dove sta la ricorsione dell'ambient lighting?
-t_vec3 lighting(t_material material, t_light_math light, t_vec3 point, t_vec3 eyev, t_vec3 normalv)
+t_vec3 lighting(t_material material, t_math *math, t_hit hit, t_vec3 eyev)
 {
 	// effective_color = material.color * light.intensity
-	t_vec3 effective_color = vec3_scale(material.color, light.intensity);
+	t_vec3 effective_color = vec3_scale(material.color, math->light.intensity);
 
 	// lightv = normalize(light.position - point)
-	t_vec3 lightv = vec3_normalize(vec3_sub(light.point, point));
+	t_vec3 lightv = vec3_normalize(vec3_sub(math->light.point, hit.point));
 
+	// questo e' assolutamente necessario e' il punto che deve cambiare per ambient
 	// ambient = effective_color * material.ambient
 	t_vec3 ambient = vec3_scale(effective_color, material.ambient);
 
-	float light_dot_normal = vec3_dot(lightv, normalv);
+	float light_dot_normal = vec3_dot(lightv, hit.normal);
 	t_vec3 diffuse;
 	t_vec3 specular;
 
@@ -65,7 +66,7 @@ t_vec3 lighting(t_material material, t_light_math light, t_vec3 point, t_vec3 ey
 		diffuse = vec3_scale(effective_color, material.diffuse * light_dot_normal);
 
 		// reflectv = reflect(-lightv, normalv)
-		t_vec3 reflectv = reflect(vec3_neg(lightv), normalv);
+		t_vec3 reflectv = reflect(vec3_neg(lightv), hit.normal);
 		float reflect_dot_eye = vec3_dot(reflectv, eyev);
 
 		if (reflect_dot_eye <= 0.0f)
@@ -75,7 +76,7 @@ t_vec3 lighting(t_material material, t_light_math light, t_vec3 point, t_vec3 ey
 		else
 		{
 			float factor = powf(reflect_dot_eye, material.shininess);
-			specular = vec3_scale(light.intensity_scaled_color, material.specular * factor);
+			specular = vec3_scale(math->light.intensity_scaled_color, material.specular * factor);
 		}
 	}
 	return vec3_add(ambient, vec3_add(diffuse, specular));
@@ -143,7 +144,7 @@ t_rgb	ray_cast(const t_ray ray, t_math *math)
 			else if (hit.obj == OBJ_CYLINDER)
 				material = (t_material){.color = hit.color, .ambient = 0.1f, .diffuse = 0.5f,
 										.specular = 0.4f, .shininess = 16.0f};
-			color = lighting(material, math->light, hit.point, camera_vector, hit.normal);
+			color = lighting(material, math, hit, camera_vector);
 			// color = hit.color;
 		}
 	}

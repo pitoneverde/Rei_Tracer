@@ -258,3 +258,6 @@ Aggiunto la strutture di t_light* nell'engine, e gestita l'inizializzazione, da 
 
 28/03/2026 sabruma 01:14
 Fixato il renderer, mantenendo commentato il sorgente problematico con commenti sul perché è duplicato (apprezzo l'impegno comunque, ma non ha senso rifare le cose due volte...)
+
+31/03/2026 gmu 15:12
+lighting ha il numero di pararmetri corretto ora basta aggiungere le variabili da ambient
