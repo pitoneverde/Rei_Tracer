@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_init_windows_minirt.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmu <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: sabruma <sabruma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/31 15:16:23 by gmu               #+#    #+#             */
-/*   Updated: 2026/03/31 15:16:26 by gmu              ###   ########.fr       */
+/*   Updated: 2026/03/31 22:24:04 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	mlx_init_windows_minirt(t_element *data_file)
 	mlx_key_hook(mlx.win, key_hook_minirt, &mlx);
 	mlx_loop(mlx.mlx);
 }
+
 // ===== BENCH RENDERING =====
 // double total_time = 0.0;
 // for (int run = 0; run < N_RUNS; run++) {

@@ -43,6 +43,7 @@ COLORS_SRCS := color/vec3_from_color.c \
 			   color/vec3_gamma_correct.c \
 			   color/vec3_saturate.c \
 			   color/vec3_luminance.c \
+			   color/vec3_lerp_color.c \
 
 CORE_SRCS := constants.c
 

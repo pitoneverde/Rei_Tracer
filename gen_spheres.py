@@ -20,9 +20,9 @@ def main():
     # print("# Randomly generated spheres")
     for _ in range(n):
         x = random_float(-20.0, 20.0)
-        y = random_float(-20.0, 20.0)
-        z = random_float(-20.0, 20.0)
-        diameter = random_float(1.0, 10.0)
+        y = random_float(-10.0, 5.0)
+        z = random_float(5.0, 20.0)
+        diameter = random_float(1.0, 5.0)
         r = random_int(0, 255)
         g = random_int(0, 255)
         b = random_int(0, 255)
