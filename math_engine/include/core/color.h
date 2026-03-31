@@ -6,7 +6,7 @@
 /*   By: sabruma <sabruma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 18:15:04 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/31 20:51:05 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/31 23:55:01 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,6 @@ t_vec3	vec3_gamma_correct(t_vec3 color, float gamma);
 // Grayscale conversion
 float	vec3_luminance(t_vec3 color);
 // Better for colors?
-t_vec3 vec3_lerp_color(t_vec3 a, t_vec3 b, float t);
+t_vec3	vec3_lerp_color(t_vec3 a, t_vec3 b, float t);
 
 #endif

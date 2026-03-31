@@ -6,14 +6,14 @@
 /*   By: sabruma <sabruma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/31 16:30:50 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/31 16:34:47 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/31 23:55:09 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef AMBIENT_H
 # define AMBIENT_H
 
-#include "core/vec3.h"
+# include "core/vec3.h"
 
 typedef struct s_ambient_data
 {

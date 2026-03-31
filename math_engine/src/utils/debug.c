@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sabruma <sabruma@student.42firenze.it>     +#+  +:+       +#+        */
+/*   By: sabruma <sabruma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 17:04:54 by sabruma           #+#    #+#             */
-/*   Updated: 2026/03/18 18:32:19 by sabruma          ###   ########.fr       */
+/*   Updated: 2026/03/31 23:56:52 by sabruma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 #include "core/mat4.h"
 #include <stdio.h>
 
-void	vec3_print(const char *name, t_vec3 v)
-{
-	printf("%s:\n", name);
-	printf("{%7.3f, %7.3f, %7.3f}\n", v.x, v.y, v.z);
-}
+// void	vec3_print(const char *name, t_vec3 v)
+// {
+// 	printf("%s:\n", name);
+// 	printf("{%7.3f, %7.3f, %7.3f}\n", v.x, v.y, v.z);
+// }
 
 // void	mat4_print(const char *name, t_mat4 m)
 // {
@@ -29,10 +29,10 @@ void	vec3_print(const char *name, t_vec3 v)
 // 	printf("{%f, %f, %f, %f}\n", m.m30, m.m31, m.m32, m.m33);
 // }
 
-void	mat4_print(const char *name, t_mat4 m)
-{
-	printf("%s:\n", name);
-	for (int i = 0; i < 4; ++i)
-		printf("  [ %7.3f %7.3f %7.3f %7.3f ]\n",
-			m.mat[i][0], m.mat[i][1], m.mat[i][2], m.mat[i][3]);
-}
+// void	mat4_print(const char *name, t_mat4 m)
+// {
+// 	printf("%s:\n", name);
+// 	for (int i = 0; i < 4; ++i)
+// 		printf("  [ %7.3f %7.3f %7.3f %7.3f ]\n",
+// 			m.mat[i][0], m.mat[i][1], m.mat[i][2], m.mat[i][3]);
+// }
