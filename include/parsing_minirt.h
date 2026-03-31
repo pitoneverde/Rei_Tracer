@@ -13,6 +13,7 @@
 #ifndef PARSING_MINIRT_H
 # define PARSING_MINIRT_H 1
 
+double		ft_atod(const char *str);
 // utility per parsing
 bool		check_n_comma(char *s, int n_comma);
 int			ft_word_count(char *str);
