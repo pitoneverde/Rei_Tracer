@@ -48,7 +48,7 @@ t_vec3 reflect(t_vec3 v, t_vec3 n)
 t_vec3 lighting(t_material material, t_math *math, t_hit hit, t_vec3 eyev)
 {
 	// effective_color = material.color * light.intensity
-	t_vec3 effective_color = vec3_scale(vec3_srgb_to_linear(material.color), math->light.intensity);
+	t_vec3 effective_color = vec3_scale(material.color, math->light.intensity);
 
 	// lightv = normalize(light.position - point)
 	t_vec3 lightv = vec3_normalize(vec3_sub(math->light.point, hit.point));
@@ -58,7 +58,7 @@ t_vec3 lighting(t_material material, t_math *math, t_hit hit, t_vec3 eyev)
 	// questo e' assolutamente necessario e' il punto che deve cambiare per ambient
 	// ambient = effective_color * material.ambient
 	// t_vec3 shaded = vec3_gamma_correct(math->ambient.shade, (1 - math->ambient.intensity));//vec3_mix(effective_color, math->ambient.shade, math->ambient.intensity);
-	t_vec3 shaded = vec3_srgb_to_linear(math->ambient.shade);
+	t_vec3 shaded = math->ambient.shade;
 	float light_dot_normal = vec3_dot(lightv, hit.normal);
 	t_vec3 diffuse;
 	t_vec3 specular;
@@ -87,7 +87,13 @@ t_vec3 lighting(t_material material, t_math *math, t_hit hit, t_vec3 eyev)
 			specular = vec3_scale(math->light.intensity_scaled_color, material.specular * factor);
 		}
 	}
-	return vec3_gamma_correct(vec3_add(shaded, vec3_add(diffuse, specular)), 2.0f);
+	// return shaded;
+	(void)shaded;
+	t_vec3 shadow = vec3_scale((t_vec3){.x = 255.0f, .y = 0.0f, .z = 0.0f}, -light_dot_normal);
+	return (vec3_add(vec3_add(diffuse, vec3_linear_to_srgb(vec3_gamma_correct(vec3_srgb_to_linear(shaded), 2.0f))), shadow));
+	//return (diffuse);
+	//return (vec3_add(shaded, vec3_add(diffuse, specular)));
+	//return (vec3_add(vec3_add(vec3_linear_to_srgb(vec3_gamma_correct(vec3_srgb_to_linear(shaded), 2.0f)), diffuse), specular));
 }
 // duplicato: già calcolato da sphere_intersect, in t_hit *hit
 // t_vec3	sphere_normal_at(t_sphere *sphere, t_vec3 point)
@@ -138,7 +144,7 @@ t_rgb	ray_cast(const t_ray ray, t_math *math)
 		// {
 			// Assegna materiale in base al tipo di oggetto colpito
 			if (hit.obj == OBJ_SPHERE)
-				material = (t_material){.color = hit.color, .diffuse = 0.5f,
+				material = (t_material){.color = hit.color, .diffuse = 1.0f,
 										.specular = 0.5f, .shininess = 32.0f};
 			else if (hit.obj == OBJ_PLANE)
 				material = (t_material){.color = hit.color, .diffuse = 0.6f,
